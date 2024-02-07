@@ -4,8 +4,9 @@
   "identifier": "dashboard",
   "description": "What the package does (one paragraph).",
   "name": "dashboard: What the Package Does (One Line, Title Case)",
+  "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.004",
+  "version": "0.0.0.005",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -31,6 +32,5 @@
   "softwareRequirements": {
     "SystemRequirements": {}
   },
-  "fileSize": "0KB",
-  "codeRepository": "https://github.com/ropensci-review-tools/dashboard"
+  "fileSize": "21.618KB"
 }

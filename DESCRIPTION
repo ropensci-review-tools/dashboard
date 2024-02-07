@@ -1,12 +1,13 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.004
+Version: 0.0.0.005
 Authors@R: 
   person(given = "First",
          family = "Last",
          role = c("aut", "cre"),
          email = "first.last@example.com")
 Description: What the package does (one paragraph).
+URL: https://github.com/ropensci-review-tools/dashboard
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
