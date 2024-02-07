@@ -114,6 +114,10 @@ editor_status <- function () {
 
     dat$inactive_for <- get_elapsed_time (dat$updated_at)
 
+    # Suppress no visible binding notes:\
+    stats <- status <- updated_at <- editor <- state <- inactive_for <-
+        number <- NULL
+
     # desc status so "Free" before "Busy"
     dplyr::arrange (dat, stats, dplyr::desc (status), dplyr::desc (updated_at)) |>
         dplyr::select (-updated_at) |>
