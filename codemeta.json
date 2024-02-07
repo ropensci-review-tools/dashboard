@@ -5,7 +5,7 @@
   "description": "What the package does (one paragraph).",
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.003",
+  "version": "0.0.0.004",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
