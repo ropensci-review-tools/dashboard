@@ -6,7 +6,8 @@ get_gh_token <- function (token = "") {
     )
 }
 
-#' The GitHub GraphQL query.
+#' The GitHub GraphQL query to extract information from all software-review
+#' issues.
 #'
 #' @param org The GitHub organization.
 #' @param repo The GitHub repository.
@@ -78,6 +79,78 @@ gh_issues_qry <- function (org = "ropensci",
                                            }
                                        }
                                    }
+                               }
+                           }
+                       }
+                   }
+                }
+        }")
+
+    return (q)
+}
+
+#' The GitHub GraphQL query to extract members of 'editors' team
+#'
+#' @return The GraphQL query to pass to a `gh::gh_gql()` call.
+#' @noRd
+gh_editors_team_qry <- function (stats = FALSE) {
+
+    team <- ifelse (stats, "stats-board", "editors")
+
+    q <- paste0 ("{
+        organization(login:\"ropensci\") {
+            team(slug: \"", team, "\") {
+                members(first: 100, membership: IMMEDIATE) {
+                    nodes {
+                        login
+                    }
+                }
+            }
+        }
+    }")
+
+    return (q)
+}
+
+#' Reduced version of 'gh_issues_qry()' that only returns issue assignees (=
+#' editors).
+#'
+#' @param org The GitHub organization.
+#' @param repo The GitHub repository.
+#' @param end_cursor The end cursor from the previous query.
+#'
+#' @return The GraphQL query to pass to a `gh::gh_gql()` call.
+#' @noRd
+gh_issue_assignees_qry <- function (org = "ropensci",
+                                    repo = "software-review",
+                                    end_cursor = NULL) {
+
+    after_txt <- ""
+    if (!is.null (end_cursor)) {
+        after_txt <- paste0 (", after:\"", end_cursor, "\"")
+    }
+
+    q <- paste0 ("{
+        repository(owner:\"", org, "\", name:\"", repo, "\") {
+                   issues (first: 100", after_txt, ") {
+                       pageInfo {
+                           hasNextPage
+                           endCursor
+                       }
+                       edges {
+                           node {
+                               ... on Issue {
+                                   number
+                                   state
+                                   updatedAt
+                                   assignees (first: 100) {
+                                       nodes {
+                                           name
+                                           login
+                                       }
+                                   }
+                                   title
+                                   url
                                }
                            }
                        }
