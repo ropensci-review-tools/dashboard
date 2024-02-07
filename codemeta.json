@@ -1,0 +1,36 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "dashboard",
+  "description": "What the package does (one paragraph).",
+  "name": "dashboard: What the Package Does (One Line, Title Case)",
+  "license": "https://spdx.org/licenses/MIT",
+  "version": "0.0.0.003",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.3.2 (2023-10-31)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "First",
+      "familyName": "Last",
+      "email": "first.last@example.com"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "First",
+      "familyName": "Last",
+      "email": "first.last@example.com"
+    }
+  ],
+  "softwareRequirements": {
+    "SystemRequirements": {}
+  },
+  "fileSize": "0KB",
+  "codeRepository": "https://github.com/ropensci-review-tools/dashboard"
+}
