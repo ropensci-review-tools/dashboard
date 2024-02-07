@@ -1,6 +1,7 @@
 #' Apply the query above to extract data from GitHub GraphQL API, and
 #' post-process into a `data.frame`.
 #'
+#' @param open_only Include only open issues?
 #' @return (Invisibly) A `data.frame` with one row per issue and some key
 #' statistics.
 #' @noRd
@@ -21,7 +22,7 @@ dashboard_gh_data <- function (open_only = TRUE) {
 
     while (has_next_page) {
 
-        q <- get_issues_qry (
+        q <- gh_issues_qry (
             org = "ropensci",
             repo = "software-review",
             open_only = open_only,

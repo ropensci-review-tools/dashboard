@@ -1,3 +1,12 @@
+#' Open a \pkg{gt} table in the default browser.
+#'
+#' This function is called internally from the \code{\link{dashboard}} function
+#' if the `browse` argument is set to `TRUE`.
+#'
+#' @param dat The `data.frame` returned from the \code{\link{dashboard}} function.
+#' @return Nothing; function called for side-effect only of opening \pkg{gt} table.
+#'
+#' @noRd
 open_gt_table <- function (dat) {
 
     # Suppress no visible binding notes:

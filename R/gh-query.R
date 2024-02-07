@@ -6,10 +6,19 @@ get_gh_token <- function (token = "") {
     )
 }
 
-get_issues_qry <- function (org = "ropensci",
-                            repo = "software-review",
-                            open_only = TRUE,
-                            end_cursor = NULL) {
+#' The GitHub GraphQL query.
+#'
+#' @param org The GitHub organization.
+#' @param repo The GitHub repository.
+#' @param open_only Include only open issues?
+#' @param end_cursor The end cursor from the previous query.
+#'
+#' @return The GraphQL query to pass to a `gh::gh_gql()` call.
+#' @noRd
+gh_issues_qry <- function (org = "ropensci",
+                           repo = "software-review",
+                           open_only = TRUE,
+                           end_cursor = NULL) {
 
     after_txt <- ""
     if (!is.null (end_cursor)) {
