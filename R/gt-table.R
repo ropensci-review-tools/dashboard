@@ -1,5 +1,11 @@
 open_gt_table <- function (dat) {
 
+    # Suppress no visible binding notes:
+    assignees <- created_at <- editor <- editor_date <- has_multiple_stages <-
+        last_edited_at <- number <- rev1 <- rev1_assigned <- rev1_due <- rev2 <-
+        rev2_assigned <- rev2_due <- stage_date <- stage_elapsed <- title <-
+        updated_at <- urgency <- NULL
+
     requireNamespace ("gt")
     u <- "https://github.com/ropensci/software-review/issues/"
     dat_url <- dat
