@@ -95,7 +95,7 @@ gh_issues_qry <- function (org = "ropensci",
 #' @noRd
 gh_editors_team_qry <- function (stats = FALSE) {
 
-    team <- ifelse (stats, "stats-board", "editors")
+    team <- ifelse (stats, "stats-editors", "editors")
 
     q <- paste0 ("{
         organization(login:\"ropensci\") {
