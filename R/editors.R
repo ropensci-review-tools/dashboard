@@ -39,29 +39,29 @@ editor_gh_data <- function () {
         has_next_page <- dat$data$repository$issues$pageInfo$hasNextPage
         end_cursor <- dat$data$repository$issues$pageInfo$endCursor
 
-        edges <- dat$data$repository$issues$edges
+        nodes <- dat$data$repository$issues$nodes
 
         number <- c (
             number,
-            vapply (edges, function (i) i$node$number, integer (1L))
+            vapply (nodes, function (i) i$number, integer (1L))
         )
         state <- c (
             state,
-            vapply (edges, function (i) i$node$state, character (1L))
+            vapply (nodes, function (i) i$state, character (1L))
         )
         assignees <- c (
             assignees,
-            lapply (edges, function (i) {
-                vapply (i$node$assignees$nodes, function (j) j$login, character (1L))
+            lapply (nodes, function (i) {
+                vapply (i$assignees$nodes, function (j) j$login, character (1L))
             })
         )
         updated_at <- c (
             updated_at,
-            vapply (edges, function (i) i$node$updatedAt, character (1L))
+            vapply (nodes, function (i) i$updatedAt, character (1L))
         )
         titles <- c (
             titles,
-            vapply (edges, function (i) i$node$title, character (1L))
+            vapply (nodes, function (i) i$title, character (1L))
         )
 
         page_count <- page_count + 1L

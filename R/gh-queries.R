@@ -140,22 +140,18 @@ gh_issue_assignees_qry <- function (org = "ropensci",
                            hasNextPage
                            endCursor
                        }
-                       edges {
-                           node {
-                               ... on Issue {
-                                   number
-                                   state
-                                   updatedAt
-                                   assignees (first: 100) {
-                                       nodes {
-                                           name
-                                           login
-                                       }
-                                   }
-                                   title
-                                   url
+                       nodes {
+                           number
+                           state
+                           updatedAt
+                           assignees (first: 100) {
+                               nodes {
+                                   name
+                                   login
                                }
                            }
+                           title
+                           url
                        }
                    }
                 }
