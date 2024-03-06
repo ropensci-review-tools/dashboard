@@ -129,10 +129,13 @@ gh_issue_assignees_qry <- function (org = "ropensci",
     if (!is.null (end_cursor)) {
         after_txt <- paste0 (", after:\"", end_cursor, "\"")
     }
+    # Vitally important (see issue #5):
+    order_txt <-
+        ", orderBy: {field: CREATED_AT, direction: ASC}"
 
     q <- paste0 ("{
         repository(owner:\"", org, "\", name:\"", repo, "\") {
-                   issues (first: 100", after_txt, ") {
+                   issues (first: 100", after_txt, order_txt, ") {
                        pageInfo {
                            hasNextPage
                            endCursor
