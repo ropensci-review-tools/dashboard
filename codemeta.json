@@ -6,13 +6,13 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.0.018",
+  "version": "0.0.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.2 (2023-10-31)",
+  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
   "author": [
     {
       "@type": "Person",
@@ -90,7 +90,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "31.621KB"
+  "fileSize": "31.106KB"
 }
