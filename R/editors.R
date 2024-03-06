@@ -19,8 +19,6 @@ editor_gh_data <- function () {
         login = editors,
         stats = editors %in% editors_stats
     )
-    # Manual edit until stats team updated:
-    editors$stats [editors$login == "adamhsparks"] <- TRUE
 
     has_next_page <- TRUE
     end_cursor <- NULL
