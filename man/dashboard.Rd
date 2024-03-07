@@ -5,7 +5,7 @@
 \title{Generate a summary report for incoming Editor-in-Charge of current state of
 all open software-review issues.}
 \usage{
-dashboard(open_only = TRUE, browse = TRUE)
+dashboard(open_only = TRUE, browse = TRUE, quiet = FALSE)
 }
 \arguments{
 \item{open_only}{If `TRUE` (default), only extract information for currently
@@ -13,6 +13,8 @@ open issues.}
 
 \item{browse}{If `TRUE` (default), open the results as a \pkg{DT} `datatable`
 HTML page in default browser.}
+
+\item{quiet}{If `FALSE`, display progress information on screen.}
 }
 \value{
 A `data.frame` with one row per issue and some key statistics.

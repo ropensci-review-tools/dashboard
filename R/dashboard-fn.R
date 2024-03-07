@@ -1,11 +1,12 @@
 #' Apply the query above to extract data from GitHub GraphQL API, and
 #' post-process into a `data.frame`.
 #'
+#' @param quiet If `FALSE`, display progress information on screen.
 #' @param open_only Include only open issues?
 #' @return (Invisibly) A `data.frame` with one row per issue and some key
 #' statistics.
 #' @noRd
-dashboard_gh_data <- function (open_only = TRUE) {
+dashboard_gh_data <- function (open_only = TRUE, quiet = FALSE) {
 
     has_next_page <- TRUE
     end_cursor <- NULL
@@ -106,10 +107,12 @@ dashboard_gh_data <- function (open_only = TRUE) {
         )
 
         page_count <- page_count + 1L
-        message (
-            "Retrieved page [", page_count, "] to issue number [",
-            max (number), "]"
-        )
+        if (!quiet) {
+            message (
+                "Retrieved page [", page_count, "] to issue number [",
+                max (number), "]"
+            )
+        }
     }
 
     # Reduce "event" data down to current labels only, and sort by labels so
@@ -211,15 +214,16 @@ dashboard_gh_data <- function (open_only = TRUE) {
 #' open issues.
 #' @param browse If `TRUE` (default), open the results as a \pkg{DT} `datatable`
 #' HTML page in default browser.
+#' @param quiet If `FALSE`, display progress information on screen.
 #' @return A `data.frame` with one row per issue and some key statistics.
 #' @export
 
-dashboard <- function (open_only = TRUE, browse = TRUE) {
+dashboard <- function (open_only = TRUE, browse = TRUE, quiet = FALSE) {
 
     # Suppress no visible binding notes:
     editor <- editor_date <- NULL
 
-    dat <- dashboard_gh_data (open_only)
+    dat <- dashboard_gh_data (open_only, quiet = quiet)
 
     cmt_data <- extract_comment_info (dat)
     dat$comments <- NULL
@@ -228,7 +232,7 @@ dashboard <- function (open_only = TRUE, browse = TRUE) {
         dplyr::relocate (editor, .after = labels) |>
         dplyr::relocate (editor_date, .after = editor)
 
-    if (any (dat$has_multiple_stages)) {
+    if (any (dat$has_multiple_stages) && !quiet) {
         numbers <- dat$number [which (dat$has_multiple_stages)]
         txt <- ifelse (
             length (numbers) == 1,
