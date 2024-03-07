@@ -129,7 +129,7 @@ gh_issue_assignees_qry <- function (org = "ropensci",
     if (!is.null (end_cursor)) {
         after_txt <- paste0 (", after:\"", end_cursor, "\"")
     }
-    # Vitally important (see issue #5):
+    # See issue #5:
     order_txt <-
         ", orderBy: {field: CREATED_AT, direction: ASC}"
 
