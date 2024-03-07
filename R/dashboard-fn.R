@@ -169,7 +169,7 @@ dashboard_gh_data <- function (open_only = TRUE, quiet = FALSE) {
                 i <- ""
             }
         }
-        return (i)
+        return (unique (i))
     })
 
     # And remove `pkgcheck` results:
