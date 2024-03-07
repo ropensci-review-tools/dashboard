@@ -150,6 +150,8 @@ dashboard_gh_data <- function (open_only = TRUE, quiet = FALSE) {
     names (stages) <- c ("label", "date")
     stages$date <- as.Date (stages$date)
 
+    stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
+
     # Also identify any issues with multiple stages:
     multiple_stages <- vapply (event_labels, function (i) {
         n_total <- length (grep ("^[0-9]\\/", i))
@@ -179,6 +181,7 @@ dashboard_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         number = number,
         title = titles,
         state = state,
+        stats = stats,
         stage = stages$label,
         stage_date = stages$date,
         has_multiple_stages = multiple_stages,
