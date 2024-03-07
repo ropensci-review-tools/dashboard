@@ -1,9 +1,10 @@
 #' Get current status of all rOpenSci editors.
 #'
+#' @param quiet If `FALSE`, display progress information on screen.
 #' @return (Invisibly) A `data.frame` with one row per editor and some key
 #' statistics.
 #' @noRd
-editor_gh_data <- function () {
+editor_gh_data <- function (quiet = FALSE) {
 
     q <- gh_editors_team_qry (stats = FALSE)
     editors <- gh::gh_gql (query = q)
@@ -72,10 +73,12 @@ editor_gh_data <- function () {
         )
 
         page_count <- page_count + 1L
-        message (
-            "Retrieved page [", page_count, "] to issue number [",
-            max (number), "]"
-        )
+        if (!quiet) {
+            message (
+                "Retrieved page [", page_count, "] to issue number [",
+                max (number), "]"
+            )
+        }
     }
 
     # Reduce only to issues assigned to "editors" team members:
@@ -113,11 +116,12 @@ editor_gh_data <- function () {
 
 #' Generate a summary report of current state of all rOpenSci editors
 #'
+#' @param quiet If `FALSE`, display progress information on screen.
 #' @return A `data.frame` with one row per issue and some key statistics.
 #' @export
 
-editor_status <- function () {
-    dat <- editor_gh_data ()
+editor_status <- function (quiet = FALSE) {
+    dat <- editor_gh_data (quiet = quiet)
 
     dat$status <- "FREE"
     dat$status [dat$state == "OPEN"] <- "BUSY"

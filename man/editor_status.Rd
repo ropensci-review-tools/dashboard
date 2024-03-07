@@ -4,7 +4,10 @@
 \alias{editor_status}
 \title{Generate a summary report of current state of all rOpenSci editors}
 \usage{
-editor_status()
+editor_status(quiet = FALSE)
+}
+\arguments{
+\item{quiet}{If `FALSE`, display progress information on screen.}
 }
 \value{
 A `data.frame` with one row per issue and some key statistics.
