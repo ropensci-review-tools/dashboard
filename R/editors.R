@@ -23,7 +23,7 @@ editor_gh_data <- function () {
     has_next_page <- TRUE
     end_cursor <- NULL
 
-    number <- state <- assignees <- updated_at <- titles <- NULL
+    number <- state <- assignees <- updated_at <- closed_at <- titles <- NULL
 
     page_count <- 0L
 
@@ -59,6 +59,13 @@ editor_gh_data <- function () {
             updated_at,
             vapply (nodes, function (i) i$updatedAt, character (1L))
         )
+        # closedAt is 'null' for open issues:
+        closed_at <- c (
+            closed_at,
+            vapply (nodes, function (i) {
+                ifelse (is.null (i$closedAt), "", i$closedAt)
+            }, character (1L))
+        )
         titles <- c (
             titles,
             vapply (nodes, function (i) i$title, character (1L))
@@ -77,7 +84,12 @@ editor_gh_data <- function () {
     state <- state [index]
     assignees <- assignees [index]
     updated_at <- updated_at [index]
+    closed_at <- closed_at [index]
     titles <- titles [index]
+
+    # Prefer closedAt over updatedAt for closed issues:
+    index <- which (nzchar (closed_at))
+    updated_at [index] <- closed_at [index]
 
     # Then find latest issue for each editor:
     ed_index <- vapply (editors$login, function (i) {

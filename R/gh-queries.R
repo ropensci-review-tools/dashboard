@@ -143,6 +143,7 @@ gh_issue_assignees_qry <- function (org = "ropensci",
                        nodes {
                            number
                            state
+                           closedAt
                            updatedAt
                            assignees (first: 100) {
                                nodes {
