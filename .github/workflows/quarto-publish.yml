@@ -3,7 +3,7 @@ on:
     branches:
       - main
 
-name: Render and Publish
+name: quarto-render-and-publish
 
 # you need these permissions to publish to GitHub pages
 permissions: 
@@ -11,7 +11,7 @@ permissions:
     pages: write
 
 jobs:
-  build-deploy:
+  quarto-build-deploy:
     runs-on: ubuntu-latest
 
     env:
@@ -29,6 +29,12 @@ jobs:
       
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::quarto |
+            any::bergant/airtabler
 
       - name: Render editors
         run: quarto render "editors.qmd"
