@@ -34,7 +34,11 @@ jobs:
         with:
           extra-packages: |
             any::quarto
-            any::bergant/airtabler
+
+      - name: GitHub-only pkgs
+        run: |
+          install.packages("remotes")
+          remotes::install_github("bergant/airtabler")
 
       - name: Render editors
         run: quarto render "editors.qmd"
