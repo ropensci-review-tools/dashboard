@@ -16,6 +16,7 @@ jobs:
 
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
     
     steps:
 
@@ -40,6 +41,9 @@ jobs:
         run: |
           remotes::install_github("bergant/airtabler")
         shell: Rscript {0}
+
+      - name: Install dashboard package
+        run: R CMD INSTALL .
 
       - name: Render editors
         run: quarto render "editors.qmd"
