@@ -7,6 +7,11 @@ format:
     code-fold: false
 ---
 
+```{r initial-gh-data-test}
+library (dashboard)
+dat <- editor_gh_data (quiet = FALSE)
+```
+
 ```{r get-ed-dat, echo = FALSE}
 library (dashboard)
 library (gt)
