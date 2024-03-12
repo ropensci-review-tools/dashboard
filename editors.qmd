@@ -18,7 +18,7 @@ The following table summarises the availability of general (not statistical)
 editors. The `inactive_for` values are hyperlinked to the most recent
 submission issue for each editor.
 
-```{r editor-vacantion-status}
+```{r editor-vacantion-status, echo = FALSE}
 editor_vacation <- airtabler::airtable (
     base = "app8dssb6a7PG6Vwj", table = "editor-vacation-status"
 )
