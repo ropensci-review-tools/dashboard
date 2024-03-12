@@ -132,12 +132,15 @@ editor_status <- function (quiet = FALSE) {
 
     # Suppress no visible binding notes:\
     stats <- status <- updated_at <- editor <- state <- inactive_for <-
-        number <- NULL
+        number <- inactive_days <- NULL
 
     # desc status so "Free" before "Busy"
     dplyr::arrange (dat, stats, dplyr::desc (status), dplyr::desc (updated_at)) |>
         dplyr::select (-updated_at) |>
-        dplyr::relocate (editor, status, state, inactive_for, number, stats)
+        dplyr::relocate (editor, status, stats, inactive_for, inactive_days) |>
+        dplyr::group_by (stats) |>
+        dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
+        dplyr::ungroup ()
 }
 
 #' Get time elapsed to current time of a date-time vector, in integer units of
