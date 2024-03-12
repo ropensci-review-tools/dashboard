@@ -6,7 +6,7 @@
 #' @return (Invisibly) A `data.frame` with one row per issue and some key
 #' statistics.
 #' @noRd
-dashboard_gh_data <- function (open_only = TRUE, quiet = FALSE) {
+reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
 
     has_next_page <- TRUE
     end_cursor <- NULL
@@ -221,12 +221,12 @@ dashboard_gh_data <- function (open_only = TRUE, quiet = FALSE) {
 #' @return A `data.frame` with one row per issue and some key statistics.
 #' @export
 
-dashboard <- function (open_only = TRUE, browse = TRUE, quiet = FALSE) {
+review_status <- function (open_only = TRUE, browse = TRUE, quiet = FALSE) {
 
     # Suppress no visible binding notes:
     editor <- editor_date <- NULL
 
-    dat <- dashboard_gh_data (open_only, quiet = quiet)
+    dat <- reviews_gh_data (open_only, quiet = quiet)
 
     cmt_data <- extract_comment_info (dat)
     dat$comments <- NULL

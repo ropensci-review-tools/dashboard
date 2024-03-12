@@ -2,6 +2,7 @@
 % Please edit documentation in R/dashboard-package.R
 \docType{package}
 \name{dashboard-package}
+\alias{dashboard}
 \alias{dashboard-package}
 \title{dashboard: What the Package Does (One Line, Title Case)}
 \description{
