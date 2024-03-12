@@ -10,11 +10,13 @@ editor_gh_data <- function (quiet = FALSE) {
     editors <- gh::gh_gql (query = q)
     editors <- editors$data$organization$team$members$nodes
     editors <- vapply (editors, function (i) i$login, character (1L))
+    stopifnot (length (editors) > 0L)
 
     q <- gh_editors_team_qry (stats = TRUE)
     editors_stats <- gh::gh_gql (query = q)
     editors_stats <- editors_stats$data$organization$team$members$nodes
     editors_stats <- vapply (editors_stats, function (i) i$login, character (1L))
+    stopifnot (length (editors_stats) > 0L)
 
     editors <- data.frame (
         login = editors,
@@ -83,6 +85,7 @@ editor_gh_data <- function (quiet = FALSE) {
 
     # Reduce only to issues assigned to "editors" team members:
     index <- which (vapply (assignees, function (i) any (i %in% editors$login), logical (1L)))
+    stopifnot (length (index) > 0L)
     number <- number [index]
     state <- state [index]
     assignees <- assignees [index]
