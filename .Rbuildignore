@@ -18,4 +18,5 @@
 ^inst/WORDLIST$
 ^inst/precommit$
 ^makefile$
+^quarto*
 ^vignettes/makefile$

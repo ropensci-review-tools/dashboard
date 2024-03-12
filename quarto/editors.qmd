@@ -9,7 +9,6 @@ format:
 
 ```{r get-ed-dat, echo = FALSE}
 library (dashboard)
-library (ggplot2)
 library (gt)
 ed_dat <- editor_status (quiet = TRUE)
 ```
