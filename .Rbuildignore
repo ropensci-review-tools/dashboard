@@ -2,7 +2,6 @@
 ^.*\.Rproj$
 ^CODE_OF_CONDUCT\.md$
 ^CONTRIBUTING.md$
-^Dockerfile$
 ^README\.Rmd$
 ^README\.md$
 ^\.Rproj\.user$
@@ -10,14 +9,13 @@
 ^\.github$
 ^\.hooks$
 ^\.pre-commit-config\.yaml$
-^\.travis\.yml$
+^\.quarto$
 ^_pkgdown\.yml$
 ^aaa.Rmd$
-^appveyor\.yml$
 ^codemeta\.json$
 ^ctags$
+^editors*
 ^inst/WORDLIST$
 ^inst/precommit$
 ^makefile$
 ^vignettes/makefile$
-data-raw/
