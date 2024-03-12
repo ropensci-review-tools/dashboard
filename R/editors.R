@@ -7,8 +7,10 @@
 editor_gh_data <- function (quiet = FALSE) {
 
     q <- gh_editors_team_qry (stats = FALSE)
+    stopifnot (nchar (q) == 267L)
     editors <- gh::gh_gql (query = q)
     editors <- editors$data$organization$team$members$nodes
+    stopifnot (length (editors) > 0L)
     editors <- vapply (editors, function (i) i$login, character (1L))
     stopifnot (length (editors) > 0L)
 

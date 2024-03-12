@@ -1,11 +1,3 @@
-get_gh_token <- function (token = "") {
-
-    tryCatch (
-        gitcreds::gitcreds_get ()$password,
-        error = function (e) ""
-    )
-}
-
 #' The GitHub GraphQL query to extract information from all software-review
 #' issues.
 #'
