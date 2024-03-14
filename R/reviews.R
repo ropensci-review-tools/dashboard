@@ -13,7 +13,8 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
 
     # Suppress no visible binding notes:
     number <- assignees <- created_at <- last_edited_at <-
-        updated_at <- stage <- stage_date <- state <- titles <- NULL
+        updated_at <- stage <- stage_date <- state <- titles <-
+        submission_type <- NULL
     # The "event_" field come from the timeline data, and include data on all
     # events, both addition and removal of labels. "labels" holds the current
     # labels only.
@@ -35,6 +36,20 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         end_cursor <- dat$data$repository$issues$pageInfo$endCursor
 
         edges <- dat$data$repository$issues$edges
+
+        submission_type <- c (
+            submission_type,
+            vapply (edges, function (i) {
+                b <- strsplit (i$node$body, "\\n") [[1]]
+                stype <- grep ("^Submission\\stype\\:", b, value = TRUE)
+                if (length (stype) == 0L) {
+                    return (NA_character_)
+                }
+                stype <- regmatches (stype, regexpr (">.*<", stype))
+                stype <- gsub ("^>|<$", "", stype)
+                return (stype)
+            }, character (1L))
+        )
 
         number <- c (
             number,
@@ -180,6 +195,7 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
     res <- data.frame (
         number = number,
         title = titles,
+        submission_type = submission_type,
         state = state,
         stats = stats,
         stage = stages$label,

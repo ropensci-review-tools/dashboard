@@ -49,6 +49,7 @@ gh_issues_qry <- function (org = "ropensci",
                                        }
                                    }
                                    url
+                                   body
                                    comments (last: 100) {
                                        nodes {
                                            createdAt,
