@@ -11,6 +11,7 @@ format:
 #| cache: true
 library (dashboard)
 library (gt)
+source ("utils.R")
 ed_dat <- editor_status (quiet = TRUE)
 ```
 
@@ -18,7 +19,7 @@ The following table summarises the availability of general (not statistical)
 editors. The `inactive_for` values are hyperlinked to the most recent
 submission issue for each editor.
 
-```{r editor-vacantion-status, echo = FALSE}
+```{r editor-vacation-status, echo = FALSE}
 editor_vacation <- airtabler::airtable (
     base = "app8dssb6a7PG6Vwj", table = "editor-vacation-status"
 )
@@ -82,10 +83,5 @@ gt::gt (
             rows = status == "FREE"
         )
     ) |>
-    gt::tab_options (
-        heading.background.color = "#ACEACE",
-        row_group.background.color = "#ACEACE",
-        column_labels.background.color = "#9BD9BD",
-        heading.title.font.size = "200%"
-    )
+    add_bg_colours ()
 ```

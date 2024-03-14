@@ -1,0 +1,161 @@
+---
+title: "Software Review Overview"
+format: 
+  html:
+    fig-width: 8
+    fig-height: 4
+    code-fold: false
+---
+
+```{r get-rev-dat, echo = FALSE}
+#| cache: true
+library (dashboard)
+library (gt)
+source ("utils.R")
+rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
+# The rest is code from dashboard/pkg/R/gh-table.R
+```
+
+```{r add-html-to-table, echo = FALSE}
+u <- "https://github.com/ropensci/software-review/issues/"
+dat <- rev_dat
+add_html <- function (dat, what = "number") {
+    dat [[what]] <- paste0 (
+        "<p><a href=",
+        u,
+        dat$number,
+        ">",
+        dat [[what]],
+        "</a>"
+    )
+    dat [[what]] <- lapply (dat [[what]], gt::html)
+    return (dat)
+}
+# Number has to come last here!!
+dat <- add_html (dat, "titles")
+dat <- add_html (dat, "number")
+```
+
+```{r add-urgency-column, echo = FALSE}
+# Then create an "urgency" column used to highlight rows needing urgent
+# attention. Note that colours have to be individually hand-coded in the
+# `gt` code below, so use of any value other than `ncols = 5` requires the
+# subsequent colors to be re-coded.
+ncols <- 5L
+dat$urgency <- 0L
+
+# time scales for each stage, in days
+time_scales <- list (
+    c (0, 7), # initial editorial handling
+    c (1, 7), # editor checks
+    c (2, 14), # seeking reviewers
+    c (3, 21), # reviews
+    c (4, 21), # author responses
+    c (5, 21) # reviewer responses
+)
+for (i in time_scales) {
+    index <- grep (paste0 ("^", i [1]), dat$stage)
+    dat$urgency [index] <-
+        floor (as.numeric (dat$elapsed_days [index]) / i [2])
+}
+
+dat$urgency [dat$urgency > ncols] <- ncols
+dat$urgency [grepl ("holding", dat$labels)] <- 0
+```
+
+```{r dat-stages, echo = FALSE}
+sub_types <- table (dat$submission_type)
+```
+
+There are currently:<br>
+
+- `r sub_types [["Pre-submission"]]` pre-submission issues<br>
+- `r sub_types [["Standard"]]` standard issues<br>
+- `r sub_types [["Stats"]]` stats issues
+
+## Pre-submission
+
+```{r dat0, echo = FALSE}
+dat0 <- dat [which (dat$submission_type == "Pre-submission"), ]
+n_lab <- length (which (!is.na (dat0$stage)))
+n_nolab <- length (which (is.na (dat0$stage)))
+v_lab <- ifelse (n_lab == 1L, "is", "are")
+v_nolab <- ifelse (n_nolab == 1L, "is", "are")
+i_lab <- ifelse (n_lab == 1L, "issue", "issues")
+i_nolab <- ifelse (n_nolab == 1L, "issue", "issues")
+```
+
+There `r v_lab` `r n_lab` labelled pre-submission `r i_lab`, and `r n_nolab`
+unlabelled `r i_nolab`. Data on the labelled `r i_lab` are:
+
+```{r urgency-cols-fn, echo = FALSE}
+add_urgency_cols <- function (tab) {
+    tab |>
+        gt::tab_style (
+            style = list (gt::cell_fill (color = "#FFFF0088")),
+            locations = gt::cells_body (
+                columns = c (`number`, `title`, `state`),
+                rows = urgency == 2
+            )
+        ) |>
+        gt::tab_style (
+            style = list (gt::cell_fill (color = "#FFAA0088")),
+            locations = gt::cells_body (
+                columns = c (`number`, `title`, `state`),
+                rows = urgency == 3
+            )
+        ) |>
+        gt::tab_style (
+            style = list (gt::cell_fill (color = "#FF550088")),
+            locations = gt::cells_body (
+                columns = c (`number`, `title`, `state`),
+                rows = urgency == 4
+            )
+        ) |>
+        gt::tab_style (
+            style = list (gt::cell_fill (color = "#FF000088")),
+            locations = gt::cells_body (
+                columns = c (`number`, `title`, `state`),
+                rows = urgency == 5
+            )
+        )
+}
+```
+
+
+::: {style="all.initial;"}
+```{r presub-table-lab, echo = FALSE}
+keep <- c (
+    "number", "title", "state", "stats", "stage_date", "editor",
+    "elapsed", "elapsed_days", "urgency"
+)
+dat0_lab <- dat0 [which (!is.na (dat0$stage)) [1], keep, drop = FALSE]
+dat0_lab <- dplyr::rename (dat0_lab, "inactive_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+dat0_lab$editor [which (!nzchar (dat0_lab$editor))] <- "(None)"
+gt::gt (dat0_lab) |>
+    gt::cols_hide (c (urgency, state, elapsed_days)) |>
+    add_urgency_cols () |>
+    add_bg_colours ()
+```
+:::
+
+
+Data on the unlabelled `r i_nolab` are:
+
+::: {style="all.initial;"}
+```{r presub-table-nolab, echo = FALSE}
+keep <- c (
+    "number", "title", "state", "stats", "stage_date", "editor",
+    "elapsed", "elapsed_days", "urgency"
+)
+dat0_nolab <- dat0 [which (is.na (dat0$stage)), keep, drop = FALSE]
+dat0_nolab <- dplyr::rename (dat0_nolab, "inactive_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
+gt::gt (dat0_nolab) |>
+    gt::cols_hide (c (urgency, state, stage_date, editor, elapsed_days)) |>
+    add_urgency_cols () |>
+    add_bg_colours ()
+```
+:::
