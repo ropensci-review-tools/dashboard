@@ -14,7 +14,13 @@ on:
       - main
 
 jobs:
+
   pkgcheck:
+
     runs-on: ubuntu-latest
+
+    env:
+      GITHUB_PAT: ${{ secrets.MY_GH_TOKEN }}
+
     steps:
       - uses: ropensci-review-tools/pkgcheck-action@main
