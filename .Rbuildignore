@@ -19,4 +19,6 @@
 ^inst/precommit$
 ^makefile$
 ^quarto*
+^renv$
+^renv\.lock$
 ^vignettes/makefile$
