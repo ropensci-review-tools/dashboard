@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ropensci-review-tools.github.io/dashboard-pkg/index.html</loc>
-    <lastmod>2024-03-14T19:55:50.629Z</lastmod>
+    <loc>https://ropensci-review-tools.github.io/dashboard/index.html</loc>
+    <lastmod>2024-03-14T21:00:00.307Z</lastmod>
   </url>
   <url>
-    <loc>https://ropensci-review-tools.github.io/dashboard-pkg/editors.html</loc>
-    <lastmod>2024-03-14T19:55:50.629Z</lastmod>
+    <loc>https://ropensci-review-tools.github.io/dashboard/editors.html</loc>
+    <lastmod>2024-03-14T21:00:00.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ropensci-review-tools.github.io/dashboard/reviews.html</loc>
+    <lastmod>2024-03-14T21:00:00.307Z</lastmod>
   </url>
 </urlset>
