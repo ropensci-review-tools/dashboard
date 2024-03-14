@@ -1,0 +1,16 @@
+project:
+  type: website
+
+website:
+  title: "rOpenSci Dashboard"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - editors.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
