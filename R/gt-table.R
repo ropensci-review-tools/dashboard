@@ -31,7 +31,7 @@ open_gt_table <- function (dat) {
         return (dat_url)
     }
     # Number has to come last here!!
-    dat_url <- add_html (dat_url, "titles")
+    dat_url <- add_html (dat_url, "title")
     dat_url <- add_html (dat_url, "number")
     dat_url$stage_elapsed <- Sys.Date () - dat_url$stage_date
 
@@ -65,7 +65,7 @@ open_gt_table <- function (dat) {
         groupname_col = "stage"
     ) |>
         gt::tab_header ("rOpenSci submission overview") |>
-        gt::cols_hide (c (stage_elapsed, urgency, has_multiple_stages)) |>
+        gt::cols_hide (c (stage_elapsed, urgency, has_multiple_stages, elapsed_days)) |>
         gt::tab_spanner (
             label = "Editor",
             id = "ed_span",

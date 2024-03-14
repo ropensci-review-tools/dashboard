@@ -272,6 +272,17 @@ review_status <- function (open_only = TRUE, browse = TRUE, quiet = FALSE) {
         }, character (1L))
     }
 
+    # Convert update cols to elapsed time:
+    elapsed <- get_elapsed_time (paste0 (dat$updated_at, "00:00:00"))
+    elapsed_days <- elapsed$dtime_days
+    elapsed <- elapsed$dtime
+    dat$last_edited_at <- dat$updated_at <- NULL
+    dat <- dplyr::bind_cols (
+        dat,
+        elapsed = elapsed,
+        elapsed_days = elapsed_days
+    )
+
     if (browse) {
         print (open_gt_table (dat))
     }
