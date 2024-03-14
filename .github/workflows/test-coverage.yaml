@@ -16,8 +16,8 @@ jobs:
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.MY_GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.MY_GH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
