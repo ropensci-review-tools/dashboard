@@ -43,14 +43,14 @@ index [which (is.na (index))] <- FALSE
 edvac$away [index] <- TRUE
 
 editors_on_vacation <- edvac$github [which (edvac$away)]
-ed_dat$status [ed_dat$editor %in% editors_on_vacation] <- "VACATION"
+ed_dat$status [ed_dat$editor %in% editors_on_vacation] <- "ON LEAVE"
 ```
 
 
 ```{r editor-table, echo = FALSE}
 #| label: fig-editors-general
 ed_dat_gen <- ed_dat [which (!ed_dat$stats), ]
-ed_dat_gen$status <- factor (ed_dat_gen$status, levels = c ("FREE", "BUSY", "VACATION"))
+ed_dat_gen$status <- factor (ed_dat_gen$status, levels = c ("FREE", "BUSY", "ON LEAVE"))
 ed_dat_gen <- dplyr::group_by (ed_dat_gen, status) |>
     dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
     dplyr::ungroup ()
