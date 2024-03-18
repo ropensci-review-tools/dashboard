@@ -60,7 +60,7 @@ for (i in time_scales) {
 
 dat$urgency [dat$urgency > ncols] <- ncols
 dat$urgency [grepl ("holding", dat$labels)] <- 0
-dat_holding <- dat [grep ("holding", dat$labels), ]
+dat_holding <- dat [grep ("holding", dat$labels), ] # Done at end
 dat <- dat [which (!grepl ("holding", dat$labels)), ]
 ```
 
@@ -89,9 +89,7 @@ i_nolab <- ifelse (n_nolab == 1L, "issue", "issues")
 There `r v_lab` `r n_lab` labelled pre-submission `r i_lab`, and `r n_nolab`
 unlabelled `r i_nolab`. Data on the labelled `r i_lab` are:
 
-
-::: {style="all.initial;"}
-```{r presub-table-lab, echo = FALSE}
+```{r presub-table-prepro, echo = FALSE}
 keep <- c (
     "number", "title", "state", "stats", "stage_date", "editor",
     "elapsed", "elapsed_days", "urgency"
@@ -100,9 +98,14 @@ dat0_lab <- dat0 [which (!is.na (dat0$stage)) [1], keep, drop = FALSE]
 dat0_lab <- dplyr::rename (dat0_lab, "inactive_for" = elapsed) |>
     dplyr::arrange (dplyr::desc (elapsed_days))
 dat0_lab$editor [which (!nzchar (dat0_lab$editor))] <- "(None)"
+has_presub <- nrow (dat0_lab) > 0
 
 urgency_cols <- c ("number", "title", "state")
+```
 
+
+::: {style="all.initial;"}
+```{r presub-table-lab, echo = FALSE, eval = has_presub}
 gt::gt (dat0_lab) |>
     gt::cols_hide (c (urgency, state, elapsed_days)) |>
     dashboard:::add_urgency_cols (urgency_cols) |>
@@ -110,15 +113,24 @@ gt::gt (dat0_lab) |>
 ```
 :::
 
+```{r no-presub-lab, echo = FALSE, results = "asis", eval = !has_presub}
+cat ("There are currently no submissions at this stage.")
+```
 
-Data on the unlabelled `r i_nolab` are:
-
-::: {style="all.initial;"}
-```{r presub-table-nolab, echo = FALSE}
+```{r presub-nolab-prepro, echo = FALSE, results = "asis"}
 dat0_nolab <- dat0 [which (is.na (dat0$stage)), keep, drop = FALSE]
 dat0_nolab <- dplyr::rename (dat0_nolab, "inactive_for" = elapsed) |>
     dplyr::arrange (dplyr::desc (elapsed_days))
-dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
+has_presub_nolab <- nrow (dat0_nolab) > 0
+if (has_presub_nolab) {
+    dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
+    cat ("Data on the unlabelled ", i_nolab, " are:")
+}
+```
+
+
+::: {style="all.initial;"}
+```{r presub-table-nolab, echo = FALSE, eval = has_presub_nolab}
 gt::gt (dat0_nolab) |>
     gt::cols_hide (c (urgency, state, stage_date, editor, elapsed_days)) |>
     dashboard:::add_urgency_cols (urgency_cols) |>
@@ -128,16 +140,49 @@ gt::gt (dat0_nolab) |>
 
 ## 1\/Editor Checks
 
-::: {style="all.initial;"}
-```{r ed-check-table, echo = FALSE}
+```{r ed-check-prepro, echo = FALSE}
 dat1 <- dat [grep ("^1", dat$stage), keep, drop = FALSE]
 dat1 <- dplyr::rename (dat1, "inactive_for" = elapsed) |>
     dplyr::arrange (dplyr::desc (elapsed_days))
 dat1$editor [which (!nzchar (dat1$editor))] <- "(None)"
+has_ed_checks <- nrow (dat1) > 0L
+```
 
+
+::: {style="all.initial;"}
+```{r ed-check-table, echo = FALSE, eval = has_ed_checks}
 gt::gt (dat1) |>
     gt::cols_hide (c (urgency, state, elapsed_days)) |>
     dashboard:::add_urgency_cols (urgency_cols) |>
     dashboard:::add_bg_colours ()
 ```
 :::
+
+```{r no-ed-checks, echo = FALSE, results = "asis", eval = !has_ed_checks}
+cat ("There are currently no submissions at this stage.")
+```
+
+
+## 2\/Seeking Reviewers
+
+```{r seek-rev-prepro, echo = FALSE}
+dat2 <- dat [grep ("^2", dat$stage), keep, drop = FALSE]
+dat2 <- dplyr::rename (dat2, "inactive_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+dat2$editor [which (!nzchar (dat2$editor))] <- "(None)"
+has_seek_rev <- nrow (dat2) > 0L
+```
+
+
+::: {style="all.initial;"}
+```{r seek-rev-table, echo = FALSE, eval = has_seek_rev}
+gt::gt (dat2) |>
+    gt::cols_hide (c (urgency, state, elapsed_days)) |>
+    dashboard:::add_urgency_cols (urgency_cols) |>
+    dashboard:::add_bg_colours ()
+```
+:::
+
+```{r no-seek-rev, echo = FALSE, results = "asis", eval = !has_seek_rev}
+cat ("There are currently no submissions at this stage.")
+```
