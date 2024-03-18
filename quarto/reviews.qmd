@@ -19,8 +19,8 @@ rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
 u <- "https://github.com/ropensci/software-review/issues/"
 dat <- rev_dat
 # Number has to come last here!!
-dat <- dashboard:::add_html (dat, "titles")
-dat <- dashboard:::add_html (dat, "number")
+dat <- dashboard:::add_gt_html (dat, "titles")
+dat <- dashboard:::add_gt_html (dat, "number")
 ```
 
 ```{r add-urgency-column, echo = FALSE}

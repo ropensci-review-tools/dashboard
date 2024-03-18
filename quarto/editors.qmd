@@ -54,20 +54,8 @@ ed_dat_gen <- dplyr::group_by (ed_dat_gen, status) |>
     dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
     dplyr::ungroup ()
 
-add_html <- function (dat, what = "inactive_for") {
-    u <- "https://github.com/ropensci/software-review/issues/"
-    dat [[what]] <- paste0 (
-        "<p><a href=",
-        u,
-        dat$number,
-        ">",
-        dat [[what]],
-        "</a>"
-    )
-    dat [[what]] <- lapply (dat [[what]], gt::html)
-    return (dat)
-}
-ed_dat_gen <- add_html (ed_dat_gen, what = "inactive_for")
+u <- "https://github.com/ropensci/software-review/issues/"
+ed_dat_gen <- dashboard::add_gt_html (ed_dat_gen, u, what = "inactive_for")
 
 gt::gt (
     ed_dat_gen,
