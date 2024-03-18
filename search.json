@@ -11,7 +11,7 @@
     "href": "editors.html",
     "title": "Editor Availability",
     "section": "",
-    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nemilyriederer\n1 day\n\n\nmaelle\n1 day\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n2 weeks\n\n\nkarthik\n9 days\n\n\njooolia\n4 days\n\n\nldecicco-USGS\n2 days\n\n\njhollist\n1 day\n\n\nmaurolepore\n1 day\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
+    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nemilyriederer\n4 days\n\n\nmaelle\n4 days\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n3 weeks\n\n\nkarthik\n2 weeks\n\n\njooolia\n8 days\n\n\nldecicco-USGS\n5 days\n\n\njhollist\n4 days\n\n\nmaurolepore\n3 days\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
   },
   {
     "objectID": "reviews.html",
@@ -25,6 +25,6 @@
     "href": "reviews.html#pre-submission",
     "title": "Software Review Overview",
     "section": "Pre-submission",
-    "text": "Pre-submission\nThere is 1 labelled pre-submission issue, and 4 unlabelled issues. Data on the labelled issue are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n562\ncat2cat: Handling an Inconsistently Coded Categorical Variable in a Panel Dataset\nFALSE\n2022-12-16\n(None)\n2 weeks\n\n\n\n\n\n\n\n\n\nData on the unlabelled issues are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\ninactive_for\n\n\n\n\n629\nCapybara\nTRUE\n3 days\n\n\n631\nPresubmission enquiry for cocoon: Extract, Format, and Print Statistical Output\nFALSE\n2 days\n\n\n632\nQuadratiK: A Collection of Methods Using Kernel-Based Quadratic Distances for Statistical Inference and Clustering\nFALSE\n2 days\n\n\n628\neDNAjoint: an R package for interpreting paired environmental DNA and traditional surveys\nTRUE\n1 day"
+    "text": "Pre-submission\nThere is 1 labelled pre-submission issue, and 3 unlabelled issues. Data on the labelled issue are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n562\ncat2cat: Handling an Inconsistently Coded Categorical Variable in a Panel Dataset\nFALSE\n2022-12-16\n(None)\n3 weeks\n\n\n\n\n\n\n\n\n\nData on the unlabelled issues are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\ninactive_for\n\n\n\n\n631\nPresubmission enquiry for cocoon: Extract, Format, and Print Statistical Output\nFALSE\n6 days\n\n\n628\neDNAjoint: an R package for interpreting paired environmental DNA and traditional surveys\nTRUE\n5 days\n\n\n629\nCapybara\nTRUE\n4 days"
   }
 ]
