@@ -221,3 +221,24 @@ cat ("There are currently no submissions at this stage.")
 ```
 
 ## 5\/Awaiting Reviewer(s) Response
+
+```{r await-rev-resp-prepro, echo = FALSE}
+dat5 <- dat [grep ("^5", dat$stage), keep, drop = FALSE]
+dat5 <- dplyr::rename (dat5, "inactive_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+dat5$editor [which (!nzchar (dat5$editor))] <- "(None)"
+has_rev_in <- nrow (dat5) > 0L
+```
+
+::: {style="all.initial;"}
+```{r await-rev-resp-table, echo = FALSE, eval = has_rev_in}
+gt::gt (dat5) |>
+    gt::cols_hide (c (urgency, state, elapsed_days)) |>
+    dashboard:::add_urgency_cols (urgency_cols) |>
+    dashboard:::add_bg_colours ()
+```
+:::
+
+```{r no-await-rev-resp, echo = FALSE, results = "asis", eval = !has_rev_in}
+cat ("There are currently no submissions at this stage.")
+```
