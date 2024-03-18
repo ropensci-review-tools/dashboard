@@ -40,5 +40,26 @@
     "title": "Software Review Overview",
     "section": "2/Seeking Reviewers",
     "text": "2/Seeking Reviewers\n\n\n\nThere are currently no submissions at this stage."
+  },
+  {
+    "objectID": "reviews.html#reviewers-assigned",
+    "href": "reviews.html#reviewers-assigned",
+    "title": "Software Review Overview",
+    "section": "3/Reviewer(s) Assigned",
+    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n2 weeks\n\n\n627\ndendroNetwork\nFALSE\n2024-03-07\n@ldecicco-USGS\n6 days\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n5 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-03-03\n@maurolepore\n4 days"
+  },
+  {
+    "objectID": "reviews.html#reviews-in-awaiting-changes",
+    "href": "reviews.html#reviews-in-awaiting-changes",
+    "title": "Software Review Overview",
+    "section": "4/Review(s) in Awaiting Changes",
+    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n3 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n7 days"
+  },
+  {
+    "objectID": "reviews.html#awaiting-reviewers-response",
+    "href": "reviews.html#awaiting-reviewers-response",
+    "title": "Software Review Overview",
+    "section": "5/Awaiting Reviewer(s) Response",
+    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n9 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n5 days"
   }
 ]
