@@ -18,21 +18,9 @@ rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
 ```{r add-html-to-table, echo = FALSE}
 u <- "https://github.com/ropensci/software-review/issues/"
 dat <- rev_dat
-add_html <- function (dat, what = "number") {
-    dat [[what]] <- paste0 (
-        "<p><a href=",
-        u,
-        dat$number,
-        ">",
-        dat [[what]],
-        "</a>"
-    )
-    dat [[what]] <- lapply (dat [[what]], gt::html)
-    return (dat)
-}
 # Number has to come last here!!
-dat <- add_html (dat, "titles")
-dat <- add_html (dat, "number")
+dat <- dashboard:::add_html (dat, "titles")
+dat <- dashboard:::add_html (dat, "number")
 ```
 
 ```{r add-urgency-column, echo = FALSE}

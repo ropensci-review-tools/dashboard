@@ -167,3 +167,23 @@ add_bg_colours <- function (tab) {
             heading.title.font.size = "200%"
         )
 }
+
+#' Add HTML hyperlinks to GitHub issue numbers in table cells.
+#'
+#' @param dat Data for \pkg{gt} table.
+#' @param u Base URL for issues of GitHub repo (here, only ever in the form
+#' `github.com/ropensci/software-review/issues`).
+#' @param what Column containing data to be hyperlinked.
+#' @noRd
+add_gt_html <- function (dat, u, what = "number") {
+    dat [[what]] <- paste0 (
+        "<p><a href=",
+        u,
+        dat$number,
+        ">",
+        dat [[what]],
+        "</a>"
+    )
+    dat [[what]] <- lapply (dat [[what]], gt::html)
+    return (dat)
+}
