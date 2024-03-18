@@ -55,7 +55,7 @@ ed_dat_gen <- dplyr::group_by (ed_dat_gen, status) |>
     dplyr::ungroup ()
 
 u <- "https://github.com/ropensci/software-review/issues/"
-ed_dat_gen <- dashboard::add_gt_html (ed_dat_gen, u, what = "inactive_for")
+ed_dat_gen <- dashboard:::add_gt_html (ed_dat_gen, u, what = "inactive_for")
 
 gt::gt (
     ed_dat_gen,
