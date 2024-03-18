@@ -87,40 +87,6 @@ i_nolab <- ifelse (n_nolab == 1L, "issue", "issues")
 There `r v_lab` `r n_lab` labelled pre-submission `r i_lab`, and `r n_nolab`
 unlabelled `r i_nolab`. Data on the labelled `r i_lab` are:
 
-```{r urgency-cols-fn, echo = FALSE}
-add_urgency_cols <- function (tab) {
-    tab |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FFFF0088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `state`),
-                rows = urgency == 2
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FFAA0088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `state`),
-                rows = urgency == 3
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FF550088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `state`),
-                rows = urgency == 4
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FF000088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `state`),
-                rows = urgency == 5
-            )
-        )
-}
-```
-
 
 ::: {style="all.initial;"}
 ```{r presub-table-lab, echo = FALSE}
@@ -132,9 +98,12 @@ dat0_lab <- dat0 [which (!is.na (dat0$stage)) [1], keep, drop = FALSE]
 dat0_lab <- dplyr::rename (dat0_lab, "inactive_for" = elapsed) |>
     dplyr::arrange (dplyr::desc (elapsed_days))
 dat0_lab$editor [which (!nzchar (dat0_lab$editor))] <- "(None)"
+
+urgency_cols <- c ("number", "title", "state")
+
 gt::gt (dat0_lab) |>
     gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    add_urgency_cols () |>
+    dashboard:::add_urgency_cols (urgency_cols) |>
     dashboard:::add_bg_colours ()
 ```
 :::
@@ -154,7 +123,7 @@ dat0_nolab <- dplyr::rename (dat0_nolab, "inactive_for" = elapsed) |>
 dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
 gt::gt (dat0_nolab) |>
     gt::cols_hide (c (urgency, state, stage_date, editor, elapsed_days)) |>
-    add_urgency_cols () |>
+    dashboard:::add_urgency_cols (urgency_cols) |>
     dashboard:::add_bg_colours ()
 ```
 :::
