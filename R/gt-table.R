@@ -118,15 +118,30 @@ open_gt_table <- function (dat) {
         add_bg_colours ()
 }
 
+#' Define colour used to higlight levels of urgency
+#' @noRd
+define_urgency_colours <- function () {
+    c (
+        "#FFFF8088",
+        "#FFFF0088",
+        "#FFAA0088",
+        "#FF550088",
+        "#FF000088"
+    )
+}
+
 #' Apply all urgency column styles in one function.
 #' @noRd
 add_urgency_cols <- function (tab, col_names) {
+
+    u_cols <- define_urgency_colours ()
+
     tab |>
-        add_urgency_style (1, "#FFFF8088", col_names) |>
-        add_urgency_style (2, "#FFFF0088", col_names) |>
-        add_urgency_style (3, "#FFAA0088", col_names) |>
-        add_urgency_style (4, "#FF550088", col_names) |>
-        add_urgency_style (5, "#FF000088", col_names)
+        add_urgency_style (1, u_cols [1], col_names) |>
+        add_urgency_style (2, u_cols [2], col_names) |>
+        add_urgency_style (3, u_cols [3], col_names) |>
+        add_urgency_style (4, u_cols [4], col_names) |>
+        add_urgency_style (5, u_cols [5], col_names)
 }
 
 #' styles for "stage_date" columns to highlight need for action.
