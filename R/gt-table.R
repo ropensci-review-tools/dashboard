@@ -56,7 +56,7 @@ open_gt_table <- function (dat) {
     for (i in time_scales) {
         index <- grep (paste0 ("^", i [1]), dat_url$stage)
         dat_url$urgency [index] <-
-            floor (as.numeric (dat_url$stage_elapsed [index]) / i [2])
+            floor (as.numeric (dat_url$elapsed_days [index]) / i [2])
     }
 
     dat_url$urgency [dat_url$urgency > ncols] <- ncols
