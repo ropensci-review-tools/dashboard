@@ -217,7 +217,7 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         created_at = lubridate::date (lubridate::ymd_hms (created_at)),
         last_edited_at = lubridate::date (lubridate::ymd_hms (last_edited_at)),
         updated_at = lubridate::date (lubridate::ymd_hms (updated_at)),
-        holiding_date = holding_date,
+        holding_date = holding_date,
         comments = I (comments)
     ) |> dplyr::arrange (stage, stage_date)
 
