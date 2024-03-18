@@ -146,6 +146,11 @@ open_gt_table <- function (dat) {
                 rows = urgency == 5
             )
         ) |>
+        add_bg_colours ()
+}
+
+add_bg_colours <- function (tab) {
+    tab |>
         gt::tab_options (
             heading.background.color = "#ACEACE",
             row_group.background.color = "#ACEACE",

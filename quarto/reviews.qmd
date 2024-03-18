@@ -11,7 +11,6 @@ format:
 #| cache: true
 library (dashboard)
 library (gt)
-source ("utils.R")
 rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
 # The rest is code from dashboard/pkg/R/gh-table.R
 ```
@@ -136,7 +135,7 @@ dat0_lab$editor [which (!nzchar (dat0_lab$editor))] <- "(None)"
 gt::gt (dat0_lab) |>
     gt::cols_hide (c (urgency, state, elapsed_days)) |>
     add_urgency_cols () |>
-    add_bg_colours ()
+    dashboard:::add_bg_colours ()
 ```
 :::
 
@@ -156,6 +155,6 @@ dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
 gt::gt (dat0_nolab) |>
     gt::cols_hide (c (urgency, state, stage_date, editor, elapsed_days)) |>
     add_urgency_cols () |>
-    add_bg_colours ()
+    dashboard:::add_bg_colours ()
 ```
 :::
