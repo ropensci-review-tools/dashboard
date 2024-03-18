@@ -129,10 +129,17 @@ gt::gt (dat0_nolab) |>
 ## 1\/Editor Checks
 
 ```{r ed-check-prepro, echo = FALSE}
-dat1 <- dat [grep ("^1", dat$stage), keep, drop = FALSE]
-dat1 <- dplyr::rename (dat1, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-dat1$editor [which (!nzchar (dat1$editor))] <- "(None)"
+# From that point on, data for all stages can be pre-processed with this
+# generic function.
+preprocess_one_stage <- function (dat, stage = 1) {
+    ptn <- paste0 ("^", stage)
+    dat_stage <- dat [grep (ptn, dat$stage), keep, drop = FALSE]
+    dat_stage <- dplyr::rename (dat_stage, "inactive_for" = elapsed) |>
+        dplyr::arrange (dplyr::desc (elapsed_days))
+    dat_stage$editor [which (!nzchar (dat_stage$editor))] <- "(None)"
+    return (dat_stage)
+}
+dat1 <- preprocess_one_stage (dat, 1)
 has_ed_checks <- nrow (dat1) > 0L
 ```
 
@@ -154,10 +161,7 @@ cat ("There are currently no submissions at this stage.")
 ## 2\/Seeking Reviewers
 
 ```{r seek-rev-prepro, echo = FALSE}
-dat2 <- dat [grep ("^2", dat$stage), keep, drop = FALSE]
-dat2 <- dplyr::rename (dat2, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-dat2$editor [which (!nzchar (dat2$editor))] <- "(None)"
+dat2 <- preprocess_one_stage (dat, 2)
 has_seek_rev <- nrow (dat2) > 0L
 ```
 
@@ -177,10 +181,7 @@ cat ("There are currently no submissions at this stage.")
 ## 3\/Reviewer(s) Assigned
 
 ```{r rev-assign-prepro, echo = FALSE}
-dat3 <- dat [grep ("^3", dat$stage), keep, drop = FALSE]
-dat3 <- dplyr::rename (dat3, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-dat3$editor [which (!nzchar (dat3$editor))] <- "(None)"
+dat3 <- preprocess_one_stage (dat, 3)
 has_rev_assign <- nrow (dat3) > 0L
 ```
 
@@ -200,10 +201,7 @@ cat ("There are currently no submissions at this stage.")
 ## 4\/Review(s) in Awaiting Changes
 
 ```{r revs-in-prepro, echo = FALSE}
-dat4 <- dat [grep ("^4", dat$stage), keep, drop = FALSE]
-dat4 <- dplyr::rename (dat4, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-dat4$editor [which (!nzchar (dat4$editor))] <- "(None)"
+dat4 <- preprocess_one_stage (dat, 4)
 has_rev_in <- nrow (dat4) > 0L
 ```
 
@@ -223,10 +221,7 @@ cat ("There are currently no submissions at this stage.")
 ## 5\/Awaiting Reviewer(s) Response
 
 ```{r await-rev-resp-prepro, echo = FALSE}
-dat5 <- dat [grep ("^5", dat$stage), keep, drop = FALSE]
-dat5 <- dplyr::rename (dat5, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-dat5$editor [which (!nzchar (dat5$editor))] <- "(None)"
+dat5 <- preprocess_one_stage (dat, 5)
 has_rev_in <- nrow (dat5) > 0L
 ```
 
