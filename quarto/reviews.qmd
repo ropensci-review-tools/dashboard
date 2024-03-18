@@ -60,6 +60,8 @@ for (i in time_scales) {
 
 dat$urgency [dat$urgency > ncols] <- ncols
 dat$urgency [grepl ("holding", dat$labels)] <- 0
+dat_holding <- dat [grep ("holding", dat$labels), ]
+dat <- dat [which (!grepl ("holding", dat$labels)), ]
 ```
 
 ```{r dat-stages, echo = FALSE}
