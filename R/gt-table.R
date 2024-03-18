@@ -3,8 +3,10 @@
 #' This function is called internally from the \code{\link{dashboard}} function
 #' if the `browse` argument is set to `TRUE`.
 #'
-#' @param dat The `data.frame` returned from the \code{\link{dashboard}} function.
-#' @return Nothing; function called for side-effect only of opening \pkg{gt} table.
+#' @param dat The `data.frame` returned from the \code{\link{dashboard}}
+#' function.
+#' @return Nothing; function called for side-effect only of opening \pkg{gt}
+#' table.
 #'
 #' @noRd
 open_gt_table <- function (dat) {
@@ -13,7 +15,7 @@ open_gt_table <- function (dat) {
     assignees <- created_at <- editor <- editor_date <- has_multiple_stages <-
         last_edited_at <- number <- rev1 <- rev1_assigned <- rev1_due <- rev2 <-
         rev2_assigned <- rev2_due <- stage_date <- stage_elapsed <- title <-
-        updated_at <- urgency <- NULL
+        updated_at <- urgency <- elapsed_days <- NULL
 
     requireNamespace ("gt")
     u <- "https://github.com/ropensci/software-review/issues/"
@@ -65,7 +67,9 @@ open_gt_table <- function (dat) {
         groupname_col = "stage"
     ) |>
         gt::tab_header ("rOpenSci submission overview") |>
-        gt::cols_hide (c (stage_elapsed, urgency, has_multiple_stages, elapsed_days)) |>
+        gt::cols_hide (
+            c (stage_elapsed, urgency, has_multiple_stages, elapsed_days)
+        ) |>
         gt::tab_spanner (
             label = "Editor",
             id = "ed_span",
