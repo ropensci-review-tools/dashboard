@@ -61,6 +61,7 @@ open_gt_table <- function (dat) {
 
     dat_url$urgency [dat_url$urgency > ncols] <- ncols
     dat_url$urgency [grepl ("holding", dat_url$labels)] <- 0
+    urgency_cols <- c ("number", "title", "stage_date", "labels")
 
     gt::gt (
         dat_url,
@@ -113,44 +114,26 @@ open_gt_table <- function (dat) {
                 spanners = c ("ed_span", "rev1span")
             )
         ) |>
-        gt::tab_style (
-            # Finally styles for "stage_date" columns to highlight need for
-            # action. Each grade of "urgency" has to be individually specified.
-            style = list (gt::cell_fill (color = "#FFFF8088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `stage_date`, `labels`),
-                rows = urgency == 1
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FFFF0088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `stage_date`, `labels`),
-                rows = urgency == 2
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FFAA0088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `stage_date`, `labels`),
-                rows = urgency == 3
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FF550088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `stage_date`, `labels`),
-                rows = urgency == 4
-            )
-        ) |>
-        gt::tab_style (
-            style = list (gt::cell_fill (color = "#FF000088")),
-            locations = gt::cells_body (
-                columns = c (`number`, `title`, `stage_date`, `labels`),
-                rows = urgency == 5
-            )
-        ) |>
+        add_urgency_style (1, "#FFFF8088", urgency_cols) |>
+        add_urgency_style (2, "#FFFF0088", urgency_cols) |>
+        add_urgency_style (3, "#FFAA0088", urgency_cols) |>
+        add_urgency_style (4, "#FF550088", urgency_cols) |>
+        add_urgency_style (5, "#FF000088", urgency_cols) |>
         add_bg_colours ()
+}
+
+#' styles for "stage_date" columns to highlight need for action.
+#' @noRd
+add_urgency_style <- function (tab, urgency_val, colour, col_names) {
+    urgency <- NULL # suppress no visible binding note
+    tab |>
+        gt::tab_style (
+            style = list (gt::cell_fill (color = colour)),
+            locations = gt::cells_body (
+                columns = col_names,
+                rows = urgency == urgency_val
+            )
+        )
 }
 
 add_bg_colours <- function (tab) {
