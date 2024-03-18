@@ -161,7 +161,6 @@ dat2$editor [which (!nzchar (dat2$editor))] <- "(None)"
 has_seek_rev <- nrow (dat2) > 0L
 ```
 
-
 ::: {style="all.initial;"}
 ```{r seek-rev-table, echo = FALSE, eval = has_seek_rev}
 gt::gt (dat2) |>
@@ -172,5 +171,28 @@ gt::gt (dat2) |>
 :::
 
 ```{r no-seek-rev, echo = FALSE, results = "asis", eval = !has_seek_rev}
+cat ("There are currently no submissions at this stage.")
+```
+
+## 3\/Reviewer(s) Assigned
+
+```{r rev-assign-prepro, echo = FALSE}
+dat3 <- dat [grep ("^3", dat$stage), keep, drop = FALSE]
+dat3 <- dplyr::rename (dat3, "inactive_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+dat3$editor [which (!nzchar (dat3$editor))] <- "(None)"
+has_seek_rev <- nrow (dat3) > 0L
+```
+
+::: {style="all.initial;"}
+```{r rev-assign-table, echo = FALSE, eval = has_seek_rev}
+gt::gt (dat3) |>
+    gt::cols_hide (c (urgency, state, elapsed_days)) |>
+    dashboard:::add_urgency_cols (urgency_cols) |>
+    dashboard:::add_bg_colours ()
+```
+:::
+
+```{r no-rev-assign, echo = FALSE, results = "asis", eval = !has_seek_rev}
 cat ("There are currently no submissions at this stage.")
 ```
