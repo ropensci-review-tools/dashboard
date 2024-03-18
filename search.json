@@ -24,7 +24,14 @@
     "objectID": "reviews.html#pre-submission",
     "href": "reviews.html#pre-submission",
     "title": "Software Review Overview",
-    "section": "Pre-submission",
-    "text": "Pre-submission\nThere is 1 labelled pre-submission issue, and 3 unlabelled issues. Data on the labelled issue are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n562\ncat2cat: Handling an Inconsistently Coded Categorical Variable in a Panel Dataset\nFALSE\n2022-12-16\n(None)\n3 weeks\n\n\n\n\n\n\n\n\n\nData on the unlabelled issues are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\ninactive_for\n\n\n\n\n631\nPresubmission enquiry for cocoon: Extract, Format, and Print Statistical Output\nFALSE\n6 days\n\n\n628\neDNAjoint: an R package for interpreting paired environmental DNA and traditional surveys\nTRUE\n5 days\n\n\n629\nCapybara\nTRUE\n4 days"
+    "section": "0/Pre-submission",
+    "text": "0/Pre-submission\nThere is 1 labelled pre-submission issue, and 3 unlabelled issues. Data on the labelled issue are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n562\ncat2cat: Handling an Inconsistently Coded Categorical Variable in a Panel Dataset\nFALSE\n2022-12-16\n(None)\n3 weeks\n\n\n\n\n\n\n\n\n\nData on the unlabelled issues are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\ninactive_for\n\n\n\n\n631\nPresubmission enquiry for cocoon: Extract, Format, and Print Statistical Output\nFALSE\n6 days\n\n\n628\neDNAjoint: an R package for interpreting paired environmental DNA and traditional surveys\nTRUE\n5 days\n\n\n629\nCapybara\nTRUE\n4 days"
+  },
+  {
+    "objectID": "reviews.html#editor-checks",
+    "href": "reviews.html#editor-checks",
+    "title": "Software Review Overview",
+    "section": "1/Editor Checks",
+    "text": "1/Editor Checks\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n626\ngigs: Assess Fetal, Newborn, and Child Growth with International Standards\nTRUE\n2024-02-23\n@rkillick\n3 weeks"
   }
 ]
