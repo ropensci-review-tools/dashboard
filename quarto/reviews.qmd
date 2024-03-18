@@ -72,7 +72,7 @@ There are currently:<br>
 - `r sub_types [["Standard"]]` standard issues<br>
 - `r sub_types [["Stats"]]` stats issues
 
-## Pre-submission
+## 0\/Pre-submission
 
 ```{r dat0, echo = FALSE}
 dat0 <- dat [which (dat$submission_type == "Pre-submission"), ]
@@ -113,16 +113,28 @@ Data on the unlabelled `r i_nolab` are:
 
 ::: {style="all.initial;"}
 ```{r presub-table-nolab, echo = FALSE}
-keep <- c (
-    "number", "title", "state", "stats", "stage_date", "editor",
-    "elapsed", "elapsed_days", "urgency"
-)
 dat0_nolab <- dat0 [which (is.na (dat0$stage)), keep, drop = FALSE]
 dat0_nolab <- dplyr::rename (dat0_nolab, "inactive_for" = elapsed) |>
     dplyr::arrange (dplyr::desc (elapsed_days))
 dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
 gt::gt (dat0_nolab) |>
     gt::cols_hide (c (urgency, state, stage_date, editor, elapsed_days)) |>
+    dashboard:::add_urgency_cols (urgency_cols) |>
+    dashboard:::add_bg_colours ()
+```
+:::
+
+## 1\/Editor Checks
+
+::: {style="all.initial;"}
+```{r ed-check-table, echo = FALSE}
+dat1 <- dat [grep ("^1", dat$stage), keep, drop = FALSE]
+dat1 <- dplyr::rename (dat1, "inactive_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+dat1$editor [which (!nzchar (dat1$editor))] <- "(None)"
+
+gt::gt (dat1) |>
+    gt::cols_hide (c (urgency, state, elapsed_days)) |>
     dashboard:::add_urgency_cols (urgency_cols) |>
     dashboard:::add_bg_colours ()
 ```

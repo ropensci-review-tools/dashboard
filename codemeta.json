@@ -6,7 +6,7 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.3.028",
+  "version": "0.0.4",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -27,6 +27,21 @@
       "givenName": "First",
       "familyName": "Last",
       "email": "first.last@example.com"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": ">= 3.0.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
     }
   ],
   "softwareRequirements": {
@@ -56,18 +71,6 @@
     },
     "3": {
       "@type": "SoftwareApplication",
-      "identifier": "gitcreds",
-      "name": "gitcreds",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=gitcreds"
-    },
-    "4": {
-      "@type": "SoftwareApplication",
       "identifier": "gt",
       "name": "gt",
       "provider": {
@@ -78,7 +81,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=gt"
     },
-    "5": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -90,7 +93,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "32.611KB"
+  "fileSize": "34.747KB"
 }
