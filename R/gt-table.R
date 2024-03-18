@@ -114,12 +114,19 @@ open_gt_table <- function (dat) {
                 spanners = c ("ed_span", "rev1span")
             )
         ) |>
-        add_urgency_style (1, "#FFFF8088", urgency_cols) |>
-        add_urgency_style (2, "#FFFF0088", urgency_cols) |>
-        add_urgency_style (3, "#FFAA0088", urgency_cols) |>
-        add_urgency_style (4, "#FF550088", urgency_cols) |>
-        add_urgency_style (5, "#FF000088", urgency_cols) |>
+        add_urgency_cols (urgency_cols) |>
         add_bg_colours ()
+}
+
+#' Apply all urgency column styles in one function.
+#' @noRd
+add_urgency_cols <- function (tab, col_names) {
+    tab |>
+        add_urgency_style (1, "#FFFF8088", col_names) |>
+        add_urgency_style (2, "#FFFF0088", col_names) |>
+        add_urgency_style (3, "#FFAA0088", col_names) |>
+        add_urgency_style (4, "#FF550088", col_names) |>
+        add_urgency_style (5, "#FF000088", col_names)
 }
 
 #' styles for "stage_date" columns to highlight need for action.
