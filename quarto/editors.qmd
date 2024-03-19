@@ -53,28 +53,7 @@ cat (paste0 (
 
 
 ```{r editor-vacation-status, echo = FALSE}
-editor_vacation <- airtabler::airtable (
-    base = "app8dssb6a7PG6Vwj", table = "editor-vacation-status"
-)
-editor_vacation <- editor_vacation$`editor-vacation-status`$select_all (fields = list ("editor", "Action", "Start Date", "Return Date"))
-index <- vapply (editor_vacation$editor, function (i) length (i) > 0L, logical (1L))
-edvac <- editor_vacation [which (index), ]
-
-rev_prod <- airtabler::airtable (
-    base = "app8dssb6a7PG6Vwj", table = "reviewers-prod"
-)
-rev_prod <- rev_prod$`reviewers-prod`$select_all (fields = list ("github", "name"))
-rev_prod <- rev_prod [match (edvac$editor, rev_prod$id), ]
-edvac$github <- rev_prod$github
-edvac$name <- rev_prod$name
-
-edvac$away <- FALSE
-s <- edvac$`Start Date` [2]
-index <- (!is.na (edvac$`Start Date`) & is.na (edvac$`Return Date`)) |
-    as.Date (edvac$`Return Date`) > Sys.Date ()
-index [which (is.na (index))] <- FALSE
-edvac$away [index] <- TRUE
-
+edvac <- dashboard::editor_vacation_status ()
 editors_on_vacation <- edvac$github [which (edvac$away)]
 ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
 ```
