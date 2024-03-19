@@ -2,9 +2,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "rOpenSci Editor Dashboard",
+    "title": "rOpenSci Software Review Dashboard",
     "section": "",
-    "text": "Overview of all current rOpenSci software review issues, and editor availability."
+    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe rOpenSci Editors page which provides information to help identify editors who may be free to handle new submissions.\nThe Editor Reviews page which provides an overview of all current and previous issues handled by each current editor.\nThe Software Review Overview page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention."
   },
   {
     "objectID": "editors.html",
