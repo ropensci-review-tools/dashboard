@@ -223,7 +223,7 @@ editor_status <- function (quiet = FALSE) {
         number <- inactive_days <- NULL
 
     # desc status so "Free" before "Busy"
-    dplyr::arrange (
+    status <- dplyr::arrange (
         dat$latest, stats, dplyr::desc (status), dplyr::desc (updated_at)
     ) |>
         dplyr::select (-updated_at) |>
@@ -231,6 +231,16 @@ editor_status <- function (quiet = FALSE) {
         dplyr::group_by (stats) |>
         dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
         dplyr::ungroup ()
+
+    # Then editor timeline
+    timeline <- dat$timeline
+    timeline$month <- lubridate::ymd (paste0 (rownames (dat$timeline), "-01"))
+    timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
+        dplyr::arrange (tolower (name), month)
+    eds <- unique (timeline$name)
+    timeline$y <- match (timeline$name, eds)
+
+    return (list (status = status, timeline = timeline))
 }
 
 #' Get time elapsed to current time of a date-time vector, in integer units of
