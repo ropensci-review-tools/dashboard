@@ -110,7 +110,22 @@ editor_gh_data <- function (quiet = FALSE) {
     index <- which (nzchar (closed_at))
     updated_at [index] <- closed_at [index]
 
-    # Find latest issue for each editor:
+    editor_latest_issue (editors, assignees, number, state, updated_at)
+}
+
+#' Extract data on latest issue for each editor
+#'
+#' @param editors The `data.frame` of editors constructed at start of
+#' `editor_gh_data()` function.
+#' @param assignees List of (potentially multiple) issue assignees
+#' @param number Vector of issue numbers
+#' @param state Vector of issue states
+#' @param updated_at Vector of issue updated times
+#' @return A `data.frame` with one row per editor and some key statistics.
+#' @noRd
+editor_latest_issue <- function (editors, assignees, number,
+                                 state, updated_at) {
+
     ed_index <- vapply (editors$login, function (i) {
         index <- which (vapply (
             assignees,
@@ -124,16 +139,14 @@ editor_gh_data <- function (quiet = FALSE) {
         )
     }, integer (1L))
 
-    # And extract data on those issues only:
-    ed_latest <- data.frame (
+    # Reduce data to those issues only:
+    data.frame (
         editor = editors$login,
         stats = editors$stats,
         number = number [ed_index],
         state = state [ed_index],
         updated_at = updated_at [ed_index]
     )
-
-    return (ed_latest)
 }
 
 #' Generate a summary report of current state of all rOpenSci editors
