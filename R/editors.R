@@ -165,12 +165,12 @@ editor_timeline <- function (editors, assignees, state,
     end_date <- closed_at
     index <- which (!nzchar (end_date))
     end_date [index] <- updated_at [index]
-    end_date <- lubridate::date (end_date)
     dur <- lubridate::as.duration (
         lubridate::ymd_hms (end_date) - lubridate::ymd_hms (opened_at)
     )
     dur_days <- ceiling (dur / lubridate::ddays (1L))
     start_date <- lubridate::date (lubridate::ymd_hms (opened_at))
+    end_date <- lubridate::date (end_date)
 
     # clean assignees to only ed team. The first element is always correct here.
     assignees <- vapply (assignees, function (i) {
