@@ -1,6 +1,6 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.5.011
+Version: 0.0.5.012
 Authors@R: 
   person(given = "First",
          family = "Last",
@@ -13,6 +13,7 @@ Imports:
   gh,
   gt,
   lubridate,
+  memoise,
   tidyr
 License: MIT + file LICENSE
 Encoding: UTF-8

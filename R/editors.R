@@ -124,6 +124,8 @@ editor_gh_data <- function (quiet = FALSE) {
     )
 }
 
+m_editor_gh_data <- memoise::memoise (editor_gh_data)
+
 #' Extract data on latest issue for each editor
 #'
 #' @param editors The `data.frame` of editors constructed at start of
@@ -236,7 +238,7 @@ editor_reviews <- function (assignees, number, titles, state,
 #' @export
 
 editor_status <- function (quiet = FALSE) {
-    dat <- editor_gh_data (quiet = quiet)
+    dat <- m_editor_gh_data (quiet = quiet)
 
     dat$latest$status <- "FREE"
     dat$latest$status [dat$latest$state == "OPEN"] <- "BUSY"
@@ -260,6 +262,7 @@ editor_status <- function (quiet = FALSE) {
         dplyr::ungroup ()
 
     # Then editor timeline
+    month <- name <- NULL # Suppress no visible binding notes
     timeline <- dat$timeline
     timeline$month <- lubridate::ymd (paste0 (rownames (dat$timeline), "-01"))
     timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
