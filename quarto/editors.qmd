@@ -17,7 +17,6 @@ library (dplyr)
 library (viridis)
 ed_dat <- editor_status (quiet = TRUE)
 ed_status <- ed_dat$status
-ed_status <- ed_status [ed_status$editor != "haozhu233", ]
 ed_timeline <- ed_dat$timeline
 ```
 
@@ -52,10 +51,17 @@ cat (paste0 (
 ```
 
 
-```{r editor-vacation-status, echo = FALSE}
+```{r editor-add_airtable-data, echo = FALSE}
 edvac <- dashboard::editor_vacation_status ()
 editors_on_vacation <- edvac$github [which (edvac$away)]
 ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
+ed_status <- dashboard::add_editor_airtable_data (ed_status)
+ed_status <- dplyr::filter (ed_status, editor != "haozhu233") |>
+    dplyr::relocate (other_langs, .before = domain_expertise) |>
+    dplyr::rename (
+        "Languages" = other_langs,
+        "Expertise" = domain_expertise
+    )
 ```
 
 ### General Editors
