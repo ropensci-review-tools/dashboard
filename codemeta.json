@@ -6,7 +6,7 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.7",
+  "version": "0.0.7.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -47,6 +47,12 @@
   "softwareRequirements": {
     "1": {
       "@type": "SoftwareApplication",
+      "identifier": "airtabler",
+      "name": "airtabler",
+      "sameAs": "https://github.com/bergant/airtabler"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
       "provider": {
@@ -57,7 +63,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    "2": {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "gh",
       "name": "gh",
@@ -69,7 +75,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=gh"
     },
-    "3": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "gt",
       "name": "gt",
@@ -81,7 +87,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=gt"
     },
-    "4": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -93,7 +99,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "memoise",
       "name": "memoise",
@@ -105,7 +111,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -119,5 +125,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "39.933KB"
+  "fileSize": "41.907KB"
 }
