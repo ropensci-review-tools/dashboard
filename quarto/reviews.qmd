@@ -237,3 +237,31 @@ gt::gt (dat5) |>
 ```{r no-await-rev-resp, echo = FALSE, results = "asis", eval = !has_rev_in}
 cat ("There are currently no submissions at this stage.")
 ```
+
+## Holding
+
+```{r holding-prepro, echo = FALSE}
+# Change 'elapsed' to time since 'holding' label applied:
+date_vec <- lubridate::ymd_hms (dat_holding$holding_date)
+hold_elapsed <- dashboard:::get_elapsed_time (date_vec)
+
+dat_holding$elapsed <- hold_elapsed$dtime
+dat_holding$elapsed_days <- hold_elapsed$dtime_days
+hold_cols <- c ("number", "title", "stats", "stage", "elapsed", "elapsed_days")
+dat_holding <- dplyr::select (dat_holding, dplyr::all_of (hold_cols)) |>
+    dplyr::rename ("on_hold_for" = elapsed) |>
+    dplyr::arrange (dplyr::desc (elapsed_days))
+has_on_hold <- nrow (dat_holding) > 0L
+```
+
+::: {style="all.initial;"}
+```{r on-hold-table, echo = FALSE, eval = has_on_hold}
+gt::gt (dat_holding) |>
+    gt::cols_hide (c (elapsed_days)) |>
+    dashboard:::add_bg_colours ()
+```
+:::
+
+```{r no-on-hold, echo = FALSE, results = "asis", eval = !has_on_hold}
+cat ("There are currently no submissions on hold.")
+```
