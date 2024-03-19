@@ -11,7 +11,7 @@
     "href": "editors.html",
     "title": "Editor Availability",
     "section": "",
-    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nemilyriederer\n4 days\n\n\nmaelle\n4 days\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n3 weeks\n\n\nkarthik\n2 weeks\n\n\njooolia\n8 days\n\n\nldecicco-USGS\n5 days\n\n\njhollist\n4 days\n\n\nmaurolepore\n3 days\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
+    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nmaelle\n5 days\n\n\nemilyriederer\n4 days\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n3 weeks\n\n\nkarthik\n2 weeks\n\n\njooolia\n9 days\n\n\nldecicco-USGS\n6 days\n\n\nmaurolepore\n4 days\n\n\njhollist\n4 days\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
   },
   {
     "objectID": "reviews.html",
@@ -61,5 +61,12 @@
     "title": "Software Review Overview",
     "section": "5/Awaiting Reviewer(s) Response",
     "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n9 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n5 days"
+  },
+  {
+    "objectID": "reviews.html#holding",
+    "href": "reviews.html#holding",
+    "title": "Software Review Overview",
+    "section": "Holding",
+    "text": "Holding\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage\non_hold_for\n\n\n\n\n553\ndataset: Create Data Frames that are Easier to Exchange and Reuse\nFALSE\n1/editor-checks\n18 months\n\n\n524\nrhud: A R interface for the US Department of Housing and Urban Development APIs\nFALSE\n4/review(s)-in-awaiting-changes\n14 months\n\n\n572\nqualtdict: Generating Variable Dictionaries and Labelled Data Exports of Qualtrics Surveys\nFALSE\n1/editor-checks\n2 months\n\n\n489\nSubmission of bssm for Bayesian state space modelling\nTRUE\n2/seeking-reviewer(s)\n3 weeks\n\n\n556\ndfms: Efficient Estimation of Dynamic Factor Models for R\nFALSE\n3/reviewer(s)-assigned\n3 weeks\n\n\n575\nsubmission: pangoling: Access to word predictability using large language (transformer) models\nFALSE\n3/reviewer(s)-assigned\n3 weeks"
   }
 ]
