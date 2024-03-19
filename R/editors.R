@@ -17,7 +17,8 @@ editor_gh_data <- function (quiet = FALSE) {
     q <- gh_editors_team_qry (stats = TRUE)
     editors_stats <- gh::gh_gql (query = q)
     editors_stats <- editors_stats$data$organization$team$members$nodes
-    editors_stats <- vapply (editors_stats, function (i) i$login, character (1L))
+    editors_stats <-
+        vapply (editors_stats, function (i) i$login, character (1L))
     stopifnot (length (editors_stats) > 0L)
 
     editors <- data.frame (
@@ -28,7 +29,8 @@ editor_gh_data <- function (quiet = FALSE) {
     has_next_page <- TRUE
     end_cursor <- NULL
 
-    number <- state <- assignees <- updated_at <- closed_at <- titles <- NULL
+    number <- state <- assignees <- updated_at <-
+        opened_at <- closed_at <- titles <- NULL
 
     page_count <- 0L
 
@@ -64,6 +66,10 @@ editor_gh_data <- function (quiet = FALSE) {
             updated_at,
             vapply (nodes, function (i) i$updatedAt, character (1L))
         )
+        opened_at <- c (
+            opened_at,
+            vapply (nodes, function (i) i$createdAt, character (1L))
+        )
         # closedAt is 'null' for open issues:
         closed_at <- c (
             closed_at,
@@ -86,12 +92,17 @@ editor_gh_data <- function (quiet = FALSE) {
     }
 
     # Reduce only to issues assigned to "editors" team members:
-    index <- which (vapply (assignees, function (i) any (i %in% editors$login), logical (1L)))
+    index <- which (vapply (
+        assignees,
+        function (i) any (i %in% editors$login),
+        logical (1L)
+    ))
     stopifnot (length (index) > 0L)
     number <- number [index]
     state <- state [index]
     assignees <- assignees [index]
     updated_at <- updated_at [index]
+    opened_at <- opened_at [index]
     closed_at <- closed_at [index]
     titles <- titles [index]
 
@@ -99,9 +110,13 @@ editor_gh_data <- function (quiet = FALSE) {
     index <- which (nzchar (closed_at))
     updated_at [index] <- closed_at [index]
 
-    # Then find latest issue for each editor:
+    # Find latest issue for each editor:
     ed_index <- vapply (editors$login, function (i) {
-        index <- which (vapply (assignees, function (j) any (j == i), logical (1L)))
+        index <- which (vapply (
+            assignees,
+            function (j) any (j == i),
+            logical (1L)
+        ))
         ifelse (
             length (index) == 0L,
             NA_integer_,
@@ -109,14 +124,16 @@ editor_gh_data <- function (quiet = FALSE) {
         )
     }, integer (1L))
 
-    # And return data on those issues only:
-    data.frame (
+    # And extract data on those issues only:
+    ed_latest <- data.frame (
         editor = editors$login,
         stats = editors$stats,
         number = number [ed_index],
         state = state [ed_index],
         updated_at = updated_at [ed_index]
     )
+
+    return (ed_latest)
 }
 
 #' Generate a summary report of current state of all rOpenSci editors
@@ -140,7 +157,9 @@ editor_status <- function (quiet = FALSE) {
         number <- inactive_days <- NULL
 
     # desc status so "Free" before "Busy"
-    dplyr::arrange (dat, stats, dplyr::desc (status), dplyr::desc (updated_at)) |>
+    dplyr::arrange (
+        dat, stats, dplyr::desc (status), dplyr::desc (updated_at)
+    ) |>
         dplyr::select (-updated_at) |>
         dplyr::relocate (editor, status, stats, inactive_for, inactive_days) |>
         dplyr::group_by (stats) |>
