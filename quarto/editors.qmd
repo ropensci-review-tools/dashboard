@@ -26,6 +26,17 @@ The following table summarises the availability of general (not statistical)
 editors. The `inactive_for` values are hyperlinked to the most recent
 submission issue for each editor.
 
+```{r has-free, echo = FALSE}
+some_eds_are_free <- length (ed_status$stats == "FREE") > 0L
+```
+```{r has-free-txt, echo = FALSE, results = "asis", eval = some_eds_are_free}
+cat (paste0 (
+    "The initial rows are highlighted yellow to ",
+    "indicate editors who are currently free."
+))
+```
+
+
 ```{r editor-vacation-status, echo = FALSE}
 editor_vacation <- airtabler::airtable (
     base = "app8dssb6a7PG6Vwj", table = "editor-vacation-status"
@@ -83,6 +94,12 @@ gt::gt (
 
 ## Past Editorial Load
 
+The following two graphs illustrate the previous load of each editor. The
+thickness of lines represents numbers of concurrent submissions handled by each
+editor. These charts are intended as an additional aid in selecting handling
+editors. Editors who have had relatively low recent loads should be chosen in
+favor of those who have recently had higher loads.
+
 
 ```{r timeline-prepro, echo = FALSE}
 start_time <- lubridate::ymd ("2020-01-01")
@@ -97,6 +114,9 @@ timeline_stats$y <- match (timeline_stats$y, unique (timeline_stats$y))
 ```
 
 ### General editors
+
+This first chart illustrates the historical loads for general (non-statistical)
+editors.
 
 ::: {style="all.initial;"}
 ```{r timeline-ed-plot, echo = FALSE, fig.width = 8, fig.height = 8}
@@ -125,7 +145,10 @@ ggplot2::ggplot (timeline, ggplot2::aes (x = month, y = y, colour = name)) +
 
 ### Statistical editors
 
+This  chart illustrates the historical loads for statistical editors.
+
 ```{r set-fig-ht, echo = FALSE}
+# Scale height of next fig to proportional decrease in number of lines
 opts <- knitr::opts_chunk$get ()
 neds <- length (unique (timeline$name))
 neds_stats <- length (unique (timeline_stats$name))
