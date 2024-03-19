@@ -270,5 +270,17 @@ editor_status <- function (quiet = FALSE) {
     eds <- unique (timeline$name)
     timeline$y <- match (timeline$name, eds)
 
-    return (list (status = status, timeline = timeline))
+    # Finally, reviews for each editor
+    ed_rev <- split (dat$reviews, f = as.factor (dat$reviews$editor))
+    ed_rev <- lapply (ed_rev, function (i) {
+        i$editor <- NULL
+        i$closed_at [i$state == "OPEN"] <- NA
+        return (i)
+    })
+
+    return (list (
+        status = status,
+        timeline = timeline,
+        reviews = ed_rev
+    ))
 }
