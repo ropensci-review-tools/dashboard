@@ -100,7 +100,7 @@ editor_gh_data <- function (quiet = FALSE) {
     stopifnot (length (index) > 0L)
     number <- number [index]
     state <- state [index]
-    assignees <- assignees [index]
+    assignees <- clean_assignees (assignees [index], editors)
     updated_at <- updated_at [index]
     opened_at <- opened_at [index]
     closed_at <- closed_at [index]
@@ -116,6 +116,10 @@ editor_gh_data <- function (quiet = FALSE) {
         ),
         timeline = editor_timeline (
             editors, assignees, state, opened_at, updated_at, closed_at
+        ),
+        reviews = editor_reviews (
+            assignees, number, titles, state,
+            opened_at, updated_at, closed_at
         )
     )
 }
@@ -156,6 +160,15 @@ editor_latest_issue <- function (editors, assignees, number,
     )
 }
 
+#' Clean assignees to only ed team. The first element is always correct here.
+#'
+#' @noRd
+clean_assignees <- function (assignees, editors) {
+    vapply (assignees, function (i) {
+        i [which (i %in% editors$login) [1]]
+    }, character (1L))
+}
+
 #' Extract timelines of historical editorial load
 #'
 #' @noRd
@@ -167,11 +180,6 @@ editor_timeline <- function (editors, assignees, state,
     end_date [index] <- updated_at [index]
     start_date <- lubridate::date (lubridate::ymd_hms (opened_at))
     end_date <- lubridate::date (end_date)
-
-    # clean assignees to only ed team. The first element is always correct here.
-    assignees <- vapply (assignees, function (i) {
-        i [which (i %in% editors$login) [1]]
-    }, character (1L))
 
     # Create matrix of editorial load:
     start_months <- format (start_date, "%Y-%m")
@@ -196,6 +204,29 @@ editor_timeline <- function (editors, assignees, state,
     }
 
     data.frame (timelines)
+}
+
+#' Collate reviews by editor
+#'
+#' @noRd
+editor_reviews <- function (assignees, number, titles, state,
+                            opened_at, updated_at, closed_at) {
+
+    end_date <- closed_at
+    index <- which (!nzchar (end_date))
+    end_date [index] <- updated_at [index]
+    start_date <- lubridate::date (lubridate::ymd_hms (opened_at))
+    end_date <- lubridate::date (end_date)
+
+    data.frame (
+        editor = assignees,
+        number = number,
+        title = titles,
+        state = state,
+        opened_at = start_date,
+        closed_at = end_date
+    ) |>
+        dplyr::arrange (tolower (assignees), number)
 }
 
 #' Generate a summary report of current state of all rOpenSci editors
