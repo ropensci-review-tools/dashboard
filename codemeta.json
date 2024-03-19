@@ -6,7 +6,7 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.6",
+  "version": "0.0.6.001",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -117,7 +117,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    "SystemRequirements": null
+    "SystemRequirements": {}
   },
   "fileSize": "39.933KB"
 }

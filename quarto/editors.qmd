@@ -17,21 +17,36 @@ library (dplyr)
 library (viridis)
 ed_dat <- editor_status (quiet = TRUE)
 ed_status <- ed_dat$status
+ed_status <- ed_status [ed_status$editor != "haozhu233", ]
 ed_timeline <- ed_dat$timeline
 ```
 
 ## Editor Overview
 
-The following table summarises the availability of general (not statistical)
-editors. The `inactive_for` values are hyperlinked to the most recent
-submission issue for each editor.
+This page includes tables summarising the availability of editors, and charts
+of historical activity for each editor. This information is intended to help
+identify editors who may be available to handle new submissions to rOpenSci's
+software peer-review system. Editors should be chosen by first ensuring they
+are "FREE" in one of the first two tables. The historical patterns of editorial
+activity should then be examined in the subsequent charts. The choice of
+editors should also be made in a way that best distributes the recent editorial
+loads depicted in the [*Past Editorial Load*](#past-ed-load) section.
+
 
 ```{r has-free, echo = FALSE}
 some_eds_are_free <- length (ed_status$stats == "FREE") > 0L
+msg <- paste0 (
+    "The `inactive_for` column in the first two tables includes values ",
+    "hyperlinked to the most recent submission issue for each editor."
+)
+```
+```{r has-no-free-txt, echo = FALSE, results = "asis", eval = !some_eds_are_free}
+cat (msg)
 ```
 ```{r has-free-txt, echo = FALSE, results = "asis", eval = some_eds_are_free}
 cat (paste0 (
-    "The initial rows are highlighted yellow to ",
+    msg,
+    " The initial rows are highlighted yellow to ",
     "indicate editors who are currently free."
 ))
 ```
@@ -64,6 +79,8 @@ editors_on_vacation <- edvac$github [which (edvac$away)]
 ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
 ```
 
+### General Editors
+
 
 ```{r editor-table, echo = FALSE}
 #| label: fig-editors-general
@@ -92,7 +109,37 @@ gt::gt (
     dashboard:::add_bg_colours ()
 ```
 
-## Past Editorial Load
+### Statistical Editors
+
+
+```{r editor-table, echo = FALSE}
+#| label: fig-editors-stats
+ed_dat_stats <- ed_status [which (ed_status$stats), ]
+ed_dat_stats$status <- factor (ed_dat_stats$status, levels = c ("FREE", "BUSY", "ON LEAVE"))
+ed_dat_stats <- dplyr::group_by (ed_dat_stats, status) |>
+    dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
+    dplyr::ungroup ()
+
+u <- "https://github.com/ropensci/software-review/issues/"
+ed_dat_stats <- dashboard:::add_gt_html (ed_dat_stats, u, what = "inactive_for")
+
+gt::gt (
+    ed_dat_stats,
+    groupname_col = "status"
+) |>
+    gt::tab_header ("Editor Status Overview") |>
+    gt::cols_hide (c (stats, inactive_days, number, state)) |>
+    gt::tab_style (
+        style = list (gt::cell_fill (color = "#FFFF8088")),
+        locations = gt::cells_body (
+            columns = c (`editor`, `inactive_for`),
+            rows = status == "FREE"
+        )
+    ) |>
+    dashboard:::add_bg_colours ()
+```
+
+## Past Editorial Load {#past-ed-load}
 
 The following two graphs illustrate the previous load of each editor. The
 thickness of lines represents numbers of concurrent submissions handled by each
