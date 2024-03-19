@@ -1,5 +1,5 @@
 ---
-title: "Editor Availability"
+title: "rOpenSci Editors"
 format: 
   html:
     fig-width: 8
@@ -7,12 +7,20 @@ format:
     code-fold: false
 ---
 
-```{r get-ed-dat, echo = FALSE}
+```{r get-ed-dat, echo = FALSE, message = FALSE}
 #| cache: true
 library (dashboard)
 library (gt)
+library (ggplot2)
+library (tidyr)
+library (dplyr)
+library (viridis)
 ed_dat <- editor_status (quiet = TRUE)
+ed_status <- ed_dat$status
+ed_timeline <- ed_dat$timeline
 ```
+
+## Editor Overview
 
 The following table summarises the availability of general (not statistical)
 editors. The `inactive_for` values are hyperlinked to the most recent
@@ -42,13 +50,13 @@ index [which (is.na (index))] <- FALSE
 edvac$away [index] <- TRUE
 
 editors_on_vacation <- edvac$github [which (edvac$away)]
-ed_dat$status [ed_dat$editor %in% editors_on_vacation] <- "ON LEAVE"
+ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
 ```
 
 
 ```{r editor-table, echo = FALSE}
 #| label: fig-editors-general
-ed_dat_gen <- ed_dat [which (!ed_dat$stats), ]
+ed_dat_gen <- ed_status [which (!ed_status$stats), ]
 ed_dat_gen$status <- factor (ed_dat_gen$status, levels = c ("FREE", "BUSY", "ON LEAVE"))
 ed_dat_gen <- dplyr::group_by (ed_dat_gen, status) |>
     dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
@@ -71,4 +79,87 @@ gt::gt (
         )
     ) |>
     dashboard:::add_bg_colours ()
+```
+
+## Past Editorial Load
+
+
+```{r timeline-prepro, echo = FALSE}
+start_time <- lubridate::ymd ("2020-01-01")
+timeline <- dplyr::filter (ed_timeline, month >= start_time) |>
+    dplyr::filter (!name %in% c ("haozhu233"))
+xlab_pos <- as.Date (min (timeline$month) - lubridate::dmonths (12))
+eds_stats <- ed_status$editor [which (ed_status$stats)]
+timeline_stats <- timeline [timeline$name %in% eds_stats, ]
+timeline <- timeline [!timeline$name %in% eds_stats, ]
+timeline$y <- match (timeline$y, unique (timeline$y))
+timeline_stats$y <- match (timeline_stats$y, unique (timeline_stats$y))
+```
+
+### General editors
+
+::: {style="all.initial;"}
+```{r timeline-ed-plot, echo = FALSE, fig.width = 8, fig.height = 8}
+ggplot2::ggplot (timeline, ggplot2::aes (x = month, y = y, colour = name)) +
+    ggplot2::geom_line (ggplot2::aes (linewidth = value)) +
+    ggplot2::scale_linewidth (range = c (1, 25)) +
+    ggplot2::geom_text (
+        ggplot2::aes (x = xlab_pos, y = y, label = name),
+        hjust = 0,
+        vjust = 0.5,
+        fontface = "plain",
+        size = 4,
+        colour = "black"
+    ) +
+    ggplot2::xlab ("Year") +
+    viridis::scale_color_viridis (discrete = TRUE) +
+    ggplot2::theme (
+        axis.text.y = ggplot2::element_blank (),
+        axis.ticks.y = ggplot2::element_blank (),
+        axis.title.y = ggplot2::element_blank (),
+        legend.position = "none",
+        plot.margin = ggplot2::margin (1, 1, 1, 1, "cm")
+    )
+```
+:::
+
+### Statistical editors
+
+```{r set-fig-ht, echo = FALSE}
+opts <- knitr::opts_chunk$get ()
+neds <- length (unique (timeline$name))
+neds_stats <- length (unique (timeline_stats$name))
+ht <- ceiling (8 * neds_stats / neds) + 1
+knitr::opts_chunk$set (fig.height = ht)
+```
+
+
+::: {style="all.initial;"}
+```{r timeline-stats-ed-plot, echo = FALSE, fig.width = 8}
+ggplot2::ggplot (timeline_stats, ggplot2::aes (x = month, y = y, colour = name)) +
+    ggplot2::geom_line (ggplot2::aes (linewidth = value)) +
+    ggplot2::scale_linewidth (range = c (1, 25)) +
+    ggplot2::geom_text (
+        ggplot2::aes (x = xlab_pos, y = y, label = name),
+        hjust = 0,
+        vjust = 0.5,
+        fontface = "plain",
+        size = 4,
+        colour = "black"
+    ) +
+    ggplot2::xlab ("Year") +
+    ggplot2::scale_y_continuous (limits = c (0.5, neds_stats + 0.5)) +
+    viridis::scale_color_viridis (discrete = TRUE) +
+    ggplot2::theme (
+        axis.text.y = ggplot2::element_blank (),
+        axis.ticks.y = ggplot2::element_blank (),
+        axis.title.y = ggplot2::element_blank (),
+        legend.position = "none",
+        plot.margin = ggplot2::margin (0, 1, 0, 1, "cm")
+    )
+```
+:::
+
+```{r reset-fig-ht, echo = FALSE}
+knitr::opts_chunk$set (fig.height = opts$fig.height)
 ```
