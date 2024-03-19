@@ -3,7 +3,7 @@
 #' @return A `data.frame` with one row per editor and information on current
 #' vacation status obtained from rOpenSci's airtable database.
 #' @export
-editor_vacation_status <- function (quiet = FALSE) {
+editor_vacation_status <- function () {
 
     editor_vacation <- airtabler::airtable (
         base = "app8dssb6a7PG6Vwj", table = "editor-vacation-status"

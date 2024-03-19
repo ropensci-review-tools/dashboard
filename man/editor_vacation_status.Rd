@@ -4,7 +4,7 @@
 \alias{editor_vacation_status}
 \title{Get current vacation status of all rOpenSci editors.}
 \usage{
-editor_vacation_status(quiet = FALSE)
+editor_vacation_status()
 }
 \value{
 A `data.frame` with one row per editor and information on current
