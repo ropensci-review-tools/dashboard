@@ -62,6 +62,44 @@ There are currently:<br>
 - `r sub_types [["Standard"]]` standard issues<br>
 - `r sub_types [["Stats"]]` stats issues
 
+Some cells in the following tables are highlighted to visually indicate the
+following degrees of urgency. Levels of urgency depend on the review stage.
+Approximate expected times required to complete each stage are:
+
+stage | time (days)
+--- | ---
+0\/Pre-submission | 7
+1\/Editor Checks | 7
+2\/Seeking Reviewers | 14
+3\/Reviewer(s) Assigned | 21
+4\/Review(s) in Awaiting Changes | 21
+5\/Awaiting Reviewer(s) Response | 21
+
+Levels of urgency for each review are times taken for current stage as
+a multiple of those base times, with values rounded *down* to nearest integer.
+For example, a submission which has been undergoing `1\/Editor Checks` for 17
+days would have an urgency of `floor(17/7) = 2`. A submission which has been
+under review (stage `3\/Reviewer(s) Assigned`) for 12 weeks would have an
+urgency of `floor(12 * 7 / 21) = 4`. The colour codes for these urgency levels
+are shown in the following table.
+
+```{r colour-scheme, echo = FALSE}
+cols <- dashboard:::define_urgency_colours ()
+udat <- data.frame (
+    urgency = seq_along (cols),
+    importance = c (
+        "low",
+        "moderate",
+        "medium",
+        "high",
+        "very high"
+    )
+)
+gt::gt (udat) |>
+    dashboard:::add_urgency_cols (c ("urgency", "importance"))
+```
+
+
 ## 0\/Pre-submission
 
 ```{r dat0, echo = FALSE}
