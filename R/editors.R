@@ -110,7 +110,14 @@ editor_gh_data <- function (quiet = FALSE) {
     index <- which (nzchar (closed_at))
     updated_at [index] <- closed_at [index]
 
-    editor_latest_issue (editors, assignees, number, state, updated_at)
+    list (
+        latest = editor_latest_issue (
+            editors, assignees, number, state, updated_at
+        ),
+        timeline = editor_timeline (
+            editors, assignees, state, opened_at, updated_at, closed_at
+        )
+    )
 }
 
 #' Extract data on latest issue for each editor
@@ -149,6 +156,52 @@ editor_latest_issue <- function (editors, assignees, number,
     )
 }
 
+#' Extract timelines of historical editorial load
+#'
+#' @noRd
+editor_timeline <- function (editors, assignees, state,
+                             opened_at, updated_at, closed_at) {
+
+    end_date <- closed_at
+    index <- which (!nzchar (end_date))
+    end_date [index] <- updated_at [index]
+    end_date <- lubridate::date (end_date)
+    dur <- lubridate::as.duration (
+        lubridate::ymd_hms (end_date) - lubridate::ymd_hms (opened_at)
+    )
+    dur_days <- ceiling (dur / lubridate::ddays (1L))
+    start_date <- lubridate::date (lubridate::ymd_hms (opened_at))
+
+    # clean assignees to only ed team. The first element is always correct here.
+    assignees <- vapply (assignees, function (i) {
+        i [which (i %in% editors$login) [1]]
+    }, character (1L))
+
+    # Create matrix of editorial load:
+    start_months <- format (start_date, "%Y-%m")
+    end_months <- format (end_date, "%Y-%m")
+    date0 <- min (start_date)
+    lubridate::day (date0) <- 1L
+    all_months <- format (seq (date0, Sys.Date (), by = "1 month"), "%Y-%m")
+
+    timelines <- matrix (
+        0L,
+        nrow = length (all_months),
+        ncol = length (editors$login),
+        dimnames = list (all_months, editors$login)
+    )
+    for (i in seq_along (editors$login)) {
+        index <- which (assignees == editors$login [i])
+        for (j in index) {
+            seq_j <- seq (start_date [j], end_date [j], by = "1 month")
+            index_j <- match (format (seq_j, "%Y-%m"), all_months)
+            timelines [index_j, i] <- timelines [index_j, i] + 1L
+        }
+    }
+
+    data.frame (timelines)
+}
+
 #' Generate a summary report of current state of all rOpenSci editors
 #'
 #' @param quiet If `FALSE`, display progress information on screen.
@@ -158,12 +211,12 @@ editor_latest_issue <- function (editors, assignees, number,
 editor_status <- function (quiet = FALSE) {
     dat <- editor_gh_data (quiet = quiet)
 
-    dat$status <- "FREE"
-    dat$status [dat$state == "OPEN"] <- "BUSY"
+    dat$latest$status <- "FREE"
+    dat$latest$status [dat$latest$state == "OPEN"] <- "BUSY"
 
-    dtime <- get_elapsed_time (dat$updated_at)
-    dat$inactive_days <- dtime$dtime_days
-    dat$inactive_for <- dtime$dtime
+    dtime <- get_elapsed_time (dat$latest$updated_at)
+    dat$latest$inactive_days <- dtime$dtime_days
+    dat$latest$inactive_for <- dtime$dtime
 
     # Suppress no visible binding notes:\
     stats <- status <- updated_at <- editor <- state <- inactive_for <-
@@ -171,7 +224,7 @@ editor_status <- function (quiet = FALSE) {
 
     # desc status so "Free" before "Busy"
     dplyr::arrange (
-        dat, stats, dplyr::desc (status), dplyr::desc (updated_at)
+        dat$latest, stats, dplyr::desc (status), dplyr::desc (updated_at)
     ) |>
         dplyr::select (-updated_at) |>
         dplyr::relocate (editor, status, stats, inactive_for, inactive_days) |>
