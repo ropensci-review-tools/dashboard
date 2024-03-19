@@ -1,0 +1,59 @@
+---
+title: "Editor Reviews"
+format: 
+  html:
+    fig-width: 8
+    fig-height: 4
+    code-fold: false
+---
+
+```{r get-ed-dat, echo = FALSE, message = FALSE}
+#| cache: true
+library (dashboard)
+library (gt)
+library (ggplot2)
+library (tidyr)
+library (dplyr)
+library (viridis)
+ed_dat <- editor_status (quiet = TRUE)
+ed_reviews <- ed_dat$reviews
+```
+
+## Editor Reviews
+
+This panel provides data on reviews handled by each editor. Data are shown for
+current editors only.
+
+```{r ed-rev, echo = FALSE, message = FALSE, results = 'asis'}
+u <- "https://github.com/ropensci/software-review/issues/"
+for (i in seq_along (ed_reviews)) {
+    this_ed <- names (ed_reviews) [i]
+    cat (paste0 (
+        "## [",
+        this_ed,
+        "](https://github.com/",
+        this_ed,
+        ")\n\n"
+    ))
+    cat (paste0 ("Total Reviews: ", nrow (ed_reviews [[i]]), "\n\n"))
+    this_tab <- ed_reviews [[i]]
+    this_tab$number <- paste0 (
+        "<a href=",
+        u,
+        this_tab$number,
+        ">",
+        this_tab$number,
+        "</a>"
+    )
+    this_tab$number <- lapply (this_tab$number, gt::html)
+    tab <- gt::gt (this_tab) |>
+        gt::tab_header (paste0 (
+            "Reviews for [@",
+            this_ed,
+            "](https://github.com/",
+            this_ed,
+            ")"
+        ))
+    print (tab)
+}
+```
