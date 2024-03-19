@@ -9,9 +9,23 @@
   {
     "objectID": "editors.html",
     "href": "editors.html",
-    "title": "Editor Availability",
+    "title": "rOpenSci Editors",
     "section": "",
-    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nmaelle\n5 days\n\n\nemilyriederer\n4 days\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n3 weeks\n\n\nkarthik\n2 weeks\n\n\njooolia\n9 days\n\n\nldecicco-USGS\n6 days\n\n\nmaurolepore\n4 days\n\n\njhollist\n4 days\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
+    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nemilyriederer\n5 days\n\n\nmaelle\n5 days\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n3 weeks\n\n\nkarthik\n2 weeks\n\n\njooolia\n9 days\n\n\nldecicco-USGS\n6 days\n\n\njhollist\n5 days\n\n\nmaurolepore\n4 days\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
+  },
+  {
+    "objectID": "editors.html#editor-overview",
+    "href": "editors.html#editor-overview",
+    "title": "rOpenSci Editors",
+    "section": "",
+    "text": "The following table summarises the availability of general (not statistical) editors. The inactive_for values are hyperlinked to the most recent submission issue for each editor.\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\nemilyriederer\n5 days\n\n\nmaelle\n5 days\n\n\nhaozhu233\nNA\n\n\nBUSY\n\n\nPakillo\n3 weeks\n\n\nnoamross\n3 weeks\n\n\nkarthik\n2 weeks\n\n\njooolia\n9 days\n\n\nldecicco-USGS\n6 days\n\n\njhollist\n5 days\n\n\nmaurolepore\n4 days\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks"
+  },
+  {
+    "objectID": "editors.html#past-editorial-load",
+    "href": "editors.html#past-editorial-load",
+    "title": "rOpenSci Editors",
+    "section": "Past Editorial Load",
+    "text": "Past Editorial Load\n\nGeneral editors\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors"
   },
   {
     "objectID": "reviews.html",
@@ -25,7 +39,7 @@
     "href": "reviews.html#pre-submission",
     "title": "Software Review Overview",
     "section": "0/Pre-submission",
-    "text": "0/Pre-submission\nThere is 1 labelled pre-submission issue, and 3 unlabelled issues. Data on the labelled issue are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n562\ncat2cat: Handling an Inconsistently Coded Categorical Variable in a Panel Dataset\nFALSE\n2022-12-16\n(None)\n3 weeks\n\n\n\n\n\n\n\n\n\nData on the unlabelled issues are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\ninactive_for\n\n\n\n\n631\nPresubmission enquiry for cocoon: Extract, Format, and Print Statistical Output\nFALSE\n6 days\n\n\n629\nCapybara\nTRUE\n4 days\n\n\n628\neDNAjoint: an R package for interpreting paired environmental DNA and traditional surveys\nTRUE\n1 day"
+    "text": "0/Pre-submission\nThere is 1 labelled pre-submission issue, and 3 unlabelled issues. Data on the labelled issue are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n562\ncat2cat: Handling an Inconsistently Coded Categorical Variable in a Panel Dataset\nFALSE\n2022-12-16\n(None)\n3 weeks\n\n\n\n\n\n\n\n\n\nData on the unlabelled issues are:\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\ninactive_for\n\n\n\n\n631\nPresubmission enquiry for cocoon: Extract, Format, and Print Statistical Output\nFALSE\n7 days\n\n\n629\nCapybara\nTRUE\n5 days\n\n\n628\neDNAjoint: an R package for interpreting paired environmental DNA and traditional surveys\nTRUE\n2 days"
   },
   {
     "objectID": "reviews.html#editor-checks",
@@ -46,21 +60,21 @@
     "href": "reviews.html#reviewers-assigned",
     "title": "Software Review Overview",
     "section": "3/Reviewer(s) Assigned",
-    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n2 weeks\n\n\n627\ndendroNetwork\nFALSE\n2024-03-07\n@ldecicco-USGS\n6 days\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n5 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-03-03\n@maurolepore\n4 days"
+    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n2 weeks\n\n\n627\ndendroNetwork\nFALSE\n2024-03-07\n@ldecicco-USGS\n7 days\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n6 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-03-03\n@maurolepore\n5 days"
   },
   {
     "objectID": "reviews.html#reviews-in-awaiting-changes",
     "href": "reviews.html#reviews-in-awaiting-changes",
     "title": "Software Review Overview",
     "section": "4/Review(s) in Awaiting Changes",
-    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n3 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n7 days"
+    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n3 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n8 days"
   },
   {
     "objectID": "reviews.html#awaiting-reviewers-response",
     "href": "reviews.html#awaiting-reviewers-response",
     "title": "Software Review Overview",
     "section": "5/Awaiting Reviewer(s) Response",
-    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n9 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n5 days"
+    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n10 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n6 days"
   },
   {
     "objectID": "reviews.html#holding",
