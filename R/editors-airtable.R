@@ -32,3 +32,32 @@ editor_vacation_status <- function () {
     editors_on_vacation <- edvac$github [which (edvac$away)]
     ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
 }
+
+#' Add additional columns to 'editors' data from rOpenSci's airtable database.
+#'
+#' @param editors The `data.frame` of editors returned as the "status" component
+#' from \link{editor_status}.
+#' @return A modified version of `editors` with additional columns.
+#' @export
+add_editor_airtable_data <- function (editors) {
+    rev_prod <- airtabler::airtable (
+        base = "app8dssb6a7PG6Vwj", table = "reviewers-prod"
+    )
+    fields <- list ("github", "name", "other_langs", "domain_expertise")
+    rev_prod <- rev_prod$`reviewers-prod`$select_all (fields = fields)
+
+    editors$other_langs <- editors$domain_expertise <- NA_character_
+    index <- match (editors$editor, rev_prod$github)
+
+    editors$other_langs <- rev_prod$other_langs [index]
+    editors$other_langs <- vapply (editors$other_langs, function (i) {
+        paste0 (i [which (!i == "English")], collapse = ", ")
+    }, character (1L))
+
+    editors$domain_expertise <- rev_prod$domain_expertise [index]
+    editors$domain_expertise <- vapply (editors$domain_expertise, function (i) {
+        paste0 (i [which (!grepl ("^Other", i))], collapse = ", ")
+    }, character (1L))
+
+    return (editors)
+}
