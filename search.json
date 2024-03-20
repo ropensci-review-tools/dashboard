@@ -158,7 +158,7 @@
     "href": "editors.html#past-ed-load",
     "title": "rOpenSci Editors",
     "section": "Past Editorial Load",
-    "text": "Past Editorial Load\nThe following two graphs illustrate the previous load of each editor. The thickness of lines represents numbers of concurrent submissions handled by each editor. These charts are intended as an additional aid in selecting handling editors. Editors who have had relatively low recent loads should be chosen in favor of those who have recently had higher loads.\n\nGeneral editors\nThis first chart illustrates the historical loads for general (non-statistical) editors.\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors\nThis chart illustrates the historical loads for statistical editors."
+    "text": "Past Editorial Load\nThe following two graphs illustrate the previous load of each editor. These charts are intended as an additional aid in selecting handling editors. Editors who have had relatively low recent loads should be chosen in favor of those who have recently had higher loads.\nThe thickness of lines represents numbers of concurrent submissions handled by each editor, and aggregated for each month. Widths range from zero reviews for the thinnest lines to a maximum of 7 by @jooolia in 2022-02-01.\n\nGeneral editors\nThis first chart illustrates the historical loads for general (non-statistical) editors.\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors\nThis chart illustrates the historical loads for statistical editors."
   },
   {
     "objectID": "reviews.html",
@@ -200,7 +200,7 @@
     "href": "reviews.html#reviews-in-awaiting-changes",
     "title": "Software Review Overview",
     "section": "4/Review(s) in Awaiting Changes",
-    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n3 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n9 days"
+    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n4 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n9 days"
   },
   {
     "objectID": "reviews.html#awaiting-reviewers-response",
