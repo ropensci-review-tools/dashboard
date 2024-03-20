@@ -78,33 +78,14 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         )
         # Dates for labels are in separate "timeline" data:
         event_labels <- c (
-            event_labels,
-            lapply (edges, function (i) {
-                unlist (lapply (
-                    i$node$timelineItems$nodes,
-                    function (j) j$label$name
-                ))
-            })
+            event_labels, extract_event_timeline_data (edges, "labels")
         )
         event_dates <- c (
-            event_dates,
-            lapply (edges, function (i) {
-                unlist (lapply (
-                    i$node$timelineItems$nodes,
-                    function (j) j$createdAt
-                ))
-            })
+            event_dates, extract_event_timeline_data (edges, "dates")
         )
         event_actors <- c (
-            event_actors,
-            lapply (edges, function (i) {
-                unlist (lapply (
-                    i$node$timelineItems$nodes,
-                    function (j) j$actor$login
-                ))
-            })
+            event_actors, extract_event_timeline_data (edges, "actors")
         )
-
         comments <- c (
             comments,
             lapply (edges, function (i) unname (unlist (i$node$comments$nodes)))
@@ -119,16 +100,7 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         }
     }
 
-    # Extract 'holding' events:
-    holding_date <- vapply (seq_along (event_labels), function (i) {
-        if (any (event_labels [[i]] == "holding")) {
-            h_index <- grep ("holding", event_labels [[i]])
-            h_dates <- lubridate::ymd_hms (event_dates [[i]] [h_index])
-            return (as.character (max (h_dates)))
-        } else {
-            return (NA_character_)
-        }
-    }, character (1L))
+    holding_date <- extract_holding_events (event_labels, event_dates)
 
     # Reduce "event" data down to current labels only, and sort by labels so
     # that "official" 'N/' ones come first, which happens to be done perfectly
@@ -252,6 +224,41 @@ submission_type_from_body <- function (edges) {
         return (stype)
 
     }, character (1L))
+}
+
+#' Extract holding events
+#'
+#' @noRd
+extract_holding_events <- function (event_labels, event_dates) {
+    vapply (seq_along (event_labels), function (i) {
+        if (any (event_labels [[i]] == "holding")) {
+            h_index <- grep ("holding", event_labels [[i]])
+            h_dates <- lubridate::ymd_hms (event_dates [[i]] [h_index])
+            return (as.character (max (h_dates)))
+        } else {
+            return (NA_character_)
+        }
+    }, character (1L))
+}
+
+extract_event_timeline_data <- function (edges, what = "labels") {
+
+    stopifnot (what %in% c ("labels", "dates", "actors"))
+
+    lapply (edges, function (i) {
+        unlist (lapply (
+            i$node$timelineItems$nodes,
+            function (j) {
+                if (what == "labels") {
+                    return (j$label$name)
+                } else if (what == "dates") {
+                    return (j$createdAt)
+                } else if (what == "actors") {
+                    return (j$actor$login)
+                }
+            }
+        ))
+    })
 }
 
 #' Generate a summary report for incoming Editor-in-Charge of current state of
