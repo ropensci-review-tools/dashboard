@@ -7,24 +7,22 @@
 editor_gh_data <- function (quiet = FALSE) {
 
     q <- gh_editors_team_qry (stats = FALSE)
-    stopifnot (nchar (q) == 267L)
     editors <- gh::gh_gql (query = q)
     editors <- editors$data$organization$team$members$nodes
-    stopifnot (length (editors) > 0L)
     editors <- vapply (editors, function (i) i$login, character (1L))
-    stopifnot (length (editors) > 0L)
 
     q <- gh_editors_team_qry (stats = TRUE)
     editors_stats <- gh::gh_gql (query = q)
     editors_stats <- editors_stats$data$organization$team$members$nodes
     editors_stats <-
         vapply (editors_stats, function (i) i$login, character (1L))
-    stopifnot (length (editors_stats) > 0L)
 
     editors <- data.frame (
         login = editors,
         stats = editors %in% editors_stats
     )
+    editors_stats <- editors_stats [which (!editors_stats %in% editors$login)]
+    editors <- rbind (editors, data.frame (login = editors_stats, stats = TRUE))
 
     has_next_page <- TRUE
     end_cursor <- NULL
