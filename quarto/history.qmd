@@ -55,15 +55,18 @@ reviews <- rbind (monthly_reviews, monthly_reviews_gen, monthly_reviews_stats)
 ```{r plot-review-history, echo = FALSE}
 ggplot (reviews, aes (x = month, y = reviews, colour = type)) +
     geom_line (linetype = reviews$lty) +
+    xlab ("Year") +
+    ylab ("Nr. active reviews / month") +
     theme_minimal () +
     theme (
         legend.position = "inside",
-        legend.position.inside = c (0.9, 0.8)
+        legend.position.inside = c (0.1, 0.8)
     )
 ```
 
 The next chart shows the average duration of the review process, plotted
-against the months in which each review started.
+against the months in which each review started. (The data have been slightly
+smoothed to aid visual display.)
 
 ```{r rev-duration, echo = FALSE}
 rev_dur <- data.frame (
@@ -72,6 +75,17 @@ rev_dur <- data.frame (
 ) |>
     dplyr::group_by (quarter) |>
     dplyr::summarise (dur = mean (duration, na.rm = TRUE))
+# Those quarterly data are quite jumpy, so apply a filter:
+filter_dat <- function (dat, flen = 5) {
+    index <- seq_len (length (dat) - flen + 1) + floor (flen / 2)
+    x <- seq_len (flen) - ceiling (flen / 2)
+    x <- -abs (x)
+    filt <- exp (x)
+    filt <- filt / sum (filt)
+    dat [index] <- filter (dat, filt) [index]
+    return (dat)
+}
+rev_dur$dur <- filter_dat (rev_dur$dur, flen = 3)
 ```
 
 ```{r rev-duration-plot, echo = FALSE}
@@ -79,9 +93,5 @@ ggplot (rev_dur, aes (x = quarter, y = dur)) +
     geom_line () +
     theme_minimal () +
     xlab ("Year") +
-    ylab ("Duration (months)") +
-    theme (
-        legend.position = "inside",
-        legend.position.inside = c (0.9, 0.8)
-    )
+    ylab ("Review Duration (months)")
 ```
