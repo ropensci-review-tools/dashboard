@@ -1,0 +1,61 @@
+---
+title: "Software Review History"
+format: 
+  html:
+    fig-width: 8
+    fig-height: 4
+    code-fold: false
+---
+
+```{r load-pkg, echo = FALSE}
+library (dashboard)
+library (ggplot2)
+```
+
+
+```{r get-rev-history, echo = FALSE}
+#| cache: true
+dat <- review_history (quiet = TRUE)
+```
+
+This chart shows the total number of packages under review each month.
+
+
+```{r history-months, echo = FALSE}
+# Convert opened/closed dates to monthly sequence This is adapted from the editors
+# timeline code in R/editors.R.
+get_monthly_reviews <- function (dat) {
+    index <- which (!is.na (dat$closed_at))
+    month_seqs <- lapply (seq_along (index), function (i) {
+        s <- seq (dat$opened_at [index [i]], dat$closed_at [index [i]], by = "1 month")
+        format (s, "%Y-%m")
+    })
+    month_seq_table <- table (unlist (month_seqs))
+    data.frame (
+        month = lubridate::ymd (paste0 (names (month_seq_table), "-01")),
+        reviews = as.integer (month_seq_table)
+    )
+}
+
+monthly_reviews <- get_monthly_reviews (dat)
+monthly_reviews$type <- "all"
+monthly_reviews$lty <- 1L
+monthly_reviews_gen <- get_monthly_reviews (dat [which (!dat$stats), ])
+monthly_reviews_gen$type <- "general"
+monthly_reviews_gen$lty <- 2L
+monthly_reviews_stats <- get_monthly_reviews (dat [which (dat$stats), ])
+monthly_reviews_stats$type <- "stats"
+monthly_reviews_stats$lty <- 1L
+
+reviews <- rbind (monthly_reviews, monthly_reviews_gen, monthly_reviews_stats)
+```
+
+```{r plot-review-history, echo = FALSE}
+ggplot (reviews, aes (x = month, y = reviews, colour = type)) +
+    geom_line (linetype = reviews$lty) +
+    theme_minimal () +
+    theme (
+        legend.position = "inside",
+        legend.position.inside = c (0.9, 0.8)
+    )
+```

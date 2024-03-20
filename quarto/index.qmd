@@ -15,3 +15,5 @@ availability and past editorial workloads. The dashboard includes the following 
   system. This page is primarily intended to provide an overview of the current
   state of software peer-review for the Editors-in-Charge, and in particular to
   identify reviews in need of attention.
+- The [*Software Review History* page](./history.qmd) which gives insights into
+  the historical developments of the software peer-review program.
