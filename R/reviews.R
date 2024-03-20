@@ -428,8 +428,7 @@ extract_comment_info <- function (dat) {
     ))
 }
 
-#' Apply the 'gh_issues_qry_dates_states' query to extract data from GitHub
-#' GraphQL API, and post-process into a `data.frame`.
+#' Generate historical data on software reviews.
 #'
 #' This is a reduced version of the `reviews_gh_data()` function, which returns
 #' data only on dates of issue opening and closing, to be used to generate
@@ -438,8 +437,8 @@ extract_comment_info <- function (dat) {
 #' @param quiet If `FALSE`, display progress information on screen.
 #' @return (Invisibly) A `data.frame` with one row per issue and some key
 #' statistics.
-#' @noRd
-reviews_gh_data_dates_states <- function (open_only = TRUE, quiet = FALSE) {
+#' @export
+review_history <- function (quiet = FALSE) {
 
     has_next_page <- TRUE
     end_cursor <- NULL
@@ -516,6 +515,7 @@ reviews_gh_data_dates_states <- function (open_only = TRUE, quiet = FALSE) {
     closed_at <- closed_at [pkg_index]
     submission_type <- submission_type [pkg_index]
     state <- state [pkg_index]
+    labels <- labels [pkg_index]
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
@@ -527,6 +527,9 @@ reviews_gh_data_dates_states <- function (open_only = TRUE, quiet = FALSE) {
         opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
         closed_at = lubridate::date (lubridate::ymd_hms (closed_at))
     ) |> dplyr::arrange (number)
+
+    dtime <- lubridate::interval (res$opened_at, res$closed_at)
+    res$duration_days <- as.numeric (dtime) / (24 * 3600)
 
     return (res)
 }
