@@ -64,7 +64,8 @@ ed_status <- dplyr::filter (ed_status, editor != "haozhu233") |>
     dplyr::rename (
         "Languages" = other_langs,
         "Expertise" = domain_expertise
-    )
+    ) |>
+    tidyr::replace_na (list (inactive_for = "(waiting)"))
 ```
 
 ### General Editors
@@ -79,7 +80,12 @@ ed_dat_gen <- dplyr::group_by (ed_dat_gen, status) |>
     dplyr::ungroup ()
 
 u <- "https://github.com/ropensci/software-review/issues/"
+index_na <- which (is.na (ed_dat_gen$inactive_for))
 ed_dat_gen <- dashboard:::add_gt_html (ed_dat_gen, u, what = "inactive_for")
+# Rm HTML from rows with no `inactive_for` values:
+if (length (index_na) > 0L) {
+    ed_dat_gen$inactive_for [index_na] <- "(waiting)"
+}
 
 gt::gt (
     ed_dat_gen,
@@ -109,7 +115,11 @@ ed_dat_stats <- dplyr::group_by (ed_dat_stats, status) |>
     dplyr::ungroup ()
 
 u <- "https://github.com/ropensci/software-review/issues/"
+index_na <- which (is.na (ed_dat_stats$inactive_for))
 ed_dat_stats <- dashboard:::add_gt_html (ed_dat_stats, u, what = "inactive_for")
+if (length (index_na) > 0L) {
+    ed_dat_stats$inactive_for [index_na] <- "(waiting)"
+}
 
 gt::gt (
     ed_dat_stats,
