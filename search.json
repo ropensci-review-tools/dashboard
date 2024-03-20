@@ -11,7 +11,7 @@
     "href": "history.html",
     "title": "Software Review History",
     "section": "",
-    "text": "This chart shows the total number of packages under review each month. Lines are shown for all packages, as well as separate trends distinguishing general review from statistical software review, which started in September 2021.\n\n\n\n\n\n\n\n\n\nThe next chart shows the average duration of the review process, plotted against the months in which each review started. (The data have been slightly smoothed to aid visual display.)"
+    "text": "This chart shows the total number of packages under review each month. Main lines shows numbers of reviews for all packages, with trends distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”.\n\n\n\n\n\n\n\n\n\nThe next chart shows the average duration of the review process, plotted against the months in which each review started. (The data have been slightly smoothed to aid visual display.)"
   },
   {
     "objectID": "ed-reviews.html",
