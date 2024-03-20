@@ -162,7 +162,8 @@ max_rev_month <-
 xlab_pos <- as.Date (min (timeline$month) - lubridate::dmonths (12))
 eds_stats <- ed_status$editor [which (ed_status$stats)]
 timeline_stats <- timeline [timeline$name %in% eds_stats, ]
-timeline <- timeline [!timeline$name %in% eds_stats, ]
+eds_gen <- ed_status$editor [which (ed_status$general)]
+timeline <- timeline [timeline$name %in% eds_gen, ]
 timeline$y <- match (timeline$y, unique (timeline$y))
 timeline_stats$y <- match (timeline_stats$y, unique (timeline_stats$y))
 
@@ -214,7 +215,8 @@ ggplot2::ggplot (timeline, ggplot2::aes (x = month, y = y, colour = name)) +
 
 This chart illustrates the historical loads for statistical editors, with line
 thicknesses in this case representing up to a maximum of `r max_rev_n_stats`
-concurrent reviews in a one-month period.
+concurrent reviews in a one-month period. (Note that some editors handle both
+general and statistical packages, and so appear in both plots.)
 
 ```{r set-fig-ht, echo = FALSE}
 # Scale height of next fig to proportional decrease in number of lines
