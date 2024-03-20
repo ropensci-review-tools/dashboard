@@ -17,3 +17,8 @@ availability and past editorial workloads. The dashboard includes the following 
   identify reviews in need of attention.
 - The [*Software Review History* page](./history.qmd) which gives insights into
   the historical developments of the software peer-review program.
+
+Source code for this dashboard is at
+[github.com/ropensci-review-tools/dashboard](https://github.com/ropensci-review-tools/dashboard).
+Contributions are welcome! Please feel free to open [an issue in that
+repository](https://github.com/ropensci-review-tools/dashboard/issues).
