@@ -7,10 +7,13 @@ format:
     code-fold: false
 ---
 
-```{r get-rev-dat, echo = FALSE}
-#| cache: true
+```{r load-pkg-rev, echo = FALSE, message = FALSE}
 library (dashboard)
 library (gt)
+```
+
+```{r get-rev-dat, echo = FALSE}
+#| cache: true
 rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
 has_multiple_stages <- !is.null (attr (rev_dat, "multiple_stages"))
 ```

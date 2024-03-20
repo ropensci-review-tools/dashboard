@@ -7,14 +7,17 @@ format:
     code-fold: false
 ---
 
-```{r get-ed-dat, echo = FALSE, message = FALSE}
-#| cache: true
+```{r load-pkg-ed-rev, echo = FALSE, message = FALSE}
 library (dashboard)
 library (gt)
 library (ggplot2)
 library (tidyr)
 library (dplyr)
 library (viridis)
+```
+
+```{r get-ed-dat, echo = FALSE, message = FALSE}
+#| cache: true
 ed_dat <- editor_status (quiet = TRUE)
 ed_reviews <- ed_dat$reviews
 ```
