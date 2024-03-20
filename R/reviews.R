@@ -182,7 +182,8 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         comments = I (comments)
     ) |> dplyr::arrange (stage, stage_date)
 
-    # That puts "0/editorial-team-prep" before "0/presubmission" - reverse these:
+    # That puts "0/editorial-team-prep" before "0/presubmission" - reverse
+    # these:
     index <- grep ("^0\\/", res$stage)
     if (length (index) > 0) {
         res0 <- res [index, ]
@@ -502,7 +503,11 @@ reviews_gh_data_dates_states <- function (open_only = TRUE, quiet = FALSE) {
     # Index of all historical full reviews + currently open submissions can be
     # identified with by "6/approved" labels, or more recent 'submission_type'
     # values:
-    approved <- vapply (labels, function (i) any (grepl ("^6", i)), logical (1L))
+    approved <- vapply (
+        labels,
+        function (i) any (grepl ("^6", i)),
+        logical (1L)
+    )
     std_stats <- submission_type %in% c ("Standard", "Stats")
     pkg_index <- which (approved | std_stats)
 
