@@ -14,7 +14,7 @@ library (ggplot2)
 
 
 ```{r get-rev-history, echo = FALSE}
-#| cache: true
+#| cache: false
 dat <- review_history (quiet = TRUE)
 ```
 
