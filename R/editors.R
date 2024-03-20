@@ -24,6 +24,10 @@ editor_gh_data <- function (quiet = FALSE) {
     editors_stats <- editors_stats [which (!editors_stats %in% editors$login)]
     editors <- rbind (editors, data.frame (login = editors_stats, stats = TRUE))
 
+    editors$general <- !editors$stats
+    also_gen <- c ("adamhsparks", "mpadge")
+    editors$general [editors$login %in% also_gen] <- TRUE
+
     has_next_page <- TRUE
     end_cursor <- NULL
 
@@ -154,6 +158,7 @@ editor_latest_issue <- function (editors, assignees, number,
     data.frame (
         editor = editors$login,
         stats = editors$stats,
+        general = editors$general,
         number = number [ed_index],
         state = state [ed_index],
         updated_at = updated_at [ed_index]

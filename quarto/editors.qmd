@@ -73,7 +73,7 @@ ed_status <- dplyr::filter (ed_status, editor != "haozhu233") |>
 
 ```{r editor-table, echo = FALSE}
 #| label: fig-editors-general
-ed_dat_gen <- ed_status [which (!ed_status$stats), ]
+ed_dat_gen <- ed_status [which (ed_status$general), ]
 ed_dat_gen$status <- factor (ed_dat_gen$status, levels = c ("FREE", "BUSY", "ON LEAVE"))
 ed_dat_gen <- dplyr::group_by (ed_dat_gen, status) |>
     dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
@@ -92,7 +92,7 @@ gt::gt (
     groupname_col = "status"
 ) |>
     gt::tab_header ("Editor Status Overview") |>
-    gt::cols_hide (c (stats, inactive_days, number, state)) |>
+    gt::cols_hide (c (stats, general, inactive_days, number, state)) |>
     gt::tab_style (
         style = list (gt::cell_fill (color = "#FFFF8088")),
         locations = gt::cells_body (
