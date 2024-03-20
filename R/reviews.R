@@ -509,7 +509,9 @@ review_history <- function (quiet = FALSE) {
     )
     std_stats <- submission_type %in% c ("Standard", "Stats") &
         is.na (closed_at)
-    pkg_index <- which (approved | std_stats)
+    # There is also a "legacy" label on #137 that should be excluded:
+    legacy <- vapply (labels, function (i) "legacy" %in% i, logical (1L))
+    pkg_index <- which ((approved | std_stats) & !legacy)
 
     number <- number [pkg_index]
     opened_at <- opened_at [pkg_index]
@@ -520,6 +522,7 @@ review_history <- function (quiet = FALSE) {
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
+
 
     res <- data.frame (
         number = number,
