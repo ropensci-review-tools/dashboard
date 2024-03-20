@@ -137,11 +137,17 @@ timeline <- dplyr::filter (ed_timeline, month >= start_time) |>
     dplyr::filter (reviews > 0)
 
 # Information on max scale of reviews:
-i <- which.max (timeline$reviews) [1] # There is only one of these
-max_reviews <- timeline [i, ]
-max_rev_name <- max_reviews$name
-max_rev_month <- max_reviews$month
-max_rev_n <- max_reviews$reviews
+max_rev_n <- max (timeline$reviews)
+i <- which (timeline$reviews == max_rev_n)
+max_rev_name <- timeline$name [i] [1]
+# Reduce to only first name in case multiples arise:
+i <- i [which (timeline$name [i] == max_rev_name)]
+max_rev_month <- format (timeline$month [i], "%Y-%m")
+# Format months:
+max_rev_month_pre <-
+    paste0 (max_rev_month [-length (max_rev_month)], collapse = ", ")
+max_rev_month <-
+    paste0 (max_rev_month_pre, " and ", max_rev_month [length (max_rev_month)])
 
 xlab_pos <- as.Date (min (timeline$month) - lubridate::dmonths (12))
 eds_stats <- ed_status$editor [which (ed_status$stats)]
