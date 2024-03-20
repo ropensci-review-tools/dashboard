@@ -263,17 +263,20 @@ review_status <- function (open_only = TRUE, browse = TRUE, quiet = FALSE) {
         dplyr::relocate (editor, .after = labels) |>
         dplyr::relocate (editor_date, .after = editor)
 
-    if (any (dat$has_multiple_stages) && !quiet) {
-        numbers <- dat$number [which (dat$has_multiple_stages)]
-        txt <- ifelse (
-            length (numbers) == 1,
-            "issue currently has",
-            "issues currently have"
-        )
-        warning (
-            "The following ", txt, " multiple 'stage' labels:\n   ",
-            paste0 (numbers, collapse = ", ")
-        )
+    has_multiple_stages <- any (dat$has_multiple_stages)
+    if (has_multiple_stages) {
+        multiple_stages <- dat$number [which (dat$has_multiple_stages)]
+        if (!quiet) {
+            txt <- ifelse (
+                length (multiple_stages) == 1,
+                "issue currently has",
+                "issues currently have"
+            )
+            warning (
+                "The following ", txt, " multiple 'stage' labels:\n   ",
+                paste0 (multiple_stages, collapse = ", ")
+            )
+        }
     }
 
     # Collapse list columns:
@@ -297,6 +300,10 @@ review_status <- function (open_only = TRUE, browse = TRUE, quiet = FALSE) {
 
     if (browse) {
         print (open_gt_table (dat))
+    }
+
+    if (has_multiple_stages) {
+        attr (dat, "multiple_stages") <- multiple_stages
     }
 
     return (dat)
