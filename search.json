@@ -4,28 +4,14 @@
     "href": "index.html",
     "title": "rOpenSci Software Review Dashboard",
     "section": "",
-    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe rOpenSci Editors page which provides information to help identify editors who may be free to handle new submissions.\nThe Editor Reviews page which provides an overview of all current and previous issues handled by each current editor.\nThe Software Review Overview page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention."
+    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe rOpenSci Editors page which provides information to help identify editors who may be free to handle new submissions.\nThe Editor Reviews page which provides an overview of all current and previous issues handled by each current editor.\nThe Software Review Overview page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Software Review History page which gives insights into the historical developments of the software peer-review program."
   },
   {
-    "objectID": "editors.html",
-    "href": "editors.html",
-    "title": "rOpenSci Editors",
+    "objectID": "history.html",
+    "href": "history.html",
+    "title": "Software Review History",
     "section": "",
-    "text": "This page includes tables summarising the availability of editors, and charts of historical activity for each editor. This information is intended to help identify editors who may be available to handle new submissions to rOpenSci’s software peer-review system. Editors should be chosen by first ensuring they are “FREE” in one of the first two tables. The historical patterns of editorial activity should then be examined in the subsequent charts. The choice of editors should also be made in a way that best distributes the recent editorial loads depicted in the Past Editorial Load section.\nThe inactive_for column in the first two tables includes values hyperlinked to the most recent submission issue for each editor. The initial rows are highlighted yellow to indicate editors who are currently free.\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\n\n\nmaelle\n6 days\nSpanish\nStatistics\n\n\nemilyriederer\n5 days\nSpanish\nStatistics, Mathematics\n\n\nBUSY\n\n\nPakillo\n3 weeks\nSpanish\nSpatial data, spatial analysis, GIS, Ecology\n\n\nkarthik\n2 weeks\n\nEcology, Bioinformatics\n\n\njooolia\n10 days\n\nEcology, Bioinformatics, Clinical research\n\n\nldecicco-USGS\n7 days\n\n\n\n\njhollist\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology\n\n\nmaurolepore\n5 days\n\nEcology\n\n\nnoamross\n1 day\n\nEcology, Epidemiology, Statistics\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\ntdhock\n18 months\n\nStatistics, Computer sciences\n\n\nPaula-Moraga\n2 months\n\n\n\n\nBUSY\n\n\nhelske\n2 weeks\n\n\n\n\nadamhsparks\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology, Meteorology, Weather data\n\n\nrkillick\n1 day"
-  },
-  {
-    "objectID": "editors.html#editor-overview",
-    "href": "editors.html#editor-overview",
-    "title": "rOpenSci Editors",
-    "section": "",
-    "text": "This page includes tables summarising the availability of editors, and charts of historical activity for each editor. This information is intended to help identify editors who may be available to handle new submissions to rOpenSci’s software peer-review system. Editors should be chosen by first ensuring they are “FREE” in one of the first two tables. The historical patterns of editorial activity should then be examined in the subsequent charts. The choice of editors should also be made in a way that best distributes the recent editorial loads depicted in the Past Editorial Load section.\nThe inactive_for column in the first two tables includes values hyperlinked to the most recent submission issue for each editor. The initial rows are highlighted yellow to indicate editors who are currently free.\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\n\n\nmaelle\n6 days\nSpanish\nStatistics\n\n\nemilyriederer\n5 days\nSpanish\nStatistics, Mathematics\n\n\nBUSY\n\n\nPakillo\n3 weeks\nSpanish\nSpatial data, spatial analysis, GIS, Ecology\n\n\nkarthik\n2 weeks\n\nEcology, Bioinformatics\n\n\njooolia\n10 days\n\nEcology, Bioinformatics, Clinical research\n\n\nldecicco-USGS\n7 days\n\n\n\n\njhollist\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology\n\n\nmaurolepore\n5 days\n\nEcology\n\n\nnoamross\n1 day\n\nEcology, Epidemiology, Statistics\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\ntdhock\n18 months\n\nStatistics, Computer sciences\n\n\nPaula-Moraga\n2 months\n\n\n\n\nBUSY\n\n\nhelske\n2 weeks\n\n\n\n\nadamhsparks\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology, Meteorology, Weather data\n\n\nrkillick\n1 day"
-  },
-  {
-    "objectID": "editors.html#past-ed-load",
-    "href": "editors.html#past-ed-load",
-    "title": "rOpenSci Editors",
-    "section": "Past Editorial Load",
-    "text": "Past Editorial Load\nThe following two graphs illustrate the previous load of each editor. The thickness of lines represents numbers of concurrent submissions handled by each editor. These charts are intended as an additional aid in selecting handling editors. Editors who have had relatively low recent loads should be chosen in favor of those who have recently had higher loads.\n\nGeneral editors\nThis first chart illustrates the historical loads for general (non-statistical) editors.\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors\nThis chart illustrates the historical loads for statistical editors."
+    "text": "This chart shows the total number of packages under review each month, with lines shown for all packages, as well as general review, and statistical software review, which started in September 2021.\n\n\n\n\n\n\n\n\n\nThe next chart shows the average duration of the review process, plotted against the months in which each review started."
   },
   {
     "objectID": "ed-reviews.html",
@@ -154,6 +140,27 @@
     "text": "tdhock\n\n\n\n\n\n\n2 Reviews for @tdhock\n\n\n\n\nnumber\n\n\ntitle\n\n\nstate\n\n\nopened_at\n\n\nclosed_at\n\n\n\n\n\n\n532\n\n\naorsf; accelerated oblique random survival forests\n\n\nCLOSED\n\n\n2022-04-28\n\n\n2022-09-22\n\n\n\n\n475\n\n\ncanaper: Categorical Analysis of Neo- And Paleo-Endemism in R\n\n\nCLOSED\n\n\n2021-10-26\n\n\n2022-09-14"
   },
   {
+    "objectID": "editors.html",
+    "href": "editors.html",
+    "title": "rOpenSci Editors",
+    "section": "",
+    "text": "This page includes tables summarising the availability of editors, and charts of historical activity for each editor. This information is intended to help identify editors who may be available to handle new submissions to rOpenSci’s software peer-review system. Editors should be chosen by first ensuring they are “FREE” in one of the first two tables. The historical patterns of editorial activity should then be examined in the subsequent charts. The choice of editors should also be made in a way that best distributes the recent editorial loads depicted in the Past Editorial Load section.\nThe inactive_for column in the first two tables includes values hyperlinked to the most recent submission issue for each editor. The initial rows are highlighted yellow to indicate editors who are currently free.\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\n\n\nemilyriederer\n6 days\nSpanish\nStatistics, Mathematics\n\n\nmaelle\n6 days\nSpanish\nStatistics\n\n\nBUSY\n\n\nPakillo\n3 weeks\nSpanish\nSpatial data, spatial analysis, GIS, Ecology\n\n\nkarthik\n2 weeks\n\nEcology, Bioinformatics\n\n\njooolia\n10 days\n\nEcology, Bioinformatics, Clinical research\n\n\nldecicco-USGS\n7 days\n\n\n\n\njhollist\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology\n\n\nmaurolepore\n5 days\n\nEcology\n\n\nnoamross\n1 day\n\nEcology, Epidemiology, Statistics\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\ntdhock\n18 months\n\nStatistics, Computer sciences\n\n\nPaula-Moraga\n2 months\n\n\n\n\nBUSY\n\n\nhelske\n2 weeks\n\n\n\n\nadamhsparks\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology, Meteorology, Weather data\n\n\nrkillick\n1 day"
+  },
+  {
+    "objectID": "editors.html#editor-overview",
+    "href": "editors.html#editor-overview",
+    "title": "rOpenSci Editors",
+    "section": "",
+    "text": "This page includes tables summarising the availability of editors, and charts of historical activity for each editor. This information is intended to help identify editors who may be available to handle new submissions to rOpenSci’s software peer-review system. Editors should be chosen by first ensuring they are “FREE” in one of the first two tables. The historical patterns of editorial activity should then be examined in the subsequent charts. The choice of editors should also be made in a way that best distributes the recent editorial loads depicted in the Past Editorial Load section.\nThe inactive_for column in the first two tables includes values hyperlinked to the most recent submission issue for each editor. The initial rows are highlighted yellow to indicate editors who are currently free.\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\nmpadge\n13 months\n\n\n\n\nemilyriederer\n6 days\nSpanish\nStatistics, Mathematics\n\n\nmaelle\n6 days\nSpanish\nStatistics\n\n\nBUSY\n\n\nPakillo\n3 weeks\nSpanish\nSpatial data, spatial analysis, GIS, Ecology\n\n\nkarthik\n2 weeks\n\nEcology, Bioinformatics\n\n\njooolia\n10 days\n\nEcology, Bioinformatics, Clinical research\n\n\nldecicco-USGS\n7 days\n\n\n\n\njhollist\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology\n\n\nmaurolepore\n5 days\n\nEcology\n\n\nnoamross\n1 day\n\nEcology, Epidemiology, Statistics\n\n\nON LEAVE\n\n\nannakrystalli\n5 weeks\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEditor Status Overview\n\n\neditor\ninactive_for\nLanguages\nExpertise\n\n\n\n\nFREE\n\n\ntdhock\n18 months\n\nStatistics, Computer sciences\n\n\nPaula-Moraga\n2 months\n\n\n\n\nBUSY\n\n\nhelske\n2 weeks\n\n\n\n\nadamhsparks\n6 days\n\nSpatial data, spatial analysis, GIS, Ecology, Meteorology, Weather data\n\n\nrkillick\n1 day"
+  },
+  {
+    "objectID": "editors.html#past-ed-load",
+    "href": "editors.html#past-ed-load",
+    "title": "rOpenSci Editors",
+    "section": "Past Editorial Load",
+    "text": "Past Editorial Load\nThe following two graphs illustrate the previous load of each editor. The thickness of lines represents numbers of concurrent submissions handled by each editor. These charts are intended as an additional aid in selecting handling editors. Editors who have had relatively low recent loads should be chosen in favor of those who have recently had higher loads.\n\nGeneral editors\nThis first chart illustrates the historical loads for general (non-statistical) editors.\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors\nThis chart illustrates the historical loads for statistical editors."
+  },
+  {
     "objectID": "reviews.html",
     "href": "reviews.html",
     "title": "Software Review Overview",
@@ -172,7 +179,7 @@
     "href": "reviews.html#editor-checks",
     "title": "Software Review Overview",
     "section": "1/Editor Checks",
-    "text": "1/Editor Checks\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n626\ngigs: Assess Fetal, Newborn, and Child Growth with International Standards\nTRUE\n2024-02-23\n@rkillick\n1 day"
+    "text": "1/Editor Checks\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n626\ngigs: Assess Fetal, Newborn, and Child Growth with International Standards\nTRUE\n2024-02-23\n@rkillick\n2 days"
   },
   {
     "objectID": "reviews.html#seeking-reviewers",
@@ -186,21 +193,21 @@
     "href": "reviews.html#reviewers-assigned",
     "title": "Software Review Overview",
     "section": "3/Reviewer(s) Assigned",
-    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n2 weeks\n\n\n627\ndendroNetwork\nFALSE\n2024-03-07\n@ldecicco-USGS\n7 days\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n6 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-03-03\n@maurolepore\n5 days"
+    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n2 weeks\n\n\n627\ndendroNetwork\nFALSE\n2024-03-07\n@ldecicco-USGS\n8 days\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n7 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-03-03\n@maurolepore\n6 days"
   },
   {
     "objectID": "reviews.html#reviews-in-awaiting-changes",
     "href": "reviews.html#reviews-in-awaiting-changes",
     "title": "Software Review Overview",
     "section": "4/Review(s) in Awaiting Changes",
-    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n3 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n8 days"
+    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n618\nfellingdateR: Estimate, report and combine felling dates of historical tree-ring series\nFALSE\n2024-01-11\n@maelle\n6 weeks\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n3 weeks\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n3 weeks\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n9 days"
   },
   {
     "objectID": "reviews.html#awaiting-reviewers-response",
     "href": "reviews.html#awaiting-reviewers-response",
     "title": "Software Review Overview",
     "section": "5/Awaiting Reviewer(s) Response",
-    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n10 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n6 days"
+    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n11 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n7 days"
   },
   {
     "objectID": "reviews.html#holding",
