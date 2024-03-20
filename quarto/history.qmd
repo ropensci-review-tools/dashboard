@@ -27,9 +27,9 @@ software review, which started in September 2021.
 # Convert opened/closed dates to monthly sequence This is adapted from the editors
 # timeline code in R/editors.R.
 get_monthly_reviews <- function (dat) {
-    index <- which (!is.na (dat$closed_at))
-    month_seqs <- lapply (seq_along (index), function (i) {
-        s <- seq (dat$opened_at [index [i]], dat$closed_at [index [i]], by = "1 month")
+    dat$closed_at [which (is.na (dat$closed_at))] <- Sys.Date ()
+    month_seqs <- lapply (seq_len (nrow (dat)), function (i) {
+        s <- seq (dat$opened_at [i], dat$closed_at [i], by = "1 month")
         format (s, "%Y-%m")
     })
     month_seq_table <- table (unlist (month_seqs))
@@ -56,6 +56,30 @@ reviews <- rbind (monthly_reviews, monthly_reviews_gen, monthly_reviews_stats)
 ggplot (reviews, aes (x = month, y = reviews, colour = type)) +
     geom_line (linetype = reviews$lty) +
     theme_minimal () +
+    theme (
+        legend.position = "inside",
+        legend.position.inside = c (0.9, 0.8)
+    )
+```
+
+The next chart shows the average duration of the review process, plotted
+against the months in which each review started.
+
+```{r rev-duration, echo = FALSE}
+rev_dur <- data.frame (
+    quarter = lubridate::quarter (dat$opened_at, type = "date_first"),
+    duration = dat$duration_days * 12 / 365
+) |>
+    dplyr::group_by (quarter) |>
+    dplyr::summarise (dur = mean (duration, na.rm = TRUE))
+```
+
+```{r rev-duration-plot, echo = FALSE}
+ggplot (rev_dur, aes (x = quarter, y = dur)) +
+    geom_line () +
+    theme_minimal () +
+    xlab ("Year") +
+    ylab ("Duration (months)") +
     theme (
         legend.position = "inside",
         legend.position.inside = c (0.9, 0.8)
