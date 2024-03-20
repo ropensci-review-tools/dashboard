@@ -501,13 +501,14 @@ review_history <- function (quiet = FALSE) {
 
     # Index of all historical full reviews + currently open submissions can be
     # identified with by "6/approved" labels, or more recent 'submission_type'
-    # values:
+    # values for open issues:
     approved <- vapply (
         labels,
         function (i) any (grepl ("^6", i)),
         logical (1L)
     )
-    std_stats <- submission_type %in% c ("Standard", "Stats")
+    std_stats <- submission_type %in% c ("Standard", "Stats") &
+        is.na (closed_at)
     pkg_index <- which (approved | std_stats)
 
     number <- number [pkg_index]
