@@ -11,7 +11,7 @@
     "href": "history.html",
     "title": "Software Review History",
     "section": "",
-    "text": "This chart shows the total number of packages under review each month, with lines shown for all packages, as well as general review, and statistical software review, which started in September 2021.\n\n\n\n\n\n\n\n\n\nThe next chart shows the average duration of the review process, plotted against the months in which each review started."
+    "text": "This chart shows the total number of packages under review each month, with lines shown for all packages, as well as general review, and statistical software review, which started in September 2021.\n\n\n\n\n\n\n\n\n\nThe next chart shows the average duration of the review process, plotted against the months in which each review started. (The data have been slightly smoothed to aid visual display.)"
   },
   {
     "objectID": "ed-reviews.html",
@@ -207,7 +207,7 @@
     "href": "reviews.html#awaiting-reviewers-response",
     "title": "Software Review Overview",
     "section": "5/Awaiting Reviewer(s) Response",
-    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n11 days\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n7 days"
+    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n2 weeks\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n7 days"
   },
   {
     "objectID": "reviews.html#holding",
