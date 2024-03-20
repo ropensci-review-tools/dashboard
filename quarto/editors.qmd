@@ -133,7 +133,8 @@ gt::gt (
 start_time <- lubridate::ymd ("2020-01-01")
 timeline <- dplyr::filter (ed_timeline, month >= start_time) |>
     dplyr::filter (!name %in% c ("haozhu233")) |>
-    dplyr::rename (reviews = value)
+    dplyr::rename (reviews = value) |>
+    dplyr::filter (reviews > 0)
 
 # Information on max scale of reviews:
 i <- which.max (timeline$reviews) [1] # There is only one of these
@@ -148,6 +149,8 @@ timeline_stats <- timeline [timeline$name %in% eds_stats, ]
 timeline <- timeline [!timeline$name %in% eds_stats, ]
 timeline$y <- match (timeline$y, unique (timeline$y))
 timeline_stats$y <- match (timeline_stats$y, unique (timeline_stats$y))
+
+max_rev_n_stats <- max (timeline_stats$reviews)
 ```
 
 The following two graphs illustrate the previous load of each editor. These
@@ -156,9 +159,9 @@ who have had relatively low recent loads should be chosen in favor of those who
 have recently had higher loads.
 
 The thickness of lines represents numbers of concurrent submissions handled by
-each editor, and aggregated for each month. Widths range from zero reviews for
-the thinnest lines to a maximum of `r max_rev_n` by @`r max_rev_name` in
-`r max_rev_month`.
+each editor, and aggregated for each month. Widths range from one review for
+the thinnest lines to a maximum of `r max_rev_n` concurrent reviews during
+a single month by @`r max_rev_name` in `r max_rev_month`.
 
 
 ### General editors
@@ -193,7 +196,9 @@ ggplot2::ggplot (timeline, ggplot2::aes (x = month, y = y, colour = name)) +
 
 ### Statistical editors
 
-This chart illustrates the historical loads for statistical editors.
+This chart illustrates the historical loads for statistical editors, with line
+thicknesses in this case representing up to a maximum of `r max_rev_n_stats`
+concurrent reviews in a one-month period.
 
 ```{r set-fig-ht, echo = FALSE}
 # Scale height of next fig to proportional decrease in number of lines
