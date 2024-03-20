@@ -12,8 +12,25 @@ format:
 library (dashboard)
 library (gt)
 rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
-# The rest is code from dashboard/pkg/R/gh-table.R
+has_multiple_stages <- !is.null (attr (rev_dat, "multiple_stages"))
 ```
+
+```{r multiple-stages, eval = has_multiple_stages, echo = FALSE, results = "asis"}
+stages <- attr (rev_dat, "multiple_stages")
+u <- "https//github.com/ropensci/software-review/issues/"
+stages <- paste0 ("<a href='", u, stages, "'>", stages, "</a>")
+stages <- paste0 (stages, collapse = ", ")
+iss <- ifelse (length (stages) > 1L, "issues", "issue")
+v <- ifelse (length (stages) > 1L, "have", "has")
+cat (paste0 (
+    "<hr><span style='color:red'>The following ",
+    iss, " ", v,
+    " multiple stages:<br>",
+    stages,
+    "</span><br><hr>"
+))
+```
+
 
 ```{r add-html-to-table, echo = FALSE}
 u <- "https://github.com/ropensci/software-review/issues/"
