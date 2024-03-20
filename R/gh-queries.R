@@ -154,3 +154,53 @@ gh_issue_assignees_qry <- function (org = "ropensci",
 
     return (q)
 }
+
+#' Reduced version of 'gh_issues_qry()' that only returns dates and states, but
+#' for all issues (open and clsoed).
+#'
+#' @param org The GitHub organization.
+#' @param repo The GitHub repository.
+#' @param end_cursor The end cursor from the previous query.
+#'
+#' @return The GraphQL query to pass to a `gh::gh_gql()` call.
+#' @noRd
+gh_issues_qry_dates_states <- function (org = "ropensci",
+                                        repo = "software-review",
+                                        end_cursor = NULL) {
+
+    after_txt <- ""
+    if (!is.null (end_cursor)) {
+        after_txt <- paste0 (", after:\"", end_cursor, "\"")
+    }
+
+    q <- paste0 ("{
+        repository(owner:\"", org, "\", name:\"", repo, "\") {
+                   issues (first: 100", after_txt, ") {
+                       pageInfo {
+                           hasNextPage
+                           endCursor
+                       }
+                       edges {
+                           node {
+                               ... on Issue {
+                                   number
+                                   createdAt
+                                   closedAt
+                                   state
+                                   body
+                                   labels (first: 100) {
+                                       edges {
+                                           node {
+                                               name,
+                                           }
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+                }
+        }")
+
+    return (q)
+}

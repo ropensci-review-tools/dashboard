@@ -1,4 +1,4 @@
-#' Apply the query above to extract data from GitHub GraphQL API, and
+#' Apply the 'gh_issues_qry' query to extract data from GitHub GraphQL API, and
 #' post-process into a `data.frame`.
 #'
 #' @param quiet If `FALSE`, display progress information on screen.
@@ -38,19 +38,8 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         edges <- dat$data$repository$issues$edges
 
         submission_type <- c (
-            submission_type,
-            vapply (edges, function (i) {
-                b <- strsplit (i$node$body, "\\n") [[1]]
-                stype <- grep ("^Submission\\stype\\:", b, value = TRUE)
-                if (length (stype) == 0L) {
-                    return (NA_character_)
-                }
-                stype <- regmatches (stype, regexpr (">.*<", stype))
-                stype <- gsub ("^>|<$", "", stype)
-                return (stype)
-            }, character (1L))
+            submission_type, submission_type_from_body (edges)
         )
-
         number <- c (
             number,
             vapply (edges, function (i) i$node$number, integer (1L))
@@ -238,6 +227,33 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
     return (res)
 }
 
+#' Parse issue body to extract submission type
+#'
+#' @param edges The GraphQL 'edges' data as a list with one item for each issue,
+#' and each item including the issue body.
+#' @noRd
+submission_type_from_body <- function (edges) {
+
+    vapply (edges, function (i) {
+
+        b <- strsplit (i$node$body, "\\n") [[1]]
+        stype <- grep ("^Submission\\stype\\:", b, value = TRUE)
+        if (length (stype) == 0L) {
+            return (NA_character_)
+        }
+        if (grepl (">", stype)) {
+            stype <- regmatches (stype, regexpr (">.*<", stype))
+            stype <- gsub ("^>|<$", "", stype)
+        } else if (grepl ("\\:", stype)) {
+            stype <- gsub ("^.*\\:(\\s?)|\\\r$|\\\n$", "", stype)
+        } else {
+            stype <- NA_character_
+        }
+        return (stype)
+
+    }, character (1L))
+}
+
 #' Generate a summary report for incoming Editor-in-Charge of current state of
 #' all open software-review issues.
 #'
@@ -402,4 +418,103 @@ extract_comment_info <- function (dat) {
         rev2_assigned = rev2_assigned,
         rev2_due = rev2_due
     ))
+}
+
+#' Apply the 'gh_issues_qry_dates_states' query to extract data from GitHub
+#' GraphQL API, and post-process into a `data.frame`.
+#'
+#' This is a reduced version of the `reviews_gh_data()` function, which returns
+#' data only on dates of issue opening and closing, to be used to generate
+#' historical patterns.
+#'
+#' @param quiet If `FALSE`, display progress information on screen.
+#' @return (Invisibly) A `data.frame` with one row per issue and some key
+#' statistics.
+#' @noRd
+reviews_gh_data_dates_states <- function (open_only = TRUE, quiet = FALSE) {
+
+    has_next_page <- TRUE
+    end_cursor <- NULL
+
+    # Suppress no visible binding notes:
+    number <- opened_at <- closed_at <- submission_type <- state <- NULL
+    labels <- list ()
+
+    page_count <- 0L
+
+    while (has_next_page) {
+
+        q <- gh_issues_qry_dates_states (
+            org = "ropensci",
+            repo = "software-review",
+            end_cursor = end_cursor
+        )
+        dat <- gh::gh_gql (query = q)
+
+        has_next_page <- dat$data$repository$issues$pageInfo$hasNextPage
+        end_cursor <- dat$data$repository$issues$pageInfo$endCursor
+
+        edges <- dat$data$repository$issues$edges
+
+        number <- c (
+            number,
+            vapply (edges, function (i) i$node$number, integer (1L))
+        )
+        state <- c (
+            state,
+            vapply (edges, function (i) i$node$state, character (1L))
+        )
+        submission_type <- c (
+            submission_type, submission_type_from_body (edges)
+        )
+        labels <- c (
+            labels,
+            lapply (edges, function (i) unname (unlist (i$node$labels)))
+        )
+        opened_at <- c (
+            opened_at,
+            vapply (edges, function (i) i$node$createdAt, character (1L))
+        )
+        closed_at <- c (
+            closed_at,
+            vapply (edges, function (i) {
+                closed <- i$node$closedAt
+                ifelse (is.null (closed), NA_character_, closed)
+            }, character (1L))
+        )
+
+        page_count <- page_count + 1L
+        if (!quiet) {
+            message (
+                "Retrieved page [", page_count, "] to issue number [",
+                max (number), "]"
+            )
+        }
+    }
+
+    # Index of all historical full reviews + currently open submissions can be
+    # identified with by "6/approved" labels, or more recent 'submission_type'
+    # values:
+    approved <- vapply (labels, function (i) any (grepl ("^6", i)), logical (1L))
+    std_stats <- submission_type %in% c ("Standard", "Stats")
+    pkg_index <- which (approved | std_stats)
+
+    number <- number [pkg_index]
+    opened_at <- opened_at [pkg_index]
+    closed_at <- closed_at [pkg_index]
+    submission_type <- submission_type [pkg_index]
+    state <- state [pkg_index]
+
+    # labels are then only used to identify stats submissions:
+    stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
+
+    res <- data.frame (
+        number = number,
+        state = state,
+        stats = stats,
+        opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
+        closed_at = lubridate::date (lubridate::ymd_hms (closed_at))
+    ) |> dplyr::arrange (number)
+
+    return (res)
 }
