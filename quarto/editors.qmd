@@ -129,17 +129,19 @@ gt::gt (
 
 ## Past Editorial Load {#past-ed-load}
 
-The following two graphs illustrate the previous load of each editor. The
-thickness of lines represents numbers of concurrent submissions handled by each
-editor. These charts are intended as an additional aid in selecting handling
-editors. Editors who have had relatively low recent loads should be chosen in
-favor of those who have recently had higher loads.
-
-
 ```{r timeline-prepro, echo = FALSE}
 start_time <- lubridate::ymd ("2020-01-01")
 timeline <- dplyr::filter (ed_timeline, month >= start_time) |>
-    dplyr::filter (!name %in% c ("haozhu233"))
+    dplyr::filter (!name %in% c ("haozhu233")) |>
+    dplyr::rename (reviews = value)
+
+# Information on max scale of reviews:
+i <- which.max (timeline$reviews) [1] # There is only one of these
+max_reviews <- timeline [i, ]
+max_rev_name <- max_reviews$name
+max_rev_month <- max_reviews$month
+max_rev_n <- max_reviews$reviews
+
 xlab_pos <- as.Date (min (timeline$month) - lubridate::dmonths (12))
 eds_stats <- ed_status$editor [which (ed_status$stats)]
 timeline_stats <- timeline [timeline$name %in% eds_stats, ]
@@ -147,6 +149,17 @@ timeline <- timeline [!timeline$name %in% eds_stats, ]
 timeline$y <- match (timeline$y, unique (timeline$y))
 timeline_stats$y <- match (timeline_stats$y, unique (timeline_stats$y))
 ```
+
+The following two graphs illustrate the previous load of each editor. These
+charts are intended as an additional aid in selecting handling editors. Editors
+who have had relatively low recent loads should be chosen in favor of those who
+have recently had higher loads.
+
+The thickness of lines represents numbers of concurrent submissions handled by
+each editor, and aggregated for each month. Widths range from zero reviews for
+the thinnest lines to a maximum of `r max_rev_n` by @`r max_rev_name` in
+`r max_rev_month`.
+
 
 ### General editors
 
@@ -156,7 +169,7 @@ editors.
 ::: {style="all.initial;"}
 ```{r timeline-ed-plot, echo = FALSE, fig.width = 8, fig.height = 8}
 ggplot2::ggplot (timeline, ggplot2::aes (x = month, y = y, colour = name)) +
-    ggplot2::geom_line (ggplot2::aes (linewidth = value)) +
+    ggplot2::geom_line (ggplot2::aes (linewidth = reviews)) +
     ggplot2::scale_linewidth (range = c (1, 25)) +
     ggplot2::geom_text (
         ggplot2::aes (x = xlab_pos, y = y, label = name),
@@ -180,7 +193,7 @@ ggplot2::ggplot (timeline, ggplot2::aes (x = month, y = y, colour = name)) +
 
 ### Statistical editors
 
-This  chart illustrates the historical loads for statistical editors.
+This chart illustrates the historical loads for statistical editors.
 
 ```{r set-fig-ht, echo = FALSE}
 # Scale height of next fig to proportional decrease in number of lines
@@ -195,7 +208,7 @@ knitr::opts_chunk$set (fig.height = ht)
 ::: {style="all.initial;"}
 ```{r timeline-stats-ed-plot, echo = FALSE, fig.width = 8}
 ggplot2::ggplot (timeline_stats, ggplot2::aes (x = month, y = y, colour = name)) +
-    ggplot2::geom_line (ggplot2::aes (linewidth = value)) +
+    ggplot2::geom_line (ggplot2::aes (linewidth = reviews)) +
     ggplot2::scale_linewidth (range = c (1, 25)) +
     ggplot2::geom_text (
         ggplot2::aes (x = xlab_pos, y = y, label = name),
