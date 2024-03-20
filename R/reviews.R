@@ -169,8 +169,8 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
 
     # Also identify any issues with multiple stages:
     multiple_stages <- vapply (event_labels, function (i) {
-        n_total <- length (grep ("^[0-9]\\/", i))
-        n_approved <- length (grep ("^6\\/", i))
+        n_total <- length (grep ("^[0-9]\\/", unique (i)))
+        n_approved <- length (grep ("^6\\/", unique (i)))
         n_total > 1L && n_total != n_approved
     }, logical (1L))
 
