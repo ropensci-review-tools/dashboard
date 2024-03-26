@@ -5,6 +5,7 @@ website:
   title: "rOpenSci Dashboard"
   favicon: favicon-32x32.png
   navbar:
+    pinned: true
     left:
       - editors.qmd
       - ed-reviews.qmd
