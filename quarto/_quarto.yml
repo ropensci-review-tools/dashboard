@@ -6,12 +6,13 @@ website:
   favicon: favicon-32x32.png
   navbar:
     left:
-      - href: https://github.com/ropensci-review-tools/dashboard
-        icon: "github"
       - editors.qmd
       - ed-reviews.qmd
       - reviews.qmd
       - history.qmd
+    right:
+      - href: https://github.com/ropensci-review-tools/dashboard
+        icon: "github"
 
 format:
   html:
