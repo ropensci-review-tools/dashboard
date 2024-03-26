@@ -12,8 +12,12 @@ website:
       - reviews.qmd
       - history.qmd
     right:
-      - href: https://github.com/ropensci-review-tools/dashboard
-        icon: "github"
+      - icon: "github"
+        menu:
+          - text: Source Code
+            url: https://github.com/ropensci-review-tools/dashboard
+          - text: Request a Feature
+            url: https://github.com/ropensci-review-tools/dashboard/issues/new
 
 format:
   html:
