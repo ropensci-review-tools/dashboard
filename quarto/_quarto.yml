@@ -5,8 +5,6 @@ website:
   title: "rOpenSci Dashboard"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
       - editors.qmd
       - ed-reviews.qmd
       - reviews.qmd
