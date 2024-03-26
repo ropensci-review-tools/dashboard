@@ -22,33 +22,43 @@ dat <- review_history (quiet = TRUE)
 ## Package submissions
 
 This chart shows the total number of packages *submitted for review* each
-half-year. Main lines shows numbers of reviews for all packages, with trends
+quarter. Main lines shows numbers of reviews for all packages, with trends
 distinguishing general review from statistical software review starting from
 September 2021. Prior to this time, all reviews were "general".
 
 ```{r history-submissions, echo = FALSE}
 # Convert opened/closed dates to monthly sequence This is adapted from the editors
 # timeline code in R/editors.R.
-get_submissions <- function (dat) {
-    # seqs <- lubridate::quarter (dat$opened_at, type = "date_first")
-    seqs <- lubridate::semester (dat$opened_at, with_year = TRUE)
+get_submissions <- function (dat, period = "quarter") {
+
+    period <- match.arg (period, c ("quarter", "semester"))
+
+    if (period == "quarter") {
+        seqs <- lubridate::quarter (dat$opened_at, type = "date_first")
+    } else if (period == "semester") {
+        seqs <- lubridate::semester (dat$opened_at, with_year = TRUE)
+    }
     seq_table <- table (unlist (seqs))
     nms <- names (seq_table)
-    nms <- gsub ("\\.1$", "-01-01", nms)
-    nms <- gsub ("\\.2$", "-07-01", nms)
+    if (period == "semester") {
+        nms <- gsub ("\\.1$", "-01-01", nms)
+        nms <- gsub ("\\.2$", "-07-01", nms)
+    }
     data.frame (
         date = lubridate::ymd (nms),
         submissions = as.integer (seq_table)
     )
 }
 
-submissions_all <- get_submissions (dat)
+# NOTE: Text needs to be changed to reflect changes in `period` here.
+period <- "quarter"
+submissions_all <- get_submissions (dat, period = period)
 submissions_all$type <- "all"
 submissions_all$lty <- 1L
-submissions_gen <- get_submissions (dat [which (!dat$stats), ])
+submissions_gen <- get_submissions (dat [which (!dat$stats), ], period = period)
 submissions_gen$type <- "general"
 submissions_gen$lty <- 2L
-submissions_stats <- get_submissions (dat [which (dat$stats), ])
+submissions_stats <- get_submissions (dat [which (dat$stats), ], period = period)
 submissions_stats$type <- "stats"
 submissions_stats$lty <- 1L
 
@@ -59,10 +69,11 @@ submissions_gen <- submissions_gen [index, ]
 submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
 ```
 ```{r plot-submission-history, echo = FALSE}
+ytxt <- paste0 ("Nr. submissions / ", ifelse (period == "quarter", "quarter", "half-year"))
 ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
     geom_line (linetype = submissions$lty) +
     xlab ("Year") +
-    ylab ("Nr. active submissions / half-year") +
+    ylab (ytxt) +
     theme_minimal () +
     theme (
         legend.position = "inside",
@@ -72,45 +83,58 @@ ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
 
 ## Packages under review
 
-This chart shows numbers of packages *simultaneously under review* each month,
+This chart shows numbers of packages *simultaneously under review* each quarter,
 with same lines as previous graph.
 
 
 ```{r history-months, echo = FALSE}
-# Convert opened/closed dates to monthly sequence This is adapted from the editors
-# timeline code in R/editors.R.
-get_monthly_reviews <- function (dat) {
+get_reviews <- function (dat, period = "quarter") {
+    period <- match.arg (period, c ("quarter", "semester"))
+
+    if (period == "quarter") {
+        seqs <- lubridate::quarter (dat$opened_at, type = "date_first")
+    } else if (period == "semester") {
+        seqs <- lubridate::semester (dat$opened_at, with_year = TRUE)
+    }
     dat$closed_at [which (is.na (dat$closed_at))] <- Sys.Date ()
-    month_seqs <- lapply (seq_len (nrow (dat)), function (i) {
+    date_seqs <- lapply (seq_len (nrow (dat)), function (i) {
         s <- seq (dat$opened_at [i], dat$closed_at [i], by = "1 month")
-        format (s, "%Y-%m")
+        if (period == "quarter") {
+            s <- unique (lubridate::quarter (s, type = "date_first"))
+        } else if (period == "semester") {
+            s <- as.character (unique (lubridate::semester (s, with_year = TRUE)))
+            s <- gsub ("\\.1$", "-01-01", s)
+            s <- gsub ("\\.2$", "-07-01", s)
+            s <- lubridate::ymd (s)
+        }
+        return (as.character (s))
     })
-    month_seq_table <- table (unlist (month_seqs))
+    date_seq_table <- table (unlist (date_seqs))
     data.frame (
-        month = lubridate::ymd (paste0 (names (month_seq_table), "-01")),
-        reviews = as.integer (month_seq_table)
+        date = lubridate::ymd (names (date_seq_table)),
+        reviews = as.integer (date_seq_table)
     )
 }
 
-monthly_reviews <- get_monthly_reviews (dat)
-monthly_reviews$type <- "all"
-monthly_reviews$lty <- 1L
-monthly_reviews_gen <- get_monthly_reviews (dat [which (!dat$stats), ])
-monthly_reviews_gen$type <- "general"
-monthly_reviews_gen$lty <- 2L
-monthly_reviews_stats <- get_monthly_reviews (dat [which (dat$stats), ])
-monthly_reviews_stats$type <- "stats"
-monthly_reviews_stats$lty <- 1L
+reviews_all <- get_reviews (dat)
+reviews_all$type <- "all"
+reviews_all$lty <- 1L
+reviews_gen <- get_reviews (dat [which (!dat$stats), ])
+reviews_gen$type <- "general"
+reviews_gen$lty <- 2L
+reviews_stats <- get_reviews (dat [which (dat$stats), ])
+reviews_stats$type <- "stats"
+reviews_stats$lty <- 1L
 
-index <- which (monthly_reviews_gen$month %in% monthly_reviews_stats$month)
+index <- which (reviews_gen$date %in% reviews_stats$date)
 index <- c (min (index) - 1L, index) # To ensure line joins to previous
-monthly_reviews_gen <- monthly_reviews_gen [index, ]
+reviews_gen <- reviews_gen [index, ]
 
-reviews <- rbind (monthly_reviews, monthly_reviews_gen, monthly_reviews_stats)
+reviews <- rbind (reviews_all, reviews_gen, reviews_stats)
 ```
 
 ```{r plot-review-history, echo = FALSE}
-ggplot (reviews, aes (x = month, y = reviews, colour = type)) +
+ggplot (reviews, aes (x = date, y = reviews, colour = type)) +
     geom_line (linetype = reviews$lty) +
     xlab ("Year") +
     ylab ("Nr. active reviews / month") +
