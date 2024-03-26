@@ -154,41 +154,70 @@ smoothed to aid visual display.)
 ```{r rev-duration, echo = FALSE}
 dat_closed <- dat [which (dat$state == "CLOSED"), ]
 period <- "quarter" # (month, quarter, semester)
-if (period == "month") {
-    dates <- paste0 (format (dat_closed$opened_at, "%Y-%m"), "-01")
-} else if (period == "quarter") {
-    dates <- lubridate::quarter (dat_closed$opened_at, type = "date_first")
-} else if (period == "semester") {
-    s <- lubridate::semester (dat_closed$opened_at)
-    dates <- paste0 (
-        lubridate::year (dat_closed$opened_at),
-        c ("-01-01", "-07-01") [s]
-    )
+
+get_rev_durations <- function (dat, period = "quarter", flen = 3) {
+
+    period <- match.arg (period, c ("quarter", "semester"))
+
+    if (period == "month") {
+        dates <- paste0 (format (dat$opened_at, "%Y-%m"), "-01")
+    } else if (period == "quarter") {
+        dates <- lubridate::quarter (dat$opened_at, type = "date_first")
+    } else if (period == "semester") {
+        s <- lubridate::semester (dat$opened_at)
+        dates <- paste0 (
+            lubridate::year (dat$opened_at),
+            c ("-01-01", "-07-01") [s]
+        )
+    }
+
+    rev_dur <- data.frame (
+        date = lubridate::ymd (dates),
+        duration = dat$duration_days * 12 / 365
+    ) |>
+        dplyr::group_by (date) |>
+        dplyr::summarise (dur = mean (duration, na.rm = TRUE))
+    # Those quarterly data are quite jumpy, so apply a filter:
+    filter_dat <- function (dat, flen = 5) {
+        index <- seq_len (length (dat) - flen + 1) + floor (flen / 2)
+        x <- seq_len (flen) - ceiling (flen / 2)
+        x <- -abs (x)
+        filt <- exp (x)
+        filt <- filt / sum (filt)
+        dat [index] <- filter (dat, filt) [index]
+        return (dat)
+    }
+    rev_dur$dur <- filter_dat (rev_dur$dur, flen = flen)
+
+    return (rev_dur)
 }
 
-rev_dur <- data.frame (
-    date = lubridate::ymd (dates),
-    duration = dat_closed$duration_days * 12 / 365
-) |>
-    dplyr::group_by (date) |>
-    dplyr::summarise (dur = mean (duration, na.rm = TRUE))
-# Those quarterly data are quite jumpy, so apply a filter:
-filter_dat <- function (dat, flen = 5) {
-    index <- seq_len (length (dat) - flen + 1) + floor (flen / 2)
-    x <- seq_len (flen) - ceiling (flen / 2)
-    x <- -abs (x)
-    filt <- exp (x)
-    filt <- filt / sum (filt)
-    dat [index] <- filter (dat, filt) [index]
-    return (dat)
-}
-rev_dur$dur <- filter_dat (rev_dur$dur, flen = 3)
+rev_dur_all <- get_rev_durations (dat_closed)
+rev_dur_all$type <- "all"
+rev_dur_all$lty <- 1L
+rev_dur_gen <- get_rev_durations (dat_closed [which (!dat_closed$stats), ])
+rev_dur_gen$type <- "general"
+rev_dur_gen$lty <- 2L
+rev_dur_stats <- get_rev_durations (dat_closed [which (dat_closed$stats), ])
+rev_dur_stats$type <- "stats"
+rev_dur_stats$lty <- 1L
+
+index <- which (rev_dur_gen$date %in% rev_dur_stats$date)
+index <- c (min (index) - 1L, index) # To ensure line joins to previous
+rev_dur_gen <- rev_dur_gen [index, ]
+
+rev_dur <- rbind (rev_dur_all, rev_dur_gen, rev_dur_stats)
 ```
 
-```{r rev-duration-plot, echo = FALSE}
-ggplot (rev_dur, aes (x = date, y = dur)) +
-    geom_line () +
+```{r rev-duration-plot, echo = FALSE, warning = FALSE}
+ggplot (rev_dur, aes (x = date, y = dur, colour = type)) +
+    geom_line (linetype = rev_dur$lty) +
     theme_minimal () +
     xlab ("Year") +
-    ylab ("Review Duration (months)")
+    ylab ("Review Duration (months)") +
+    ylim (c (0, 11)) +
+    theme (
+        legend.position = "inside",
+        legend.position.inside = c (0.1, 0.8)
+    )
 ```
