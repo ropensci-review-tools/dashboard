@@ -5,6 +5,8 @@ website:
   title: "rOpenSci Dashboard"
   navbar:
     left:
+      - href: https://github.com/ropensci-review-tools/dashboard
+        icon: "github"
       - editors.qmd
       - ed-reviews.qmd
       - reviews.qmd
