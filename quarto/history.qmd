@@ -152,11 +152,25 @@ against the months in which each review started. (The data have been slightly
 smoothed to aid visual display.)
 
 ```{r rev-duration, echo = FALSE}
+dat_closed <- dat [which (dat$state == "CLOSED"), ]
+period <- "quarter" # (month, quarter, semester)
+if (period == "month") {
+    dates <- paste0 (format (dat_closed$opened_at, "%Y-%m"), "-01")
+} else if (period == "quarter") {
+    dates <- lubridate::quarter (dat_closed$opened_at, type = "date_first")
+} else if (period == "semester") {
+    s <- lubridate::semester (dat_closed$opened_at)
+    dates <- paste0 (
+        lubridate::year (dat_closed$opened_at),
+        c ("-01-01", "-07-01") [s]
+    )
+}
+
 rev_dur <- data.frame (
-    quarter = lubridate::quarter (dat$opened_at, type = "date_first"),
-    duration = dat$duration_days * 12 / 365
+    date = lubridate::ymd (dates),
+    duration = dat_closed$duration_days * 12 / 365
 ) |>
-    dplyr::group_by (quarter) |>
+    dplyr::group_by (date) |>
     dplyr::summarise (dur = mean (duration, na.rm = TRUE))
 # Those quarterly data are quite jumpy, so apply a filter:
 filter_dat <- function (dat, flen = 5) {
@@ -172,7 +186,7 @@ rev_dur$dur <- filter_dat (rev_dur$dur, flen = 3)
 ```
 
 ```{r rev-duration-plot, echo = FALSE}
-ggplot (rev_dur, aes (x = quarter, y = dur)) +
+ggplot (rev_dur, aes (x = date, y = dur)) +
     geom_line () +
     theme_minimal () +
     xlab ("Year") +
