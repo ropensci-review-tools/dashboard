@@ -3,6 +3,7 @@ project:
 
 website:
   title: "rOpenSci Dashboard"
+  favicon: favicon-32x32.png
   navbar:
     left:
       - href: https://github.com/ropensci-review-tools/dashboard
