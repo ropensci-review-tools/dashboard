@@ -7,9 +7,10 @@ format:
     code-fold: false
 ---
 
-```{r load-pkg, echo = FALSE}
+```{r load-pkg, echo = FALSE, message = FALSE}
 library (dashboard)
 library (ggplot2)
+library (lubridate)
 ```
 
 
@@ -18,10 +19,61 @@ library (ggplot2)
 dat <- review_history (quiet = TRUE)
 ```
 
-This chart shows the total number of packages under review each month. Main lines
-shows numbers of reviews for all packages, with trends distinguishing general
-review from statistical software review starting from September 2021. Prior to
-this time, all reviews were "general".
+## Package submissions
+
+This chart shows the total number of packages *submitted for review* each
+half-year. Main lines shows numbers of reviews for all packages, with trends
+distinguishing general review from statistical software review starting from
+September 2021. Prior to this time, all reviews were "general".
+
+```{r history-submissions, echo = FALSE}
+# Convert opened/closed dates to monthly sequence This is adapted from the editors
+# timeline code in R/editors.R.
+get_submissions <- function (dat) {
+    # seqs <- lubridate::quarter (dat$opened_at, type = "date_first")
+    seqs <- lubridate::semester (dat$opened_at, with_year = TRUE)
+    seq_table <- table (unlist (seqs))
+    nms <- names (seq_table)
+    nms <- gsub ("\\.1$", "-01-01", nms)
+    nms <- gsub ("\\.2$", "-07-01", nms)
+    data.frame (
+        date = lubridate::ymd (nms),
+        submissions = as.integer (seq_table)
+    )
+}
+
+submissions_all <- get_submissions (dat)
+submissions_all$type <- "all"
+submissions_all$lty <- 1L
+submissions_gen <- get_submissions (dat [which (!dat$stats), ])
+submissions_gen$type <- "general"
+submissions_gen$lty <- 2L
+submissions_stats <- get_submissions (dat [which (dat$stats), ])
+submissions_stats$type <- "stats"
+submissions_stats$lty <- 1L
+
+index <- which (submissions_gen$date %in% submissions_stats$date)
+index <- c (min (index) - 1L, index) # To ensure line joins to previous
+submissions_gen <- submissions_gen [index, ]
+
+submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
+```
+```{r plot-submission-history, echo = FALSE}
+ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
+    geom_line (linetype = submissions$lty) +
+    xlab ("Year") +
+    ylab ("Nr. active submissions / half-year") +
+    theme_minimal () +
+    theme (
+        legend.position = "inside",
+        legend.position.inside = c (0.1, 0.8)
+    )
+```
+
+## Packages under review
+
+This chart shows numbers of packages *simultaneously under review* each month,
+with same lines as previous graph.
 
 
 ```{r history-months, echo = FALSE}
@@ -68,6 +120,8 @@ ggplot (reviews, aes (x = month, y = reviews, colour = type)) +
         legend.position.inside = c (0.1, 0.8)
     )
 ```
+
+## Review duration
 
 The next chart shows the average duration of the review process, plotted
 against the months in which each review started. (The data have been slightly
