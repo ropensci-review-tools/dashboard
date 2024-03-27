@@ -184,7 +184,7 @@ get_rev_durations <- function (dat, period = "quarter", flen = 3) {
         x <- -abs (x)
         filt <- exp (x)
         filt <- filt / sum (filt)
-        dat [index] <- filter (dat, filt) [index]
+        dat [index] <- stats::filter (dat, filt) [index]
         return (dat)
     }
     rev_dur$dur <- filter_dat (rev_dur$dur, flen = flen)
