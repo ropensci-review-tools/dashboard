@@ -2,7 +2,8 @@
 % Please edit documentation in R/editors.R
 \name{editor_status}
 \alias{editor_status}
-\title{Generate a summary report of current state of all rOpenSci editors}
+\title{Generate summary data of current and historical activities of all rOpenSci
+editors}
 \usage{
 editor_status(quiet = FALSE, aggregation_period = "quarter")
 }
@@ -13,8 +14,19 @@ editor_status(quiet = FALSE, aggregation_period = "quarter")
 editorial loads. Must be one of "month", "quarter", or "semester".}
 }
 \value{
-A `data.frame` with one row per issue and some key statistics.
+A list of four items:
+\itemize{
+\item{'status', a `data.frame` of current editor status, with one row per
+editor and some key statistics.}
+\item{'timeline_total', a `data.frame` representing the timelines for each
+editor of total concurrent editorial load.}
+\item{'timeline_new', a `data.frame` representing the timelines for each
+editor of editorial load of new issues opened in each time period (default of
+quarter-year.}
+\item{'reviews', a `data.frame` with one row per issue and some key
+statistics.} }
 }
 \description{
-Generate a summary report of current state of all rOpenSci editors
+Generate summary data of current and historical activities of all rOpenSci
+editors
 }

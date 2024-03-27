@@ -295,12 +295,23 @@ editor_reviews <- function (assignees, number, titles, state,
         dplyr::arrange (tolower (assignees), number)
 }
 
-#' Generate a summary report of current state of all rOpenSci editors
+#' Generate summary data of current and historical activities of all rOpenSci
+#' editors
 #'
 #' @param aggregation_period The time period for aggregation of timeline for
 #' editorial loads. Must be one of "month", "quarter", or "semester".
 #' @param quiet If `FALSE`, display progress information on screen.
-#' @return A `data.frame` with one row per issue and some key statistics.
+#' @return A list of four items:
+#' \itemize{
+#' \item{'status', a `data.frame` of current editor status, with one row per
+#' editor and some key statistics.}
+#' \item{'timeline_total', a `data.frame` representing the timelines for each
+#' editor of total concurrent editorial load.}
+#' \item{'timeline_new', a `data.frame` representing the timelines for each
+#' editor of editorial load of new issues opened in each time period (default of
+#' quarter-year.}
+#' \item{'reviews', a `data.frame` with one row per issue and some key
+#' statistics.} }
 #' @export
 
 editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
@@ -323,8 +334,8 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
     dat$latest$inactive_for <- dtime$dtime
 
     # Suppress no visible binding notes:\
-    stats <- status <- updated_at <- editor <- state <- inactive_for <-
-        number <- inactive_days <- NULL
+    stats <- status <- updated_at <- editor <- inactive_for <-
+        inactive_days <- NULL
 
     # desc status so "Free" before "Busy"
     status <- dplyr::arrange (
@@ -338,13 +349,16 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
 
     # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes
-    timeline_total <- dat$timeline$issues_total
-    timeline_total$month <-
-        lubridate::ymd (paste0 (rownames (dat$timeline$issues_total), "-01"))
-    timeline_total <- tidyr::pivot_longer (timeline_total, cols = -month) |>
-        dplyr::arrange (tolower (name), month)
-    eds <- unique (timeline_total$name)
-    timeline_total$y <- match (timeline_total$name, eds)
+    process_timeline <- function (dat, what = "issues_total") {
+        what <- match.arg (what, c ("issues_total", "issues_new"))
+        timeline <- dat$timeline [[what]]
+        nms <- rownames (timeline)
+        timeline$month <- lubridate::ymd (paste0 (nms, "-01"))
+        timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
+            dplyr::arrange (tolower (name), month)
+    }
+    timeline_total <- process_timeline (dat, what = "issues_total")
+    timeline_new <- process_timeline (dat, what = "issues_new")
 
     # Finally, reviews for each editor
     ed_rev <- split (dat$reviews, f = as.factor (dat$reviews$editor))
@@ -357,6 +371,7 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
     return (list (
         status = status,
         timeline_total = timeline_total,
+        timeline_new = timeline_new,
         reviews = ed_rev
     ))
 }
