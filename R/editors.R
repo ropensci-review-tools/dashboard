@@ -197,8 +197,11 @@ clean_assignees <- function (assignees, editors) {
 #' @param closed_at Vector of issue closing times
 #' @param aggregation_period The time period for aggregation. Must be one of
 #' "month", "quarter", or "semester".
-#' @return A matrix with one column for each editor, and a tally of concurrent
-#' reviews for each time period, as defined by the row names.
+#' @return A list of two `data.frame` objects, each with one column for each
+#' editor, and rows tallying reviews for each time period, as defined by the row
+#' names. The first list item is "issues_total", which tallies the total number
+#' of concurrent issues, while the second is "issues_new", which tallies the
+#' number of new issues assigned to each editor in each of the defined periods.
 #' @noRd
 editor_timeline <- function (editors, assignees, state,
                              opened_at, updated_at, closed_at,
@@ -245,7 +248,7 @@ editor_timeline <- function (editors, assignees, state,
     }
     all_periods <- format (all_periods, "%Y-%m")
 
-    timelines <- new_issues <- matrix (
+    issues_total <- issues_new <- matrix (
         0L,
         nrow = length (all_periods),
         ncol = length (editors$login),
@@ -256,11 +259,17 @@ editor_timeline <- function (editors, assignees, state,
         for (j in index) {
             seq_j <- seq (start_periods [j], end_periods [j], by = period_txt)
             index_j <- match (format (seq_j, "%Y-%m"), all_periods)
-            timelines [index_j, i] <- timelines [index_j, i] + 1L
+            issues_total [index_j, i] <- issues_total [index_j, i] + 1L
+
+            index_j <- match (format (start_periods [j], "%Y-%m"), all_periods)
+            issues_new [index_j, i] <- issues_new [index_j, i] + 1L
         }
     }
 
-    data.frame (timelines)
+    list (
+        issues_total = data.frame (issues_total),
+        issues_new = data.frame (issues_new)
+    )
 }
 
 #' Collate reviews by editor
@@ -318,8 +327,9 @@ editor_status <- function (quiet = FALSE) {
 
     # Then editor timeline
     month <- name <- NULL # Suppress no visible binding notes
-    timeline <- dat$timeline
-    timeline$month <- lubridate::ymd (paste0 (rownames (dat$timeline), "-01"))
+    timeline <- dat$timeline$issues_total
+    timeline$month <-
+        lubridate::ymd (paste0 (rownames (dat$timeline$issues_total), "-01"))
     timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
         dplyr::arrange (tolower (name), month)
     eds <- unique (timeline$name)
