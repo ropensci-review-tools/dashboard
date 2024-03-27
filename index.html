@@ -24,7 +24,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -107,11 +106,23 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/ropensci-review-tools/dashboard"> <i class="bi bi-github" role="img">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
 </i> 
-<span class="menu-text"></span></a>
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ropensci-review-tools/dashboard">
+ <span class="dropdown-text">Source Code</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/ropensci-review-tools/dashboard/issues/new">
+ <span class="dropdown-text">Request a Feature</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
           <div class="quarto-navbar-tools">
