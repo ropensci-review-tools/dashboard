@@ -18,9 +18,11 @@ library (viridis)
 
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
 #| cache: true
-ed_dat <- editor_status (quiet = TRUE)
+aggregation_period <- "quarter"
+ed_dat <- editor_status (aggregation_period = aggregation_period, quiet = TRUE)
 ed_status <- ed_dat$status
 ed_timeline_total <- ed_dat$timeline_total
+ed_timeline_new <- ed_dat$timeline_new
 ```
 
 ## Editor Overview
@@ -156,20 +158,38 @@ max_reviews <- max (timeline$reviews)
 
 The following two graphs illustrate the previous workload of rOpenSci editors.
 No editor should concurrently handle more than `r min_reviews` reviews. This
-graph therefore only shows data for cases where editorial loads have exceeded
-that number, with colors scaled from very light yellow for just over five
-concurrent reviews, up to red for the maximum of `r max_reviews` concurrent
-reviews.
+graph therefore only shows data for cases where individual editorial loads have
+exceeded that number, with colors scaled from very light yellow for just over
+`r min_reviews` concurrent reviews, up to red for the maximum of
+`r max_reviews` concurrent reviews.
 
 ::: {style="all.initial;"}
 ```{r timeline-ed-plot, echo = FALSE, fig.width = 8, fig.height = 8}
+strip_col <- "#12DD4355"
+bg_col <- "#DDDDDD55"
+
 ggplot (timeline, aes (x = month, y = reviews, fill = col)) +
     geom_col (width = 70) +
+    scale_y_continuous (position = "right") +
     scale_fill_identity () +
-    facet_grid (rows = vars (name)) +
+    facet_wrap (
+        ~name,
+        ncol = 1,
+        strip.position = "left"
+    ) +
     xlab ("Year") +
     ylab ("Numbers of concurrent reviews / quarter") +
     theme_minimal () +
-    theme (legend.position = "none")
+    theme (
+        plot.background = element_rect (fill = bg_col),
+        panel.grid.major = element_line (colour = "#CCCCCC"),
+        panel.grid.minor = element_blank (),
+        legend.position = "none",
+        axis.text.x = element_text (size = 12),
+        axis.text.y = element_text (size = 10),
+        axis.title = element_text (size = 14),
+        strip.text = element_text (size = 20),
+        strip.background = element_rect (fill = strip_col, colour = strip_col)
+    )
 ```
 :::
