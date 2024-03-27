@@ -325,15 +325,15 @@ editor_status <- function (quiet = FALSE) {
         dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
         dplyr::ungroup ()
 
-    # Then editor timeline
+    # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes
-    timeline <- dat$timeline$issues_total
-    timeline$month <-
+    timeline_total <- dat$timeline$issues_total
+    timeline_total$month <-
         lubridate::ymd (paste0 (rownames (dat$timeline$issues_total), "-01"))
-    timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
+    timeline_total <- tidyr::pivot_longer (timeline_total, cols = -month) |>
         dplyr::arrange (tolower (name), month)
-    eds <- unique (timeline$name)
-    timeline$y <- match (timeline$name, eds)
+    eds <- unique (timeline_total$name)
+    timeline_total$y <- match (timeline_total$name, eds)
 
     # Finally, reviews for each editor
     ed_rev <- split (dat$reviews, f = as.factor (dat$reviews$editor))
@@ -345,7 +345,7 @@ editor_status <- function (quiet = FALSE) {
 
     return (list (
         status = status,
-        timeline = timeline,
+        timeline_total = timeline_total,
         reviews = ed_rev
     ))
 }

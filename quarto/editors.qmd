@@ -20,7 +20,7 @@ library (viridis)
 #| cache: true
 ed_dat <- editor_status (quiet = TRUE)
 ed_status <- ed_dat$status
-ed_timeline <- ed_dat$timeline
+ed_timeline_total <- ed_dat$timeline_total
 ```
 
 ## Editor Overview
@@ -141,7 +141,7 @@ gt::gt (
 
 ```{r timeline-prepro, echo = FALSE}
 start_time <- lubridate::ymd ("2020-01-01")
-timeline <- dplyr::filter (ed_timeline, month >= start_time) |>
+timeline <- dplyr::filter (ed_timeline_total, month >= start_time) |>
     dplyr::filter (!name %in% c ("haozhu233")) |>
     dplyr::rename (reviews = value) |>
     dplyr::filter (reviews > 0)
