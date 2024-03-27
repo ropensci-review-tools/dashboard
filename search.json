@@ -179,7 +179,7 @@
     "href": "editors.html#past-ed-load",
     "title": "rOpenSci Editors",
     "section": "Past Editorial Load",
-    "text": "Past Editorial Load\nThe following two graphs illustrate the previous workload of rOpenSci editors. No editor should concurrently handle more than 5 reviews. This graph therefore only shows data for cases where editorial loads have exceeded that number, with colors scaled from very light yellow for just over five concurrent reviews, up to red for the maximum of 16 concurrent reviews."
+    "text": "Past Editorial Load\nThe following two graphs illustrate the previous workload of rOpenSci editors. We try to adhere to the following two guidelines:\n\nNo editor should concurrently handle more than 5 reviews.\nNo editor should handle more than 2 new submissions per quarter.\n\nThe first graph shows cases where total numbers of concurrent reviews by individual editors have exceeded the maximum expected value of 16. Colors are scaled from very light yellow for just over 5 concurrent reviews, up to red for the maximum of 16 concurrent reviews.\n\n\n\n\n\n\n\n\n\n\n\nThis second graph shows cases in which numbers of new submissions per quarter have exceeded the maximum expected value of 2."
   },
   {
     "objectID": "reviews.html",
