@@ -142,33 +142,38 @@ gt::gt (
 
 ## Past Editorial Load {#past-ed-load}
 
-```{r timeline-prepro, echo = FALSE}
-min_reviews <- 5L # Don't show any data for reviews <= this value
-start_time <- lubridate::ymd ("2015-01-01")
-timeline <- dplyr::filter (ed_timeline_total, month >= start_time) |>
+```{r timelines-prepro, echo = FALSE}
+min_rev_total <- 5L # Don't show any data for reviews <= this value
+start_time <- lubridate::ymd ("2016-01-01")
+timeline_total <- dplyr::filter (ed_timeline_total, month >= start_time) |>
     dplyr::filter (!name %in% c ("haozhu233")) |>
     dplyr::rename (reviews = value) |>
-    dplyr::filter (reviews > min_reviews)
+    dplyr::filter (reviews > min_rev_total)
 
-ncols <- diff (range (timeline$reviews)) + 1L
+ncols <- diff (range (timeline_total$reviews)) + 1L
 cols <- rev (heat.colors (ncols))
-timeline$col <- cols [timeline$reviews - min_reviews]
-max_reviews <- max (timeline$reviews)
+timeline_total$col <- cols [timeline_total$reviews - min_rev_total]
+max_reviews <- max (timeline_total$reviews)
+
+timeline_new <- dplyr::filter (ed_timeline_new, month >= start_time) |>
+    dplyr::filter (!name %in% c ("haozhu233")) |>
+    dplyr::rename (reviews = value) |>
+    dplyr::filter (reviews > min_rev_total)
 ```
 
 The following two graphs illustrate the previous workload of rOpenSci editors.
-No editor should concurrently handle more than `r min_reviews` reviews. This
+No editor should concurrently handle more than `r min_rev_total` reviews. This
 graph therefore only shows data for cases where individual editorial loads have
 exceeded that number, with colors scaled from very light yellow for just over
-`r min_reviews` concurrent reviews, up to red for the maximum of
+`r min_rev_total` concurrent reviews, up to red for the maximum of
 `r max_reviews` concurrent reviews.
 
 ::: {style="all.initial;"}
-```{r timeline-ed-plot, echo = FALSE, fig.width = 8, fig.height = 8}
+```{r timeline_total-plot, echo = FALSE, fig.width = 8, fig.height = 8}
 strip_col <- "#12DD4355"
 bg_col <- "#DDDDDD55"
 
-ggplot (timeline, aes (x = month, y = reviews, fill = col)) +
+ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
     geom_col (width = 70) +
     scale_y_continuous (position = "right") +
     scale_fill_identity () +
