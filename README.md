@@ -23,8 +23,27 @@ using:
 remotes::install_github ("ropensci-review-tools/dashboard")
 ```
 
-The website can be locally previewed by running `quarto preview` in the
-`quarto` directory, using the locally-installed version of the "dashboard"
-package. This means that any updates to the package itself will only be
-rendered on the quarto website once those changes have been pushed and the
-package locally re-installed using the `install_github` command above.
+## makefile commands
+
+This repository includes [a
+makefile](https://github.com/ropensci-review-tools/dashboard/blob/main/makefile)
+with several commands. Typing `make` in the root directory will display all
+available options:
+
+```bash
+Usage: make [target]
+build               'quarto build' command
+check               Run `R CMD check` on package
+dev                 alias for 'serve'
+doc                 Update package documentation with `roxygen2`
+help                Show this help
+serve               Start local quarto server
+```
+
+The last of these commands runs the `quarto dev` command in the `quarto`
+directory, and will by default open a local server in the default web browser.
+The resultant dashboard will use functionality of the locally-installed version
+of the "dashboard" package. This means that any updates to the package itself
+will only be rendered on the locally-served website once those changes have
+been pushed and the package locally re-installed using the `install_github`
+command above.
