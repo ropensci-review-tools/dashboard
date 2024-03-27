@@ -37,6 +37,7 @@ check               Run `R CMD check` on package
 dev                 alias for 'serve'
 doc                 Update package documentation with `roxygen2`
 help                Show this help
+recache             Start local quarto server with '--cache-refresh' to force cache refresh
 serve               Start local quarto server
 ```
 

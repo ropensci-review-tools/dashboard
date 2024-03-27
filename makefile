@@ -15,6 +15,10 @@ serve: ## Start local quarto server
 	cd quarto; \
 	quarto preview
 
+recache: ## Start local quarto server with '--cache-refresh' to force cache refresh
+	cd quarto; \
+	quarto preview --cache-refresh
+
 dev: serve ## alias for 'serve'
 
 build: ## 'quarto build' command
