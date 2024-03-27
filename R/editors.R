@@ -100,7 +100,14 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
         }
     }
 
-    # Reduce only to issues assigned to "editors" team members:
+    # Extract timelines from full editorial data, include those no longer part
+    # of current "editors" team:
+    timeline <- editor_timeline (
+        assignees, state, opened_at, updated_at, closed_at,
+        aggregation_period = aggregation_period
+    )
+
+    # Then reduce data to only issues assigned to "editors" team members:
     index <- which (vapply (
         assignees,
         function (i) any (i %in% editors$login),
@@ -123,10 +130,7 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
         latest = editor_latest_issue (
             editors, assignees, number, state, updated_at
         ),
-        timeline = editor_timeline (
-            editors, assignees, state, opened_at, updated_at, closed_at,
-            aggregation_period = aggregation_period
-        ),
+        timeline = timeline,
         reviews = editor_reviews (
             assignees, number, titles, state,
             opened_at, updated_at, closed_at
@@ -187,8 +191,6 @@ clean_assignees <- function (assignees, editors) {
 #' Editorial loads can be aggregated for different time periods of month,
 #' quarter, or semester.
 #'
-#' @param editors The `data.frame` of editors constructed at start of
-#' `editor_gh_data()` function.
 #' @param assignees List of (potentially multiple) issue assignees
 #' @param number Vector of issue numbers
 #' @param state Vector of issue states
@@ -203,7 +205,7 @@ clean_assignees <- function (assignees, editors) {
 #' of concurrent issues, while the second is "issues_new", which tallies the
 #' number of new issues assigned to each editor in each of the defined periods.
 #' @noRd
-editor_timeline <- function (editors, assignees, state,
+editor_timeline <- function (assignees, state,
                              opened_at, updated_at, closed_at,
                              aggregation_period = "quarter") {
 
@@ -248,14 +250,15 @@ editor_timeline <- function (editors, assignees, state,
     }
     all_periods <- format (all_periods, "%Y-%m")
 
+    all_editors <- unique (unlist (assignees))
     issues_total <- issues_new <- matrix (
         0L,
         nrow = length (all_periods),
-        ncol = length (editors$login),
-        dimnames = list (all_periods, editors$login)
+        ncol = length (all_editors),
+        dimnames = list (all_periods, all_editors)
     )
-    for (i in seq_along (editors$login)) {
-        index <- which (assignees == editors$login [i])
+    for (i in seq_along (all_editors)) {
+        index <- which (assignees == all_editors [i])
         for (j in index) {
             seq_j <- seq (start_periods [j], end_periods [j], by = period_txt)
             index_j <- match (format (seq_j, "%Y-%m"), all_periods)
