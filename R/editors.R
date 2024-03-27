@@ -1,10 +1,17 @@
 #' Get current status of all rOpenSci editors.
 #'
+#' @param aggregation_period The time period for aggregation of timeline for
+#' editorial loads. Must be one of "month", "quarter", or "semester".
 #' @param quiet If `FALSE`, display progress information on screen.
 #' @return (Invisibly) A `data.frame` with one row per editor and some key
 #' statistics.
 #' @noRd
-editor_gh_data <- function (quiet = FALSE) {
+editor_gh_data <- function (quiet = FALSE, aggregation_period = "quarter") {
+
+    aggregation_period <- match.arg (
+        aggregation_period,
+        c ("month", "quarter", "semester")
+    )
 
     q <- gh_editors_team_qry (stats = FALSE)
     editors <- gh::gh_gql (query = q)
@@ -117,7 +124,8 @@ editor_gh_data <- function (quiet = FALSE) {
             editors, assignees, number, state, updated_at
         ),
         timeline = editor_timeline (
-            editors, assignees, state, opened_at, updated_at, closed_at
+            editors, assignees, state, opened_at, updated_at, closed_at,
+            aggregation_period = aggregation_period
         ),
         reviews = editor_reviews (
             assignees, number, titles, state,
@@ -176,9 +184,30 @@ clean_assignees <- function (assignees, editors) {
 
 #' Extract timelines of historical editorial load
 #'
+#' Editorial loads can be aggregated for different time periods of month,
+#' quarter, or semester.
+#'
+#' @param editors The `data.frame` of editors constructed at start of
+#' `editor_gh_data()` function.
+#' @param assignees List of (potentially multiple) issue assignees
+#' @param number Vector of issue numbers
+#' @param state Vector of issue states
+#' @param opened_at Vector of issue opening times
+#' @param updated_at Vector of issue updated times
+#' @param closed_at Vector of issue closing times
+#' @param aggregation_period The time period for aggregation. Must be one of
+#' "month", "quarter", or "semester".
+#' @return A matrix with one column for each editor, and a tally of concurrent
+#' reviews for each time period, as defined by the row names.
 #' @noRd
 editor_timeline <- function (editors, assignees, state,
-                             opened_at, updated_at, closed_at) {
+                             opened_at, updated_at, closed_at,
+                             aggregation_period = "quarter") {
+
+    aggregation_period <- match.arg (
+        aggregation_period,
+        c ("month", "quarter", "semester")
+    )
 
     end_date <- closed_at
     index <- which (!nzchar (end_date))
@@ -186,24 +215,47 @@ editor_timeline <- function (editors, assignees, state,
     start_date <- lubridate::date (lubridate::ymd_hms (opened_at))
     end_date <- lubridate::date (end_date)
 
-    # Create matrix of editorial load:
-    start_months <- format (start_date, "%Y-%m")
-    end_months <- format (end_date, "%Y-%m")
-    date0 <- min (start_date)
-    lubridate::day (date0) <- 1L
-    all_months <- format (seq (date0, Sys.Date (), by = "1 month"), "%Y-%m")
+    # Create matrix of editorial load, with hard-coded aggregation period.
+    if (aggregation_period == "month") {
+        period_txt <- "1 month"
+        start_periods <- start_date
+        end_periods <- end_date
+        first_date <- min (start_date)
+        lubridate::day (first_date) <- 1L
+        all_periods <- seq (first_date, Sys.Date (), by = "1 month")
+    } else if (aggregation_period == "quarter") {
+        period_txt <- "quarter"
+        start_periods <- lubridate::quarter (start_date, type = "date_first")
+        end_periods <- lubridate::quarter (end_date, type = "date_last")
+        all_periods <- seq (min (start_periods), Sys.Date (), by = "quarter")
+    } else if (aggregation_period == "semester") {
+        period_txt <- "6 months"
+        start_periods <- lubridate::semester (start_date, with_year = FALSE)
+        end_periods <- lubridate::semester (end_date, with_year = FALSE)
+        start_periods <- lubridate::ymd (paste0 (
+            lubridate::year (start_date), c ("-01-01", "-07-01") [start_periods]
+        ))
+        end_periods <- lubridate::ymd (paste0 (
+            lubridate::year (end_date), c ("-01-01", "-07-01") [end_periods]
+        ))
+        # `seq.Date` only allows quarter or year:
+        all_periods <- seq (min (start_periods), Sys.Date (), by = "quarter")
+        all_periods <-
+            as.Date (grep (("\\-0(1|7)\\-"), all_periods, value = TRUE))
+    }
+    all_periods <- format (all_periods, "%Y-%m")
 
-    timelines <- matrix (
+    timelines <- new_issues <- matrix (
         0L,
-        nrow = length (all_months),
+        nrow = length (all_periods),
         ncol = length (editors$login),
-        dimnames = list (all_months, editors$login)
+        dimnames = list (all_periods, editors$login)
     )
     for (i in seq_along (editors$login)) {
         index <- which (assignees == editors$login [i])
         for (j in index) {
-            seq_j <- seq (start_date [j], end_date [j], by = "1 month")
-            index_j <- match (format (seq_j, "%Y-%m"), all_months)
+            seq_j <- seq (start_periods [j], end_periods [j], by = period_txt)
+            index_j <- match (format (seq_j, "%Y-%m"), all_periods)
             timelines [index_j, i] <- timelines [index_j, i] + 1L
         }
     }
