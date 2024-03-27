@@ -16,7 +16,7 @@ library (dplyr)
 ```
 
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
-#| cache: false
+#| cache: true
 aggregation_period <- "quarter"
 ed_dat <- editor_status (aggregation_period = aggregation_period, quiet = TRUE)
 ed_status <- ed_dat$status
