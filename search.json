@@ -179,7 +179,7 @@
     "href": "editors.html#past-ed-load",
     "title": "rOpenSci Editors",
     "section": "Past Editorial Load",
-    "text": "Past Editorial Load\nThe following two graphs illustrate the previous load of each editor. These charts are intended as an additional aid in selecting handling editors. Editors who have had relatively low recent loads should be chosen in favor of those who have recently had higher loads.\nThe thickness of lines represents numbers of concurrent submissions handled by each editor, and aggregated for each month. Widths range from one review for the thinnest lines to a maximum of 7 concurrent reviews during a single month by @jooolia in 2022-02 and 2022-04.\n\nGeneral editors\nThis first chart illustrates the historical loads for general (non-statistical) editors.\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors\nThis chart illustrates the historical loads for statistical editors, with line thicknesses in this case representing up to a maximum of 2 concurrent reviews in a one-month period. (Note that some editors handle both general and statistical packages, and so appear in both plots.)"
+    "text": "Past Editorial Load\nThe following two graphs illustrate the previous load of each editor. These charts are intended as an additional aid in selecting handling editors. Editors who have had relatively low recent loads should be chosen in favor of those who have recently had higher loads.\nThe thickness of lines represents numbers of concurrent submissions handled by each editor, and aggregated for each month. Widths range from one review for the thinnest lines to a maximum of 9 concurrent reviews during a single month by @jooolia in and 2022-01.\n\nGeneral editors\nThis first chart illustrates the historical loads for general (non-statistical) editors.\n\n\n\n\n\n\n\n\n\n\n\n\n\nStatistical editors\nThis chart illustrates the historical loads for statistical editors, with line thicknesses in this case representing up to a maximum of 3 concurrent reviews in a one-month period. (Note that some editors handle both general and statistical packages, and so appear in both plots.)"
   },
   {
     "objectID": "reviews.html",
@@ -228,7 +228,7 @@
     "href": "reviews.html#awaiting-reviewers-response",
     "title": "Software Review Overview",
     "section": "5/Awaiting Reviewer(s) Response",
-    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n2 weeks\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n3 days"
+    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n3 weeks\n\n\n609\nbaRulho\nFALSE\n2024-01-19\n@jhollist\n3 days"
   },
   {
     "objectID": "reviews.html#holding",
