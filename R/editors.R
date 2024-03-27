@@ -6,7 +6,7 @@
 #' @return (Invisibly) A `data.frame` with one row per editor and some key
 #' statistics.
 #' @noRd
-editor_gh_data <- function (quiet = FALSE, aggregation_period = "quarter") {
+editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
 
     aggregation_period <- match.arg (
         aggregation_period,
@@ -297,12 +297,23 @@ editor_reviews <- function (assignees, number, titles, state,
 
 #' Generate a summary report of current state of all rOpenSci editors
 #'
+#' @param aggregation_period The time period for aggregation of timeline for
+#' editorial loads. Must be one of "month", "quarter", or "semester".
 #' @param quiet If `FALSE`, display progress information on screen.
 #' @return A `data.frame` with one row per issue and some key statistics.
 #' @export
 
-editor_status <- function (quiet = FALSE) {
-    dat <- m_editor_gh_data (quiet = quiet)
+editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
+
+    aggregation_period <- match.arg (
+        aggregation_period,
+        c ("month", "quarter", "semester")
+    )
+
+    dat <- m_editor_gh_data (
+        aggregation_period = aggregation_period,
+        quiet = quiet
+    )
 
     dat$latest$status <- "FREE"
     dat$latest$status [dat$latest$state == "OPEN"] <- "BUSY"

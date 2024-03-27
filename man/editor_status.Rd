@@ -4,10 +4,13 @@
 \alias{editor_status}
 \title{Generate a summary report of current state of all rOpenSci editors}
 \usage{
-editor_status(quiet = FALSE)
+editor_status(quiet = FALSE, aggregation_period = "quarter")
 }
 \arguments{
 \item{quiet}{If `FALSE`, display progress information on screen.}
+
+\item{aggregation_period}{The time period for aggregation of timeline for
+editorial loads. Must be one of "month", "quarter", or "semester".}
 }
 \value{
 A `data.frame` with one row per issue and some key statistics.
