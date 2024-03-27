@@ -359,6 +359,8 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         timeline$month <- lubridate::ymd (paste0 (nms, "-01"))
         timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
             dplyr::arrange (tolower (name), month)
+        rm_nms <- c ("haozhu233")
+        dplyr::filter (timeline, !name %in% rm_nms)
     }
     timeline_total <- process_timeline (dat, what = "issues_total")
     timeline_new <- process_timeline (dat, what = "issues_new")
