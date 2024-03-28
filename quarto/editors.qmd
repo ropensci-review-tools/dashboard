@@ -13,6 +13,7 @@ library (gt)
 library (ggplot2)
 library (tidyr)
 library (dplyr)
+library (ggiraph)
 ```
 
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
@@ -275,7 +276,11 @@ ymax <- max (timeline_total$reviews)
 breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
 
 ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
-    geom_col (width = 70, just = 0) +
+    ggiraph::geom_col_interactive (
+        width = 80,
+        just = 0,
+        aes (tooltip = reviews, data_id = name, hover_nearest = FALSE)
+    ) +
     scale_y_continuous (position = "left", breaks = breaks) +
     scale_fill_identity () +
     facet_wrap (
@@ -298,7 +303,8 @@ ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
         strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0),
         strip.clip = "on",
         strip.background = element_blank ()
-    )
+    ) -> g
+ggiraph::girafe (ggobj = g)
 ```
 :::
 
@@ -320,7 +326,11 @@ ymax <- max (timeline_new$reviews)
 breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
 
 ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
-    geom_col (width = 70, just = 0) +
+    ggiraph::geom_col_interactive (
+        width = 80,
+        just = 0,
+        aes (tooltip = reviews, data_id = name, hover_nearest = FALSE)
+    ) +
     scale_y_continuous (position = "left", breaks = breaks) +
     scale_fill_identity () +
     facet_wrap (
@@ -343,7 +353,8 @@ ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
         strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0),
         strip.clip = "on",
         strip.background = element_blank ()
-    )
+    ) -> g
+ggiraph::girafe (ggobj = g)
 ```
 :::
 
