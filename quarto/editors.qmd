@@ -270,7 +270,6 @@ knitr::opts_chunk$set (fig.height = ht)
 
 ::: {style="all.initial;"}
 ```{r timeline_total-plot, echo = FALSE, fig.width = 8}
-strip_col <- "#12DD4322"
 break_interval <- 4
 ymax <- max (timeline_total$reviews)
 breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
@@ -303,33 +302,34 @@ ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
 ```
 :::
 
-This second graph shows cases in which numbers of new submissions per quarter
-have exceeded the maximum expected value of `r min_rev_new`.
+This second graph shows the number of *new* submissions per quarter taken on by
+each editor. We aim to keep numbers of new submissions at a maximum of four,
+corresponding to average numbers of new submissions per quarter not exceeding
+one.
 
 ```{r set-fig-ht-new, echo = FALSE}
-opts <- knitr::opts_chunk$get ()
-n0 <- 8
-n1 <- length (unique (timeline_new$name))
-ht <- ceiling (8 * n1 / n0) + 1
+neds <- length (unique (timeline_new$name))
+ht <- ceiling (h0 * neds) # h0 defined in previous chunk
 knitr::opts_chunk$set (fig.height = ht)
 ```
 
 ::: {style="all.initial;"}
 ```{r timeline_new-plot, echo = FALSE, fig.width = 8}
-strip_col <- "#12DD4355"
-bg_col <- "#DDDDDD55"
+break_interval <- 2
+ymax <- max (timeline_new$reviews)
+breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
 
 ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
-    geom_col (width = 70) +
-    scale_y_continuous (position = "right") +
+    geom_col (width = 70, just = 0) +
+    scale_y_continuous (position = "left", breaks = breaks) +
     scale_fill_identity () +
     facet_wrap (
         ~name,
         ncol = 1,
-        strip.position = "left"
+        strip.position = "right"
     ) +
-    xlab ("Year") +
-    ylab ("Numbers of concurrent reviews / quarter") +
+    xlab ("Annual Quarter") +
+    ylab ("Numbers of new reviews / quarter") +
     theme_minimal () +
     theme (
         plot.background = element_rect (fill = bg_col),
@@ -339,8 +339,10 @@ ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
         axis.text.x = element_text (size = 12),
         axis.text.y = element_text (size = 10),
         axis.title = element_text (size = 14),
-        strip.text = element_text (size = 20),
-        strip.background = element_rect (fill = strip_col, colour = strip_col)
+        strip.text = element_text (size = 14),
+        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0),
+        strip.clip = "on",
+        strip.background = element_blank ()
     )
 ```
 :::
