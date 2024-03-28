@@ -145,7 +145,7 @@ ggplot (reviews, aes (x = date, y = reviews, colour = type)) +
     )
 ```
 
-## Review duration
+## Review duration {#review-duration}
 
 The next chart shows the average duration of the review process, plotted
 against the months in which each review started. (The data have been slightly

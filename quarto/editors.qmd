@@ -225,12 +225,33 @@ ggplot (num_eds, aes (x = month, y = n, colour = status)) +
 ```
 :::
 
+<br><br>
 
-### Individual Editor Load
+### Individual Editor Load: Concurrent Reviews {#ed-load-concurrent}
 
-```{r timelines-prepro, echo = FALSE}
+```{r ed-load-params, echo = FALSE}
 min_rev_total <- 0L # Don't show any data for reviews <= this value
 span_years <- 2L # Show this many years of data
+```
+
+The following two graphs illustrate the recent and current workloads of
+rOpenSci editors. The first graph shows numbers of concurrent reviews handled
+by editors over the preceding `r span_years` years. We aim to distribute
+workloads across editors as evenly as possible, and this graph should be used
+to aid that task. Note that not all editors may be currently available, and the
+initial [*Editor Overview*](#editor-overview) should also be consulted to
+assess actual availability. 
+
+We have no specific upper limits on numbers of concurrent reviews.
+Nevertheless, the [following sub-section](#ed-load-new) describes our
+expectation that editors handle no more than one new submission per quarter on
+average, or four per year. Presuming reviews last six months on average (see
+[*Review Duration*](./history.qmd#review-duration)) means that editors would
+generally have two concurrent reviews at any one time. This suggests a general
+rule-of-thumb that editors who have recently handled more than that number
+should not be assigned further work.
+
+```{r timelines-prepro, echo = FALSE}
 start_date <- lubridate::ymd (Sys.Date ()) - lubridate::years (span_years)
 start_quarter <- lubridate::quarter (start_date, type = "date_first")
 timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
@@ -250,14 +271,6 @@ ncols <- diff (range (timeline_new$reviews)) + 1L
 cols <- rev (heat.colors (ncols))
 timeline_new$col <- cols [timeline_new$reviews - min_rev_new]
 ```
-
-The following two graphs illustrate the recent and current workloads of
-rOpenSci editors. The first graph shows numbers of concurrent reviews handled
-by editors over the preceding `r span_years` years. We aim to distribute
-workloads across editors as evenly as possible, and this graph should be used
-to aid that task. Note that not all editors may be currently available, and the
-initial [*Editor Overview*](#editor-overview) should also be consulted to
-assess actual availability. 
 
 ```{r set-fig-ht-all, echo = FALSE}
 # Scale height of fig to number of editors. The `h0` value of 1 corresponds to
@@ -319,10 +332,13 @@ ggiraph::girafe (ggobj = g)
 ```
 :::
 
+<br><br>
+
+### Individual Editor Load: New Submissions {#ed-load-new}
+
 This second graph shows the number of *new* submissions per quarter taken on by
-each editor. We aim to keep numbers of new submissions at a maximum of four,
-corresponding to average numbers of new submissions per quarter not exceeding
-one.
+each editor. We aim to allocate no more than one new submission to each editor
+per quarter, or a maximum of four per year.
 
 ```{r set-fig-ht-new, echo = FALSE}
 neds <- length (unique (timeline_new$name))
