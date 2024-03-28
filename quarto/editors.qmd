@@ -151,15 +151,13 @@ services if we have sufficient numbers of editors available to handle
 submissions. It is therefore important to monitor historical trends in overall
 editor availability. This first graph shows total numbers of editors over time,
 and corresponding lines for numbers of those engaged during each time period in
-ongoing reviews, and numbers who are free to accept new submissions.
+ongoing reviews, and numbers who are not handling any submissions during each
+period and are therefore free to accept new submissions.
 
-An editor is considered "Busy" in a given quarter if they have accepted a new
-submission during that quarter, regardless of how many concurrent submissions
-they may also be handling at that time.
 
 ```{r ed-availability-prepro, echo = FALSE}
 # Use all editors, not just current ones
-num_eds_busy <- ed_dat$timeline_new |>
+num_eds_busy <- ed_dat$timeline_total |>
     dplyr::filter (value > 0L) |>
     dplyr::group_by (month) |>
     dplyr::summarise (n = dplyr::n ())
@@ -195,8 +193,8 @@ filter_dat <- function (dat, flen = 5) {
     dat [index] <- stats::filter (dat, filt) [index]
     return (dat)
 }
-num_eds_busy$n <- filter_dat (num_eds_busy$n, flen = 3)
-num_eds_free$n <- filter_dat (num_eds_free$n, flen = 3)
+# num_eds_busy$n <- filter_dat (num_eds_busy$n, flen = 3)
+# num_eds_free$n <- filter_dat (num_eds_free$n, flen = 3)
 
 num_eds <- rbind (
     cbind (num_eds_busy, status = "Busy"),
