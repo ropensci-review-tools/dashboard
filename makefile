@@ -25,6 +25,12 @@ build: ## 'quarto build' command
 	cd quarto;	\
 	quarto build
 
+renv-update: ## Update 'renv' dependencies to latest versions
+	Rscript -e "renv::update()";
+
+renv-snapshot: ## Update the 'renv.lock' file, generally run after `renv-update`
+	Rscript -e "renv::snapshot()";
+
 # Lots of variants at:
 # https://gist.github.com/prwhite/8168133
 # https://stackoverflow.com/questions/35730218/how-to-automatically-generate-a-makefile-help-command

@@ -38,6 +38,8 @@ dev                 alias for 'serve'
 doc                 Update package documentation with `roxygen2`
 help                Show this help
 recache             Start local quarto server with '--cache-refresh' to force cache refresh
+renv-snapshot       Update the 'renv.lock' file, generally run after `renv-update`
+renv-update         Update 'renv' dependencies to latest versions
 serve               Start local quarto server
 ```
 
