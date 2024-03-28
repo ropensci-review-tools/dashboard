@@ -26,7 +26,7 @@ ed_timeline_new <- ed_dat$timeline_new |>
     dplyr::filter (name %in% ed_status$editor)
 ```
 
-## Editor Overview
+## Editor Overview {#editor-overview}
 
 This page includes tables summarising the availability of editors, and charts
 of historical activity for each editor. This information is intended to help
@@ -228,10 +228,11 @@ ggplot (num_eds, aes (x = month, y = n, colour = status)) +
 ### Individual Editor Load
 
 ```{r timelines-prepro, echo = FALSE}
-min_rev_total <- 5L # Don't show any data for reviews <= this value
-start_time <- lubridate::ymd ("2016-01-01")
-timeline_total <- dplyr::filter (ed_timeline_total, month >= start_time) |>
-    dplyr::filter (!name %in% c ("haozhu233")) |>
+min_rev_total <- 0L # Don't show any data for reviews <= this value
+span_years <- 2L # Show this many years of data
+start_date <- lubridate::ymd (Sys.Date ()) - lubridate::years (span_years)
+start_quarter <- lubridate::quarter (start_date, type = "date_first")
+timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
     dplyr::rename (reviews = value) |>
     dplyr::filter (reviews > min_rev_total)
 
@@ -240,9 +241,8 @@ cols <- rev (heat.colors (ncols))
 timeline_total$col <- cols [timeline_total$reviews - min_rev_total]
 max_reviews <- max (timeline_total$reviews)
 
-min_rev_new <- 2L
-timeline_new <- dplyr::filter (ed_timeline_new, month >= start_time) |>
-    dplyr::filter (!name %in% c ("haozhu233")) |>
+min_rev_new <- 0L
+timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
     dplyr::rename (reviews = value) |>
     dplyr::filter (reviews > min_rev_new)
 ncols <- diff (range (timeline_new$reviews)) + 1L
@@ -250,32 +250,41 @@ cols <- rev (heat.colors (ncols))
 timeline_new$col <- cols [timeline_new$reviews - min_rev_new]
 ```
 
-The following two graphs illustrate the previous workload of rOpenSci editors.
-We try to adhere to the following two guidelines:
+The following two graphs illustrate the recent and current workloads of
+rOpenSci editors. The first graph shows numbers of concurrent reviews handled
+by editors over the preceding `r span_years` years. We aim to distribute
+workloads across editors as evenly as possible, and this graph should be used
+to aid that task. Note that not all editors may be currently available, and the
+initial [*Editor Overview*](#editor-overview) should also be consulted to
+assess actual availability. 
 
-1. No editor should concurrently handle more than `r min_rev_total` reviews.
-2. No editor should handle more than 2 new submissions per quarter.
-
-The first graph shows cases where total numbers of concurrent reviews by
-individual editors have exceeded the maximum expected value of `r max_reviews`.
-Colors are scaled from very light yellow for just over `r min_rev_total`
-concurrent reviews, up to red for the maximum of `r max_reviews` concurrent
-reviews.
+```{r set-fig-ht-all, echo = FALSE}
+# Scale height of fig at 2 inches per editor, so default 4 editors in square
+# graphic.
+opts <- knitr::opts_chunk$get ()
+n0 <- 8
+n1 <- length (unique (timeline_total$name))
+ht <- ceiling (8 * n1 / n0) + 1
+knitr::opts_chunk$set (fig.height = ht)
+```
 
 ::: {style="all.initial;"}
-```{r timeline_total-plot, echo = FALSE, fig.width = 8, fig.height = 8}
-strip_col <- "#12DD4355"
+```{r timeline_total-plot, echo = FALSE, fig.width = 8}
+strip_col <- "#12DD4322"
+break_interval <- 4
+ymax <- max (timeline_total$reviews)
+breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
 
 ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
-    geom_col (width = 70) +
-    scale_y_continuous (position = "right") +
+    geom_col (width = 70, just = 0) +
+    scale_y_continuous (position = "left", breaks = breaks) +
     scale_fill_identity () +
     facet_wrap (
         ~name,
         ncol = 1,
-        strip.position = "left"
+        strip.position = "right"
     ) +
-    xlab ("Year") +
+    xlab ("Annual Quarter") +
     ylab ("Numbers of concurrent reviews / quarter") +
     theme_minimal () +
     theme (
@@ -286,8 +295,10 @@ ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
         axis.text.x = element_text (size = 12),
         axis.text.y = element_text (size = 10),
         axis.title = element_text (size = 14),
-        strip.text = element_text (size = 20),
-        strip.background = element_rect (fill = strip_col, colour = strip_col)
+        strip.text = element_text (size = 14),
+        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0),
+        strip.clip = "on",
+        strip.background = element_blank ()
     )
 ```
 :::
@@ -295,10 +306,9 @@ ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
 This second graph shows cases in which numbers of new submissions per quarter
 have exceeded the maximum expected value of `r min_rev_new`.
 
-```{r set-fig-ht, echo = FALSE}
-# Scale height of next fig to proportional decrease in number of lines
+```{r set-fig-ht-new, echo = FALSE}
 opts <- knitr::opts_chunk$get ()
-n0 <- length (unique (timeline_total$name))
+n0 <- 8
 n1 <- length (unique (timeline_new$name))
 ht <- ceiling (8 * n1 / n0) + 1
 knitr::opts_chunk$set (fig.height = ht)
