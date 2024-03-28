@@ -16,6 +16,14 @@ library (dplyr)
 library (ggiraph)
 ```
 
+```{r open-sans-font, echo = FALSE, message = FALSE}
+# ggiraph fonts; issue #23
+library (gdtools)
+chk <- register_gfont ("Open Sans")
+chk <- addGFontHtmlDependency (family = "Open Sans")
+```
+
+
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
 #| cache: true
 aggregation_period <- "quarter"
@@ -388,11 +396,11 @@ ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
         panel.grid.major = element_line (colour = "#CCCCCC"),
         panel.grid.minor = element_blank (),
         legend.position = "none",
-        axis.text.x = element_text (size = 12),
-        axis.text.y = element_text (size = 10),
-        axis.title = element_text (size = 14),
-        strip.text = element_text (size = 14),
-        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0),
+        axis.text.x = element_text (size = 12, family = "sans"),
+        axis.text.y = element_text (size = 10, family = "sans"),
+        axis.title = element_text (size = 14, family = "sans"),
+        strip.text = element_text (size = 14, family = "sans"),
+        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0, family = "sans"),
         strip.clip = "on",
         strip.background = element_blank ()
     ) -> g
@@ -453,11 +461,11 @@ ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
         panel.grid.major = element_line (colour = "#CCCCCC"),
         panel.grid.minor = element_blank (),
         legend.position = "none",
-        axis.text.x = element_text (size = 12),
-        axis.text.y = element_text (size = 10),
-        axis.title = element_text (size = 14),
-        strip.text = element_text (size = 14),
-        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0),
+        axis.text.x = element_text (size = 12, family = "sans"),
+        axis.text.y = element_text (size = 10, family = "sans"),
+        axis.title = element_text (size = 14, family = "sans"),
+        strip.text = element_text (size = 14, family = "sans"),
+        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0, family = "sans"),
         strip.clip = "on",
         strip.background = element_blank ()
     ) -> g
