@@ -3,7 +3,7 @@ title: "rOpenSci Editors"
 format: 
   html:
     fig-width: 8
-    fig-height: 4
+    fig-height: 8
     code-fold: false
 ---
 
@@ -142,10 +142,7 @@ gt::gt (
     dashboard:::add_bg_colours ()
 ```
 
-## Past Editorial Load {#past-ed-load}
-
-### Editor Availability
-
+## Numbers of Editors
 
 rOpenSci relies on our team of volunteer editors. We can only provide review
 services if we have sufficient numbers of editors available to handle
@@ -227,6 +224,76 @@ ggplot (num_eds, aes (x = month, y = n, colour = status)) +
 
 <br><br>
 
+## Editorial Load {#past-ed-load}
+
+The following graphic summarises the recent workload of our editorial team.
+This is intended to be the primary aid used in selecting editors for new
+submission. We aim to distribute our workload as evenly as possible across the
+editorial team. Editors for new submissions should accordingly be chosen from
+those who have had relatively low recent workloads. This graph excludes any
+editors who are currently on leave.
+
+```{r ed-summary, echo = FALSE}
+# Reduce data to prior year only:
+start_date <- lubridate::ymd (Sys.Date ()) - lubridate::years (1L)
+start_quarter <- lubridate::quarter (start_date, type = "date_first")
+timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
+    dplyr::rename (reviews_tot = value) |>
+    dplyr::filter (reviews_tot > 0)
+timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
+    dplyr::rename (reviews_new = value) |>
+    dplyr::filter (reviews_new > 0)
+annual_vals <- dplyr::left_join (timeline_total, timeline_new, by = c ("name", "month")) |>
+    tidyr::replace_na (list (reviews_new = 0)) |>
+    dplyr::group_by (name) |>
+    dplyr::summarise (reviews_tot = mean (reviews_tot), reviews_new = sum (reviews_new)) |>
+    dplyr::mutate (load = reviews_tot * reviews_new) |>
+    dplyr::arrange (load)
+
+# And remove any editors who are on leave:
+eds_on_leave <- ed_status$editor [which (ed_status$status == "ON LEAVE")]
+annual_vals <- dplyr::filter (annual_vals, !(name %in% eds_on_leave))
+
+# Then add bar colours:
+ncols <- ceiling (max (annual_vals$load))
+cols <- rev (heat.colors (ncols))
+annual_vals$col <- cols [floor (annual_vals$load) + 1]
+```
+
+::: {style="all.initial;"}
+```{r ed-load-plot, echo = FALSE}
+break_interval <- 5
+xmax <- ceiling (max (annual_vals$load))
+breaks <- seq (0, ceiling (xmax / break_interval)) * break_interval
+annual_vals$name <- factor (annual_vals$name, levels = rev (annual_vals$name))
+
+ggplot (annual_vals, aes (x = name, y = load, fill = col)) +
+    geom_bar (stat = "identity") +
+    scale_fill_identity () +
+    scale_y_continuous (breaks = breaks) +
+    coord_flip () +
+    xlab ("") +
+    ylab ("Recent estimated workload") +
+    theme_minimal () +
+    theme (
+        plot.background = element_rect (fill = bg_col),
+        panel.grid.major = element_line (colour = "#CCCCCC"),
+        panel.grid.minor = element_blank (),
+        axis.text.x = element_text (size = 12),
+        axis.text.y = element_text (size = 10),
+        axis.title = element_text (size = 14)
+    )
+```
+:::
+
+The "*Recent estimated workload*" values are derived from data presented in the
+following two graphs. The first is numbers of concurrent reviews handled by
+each editor, and the second is the number of new submissions. The estimated
+workload values are calculated over the preceding year by multiplying the total
+number of new submissions by the average number of concurrent reviews. High
+workloads thus describe editors who have handled both large numbers of new
+submissions, and large numbers of concurrent reviews.
+
 ### Individual Editor Load: Concurrent Reviews {#ed-load-concurrent}
 
 ```{r ed-load-params, echo = FALSE}
@@ -234,13 +301,14 @@ min_rev_total <- 0L # Don't show any data for reviews <= this value
 span_years <- 2L # Show this many years of data
 ```
 
-The following two graphs illustrate the recent and current workloads of
-rOpenSci editors. The first graph shows numbers of concurrent reviews handled
-by editors over the preceding `r span_years` years. We aim to distribute
-workloads across editors as evenly as possible, and this graph should be used
-to aid that task. Note that not all editors may be currently available, and the
-initial [*Editor Overview*](#editor-overview) should also be consulted to
-assess actual availability. 
+The following two graphs provide more detail behind the editorial workload
+chart shown above. The first graph shows numbers of concurrent reviews handled
+by editors over the preceding `r span_years` years (with only data over the
+preceding single year used in the previous chart). We aim to distribute workloads
+across editors as evenly as possible, and this graph should be used to aid that
+task. Note that not all editors may be currently available, and the initial
+[*Editor Overview*](#editor-overview) should also be consulted to assess actual
+availability. 
 
 We have no specific upper limits on numbers of concurrent reviews.
 Nevertheless, the [following sub-section](#ed-load-new) describes our
