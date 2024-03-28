@@ -183,7 +183,7 @@ num_eds_total <- num_eds_free <- data.frame (
 index <- match (num_eds_busy$month, num_eds_total$month)
 num_eds_free$n [index] <- num_eds_total$n [index] - num_eds_busy$n
 
-# Then smooth 'busy' and 'free':
+# Function to smooth 'busy' and 'free', but not needed in current form.
 filter_dat <- function (dat, flen = 5) {
     index <- seq_len (length (dat) - flen + 1) + floor (flen / 2)
     x <- seq_len (flen) - ceiling (flen / 2)
