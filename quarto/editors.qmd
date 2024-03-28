@@ -275,11 +275,22 @@ break_interval <- 4
 ymax <- max (timeline_total$reviews)
 breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
 
+qtrs <- lubridate::quarter (timeline_total$month, with_year = TRUE)
+qtrs <- gsub ("\\.", ".Q", qtrs)
+timeline_total$tt <- paste0 (
+    timeline_total$name,
+    " ",
+    qtrs,
+    ": ",
+    timeline_total$reviews,
+    ifelse (timeline_total$reviews == 1, "review", "reviews")
+)
+
 ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
     ggiraph::geom_col_interactive (
         width = 80,
         just = 0,
-        aes (tooltip = reviews, data_id = name, hover_nearest = FALSE)
+        aes (tooltip = tt, data_id = tt, hover_nearest = FALSE)
     ) +
     scale_y_continuous (position = "left", breaks = breaks) +
     scale_fill_identity () +
@@ -325,11 +336,23 @@ break_interval <- 2
 ymax <- max (timeline_new$reviews)
 breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
 
+qtrs <- lubridate::quarter (timeline_new$month, with_year = TRUE)
+qtrs <- gsub ("\\.", ".Q", qtrs)
+timeline_new$tt <- paste0 (
+    timeline_new$name,
+    " ",
+    qtrs,
+    ": ",
+    timeline_new$reviews,
+    " new ",
+    ifelse (timeline_new$reviews == 1, "submission", "submissions")
+)
+
 ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
     ggiraph::geom_col_interactive (
         width = 80,
         just = 0,
-        aes (tooltip = reviews, data_id = name, hover_nearest = FALSE)
+        aes (tooltip = tt, data_id = tt, hover_nearest = FALSE)
     ) +
     scale_y_continuous (position = "left", breaks = breaks) +
     scale_fill_identity () +
