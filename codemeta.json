@@ -6,7 +6,7 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.1.5.008",
+  "version": "0.1.6",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -89,6 +89,18 @@
     },
     "5": {
       "@type": "SoftwareApplication",
+      "identifier": "httr2",
+      "name": "httr2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=httr2"
+    },
+    "6": {
+      "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
       "provider": {
@@ -99,7 +111,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "memoise",
       "name": "memoise",
@@ -111,7 +123,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -123,7 +135,8 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
-  "fileSize": "41.907KB"
+  "fileSize": "60.028KB",
+  "readme": "https://github.com/ropensci-review-tools/dashboard/blob/main/README.md"
 }

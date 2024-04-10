@@ -1,6 +1,6 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.1.5.008
+Version: 0.1.6
 Authors@R: 
   person(given = "First",
          family = "Last",
@@ -13,6 +13,7 @@ Imports:
   dplyr,
   gh,
   gt,
+  httr2,
   lubridate,
   memoise,
   tidyr

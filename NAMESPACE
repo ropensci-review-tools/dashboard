@@ -3,6 +3,7 @@
 export(add_editor_airtable_data)
 export(editor_status)
 export(editor_vacation_status)
+export(get_slack_editors_status)
 export(review_history)
 export(review_status)
 importFrom(memoise,memoise)
