@@ -66,12 +66,8 @@ cat (paste0 (
 ```
 
 
-```{r editor-add_airtable-data, echo = FALSE}
-#| cache: true
-edvac <- dashboard::editor_vacation_status ()
-editors_on_vacation <- edvac$github [which (edvac$away)]
-ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
-ed_status <- dashboard::add_editor_airtable_data (ed_status)
+```{r clean-editor-status, echo = FALSE}
+#| cache: false
 ed_status <- dplyr::filter (ed_status, editor != "haozhu233") |>
     dplyr::relocate (other_langs, .before = domain_expertise) |>
     dplyr::rename (
