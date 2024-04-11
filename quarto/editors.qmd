@@ -136,7 +136,7 @@ gt::gt (
     groupname_col = "status"
 ) |>
     gt::tab_header ("Editor Status Overview") |>
-    gt::cols_hide (c (stats, inactive_days, number, state)) |>
+    gt::cols_hide (c (stats, general, Languages, inactive_days, number, state)) |>
     gt::tab_style (
         style = list (gt::cell_fill (color = "#FFFF8088")),
         locations = gt::cells_body (
