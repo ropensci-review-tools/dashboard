@@ -12,7 +12,7 @@ editor_vacation_status <- function () {
 
     edvac_airtable <- edvac_status_airtable ()
     slack_status <- get_slack_editors_status ()
-    vacation_ptn <- "away|vacation|holiday"
+    vacation_ptn <- "away|vacation|holiday|unavailable"
     vacation <- grep (vacation_ptn, slack_status$status, ignore.case = TRUE)
     slack_status$away <- FALSE
     slack_status$away [vacation] <- TRUE
