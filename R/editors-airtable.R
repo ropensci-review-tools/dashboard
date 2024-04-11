@@ -1,13 +1,37 @@
 #' Get current vacation status of all rOpenSci editors.
 #'
+#'
+#' Data are obtained both from airtable and current slack status. If either of
+#' these indicate that an editor is away, on vacation, or otherwise unavailable,
+#' then the `away` column will be set to `TRUE`.
+#'
 #' @return A `data.frame` with one row per editor and information on current
-#' vacation status obtained from rOpenSci's airtable database.
+#' vacation status.
 #' @export
 editor_vacation_status <- function () {
 
     edvac_airtable <- edvac_status_airtable ()
+    slack_status <- get_slack_editors_status ()
+    vacation_ptn <- "away|vacation|holiday"
+    vacation <- grep (vacation_ptn, slack_status$status, ignore.case = TRUE)
+    slack_status$away <- FALSE
+    slack_status$away [vacation] <- TRUE
 
-    edvac <- edvac_airtable
+    if (!all (edvac_airtable$github %in% slack_status$name)) {
+        # This warning should indicate any slack names which do not match github
+        # names - it does not yet do exactly that, and should be fixed.
+        index <- which (!edvac_airtable$github %in% slack_status$name)
+        warning (
+            "Not all airtable editor names match slack names. ",
+            "GitHub handles of mis-matches: ",
+            paste0 (edvac_airtable$github [index], collapse = ", ")
+        )
+    }
+
+    edvac <- slack_status
+    edvac_airtable <- edvac_airtable [which (edvac_airtable$away), ]
+    index <- match (edvac_airtable$github, slack_status$name)
+    edvac$away [index] <- TRUE
 
     return (edvac)
 }
