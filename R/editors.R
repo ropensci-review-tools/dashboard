@@ -350,6 +350,14 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
         dplyr::ungroup ()
 
+    edvac <- editor_vacation_status () # in editors-airtable.R
+    # Note that next line presumes slack 'name' == GitHub handle:
+    editors_on_vacation <- edvac$name [which (edvac$away)]
+    status$status [status$editor %in% editors_on_vacation] <- "ON LEAVE"
+
+    # Add additional columns from airtable data:
+    status <- add_editor_airtable_data (status)
+
     # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes
     process_timeline <- function (dat, what = "issues_total") {
