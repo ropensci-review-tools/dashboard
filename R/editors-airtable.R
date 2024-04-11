@@ -29,8 +29,6 @@ editor_vacation_status <- function () {
     edvac$away [index] <- TRUE
 
     return (edvac)
-    editors_on_vacation <- edvac$github [which (edvac$away)]
-    ed_status$status [ed_status$editor %in% editors_on_vacation] <- "ON LEAVE"
 }
 
 #' Add additional columns to 'editors' data from rOpenSci's airtable database.
