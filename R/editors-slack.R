@@ -17,7 +17,7 @@
 #'    \item `status` The current status of the editor
 #' }
 #'
-#' @export
+#' @noRd
 get_slack_editors_status <- function () {
 
     editors <- get_editors_user_group_members ()
