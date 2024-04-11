@@ -68,7 +68,8 @@ cat (paste0 (
 
 ```{r clean-editor-status, echo = FALSE}
 #| cache: false
-ed_status <- dplyr::filter (ed_status, editor != "haozhu233") |>
+eds_to_rm <- dashboard:::eds_to_remove
+ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
     dplyr::relocate (other_langs, .before = domain_expertise) |>
     dplyr::rename (
         "Languages" = other_langs,
