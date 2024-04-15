@@ -50,3 +50,11 @@ jobs:
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.MY_GH_TOKEN }}
           SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
+      - name: Notify on failure
+        if: ${{ failure() }}
+        uses: ropensci-review-tools/actions/ping-dev-team@v1
+        with:
+          REPO_NAME: 'dashboard'
+          ISSUE_NUM: 25
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
