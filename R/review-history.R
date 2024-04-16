@@ -103,7 +103,7 @@ review_history <- function (quiet = FALSE) {
     labels <- labels [pkg_index]
     assignees <- assignees [pkg_index]
 
-    assignees <- vapply (assignees, function (i) i [1], character (1L))
+    assignee <- vapply (assignees, function (i) i [1], character (1L))
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
