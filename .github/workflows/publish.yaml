@@ -57,4 +57,4 @@ jobs:
         with:
           REPO_NAME: 'dashboard'
           ISSUE_NUM: 25
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.MY_GH_TOKEN }}
