@@ -68,7 +68,8 @@ edvac_status_airtable <- function () {
     return (edvac)
 }
 
-#' Add additional columns to 'editors' data from rOpenSci's airtable database.
+#' Add additional columns to 'editors' data from rOpenSci's airtable database,
+#' and remove any "emeritus" editors.
 #'
 #' @param editors The `data.frame` of editors returned as the "status" component
 #' from \link{editor_status}.
@@ -78,7 +79,7 @@ add_editor_airtable_data <- function (editors) {
     rev_prod <- airtabler::airtable (
         base = "app8dssb6a7PG6Vwj", table = "reviewers-prod"
     )
-    fields <- list ("github", "name", "other_langs", "domain_expertise")
+    fields <- list ("github", "name", "editor", "other_langs", "domain_expertise")
     rev_prod <- rev_prod$`reviewers-prod`$select_all (fields = fields)
 
     editors$other_langs <- editors$domain_expertise <- NA_character_
@@ -93,6 +94,18 @@ add_editor_airtable_data <- function (editors) {
     editors$domain_expertise <- vapply (editors$domain_expertise, function (i) {
         paste0 (i [which (!grepl ("^Other", i))], collapse = ", ")
     }, character (1L))
+
+    # Finally, remove "emeritus" editors
+    emeritus <- vapply (rev_prod$editor, function (i) {
+        res <- length (i) > 0L
+        if (res) res <- any (grepl ("emeritus", i, ignore.case = TRUE))
+        return (res)
+    }, logical (1L))
+    emeritus <- rev_prod$github [which (emeritus)]
+    index <- which (editors$editor %in% emeritus)
+    if (length (index) > 0L) {
+        editors <- editors [-index, ]
+    }
 
     return (editors)
 }
