@@ -389,3 +389,24 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         reviews = ed_rev
     ))
 }
+
+#' Extract average duration of reviews for each editor
+#'
+#' Note that is extracts data for all editors, including those who may not be
+#' part of current editorial team. Current team members can be identified from
+#' data returned from the \link{editor_status} function.
+#'
+#' @param nyears Length of time prior to current date over which average
+#' durations should be calculated.
+#' @return A `data.frame` with two columns of 'editor' and 'duration' in days.
+#' @export
+ed_rev_durations <- function (nyears = 2) {
+
+    dat <- review_history (quiet = FALSE)
+
+    t_from_closed_dat <- Sys.Date () - dat$closed_at
+    index <- which (!is.na (t_from_closed_dat) & t_from_closed_dat <= (nyears * 365))
+    dat [index, ] |>
+        dplyr::group_by (editor) |>
+        dplyr::summarise (duration = mean (duration_days))
+}
