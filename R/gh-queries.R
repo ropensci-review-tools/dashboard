@@ -195,6 +195,12 @@ gh_issues_qry_dates_states <- function (org = "ropensci",
                                            }
                                        }
                                    }
+                                   assignees (first: 100) {
+                                       nodes {
+                                           name
+                                           login
+                                       }
+                                   }
                                }
                            }
                        }

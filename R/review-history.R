@@ -14,7 +14,8 @@ review_history <- function (quiet = FALSE) {
     end_cursor <- NULL
 
     # Suppress no visible binding notes:
-    number <- opened_at <- closed_at <- submission_type <- state <- NULL
+    number <- opened_at <- closed_at <- submission_type <- state <-
+        assignees <- NULL
     labels <- list ()
 
     page_count <- 0L
@@ -59,6 +60,17 @@ review_history <- function (quiet = FALSE) {
                 ifelse (is.null (closed), NA_character_, closed)
             }, character (1L))
         )
+        assignees <- c (
+            assignees,
+            lapply (edges, function (i) {
+                assignee <- i$node$assignees$nodes
+                res <- NA_character_
+                if (length (assignee) > 0) {
+                    res <- vapply (assignee, function (i) i$login, character (1L))
+                }
+                return (res)
+            })
+        )
 
         page_count <- page_count + 1L
         if (!quiet) {
@@ -89,6 +101,9 @@ review_history <- function (quiet = FALSE) {
     submission_type <- submission_type [pkg_index]
     state <- state [pkg_index]
     labels <- labels [pkg_index]
+    assignees <- assignees [pkg_index]
+
+    assignees <- vapply (assignees, function (i) i [1], character (1L))
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
@@ -98,6 +113,7 @@ review_history <- function (quiet = FALSE) {
         number = number,
         state = state,
         stats = stats,
+        editor = assignee,
         opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
         closed_at = lubridate::date (lubridate::ymd_hms (closed_at))
     ) |> dplyr::arrange (number)
