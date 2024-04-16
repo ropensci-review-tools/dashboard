@@ -157,6 +157,11 @@ and corresponding lines for numbers of those engaged during each time period in
 ongoing reviews, and numbers who are not handling any submissions during each
 period and are therefore free to accept new submissions.
 
+This number of "Free" editors may include those who have yet to edit their
+first submissions, in which case these will not appear in any subsequent
+graphs. Thus the total number in this first graph may be greater than
+identifiable numbers from any subsequent graphs.
+
 
 ```{r ed-availability-prepro, echo = FALSE}
 # Use all editors, not just current ones
@@ -231,12 +236,12 @@ ggplot (num_eds, aes (x = month, y = n, colour = status)) +
 
 ## Editorial Load {#past-ed-load}
 
-The following graphic summarises the recent workload of our editorial team.
+The following sections summarise the recent workload of our editorial team.
 This is intended to be the primary aid used in selecting editors for new
 submission. We aim to distribute our workload as evenly as possible across the
 editorial team. Editors for new submissions should accordingly be chosen from
-those who have had relatively low recent workloads. This graph excludes any
-editors who are currently on leave.
+those who have had relatively low recent workloads. All of the following data
+and graphs exclude any editors who are currently on leave.
 
 ```{r ed-summary, echo = FALSE}
 # Reduce data to prior year only:
@@ -248,82 +253,22 @@ timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
 timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
     dplyr::rename (reviews_new = value) |>
     dplyr::filter (reviews_new > 0)
-annual_vals <- dplyr::left_join (timeline_total, timeline_new, by = c ("name", "month")) |>
-    tidyr::replace_na (list (reviews_new = 0)) |>
-    dplyr::group_by (name) |>
-    dplyr::summarise (reviews_tot = mean (reviews_tot), reviews_new = sum (reviews_new)) |>
-    dplyr::mutate (load = reviews_tot * reviews_new) |>
-    dplyr::arrange (load)
-
-# And remove any editors who are on leave:
-eds_on_leave <- ed_status$editor [which (ed_status$status == "ON LEAVE")]
-annual_vals <- dplyr::filter (annual_vals, !(name %in% eds_on_leave))
-
-# Then add bar colours:
-ncols <- ceiling (max (annual_vals$load))
-cols <- rev (heat.colors (ncols))
-annual_vals$col <- cols [floor (annual_vals$load) + 1]
 ```
 
-::: {style="all.initial;"}
-```{r ed-load-plot, echo = FALSE}
-break_interval <- 5
-xmax <- ceiling (max (annual_vals$load))
-breaks <- seq (0, ceiling (xmax / break_interval)) * break_interval
-annual_vals$name <- factor (annual_vals$name, levels = rev (annual_vals$name))
 
-ggplot (annual_vals, aes (x = name, y = load, fill = col)) +
-    geom_bar (stat = "identity") +
-    scale_fill_identity () +
-    scale_y_continuous (breaks = breaks) +
-    coord_flip () +
-    xlab ("") +
-    ylab ("Recent estimated workload") +
-    theme_minimal () +
-    theme (
-        plot.background = element_rect (fill = bg_col),
-        panel.grid.major = element_line (colour = "#CCCCCC"),
-        panel.grid.minor = element_blank (),
-        axis.text.x = element_text (size = 12),
-        axis.text.y = element_text (size = 14),
-        axis.title = element_text (size = 14)
-    )
-```
-:::
+### Individual Editor Load: New Submissions {#ed-load-new}
 
-The "*Recent estimated workload*" values are derived from data presented in the
-following two graphs. The first is numbers of concurrent reviews handled by
-each editor, and the second is the number of new submissions. The estimated
-workload values are calculated over the preceding year by multiplying the total
-number of new submissions by the average number of concurrent reviews. High
-workloads thus describe editors who have handled both large numbers of new
-submissions, and large numbers of concurrent reviews.
-
-### Individual Editor Load: Concurrent Reviews {#ed-load-concurrent}
+This first graph shows the number of *new* submissions per quarter taken on by
+each editor. We aim to allocate no more than one new submission to each editor
+per quarter, or a maximum of four per year. Each block in this graph represents
+a quarter-year, so values should not exceed one. Editors for incoming reviews
+should preferably be chosen from those who have not handled any submissions in
+the present or preceding quarters.
 
 ```{r ed-load-params, echo = FALSE}
 min_rev_total <- 0L # Don't show any data for reviews <= this value
 span_years <- 2L # Show this many years of data
 ```
-
-The following two graphs provide more detail behind the editorial workload
-chart shown above. The first graph shows numbers of concurrent reviews handled
-by editors over the preceding `r span_years` years (with only data over the
-preceding single year used in the previous chart). We aim to distribute workloads
-across editors as evenly as possible, and this graph should be used to aid that
-task. Note that not all editors may be currently available, and the initial
-[*Editor Overview*](#editor-overview) should also be consulted to assess actual
-availability. 
-
-We have no specific upper limits on numbers of concurrent reviews.
-Nevertheless, the [following sub-section](#ed-load-new) describes our
-expectation that editors handle no more than one new submission per quarter on
-average, or four per year. Presuming reviews last six months on average (see
-[*Review Duration*](./history.qmd#review-duration)) means that editors would
-generally have two concurrent reviews at any one time. This suggests a general
-rule-of-thumb that editors who have recently handled more than that number
-should not be assigned further work.
-
 ```{r timelines-prepro, echo = FALSE}
 start_date <- lubridate::ymd (Sys.Date ()) - lubridate::years (span_years)
 start_quarter <- lubridate::quarter (start_date, type = "date_first")
@@ -334,6 +279,9 @@ timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
 ncols <- diff (range (timeline_total$reviews)) + 1L
 cols <- rev (heat.colors (ncols))
 timeline_total$col <- cols [timeline_total$reviews - min_rev_total]
+# Remove any editors who are on leave:
+eds_on_leave <- ed_status$editor [which (ed_status$status == "ON LEAVE")]
+timeline_total <- dplyr::filter (timeline_total, !(name %in% eds_on_leave))
 max_reviews <- max (timeline_total$reviews)
 
 min_rev_new <- 0L
@@ -343,15 +291,86 @@ timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
 ncols <- diff (range (timeline_new$reviews)) + 1L
 cols <- rev (heat.colors (ncols))
 timeline_new$col <- cols [timeline_new$reviews - min_rev_new]
+timeline_new <- dplyr::filter (timeline_new, !(name %in% eds_on_leave))
 ```
 
 ```{r set-fig-ht-all, echo = FALSE}
 # Scale height of fig to number of editors. The `h0` value of 1 corresponds to
 # 8 editors fitting within a square graphic.
 opts <- knitr::opts_chunk$get ()
-neds <- length (unique (timeline_total$name))
+neds <- length (unique (timeline_new$name))
 h0 <- 1
 ht <- ceiling (h0 * neds)
+knitr::opts_chunk$set (fig.height = ht)
+```
+
+
+::: {style="all.initial;"}
+```{r timeline_new-plot, echo = FALSE, fig.width = 8}
+break_interval <- 2
+ymax <- max (timeline_new$reviews)
+breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
+
+qtrs <- lubridate::quarter (timeline_new$month, with_year = TRUE)
+qtrs <- gsub ("\\.", ".Q", qtrs)
+timeline_new$tt <- paste0 (
+    timeline_new$name,
+    " ",
+    qtrs,
+    ": ",
+    timeline_new$reviews,
+    " new ",
+    ifelse (timeline_new$reviews == 1, "submission", "submissions")
+)
+
+ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
+    ggiraph::geom_col_interactive (
+        width = 80,
+        just = 0,
+        aes (tooltip = tt, data_id = tt, hover_nearest = FALSE)
+    ) +
+    scale_y_continuous (position = "left", breaks = breaks) +
+    scale_fill_identity () +
+    facet_wrap (
+        ~name,
+        ncol = 1,
+        strip.position = "right"
+    ) +
+    xlab ("Annual Quarter") +
+    ylab ("Numbers of new reviews / quarter") +
+    theme_minimal (base_family = "sans") +
+    theme (
+        plot.background = element_rect (fill = bg_col),
+        panel.grid.major = element_line (colour = "#CCCCCC"),
+        panel.grid.minor = element_blank (),
+        legend.position = "none",
+        axis.text.x = element_text (size = 12, family = "sans"),
+        axis.text.y = element_text (size = 10, family = "sans"),
+        axis.title = element_text (size = 14, family = "sans"),
+        strip.text = element_text (size = 14, family = "sans"),
+        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0, family = "sans"),
+        strip.clip = "on",
+        strip.background = element_blank ()
+    ) -> g
+ggiraph::girafe (ggobj = g, fonts = list (sans = "Open Sans"))
+```
+:::
+
+### Individual Editor Load: Concurrent Reviews {#ed-load-concurrent}
+
+
+The following graph shows numbers of concurrent reviews handled by editors over
+the preceding `r span_years` years. We aim to distribute workloads across
+editors as evenly as possible, and this graph should be used in addition to the
+above graph to aid that task. Note that we have no specific upper limits on
+numbers of concurrent reviews, and reviews may extend over long time periods
+with very little editorial intervention. Nevertheless, low numbers of
+concurrent reviews may be interpreted to reflect relatively low editorial
+workload.
+
+```{r set-fig-ht-new, echo = FALSE}
+neds <- length (unique (timeline_total$name))
+ht <- ceiling (h0 * neds) # h0 defined in previous chunk
 knitr::opts_chunk$set (fig.height = ht)
 ```
 
@@ -407,68 +426,6 @@ ggiraph::girafe (ggobj = g, fonts = list (sans = "Open Sans"))
 
 <br><br>
 
-### Individual Editor Load: New Submissions {#ed-load-new}
-
-This second graph shows the number of *new* submissions per quarter taken on by
-each editor. We aim to allocate no more than one new submission to each editor
-per quarter, or a maximum of four per year.
-
-```{r set-fig-ht-new, echo = FALSE}
-neds <- length (unique (timeline_new$name))
-ht <- ceiling (h0 * neds) # h0 defined in previous chunk
-knitr::opts_chunk$set (fig.height = ht)
-```
-
-::: {style="all.initial;"}
-```{r timeline_new-plot, echo = FALSE, fig.width = 8}
-break_interval <- 2
-ymax <- max (timeline_new$reviews)
-breaks <- seq (0, ceiling (ymax / break_interval)) * break_interval
-
-qtrs <- lubridate::quarter (timeline_new$month, with_year = TRUE)
-qtrs <- gsub ("\\.", ".Q", qtrs)
-timeline_new$tt <- paste0 (
-    timeline_new$name,
-    " ",
-    qtrs,
-    ": ",
-    timeline_new$reviews,
-    " new ",
-    ifelse (timeline_new$reviews == 1, "submission", "submissions")
-)
-
-ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
-    ggiraph::geom_col_interactive (
-        width = 80,
-        just = 0,
-        aes (tooltip = tt, data_id = tt, hover_nearest = FALSE)
-    ) +
-    scale_y_continuous (position = "left", breaks = breaks) +
-    scale_fill_identity () +
-    facet_wrap (
-        ~name,
-        ncol = 1,
-        strip.position = "right"
-    ) +
-    xlab ("Annual Quarter") +
-    ylab ("Numbers of new reviews / quarter") +
-    theme_minimal (base_family = "sans") +
-    theme (
-        plot.background = element_rect (fill = bg_col),
-        panel.grid.major = element_line (colour = "#CCCCCC"),
-        panel.grid.minor = element_blank (),
-        legend.position = "none",
-        axis.text.x = element_text (size = 12, family = "sans"),
-        axis.text.y = element_text (size = 10, family = "sans"),
-        axis.title = element_text (size = 14, family = "sans"),
-        strip.text = element_text (size = 14, family = "sans"),
-        strip.text.y = element_text (angle = 0, hjust = 0, vjust = 0, family = "sans"),
-        strip.clip = "on",
-        strip.background = element_blank ()
-    ) -> g
-ggiraph::girafe (ggobj = g, fonts = list (sans = "Open Sans"))
-```
-:::
 
 ```{r reset-fig-ht, echo = FALSE}
 knitr::opts_chunk$set (fig.height = opts$fig.height)
