@@ -2,7 +2,8 @@
 % Please edit documentation in R/editors-airtable.R
 \name{add_editor_airtable_data}
 \alias{add_editor_airtable_data}
-\title{Add additional columns to 'editors' data from rOpenSci's airtable database.}
+\title{Add additional columns to 'editors' data from rOpenSci's airtable database,
+and remove any "emeritus" editors.}
 \usage{
 add_editor_airtable_data(editors)
 }
@@ -14,5 +15,6 @@ from \link{editor_status}.}
 A modified version of `editors` with additional columns.
 }
 \description{
-Add additional columns to 'editors' data from rOpenSci's airtable database.
+Add additional columns to 'editors' data from rOpenSci's airtable database,
+and remove any "emeritus" editors.
 }

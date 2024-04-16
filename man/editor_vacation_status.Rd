@@ -8,8 +8,10 @@ editor_vacation_status()
 }
 \value{
 A `data.frame` with one row per editor and information on current
-vacation status obtained from rOpenSci's airtable database.
+vacation status.
 }
 \description{
-Get current vacation status of all rOpenSci editors.
+Data are obtained both from airtable and current slack status. If either of
+these indicate that an editor is away, on vacation, or otherwise unavailable,
+then the `away` column will be set to `TRUE`.
 }
