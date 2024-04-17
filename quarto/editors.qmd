@@ -105,7 +105,7 @@ ed_status = transpose(ed_status_in)
 
 ```{ojs}
 // https://observablehq.com/@mootari/colored-table-rows
-function colorTable(data, { colorColumn, colorOpacity = 1, columns = undefined, format = {}, ...options}) {
+function colorTable(data, { colorColumn, colorOpacity = 1, editorColumn, columns = undefined, format = {}, ...options}) {
   const [row] = data;
   if(!row) return Inputs.table(data, options);
   
@@ -119,7 +119,8 @@ function colorTable(data, { colorColumn, colorOpacity = 1, columns = undefined, 
   const form = Inputs.table(data, {
     format: {
       ...format,
-      [colorColumn]: d => htl.html`<div style="--row-color:${d}">`
+      [colorColumn]: d => htl.html`<div style="--row-color:${d}">`,
+      [editorColumn]: d => htl.html`<a href="https://github.com/${d}">${d}</a>`,
     },
     columns,
     ...options
@@ -192,7 +193,7 @@ columns = ["editor", "last_active", "status", "stats", "Languages", "Expertise"]
 ```{ojs}
 // Inputs.table(
 colorTable(filtered,
-  {colorColumn: "rowColor", columns: columns},
+  {colorColumn: "rowColor", editorColumn: "editor", columns: columns},
   {sort: "inactive_days", reverse: true}
 )
 ```
