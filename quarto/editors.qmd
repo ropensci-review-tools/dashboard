@@ -104,7 +104,10 @@ ed_status = transpose(ed_status_in)
 ```
 
 ```{ojs}
-// Adapted from https://observablehq.com/@mootari/colored-table-rows
+// Definition of colorTable function, adapted from
+// https://observablehq.com/@mootari/colored-table-rows
+// This can't be placed in a separate file, because that requires importing
+// observable/table, but there is no path here to do that import.
 function colorTable(data, {
         colorColumn,
         colorOpacity = 0.5,
