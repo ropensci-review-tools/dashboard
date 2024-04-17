@@ -218,7 +218,8 @@ colorTable(filtered,
     editorColumn: "editor",
     lastActiveColumn: "last_active",
     issueNumColumn: "number",
-    columns: columns
+    columns: columns,
+    height: 'auto',
   },
   {
     sort: "inactive_days",
