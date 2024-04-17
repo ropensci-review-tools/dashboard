@@ -190,8 +190,7 @@ columns = ["editor", "last_active", "status", "stats", "Languages", "Expertise"]
 ```{ojs}
 // Inputs.table(
 colorTable(filtered,
-  {colorColumn: "rowColor"},
-  {columns: columns},
+  {colorColumn: "rowColor", columns: columns},
   {sort: "inactive_days", reverse: true}
 )
 ```
