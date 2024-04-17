@@ -96,6 +96,7 @@ ed_dat_gen <- dashboard:::add_gt_html (ed_dat_gen, u, what = "inactive_for")
 if (length (index_na) > 0L) {
     ed_dat_gen$inactive_for [index_na] <- "(waiting)"
 }
+ed_dat_gen <- dplyr::rename (ed_dat_gen, last_active = inactive_for)
 
 gt::gt (
     ed_dat_gen,
@@ -106,7 +107,7 @@ gt::gt (
     gt::tab_style (
         style = list (gt::cell_fill (color = "#FFFF8088")),
         locations = gt::cells_body (
-            columns = c (`editor`, `inactive_for`),
+            columns = c (`editor`, `last_active`),
             rows = status == "FREE"
         )
     ) |>
@@ -130,6 +131,7 @@ ed_dat_stats <- dashboard:::add_gt_html (ed_dat_stats, u, what = "inactive_for")
 if (length (index_na) > 0L) {
     ed_dat_stats$inactive_for [index_na] <- "(waiting)"
 }
+ed_dat_stats <- dplyr::rename (ed_dat_stats, last_active = inactive_for)
 
 gt::gt (
     ed_dat_stats,
@@ -140,7 +142,7 @@ gt::gt (
     gt::tab_style (
         style = list (gt::cell_fill (color = "#FFFF8088")),
         locations = gt::cells_body (
-            columns = c (`editor`, `inactive_for`),
+            columns = c (`editor`, `last_active`),
             rows = status == "FREE"
         )
     ) |>
