@@ -1,5 +1,7 @@
 ---
 title: "rOpenSci Editors"
+execute:
+  echo: false
 format: 
   html:
     fig-width: 8
@@ -81,6 +83,47 @@ ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
         "Expertise" = domain_expertise
     ) |>
     tidyr::replace_na (list (inactive_for = "(waiting)"))
+```
+
+
+### Editors (Observable version)
+
+```{r ojs-def-ed-status}
+ed_status$inactive_days [which (is.na (ed_status$inactive_days))] <- .Machine$integer.max
+ed_status_filtered <-
+    dplyr::select (ed_status, editor, inactive_for, Languages, Expertise, status, stats, inactive_days) |>
+    dplyr::rename (last_active = inactive_for)
+ojs_define (ed_status_in = ed_status_filtered)
+```
+
+```{ojs}
+ed_status = transpose(ed_status_in)
+```
+
+```{ojs}
+viewof stats = Inputs.checkbox(
+    [true, false],
+    { value: [false], 
+        label: "Stats:"
+    }
+)
+viewof status = Inputs.checkbox(
+    ["FREE", "BUSY", "ON LEAVE"], 
+    { value: ["FREE"], 
+        label: "Editor Status:"
+    }
+)
+```
+
+```{ojs}
+filtered = ed_status.filter(function(editor) {
+  return status.includes(editor.status) &&
+         stats.includes(editor.stats);
+})
+columns = ["editor", "last_active", "Languages", "Expertise", "status", "stats"]
+```
+```{ojs}
+Inputs.table(filtered, {columns: columns}, {sort: "inactive_days", reverse: true})
 ```
 
 ### General Editors
