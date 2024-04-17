@@ -85,6 +85,7 @@ ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
     tidyr::replace_na (list (inactive_for = "(waiting)"))
 ```
 
+
 ### Editor Status Overview
 
 ```{r ojs-def-ed-status}
@@ -98,6 +99,70 @@ ojs_define (ed_status_in = ed_status_filtered)
 
 ```{ojs}
 ed_status = transpose(ed_status_in)
+```
+
+```{ojs}
+// https://observablehq.com/@mootari/colored-table-rows
+function colorTable(data, { colorColumn, colorOpacity = 1, columns = undefined, format = {}, ...options}) {
+  const [row] = data;
+  if(!row) return Inputs.table(data, options);
+  
+  let index = Object.keys(row).indexOf(colorColumn);
+  if(index < 0) throw Error("colorColumn not found in data");
+  if(format[colorColumn]) throw Error("colorColumn is reserved");
+  if(columns && columns.indexOf(colorColumn) < 0) columns.push(colorColumn);
+  if(columns) index = columns.indexOf(colorColumn);
+  const nth = `nth-child(${index + 2})`;
+
+  const form = Inputs.table(data, {
+    format: {
+      ...format,
+      [colorColumn]: d => htl.html`<div style="--row-color:${d}">`
+    },
+    columns,
+    ...options
+  });
+  
+  const scope = DOM.uid().id;
+  form.classList.add(scope);
+  
+  form.append(htl.html`<style>
+
+    /* Ensure that the sticky header always stays on top */
+    .${scope} thead { position: relative; z-index: 2 }
+
+    /* Hide the last column */
+    .${scope} th:${nth},
+    .${scope} td:${nth} { width: 0; padding: 0 }
+    .${scope} th:${nth} { visibility: hidden }
+
+    /* Inject the background color */
+    .${scope} tr { position: relative }
+    .${scope} td:${nth} div:after {
+      opacity: ${colorOpacity};
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      background-color: var(--row-color);
+    }
+  `);
+
+  return form;
+}
+```
+
+```{ojs}
+colorData = {
+    return ed_status.map(row => ({
+        ...row,
+        rowColor: row.status === "FREE" ? "yellow" : "transparent",
+    }));
+}
 ```
 
 ```{ojs}
@@ -116,15 +181,16 @@ viewof status = Inputs.checkbox(
 ```
 
 ```{ojs}
-filtered = ed_status.filter(function(editor) {
+filtered = colorData.filter(function(editor) {
   return status.includes(editor.status) &&
          stats.includes(editor.stats);
 })
 columns = ["editor", "last_active", "status", "stats", "Languages", "Expertise"]
 ```
 ```{ojs}
-Inputs.table(
-  filtered,
+// Inputs.table(
+colorTable(filtered,
+  {colorColumn: "rowColor"},
   {columns: columns},
   {sort: "inactive_days", reverse: true}
 )
