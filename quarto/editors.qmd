@@ -85,8 +85,7 @@ ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
     tidyr::replace_na (list (inactive_for = "(waiting)"))
 ```
 
-
-### Editors (Observable version)
+### Editor Status Overview
 
 ```{r ojs-def-ed-status}
 ed_status$inactive_days [which (is.na (ed_status$inactive_days))] <- .Machine$integer.max
@@ -95,6 +94,7 @@ ed_status_filtered <-
     dplyr::rename (last_active = inactive_for)
 ojs_define (ed_status_in = ed_status_filtered)
 ```
+
 
 ```{ojs}
 ed_status = transpose(ed_status_in)
@@ -120,13 +120,18 @@ filtered = ed_status.filter(function(editor) {
   return status.includes(editor.status) &&
          stats.includes(editor.stats);
 })
-columns = ["editor", "last_active", "Languages", "Expertise", "status", "stats"]
+columns = ["editor", "last_active", "status", "stats", "Languages", "Expertise"]
 ```
 ```{ojs}
-Inputs.table(filtered, {columns: columns}, {sort: "inactive_days", reverse: true})
+Inputs.table(
+  filtered,
+  {columns: columns},
+  {sort: "inactive_days", reverse: true}
+)
 ```
 
-### General Editors
+
+### General Editors (Old)
 
 
 ```{r editor-table, echo = FALSE}
@@ -162,7 +167,7 @@ gt::gt (
     dashboard:::add_bg_colours ()
 ```
 
-### Statistical Editors
+### Statistical Editors (Old)
 
 
 ```{r editor-table, echo = FALSE}
