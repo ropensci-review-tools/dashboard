@@ -92,6 +92,7 @@ ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
 ```
 
 ```{r ojs-def-ed-status}
+#| cache: false
 ed_status$inactive_days [which (is.na (ed_status$inactive_days))] <- .Machine$integer.max
 ed_status_filtered <-
     dplyr::select (ed_status, editor, inactive_for, Languages, Expertise, status, stats, number, inactive_days) |>
