@@ -1,0 +1,75 @@
+```{ojs}
+// Definition of colorTable function, adapted from
+// https://observablehq.com/@mootari/colored-table-rows
+// This can't be placed in a separate file, because that requires importing
+// observable/table, but there is no path here to do that import.
+function colorTable(data, {
+        colorColumn,
+        colorOpacity = 0.5,
+        editorColumn,
+        lastActiveColumn,
+        issueNumColumn,
+        columns = undefined,
+        format = {}, ...options}) {
+  const [row] = data;
+  if(!row) return Inputs.table(data, options);
+  
+  let index = Object.keys(row).indexOf(colorColumn);
+  if(index < 0) throw Error("colorColumn not found in data");
+  if(format[colorColumn]) throw Error("colorColumn is reserved");
+  if(columns && columns.indexOf(colorColumn) < 0) columns.push(colorColumn);
+  if(columns) index = columns.indexOf(colorColumn);
+  const nth = `nth-child(${index + 2})`;
+
+  // Observable Table doesn't know about rows, so need to convert the
+  // "lastActiveColumn" into an array with the issue number and last active
+  // string so then pass to the `format` call below to construct <a> href
+  // objects:
+  const preprocessedData = data.map(row => ({
+     ...row,
+     [lastActiveColumn]: [row[issueNumColumn],row[lastActiveColumn]]
+  }));``
+
+  const form = Inputs.table(preprocessedData, {
+    format: {
+      ...format,
+      [colorColumn]: d => htl.html`<div style="--row-color:${d}">`,
+      [editorColumn]: d => htl.html`<a href="https://github.com/${d}">${d}</a>`,
+      [lastActiveColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d[0]}">${d[1]}</a>`,
+    },
+    columns,
+    ...options
+  });
+
+  const scope = DOM.uid().id;
+  form.classList.add(scope);
+  
+  form.append(htl.html`<style>
+
+    /* Ensure that the sticky header always stays on top */
+    .${scope} thead { position: relative; z-index: 2 }
+
+    /* Hide the last column */
+    .${scope} th:${nth},
+    .${scope} td:${nth} { width: 0; padding: 0 }
+    .${scope} th:${nth} { visibility: hidden }
+
+    /* Inject the background color */
+    .${scope} tr { position: relative }
+    .${scope} td:${nth} div:after {
+      opacity: ${colorOpacity};
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      background-color: var(--row-color);
+    }
+  `);
+
+  return form;
+}
+```
