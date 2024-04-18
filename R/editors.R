@@ -375,12 +375,14 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
     timeline_new <- process_timeline (dat, what = "issues_new")
 
     # Finally, reviews for each editor
-    ed_rev <- split (dat$reviews, f = as.factor (dat$reviews$editor))
-    ed_rev <- lapply (ed_rev, function (i) {
-        i$editor <- NULL
-        i$closed_at [i$state == "OPEN"] <- NA
-        return (i)
-    })
+    # ed_rev <- split (dat$reviews, f = as.factor (dat$reviews$editor))
+    # ed_rev <- lapply (ed_rev, function (i) {
+    #     i$editor <- NULL
+    #     i$closed_at [i$state == "OPEN"] <- NA
+    #     return (i)
+    # })
+    ed_rev <- dat$reviews
+    ed_rev$closed_at [ed_rev$state == "OPEN"] <- NA
 
     return (list (
         status = status,
