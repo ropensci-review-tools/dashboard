@@ -100,14 +100,10 @@ ed_status_filtered <-
 ojs_define (ed_status_in = ed_status_filtered)
 ```
 
-
 ```{ojs}
-ed_status = transpose(ed_status_in)
-```
-
-```{ojs}
-colorData = {
-    return ed_status.map(row => ({
+// This adds a 'rowColor' variable to the editor data
+editorData = {
+    return transpose(ed_status_in).map(row => ({
         ...row,
         rowColor: row.status === "FREE" ? "yellow" : "transparent",
     }));
@@ -115,6 +111,7 @@ colorData = {
 ```
 
 ```{ojs}
+// These are the two checkboxes which appear before the table:
 viewof stats = Inputs.checkbox(
     [true, false],
     { value: [false], 
@@ -130,7 +127,8 @@ viewof status = Inputs.checkbox(
 ```
 
 ```{ojs}
-filtered = colorData.filter(function(editor) {
+// This filters the editor data based on the checkboxes:
+filtered = editorData.filter(function(editor) {
   return status.includes(editor.status) &&
          stats.includes(editor.stats);
 })
@@ -139,6 +137,8 @@ filtered = colorData.filter(function(editor) {
 {{< include _colorTable_fn.qmd >}}
 
 ```{ojs}
+// And this uses the 'colorTable' function defined in the above file to
+// generate an Observable Inputs.table with coloured rows.
 columns = ["editor", "last_active", "status", "stats", "Languages", "Expertise"]
 colorTable(filtered,
   {
