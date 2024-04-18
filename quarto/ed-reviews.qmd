@@ -20,6 +20,11 @@ library (viridis)
 #| cache: true
 ed_dat <- editor_status (quiet = TRUE)
 ed_reviews <- ed_dat$reviews
+ed_reviews <- split (ed_reviews, f = as.factor (ed_reviews$editor))
+ed_reviews <- lapply (ed_reviews, function (i) {
+    i$editor <- NULL
+    return (i)
+})
 ```
 
 ## Editor Reviews
