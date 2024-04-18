@@ -196,6 +196,11 @@ start_date <- lubridate::ymd (Sys.Date ()) - lubridate::years (span_years)
 start_quarter <- lubridate::quarter (start_date, type = "date_first")
 timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
     dplyr::rename (reviews = value) |>
+    dplyr::group_by (name) |>
+    dplyr::mutate (rev_latest = rep (sum (tail (reviews, 2L)), n ())) |>
+    dplyr::ungroup () |>
+    dplyr::arrange (rev_latest) |>
+    dplyr::select (-rev_latest) |>
     dplyr::filter (reviews > min_rev_total)
 
 ncols <- diff (range (timeline_total$reviews)) + 1L
@@ -209,7 +214,16 @@ max_reviews <- max (timeline_total$reviews)
 min_rev_new <- 0L
 timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
     dplyr::rename (reviews = value) |>
+    dplyr::group_by (name) |>
+    dplyr::mutate (rev_latest = rep (sum (tail (reviews, 2L)), n ())) |>
+    dplyr::ungroup () |>
+    dplyr::arrange (rev_latest) |>
+    dplyr::select (-rev_latest) |>
     dplyr::filter (reviews > min_rev_new)
+
+# timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
+#     dplyr::rename (reviews = value) |>
+#     dplyr::filter (reviews > min_rev_new)
 ncols <- diff (range (timeline_new$reviews)) + 1L
 cols <- rev (heat.colors (ncols))
 timeline_new$col <- cols [timeline_new$reviews - min_rev_new]
@@ -246,6 +260,7 @@ timeline_new$tt <- paste0 (
     " new ",
     ifelse (timeline_new$reviews == 1, "submission", "submissions")
 )
+timeline_new$name <- factor (timeline_new$name, levels = unique (timeline_new$name))
 
 ggplot (timeline_new, aes (x = month, y = reviews, fill = col)) +
     ggiraph::geom_col_interactive (
@@ -314,6 +329,7 @@ timeline_total$tt <- paste0 (
     timeline_total$reviews,
     ifelse (timeline_total$reviews == 1, "review", "reviews")
 )
+timeline_total$name <- factor (timeline_total$name, levels = unique (timeline_total$name))
 
 ggplot (timeline_total, aes (x = month, y = reviews, fill = col)) +
     ggiraph::geom_col_interactive (
