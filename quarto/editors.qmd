@@ -127,11 +127,26 @@ viewof status = Inputs.checkbox(
 ```
 
 ```{ojs}
-// This filters the editor data based on the checkboxes:
+// This filters the editor data based on the checkboxes, and then sorts here,
+// because Observable tables can only be sorted by visible columns.
+
 filtered = editorData.filter(function(editor) {
   return status.includes(editor.status) &&
          stats.includes(editor.stats);
 })
+
+sortColumn = "inactive_days"
+
+// This sorts in reverse order:
+filteredSorted = filtered.sort((a, b) => {
+  if (a[sortColumn] < b[sortColumn]) {
+    return 1;
+  }
+  if (a[sortColumn] > b[sortColumn]) {
+    return -1;
+  }
+  return 0;
+});
 ```
 
 {{< include _colorTable_fn.qmd >}}
@@ -140,7 +155,7 @@ filtered = editorData.filter(function(editor) {
 // And this uses the 'colorTable' function defined in the above file to
 // generate an Observable Inputs.table with coloured rows.
 columns = ["editor", "last_active", "status", "stats", "Languages", "Expertise"]
-colorTable(filtered,
+colorTable(filteredSorted,
   {
     colorColumn: "rowColor",
     editorColumn: "editor",
@@ -148,10 +163,6 @@ colorTable(filtered,
     issueNumColumn: "number",
     columns: columns,
     height: 'auto',
-  },
-  {
-    sort: "inactive_days",
-    reverse: true
   }
 )
 ```
