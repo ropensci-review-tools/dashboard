@@ -177,18 +177,6 @@ Editors for new submissions should accordingly be chosen from those who have
 had relatively low recent workloads. All of the following data and graphs
 exclude any editors who are currently on leave.
 
-```{r ed-summary, echo = FALSE}
-# Reduce data to prior year only:
-start_date <- lubridate::ymd (Sys.Date ()) - lubridate::years (1L)
-start_quarter <- lubridate::quarter (start_date, type = "date_first")
-timeline_total <- dplyr::filter (ed_timeline_total, month >= start_quarter) |>
-    dplyr::rename (reviews_tot = value) |>
-    dplyr::filter (reviews_tot > 0)
-timeline_new <- dplyr::filter (ed_timeline_new, month >= start_quarter) |>
-    dplyr::rename (reviews_new = value) |>
-    dplyr::filter (reviews_new > 0)
-```
-
 
 ### Individual Editor Load: New Submissions {#ed-load-new}
 
