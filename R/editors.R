@@ -404,6 +404,8 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
 #' @export
 ed_rev_durations <- function (nyears = 2) {
 
+    editor <- duration_days <- NULL # suppress no visible binding notes
+
     dat <- review_history (quiet = FALSE)
 
     t_from_closed_dat <- Sys.Date () - dat$closed_at
