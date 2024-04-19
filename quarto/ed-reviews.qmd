@@ -42,11 +42,15 @@ editors = Array.from(new Set(editorsAll));
 
 ```{ojs}
 viewof editor = Inputs.select(editors, {multiple: false, label: "Editor:"})
+viewof state = Inputs.checkbox(
+    ["OPEN", "CLOSED"],
+    { value: ["OPEN"], label: "Issue State:" }
+)
 ```
 
 ```{ojs}
 filtered = edReviews.filter(function(ed) {
-  return editor.includes(ed.editor)
+  return editor.includes(ed.editor) && state.includes(ed.state)
 })
 n_filtered = filtered.length;
 ```
