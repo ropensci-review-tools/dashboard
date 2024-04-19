@@ -61,5 +61,6 @@ Inputs.table(filtered, {
     columns: ["number", "title", "state", "opened_at", "closed_at"],
     sortBy: [numberColumn],
     reverse: true,
+    height: "auto",
 })
 ```
