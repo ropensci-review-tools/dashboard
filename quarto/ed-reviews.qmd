@@ -1,5 +1,7 @@
 ---
 title: "Editor Reviews"
+execute:
+  echo: false
 format: 
   html:
     fig-width: 8
@@ -19,6 +21,59 @@ library (viridis)
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
 #| cache: true
 ed_dat <- editor_status (quiet = TRUE)
+```
+```{r prepro-ed-dat}
+#| cache: false
+ed_reviews <- ed_dat$reviews
+ojs_define (ed_reviews_in = ed_reviews)
+```
+
+This panel provides data on reviews handled by each editor. Data are shown for
+current editors only, with reviews listed from most to least recent.
+
+```{ojs}
+edReviews = transpose (ed_reviews_in)
+// And get array of unique eds for input selector:
+editorsAll = edReviews.map(function(item) {
+    return item.editor;
+});
+editors = Array.from(new Set(editorsAll));
+```
+
+```{ojs}
+viewof editor = Inputs.select(editors, {multiple: false, label: "Editor:"})
+```
+
+```{ojs}
+filtered = edReviews.filter(function(ed) {
+  return editor.includes(ed.editor)
+})
+n_filtered = filtered.length;
+```
+
+```{ojs}
+numberColumn = "number"
+Inputs.table(filtered, {
+    showIndex: true,
+    format: {
+      [numberColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d}">${d}</a>`,
+    },
+    columns: ["number", "title", "state", "opened_at", "closed_at"],
+    sortBy: [numberColumn],
+    reverse: true,
+})
+```
+
+
+
+## Editor Reviews
+
+This panel provides data on reviews handled by each editor. Data are shown for
+current editors only, with reviews listed from most to least recent.
+
+## Editor Reviews (Old)
+
+```{r prepro-ed-dat-old, echo = FALSE}
 ed_reviews <- ed_dat$reviews
 ed_reviews <- split (ed_reviews, f = as.factor (ed_reviews$editor))
 ed_reviews <- lapply (ed_reviews, function (i) {
@@ -26,11 +81,6 @@ ed_reviews <- lapply (ed_reviews, function (i) {
     return (i)
 })
 ```
-
-## Editor Reviews
-
-This panel provides data on reviews handled by each editor. Data are shown for
-current editors only, with reviews listed from most to least recent.
 
 ```{r ed-rev, echo = FALSE, message = FALSE, results = 'asis'}
 u <- "https://github.com/ropensci/software-review/issues/"
