@@ -18,35 +18,35 @@
     "href": "reviews.html#editor-checks",
     "title": "Software Review Overview",
     "section": "1/Editor Checks",
-    "text": "1/Editor Checks\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n626\ngigs: Assess Fetal, Newborn, and Child Growth with International Standards\nTRUE\n2024-02-23\n@rkillick\n4 weeks\n\n\n633\nosmapiR: an implementation of OpenStreetMap API v0.6 for R\nFALSE\n2024-04-10\n@adamhsparks\n1 day"
+    "text": "1/Editor Checks\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n626\ngigs: Assess Fetal, Newborn, and Child Growth with International Standards\nTRUE\n2024-02-23\n@rkillick\n5 weeks\n\n\n633\nosmapiR: an implementation of OpenStreetMap API v0.6 for R\nFALSE\n2024-04-10\n@adamhsparks\n2 days"
   },
   {
     "objectID": "reviews.html#seeking-reviewers",
     "href": "reviews.html#seeking-reviewers",
     "title": "Software Review Overview",
     "section": "2/Seeking Reviewers",
-    "text": "2/Seeking Reviewers\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n637\ncancerprof: API Client for extracting data from State Cancer Profiles\nFALSE\n2024-04-16\n@ldecicco-USGS\n2 days\n\n\n636\nrsi: Efficiently Retrieve and Process Satellite Imagery\nFALSE\n2024-04-11\n@jhollist\n1 day"
+    "text": "2/Seeking Reviewers\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n637\ncancerprof: API Client for extracting data from State Cancer Profiles\nFALSE\n2024-04-16\n@ldecicco-USGS\n3 days\n\n\n636\nrsi: Efficiently Retrieve and Process Satellite Imagery\nFALSE\n2024-04-11\n@jhollist\n2 days"
   },
   {
     "objectID": "reviews.html#reviewers-assigned",
     "href": "reviews.html#reviewers-assigned",
     "title": "Software Review Overview",
     "section": "3/Reviewer(s) Assigned",
-    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n6 weeks\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n5 days"
+    "text": "3/Reviewer(s) Assigned\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n546\nfwildclusterboot submission\nTRUE\n2023-05-08\n@helske\n6 weeks\n\n\n612\nImplementation of OPTRAM algorithm to derive soil moisture from remote sensing imagery\nFALSE\n2023-12-08\n@adamhsparks\n6 days"
   },
   {
     "objectID": "reviews.html#reviews-in-awaiting-changes",
     "href": "reviews.html#reviews-in-awaiting-changes",
     "title": "Software Review Overview",
     "section": "4/Review(s) in Awaiting Changes",
-    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n2 months\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n2 months\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n7 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-04-03\n@maurolepore\n1 day"
+    "text": "4/Review(s) in Awaiting Changes\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n599\nagroclimatico: Índices y Estadísticos Climáticos e Hidrológicos\nFALSE\n2024-02-13\n@Pakillo\n2 months\n\n\n608\nrgeeExtra: An extensions for 'rgee'\nFALSE\n2024-01-17\n@maurolepore\n2 months\n\n\n625\nrix: Reproducible Environments with Nix\nFALSE\n2024-03-12\n@ldecicco-USGS\n8 days\n\n\n620\nAprendiendo programación en R con la robot Karel\nFALSE\n2024-04-03\n@maurolepore\n2 days"
   },
   {
     "objectID": "reviews.html#awaiting-reviewers-response",
     "href": "reviews.html#awaiting-reviewers-response",
     "title": "Software Review Overview",
     "section": "5/Awaiting Reviewer(s) Response",
-    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n10 days\n\n\n627\ndendroNetwork\nFALSE\n2024-04-09\n@ldecicco-USGS\n3 days"
+    "text": "5/Awaiting Reviewer(s) Response\n\n\n\n\n\n\n\n\n\n\nnumber\ntitle\nstats\nstage_date\neditor\ninactive_for\n\n\n\n\n590\nmregions2: Access Data from Marineregions.org: The Marine Regions Gazetteer and the Marine Regions Data Products\nFALSE\n2023-11-25\n@jooolia\n2 weeks\n\n\n627\ndendroNetwork\nFALSE\n2024-04-09\n@ldecicco-USGS\n4 days"
   },
   {
     "objectID": "reviews.html#holding",
