@@ -148,7 +148,15 @@ viewof stage = Inputs.checkbox(
      "4/review(s)-in-awaiting-changes",
      "5/awaiting-reviewer(s)-response"
     ],
-    { value: ["0/presubmission"], label: "Submission Stage:" }
+    { value: [
+        "0/presubmission",
+        "1/editor-checks",
+        "2/seeking-reviewer(s)",
+        "3/reviewer(s)-assigned",
+        "4/review(s)-in-awaiting-changes",
+        "5/awaiting-reviewer(s)-response"
+      ],
+      label: "Submission Stage:" }
 )
 ```
 
@@ -156,17 +164,23 @@ viewof stage = Inputs.checkbox(
 filtered = submissionsIn.filter(function(submission) {
   return stage.includes(submission.stage);
 })
-sortColumn = "elapsed_days"
+sortCol1 = "stage"
+sortCol2 = "elapsed_days"
 
-// This sorts in reverse order:
+// Sorts by both stage and elapsed days:
 filteredSorted = filtered.sort((a, b) => {
-  if (a[sortColumn] < b[sortColumn]) {
-    return 1;
-  }
-  if (a[sortColumn] > b[sortColumn]) {
-    return -1;
-  }
-  return 0;
+    if (a[sortCol1] > b[sortCol1]) {
+        return 1;
+    } else if (a[sortCol1] < b[sortCol1]) {
+        return -1;
+    } else {
+        if (a[sortCol2] < b[sortCol2]) {
+            return 1;
+        } else if (a[sortCol2] > b[sortCol2]) {
+            return -1;
+        }
+    }
+    return 0;
 });
 ```
 
@@ -177,7 +191,6 @@ nope
 ```{ojs}
 // And this uses the 'reviewTable' function defined in the above file to
 // generate an Observable Inputs.table with coloured rows.
-console.log("----filteredSorted: ", filteredSorted)
 columns = ["stage", "number", "title", "stats", "stage_date", "editor", "inactive_for"]
 reviewTable(filteredSorted,
   {
