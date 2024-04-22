@@ -153,10 +153,10 @@ viewof stage = Inputs.checkbox(
     { value: [
         "0/presubmission",
         "1/editor-checks",
-        "2/seeking-reviewer(s)",
-        "3/reviewer(s)-assigned",
-        "4/review(s)-in-awaiting-changes",
-        "5/awaiting-reviewer(s)-response"
+        // "2/seeking-reviewer(s)",
+        // "3/reviewer(s)-assigned",
+        // "4/review(s)-in-awaiting-changes",
+        // "5/awaiting-reviewer(s)-response"
       ],
       label: "Submission Stage:" }
 )
