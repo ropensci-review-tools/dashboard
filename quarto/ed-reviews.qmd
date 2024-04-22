@@ -11,11 +11,6 @@ format:
 
 ```{r load-pkg-ed-rev, echo = FALSE, message = FALSE}
 library (dashboard)
-library (gt)
-library (ggplot2)
-library (tidyr)
-library (dplyr)
-library (viridis)
 ```
 
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
