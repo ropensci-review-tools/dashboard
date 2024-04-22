@@ -73,3 +73,75 @@ function colorTable(data, {
   return form;
 }
 ```
+
+```{ojs}
+// And modified verison for open reviews table
+function reviewTable(data, {
+        colorColumn,
+        colorOpacity = 0.5,
+        issueNumColumn,
+        titleColumn,
+        columns = undefined,
+        format = {}, ...options}) {
+  const [row] = data;
+  if(!row) return Inputs.table(data, options);
+  
+  let index = Object.keys(row).indexOf(colorColumn);
+  if(index < 0) throw Error("colorColumn not found in data");
+  if(format[colorColumn]) throw Error("colorColumn is reserved");
+  if(columns && columns.indexOf(colorColumn) < 0) columns.push(colorColumn);
+  if(columns) index = columns.indexOf(colorColumn);
+  const nth = `nth-child(${index + 2})`;
+
+  // Observable Table doesn't know about rows, so need to convert the
+  // "titleColumn" into an array with the title and issue number
+  // so then pass to the `format` call below to construct <a> href
+  // objects:
+  const preprocessedData = data.map(row => ({
+     ...row,
+     [titleColumn]: [row[titleColumn],row[issueNumColumn]]
+  }));``
+
+  const form = Inputs.table(preprocessedData, {
+    format: {
+      ...format,
+      [colorColumn]: d => htl.html`<div style="--row-color:${d}">`,
+      [issueNumColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d}">${d}</a>`,
+      [titleColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d[1]}">${d[0]}</a>`,
+    },
+    columns,
+    ...options
+  });
+
+  const scope = DOM.uid().id;
+  form.classList.add(scope);
+  
+  form.append(htl.html`<style>
+
+    /* Ensure that the sticky header always stays on top */
+    .${scope} thead { position: relative; z-index: 2 }
+
+    /* Hide the last column */
+    .${scope} th:${nth},
+    .${scope} td:${nth} { width: 0; padding: 0 }
+    .${scope} th:${nth} { visibility: hidden }
+
+    /* Inject the background color */
+    .${scope} tr { position: relative }
+    .${scope} td:${nth} div:after {
+      opacity: ${colorOpacity};
+      content: "";
+      display: block;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: -1;
+      background-color: var(--row-color);
+    }
+  `);
+
+  return form;
+}
+```

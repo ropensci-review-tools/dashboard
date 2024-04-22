@@ -1,5 +1,7 @@
 ---
 title: "Software Review Overview"
+execute:
+  echo: false
 format: 
   html:
     fig-width: 8
@@ -118,6 +120,69 @@ udat <- data.frame (
 gt::gt (udat) |>
     dashboard:::add_urgency_cols (c ("urgency", "importance"))
 ```
+
+```{r}
+ojs_define (submissions = rev_dat)
+```
+```{ojs}
+submissionsIn = {
+    return transpose(submissions).map(row => ({
+        ...row,
+        rowColor: row.submission_type === "Stats" ? "yellow" : "transparent",
+    }));
+}
+```
+```{ojs}
+viewof stage = Inputs.checkbox(
+    ["0/presubmission",
+     "1/editor-checks",
+     "2/seeking-reviewer(s)",
+     "3/reviewer(s)-assigned",
+     "4/review(s)-in-awaiting-changes",
+     "5/awaiting-reviewer(s)-response"
+    ],
+    { value: ["0/presubmission"], label: "Submission Stage:" }
+)
+```
+
+```{ojs}
+filtered = submissionsIn.filter(function(submission) {
+  return stage.includes(submission.stage);
+})
+sortColumn = "elapsed_days"
+
+// This sorts in reverse order:
+filteredSorted = filtered.sort((a, b) => {
+  if (a[sortColumn] < b[sortColumn]) {
+    return 1;
+  }
+  if (a[sortColumn] > b[sortColumn]) {
+    return -1;
+  }
+  return 0;
+});
+```
+
+{{< include _colorTable_fn.qmd >}}
+
+nope
+
+```{ojs}
+// And this uses the 'reviewTable' function defined in the above file to
+// generate an Observable Inputs.table with coloured rows.
+console.log("----filteredSorted: ", filteredSorted)
+columns = ["number", "title", "status", "stage_date", "editor", "inactive_for"]
+reviewTable(filteredSorted,
+  {
+    colorColumn: "rowColor",
+    issueNumColumn: "number",
+    titleColumn: "title",
+    columns: columns,
+    height: 'auto',
+  }
+)
+```
+
 
 
 ## 0\/Pre-submission
