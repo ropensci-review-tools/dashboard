@@ -125,22 +125,54 @@ udat <- data.frame (
         "very high"
     )
 )
-gt::gt (udat) |>
-    dashboard:::add_urgency_cols (c ("urgency", "importance"))
 ```
 
 
 ```{r}
 ojs_define (submissions = rev_dat)
+# And define dummy data for urgency color scheme:
+urgency_dat <- data.frame (
+    urgency = 1:5,
+    importance = c (
+        "low",
+        "moderate",
+        "medium",
+        "high",
+        "very high"
+    )
+)
+ojs_define (urgency = urgency_dat)
 ```
+
+```{ojs}
+urgencyDat = transpose(urgency).map(row => ({
+    ...row,
+    rowColor: row.urgency === 1 ? "#FFFF8088" :
+        row.urgency === 2 ? "#FFFF0088" :
+        row.urgency === 3 ? "#FFAA0088" :
+        row.urgency === 4 ? "#FF550088" :
+        row.urgency === 5 ? "#FF000088" : "transparent",
+}));
+```
+
+```{ojs}
+colorTable(urgencyDat, {
+    columns: ["urgency", "importance"],
+    colorColumn: "rowColor",
+})
+```
+
+
+
 ```{ojs}
 submissionsIn = {
     return transpose(submissions).map(row => ({
         ...row,
         rowColor: row.urgency === 1 ? "#FFFF8088" :
-            row.urgency === 2 ? "#FFAA8088" :
-            row.urgency === 3 ? "#FF550088" :
-            row.urgency === 4 ? "#FF000088" : "transparent",
+            row.urgency === 2 ? "#FFFF0088" :
+            row.urgency === 3 ? "#FFAA0088" :
+            row.urgency === 4 ? "#FF550088" :
+            row.urgency === 5 ? "#FF000088" : "transparent",
     }));
 }
 ```
