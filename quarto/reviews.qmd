@@ -39,6 +39,7 @@ cat (paste0 (
 
 ```{r add-html-to-table, echo = FALSE}
 u <- "https://github.com/ropensci/software-review/issues/"
+rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
 dat <- rev_dat
 # Number has to come last here!!
 dat <- dashboard:::add_gt_html (dat, u, "title")
@@ -128,6 +129,7 @@ gt::gt (udat) |>
     dashboard:::add_urgency_cols (c ("urgency", "importance"))
 ```
 
+
 ```{r}
 ojs_define (submissions = rev_dat)
 ```
@@ -186,12 +188,11 @@ filteredSorted = filtered.sort((a, b) => {
 
 {{< include _colorTable_fn.qmd >}}
 
-nope
 
 ```{ojs}
 // And this uses the 'reviewTable' function defined in the above file to
 // generate an Observable Inputs.table with coloured rows.
-columns = ["stage", "number", "title", "stats", "stage_date", "editor", "inactive_for"]
+columns = ["stage_num", "number", "title", "stats", "stage_date", "editor", "inactive_for"]
 reviewTable(filteredSorted,
   {
     colorColumn: "rowColor",
@@ -199,10 +200,18 @@ reviewTable(filteredSorted,
     titleColumn: "title",
     columns: columns,
     height: 'auto',
+    layout: 'auto',
+    header: {
+        stage_num: "Stage",
+        number: "Number",
+        title: "Title",
+        stats: "Stats?",
+        stage_date: "Stage date",
+        inactive_for: "Inactive for",
+    }
   }
 )
 ```
-
 
 
 ## 0\/Pre-submission
