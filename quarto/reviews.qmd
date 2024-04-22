@@ -37,22 +37,14 @@ cat (paste0 (
 ```
 
 
-```{r add-html-to-table, echo = FALSE}
-u <- "https://github.com/ropensci/software-review/issues/"
-rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
-dat <- rev_dat
-# Number has to come last here!!
-dat <- dashboard:::add_gt_html (dat, u, "title")
-dat <- dashboard:::add_gt_html (dat, u, "number")
-```
-
 ```{r add-urgency-column, echo = FALSE}
+rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
 # Then create an "urgency" column used to highlight rows needing urgent
 # attention. Note that colours have to be individually hand-coded in the
 # `gt` code below, so use of any value other than `ncols = 5` requires the
 # subsequent colors to be re-coded.
 ncols <- 5L
-dat$urgency <- rev_dat$urgency <- 0L
+rev_dat$urgency <- 0L
 
 # time scales for each stage, in days
 time_scales <- list (
@@ -64,17 +56,12 @@ time_scales <- list (
     c (5, 21) # reviewer responses
 )
 for (i in time_scales) {
-    index <- grep (paste0 ("^", i [1]), dat$stage)
-    dat$urgency [index] <-
-        floor (as.numeric (dat$elapsed_days [index]) / i [2])
+    index <- grep (paste0 ("^", i [1]), rev_dat$stage)
     rev_dat$urgency [index] <-
         floor (as.numeric (rev_dat$elapsed_days [index]) / i [2])
 }
 
-dat$urgency [dat$urgency > ncols] <- ncols
-dat$urgency [grepl ("holding", dat$labels)] <- 0
-dat_holding <- dat [grep ("holding", dat$labels), ] # Done at end
-dat <- dat [which (!grepl ("holding", dat$labels)), ]
+dat_holding <- rev_dat [grep ("holding", rev_dat$labels), ] # TODO: Include these
 
 rev_dat$urgency [rev_dat$urgency > ncols] <- ncols
 rev_dat$urgency [grepl ("holding", rev_dat$labels)] <- 0
@@ -83,7 +70,7 @@ rev_dat <- dplyr::rename (rev_dat, "inactive_for" = elapsed)
 ```
 
 ```{r dat-stages, echo = FALSE}
-sub_types <- table (dat$submission_type)
+sub_types <- table (rev_dat$submission_type)
 ```
 
 There are currently:<br>
@@ -112,20 +99,6 @@ days would have an urgency of `floor(17/7) = 2`. A submission which has been
 under review (stage `3\/Reviewer(s) Assigned`) for 12 weeks would have an
 urgency of `floor(12 * 7 / 21) = 4`. The colour codes for these urgency levels
 are shown in the following table.
-
-```{r colour-scheme, echo = FALSE}
-cols <- dashboard:::define_urgency_colours ()
-udat <- data.frame (
-    urgency = seq_along (cols),
-    importance = c (
-        "low",
-        "moderate",
-        "medium",
-        "high",
-        "very high"
-    )
-)
-```
 
 
 ```{r}
