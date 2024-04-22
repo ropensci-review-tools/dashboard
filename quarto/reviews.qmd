@@ -51,7 +51,7 @@ dat <- dashboard:::add_gt_html (dat, u, "number")
 # `gt` code below, so use of any value other than `ncols = 5` requires the
 # subsequent colors to be re-coded.
 ncols <- 5L
-dat$urgency <- 0L
+dat$urgency <- rev_dat$urgency <- 0L
 
 # time scales for each stage, in days
 time_scales <- list (
@@ -66,12 +66,19 @@ for (i in time_scales) {
     index <- grep (paste0 ("^", i [1]), dat$stage)
     dat$urgency [index] <-
         floor (as.numeric (dat$elapsed_days [index]) / i [2])
+    rev_dat$urgency [index] <-
+        floor (as.numeric (rev_dat$elapsed_days [index]) / i [2])
 }
 
 dat$urgency [dat$urgency > ncols] <- ncols
 dat$urgency [grepl ("holding", dat$labels)] <- 0
 dat_holding <- dat [grep ("holding", dat$labels), ] # Done at end
 dat <- dat [which (!grepl ("holding", dat$labels)), ]
+
+rev_dat$urgency [rev_dat$urgency > ncols] <- ncols
+rev_dat$urgency [grepl ("holding", rev_dat$labels)] <- 0
+
+rev_dat <- dplyr::rename (rev_dat, "inactive_for" = elapsed)
 ```
 
 ```{r dat-stages, echo = FALSE}
@@ -171,7 +178,7 @@ nope
 // And this uses the 'reviewTable' function defined in the above file to
 // generate an Observable Inputs.table with coloured rows.
 console.log("----filteredSorted: ", filteredSorted)
-columns = ["number", "title", "status", "stage_date", "editor", "inactive_for"]
+columns = ["stage", "number", "title", "stats", "stage_date", "editor", "inactive_for"]
 reviewTable(filteredSorted,
   {
     colorColumn: "rowColor",
