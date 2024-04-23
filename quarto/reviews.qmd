@@ -86,16 +86,23 @@ rOpenSci software peer-review is currently handling:<br>
 - `r sub_types [["Standard"]]` standard `r sub_type_end [["Standard"]]`<br>
 - `r sub_types [["Stats"]]` stats `r sub_type_end [["Stats"]]`
 
-The following table provides details of each issue, defined by the "Submission
-Stage" listed in the check-boxes. There is also a "Holding" check box which can
-be used to inspect reviews which are currently on hold. Some rows in the table
-are highlighted to visually indicate degrees of urgency according to the scheme
-defined in the following sub-section. Rows with no highlight may be considered
-up-to-date, and require no action.
+The following table provides details of each issue, with results filtered by
+the following controls:
+
+- "Submission Stage" to list issues with the specified stage.
+- "Holding" to list issues which are on hold (true) or not (false).
+- "Sort By" to sort results either by the Submission Stage ("stage", 0-5), or
+  "urgency", as described below.
+
+Some rows in the table are highlighted to visually indicate degrees of urgency
+according to the scheme defined in the following sub-section. Rows with no
+highlight may be considered up-to-date, and require no action.
 
 ```{r rev-dat-prepro}
-# Final pre-processing to add 'holding' column
+# Final pre-processing to add 'holding' column, and an 'urgency_rev' column so
+# urgency can be sorted via same code as stage.
 rev_dat$holding <- grepl ("holding", rev_dat$labels)
+rev_dat$urgency_rev <- max (rev_dat$urgency) - rev_dat$urgency
 ```
 
 
@@ -145,10 +152,10 @@ viewof stage = {
             value: [
                 "0/presubmission",
                 "1/editor-checks",
-                // "2/seeking-reviewer(s)",
-                // "3/reviewer(s)-assigned",
-                // "4/review(s)-in-awaiting-changes",
-                // "5/awaiting-reviewer(s)-response"
+                "2/seeking-reviewer(s)",
+                "3/reviewer(s)-assigned",
+                "4/review(s)-in-awaiting-changes",
+                "5/awaiting-reviewer(s)-response"
             ],
             label: htl.html`<b>Submission Stage:</b>`,
         }
@@ -182,11 +189,25 @@ viewof holding = Inputs.checkbox(
 <div style="margin-top: 20px; margin-bottom: 20px;"></div>
 
 ```{ojs}
+viewof sortBy = Inputs.radio(
+    ["stage", "urgency"],
+    {
+        value: "stage",
+        label: htl.html`<b>Sort by:</b>`,
+    }
+)
+```
+
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
+```{ojs}
 filtered = submissionsIn.filter(function(submission) {
   return stage.includes(submission.stage) &&
     holding.includes(submission.holding)
 })
-sortCol1 = "stage"
+// Only sort by urgency if there are any:
+anyUrgent = filtered.some(submission => submission.urgency > 0)
+sortCol1 = sortBy === "stage" ? "stage" : anyUrgent ? "urgency_rev" : "stage"
 sortCol2 = "elapsed_days"
 
 // Sorts by both stage and elapsed days:
