@@ -75,14 +75,16 @@ sub_type_end [sub_types > 1] <- "issues"
 names (sub_type_end) <- names (sub_types)
 ```
 
-There are currently:<br>
+rOpenSci software peer-review is currently handling:<br>
 
 - `r sub_types [["Pre-submission"]]` pre-submission `r sub_type_end [["Pre-submission"]]`<br>
 - `r sub_types [["Standard"]]` standard `r sub_type_end [["Standard"]]`<br>
 - `r sub_types [["Stats"]]` stats `r sub_type_end [["Stats"]]`
 
-Some cells in the following table are highlighted to visually indicate the
-following degrees of urgency:
+The following table provides details of each issue, defined by the "Submission
+Stage" listed in the check-boxes. Some rows in the table are highlighted to
+visually indicate the following degrees of urgency according to the scheme
+defined below.
 
 
 ```{r}
@@ -101,59 +103,58 @@ urgency_dat <- data.frame (
 ojs_define (urgency = urgency_dat)
 ```
 
-```{ojs}
-urgencyDat = transpose(urgency).map(row => ({
-    ...row,
-    rowColor: row.urgency === 1 ? "#FFFF8088" :
-        row.urgency === 2 ? "#FFFF0088" :
-        row.urgency === 3 ? "#FFAA0088" :
-        row.urgency === 4 ? "#FF550088" :
-        row.urgency === 5 ? "#FF000088" : "transparent",
-}));
-```
 
 ```{ojs}
-colorTable(urgencyDat, {
-    columns: ["urgency", "importance"],
-    colorColumn: "rowColor",
-})
-```
+urgency_colours = ["#FFFF8088", "#FFFF0088", "#FFAA0088", "#FF550088", "#FF000088"]
 
-The levels of urgency used in this table are explained at the end.
-
-
-```{ojs}
 submissionsIn = {
     return transpose(submissions).map(row => ({
         ...row,
-        rowColor: row.urgency === 1 ? "#FFFF8088" :
-            row.urgency === 2 ? "#FFFF0088" :
-            row.urgency === 3 ? "#FFAA0088" :
-            row.urgency === 4 ? "#FF550088" :
-            row.urgency === 5 ? "#FF000088" : "transparent",
+        rowColor: row.urgency === 1 ? urgency_colours[0] :
+            row.urgency === 2 ? urgency_colours[1] :
+            row.urgency === 3 ? urgency_colours[2] :
+            row.urgency === 4 ? urgency_colours[3] :
+            row.urgency === 5 ? urgency_colours[4] : "transparent",
     }));
 }
 ```
 ```{ojs}
-viewof stage = Inputs.checkbox(
-    ["0/presubmission",
-     "1/editor-checks",
-     "2/seeking-reviewer(s)",
-     "3/reviewer(s)-assigned",
-     "4/review(s)-in-awaiting-changes",
-     "5/awaiting-reviewer(s)-response"
-    ],
-    { value: [
-        "0/presubmission",
-        "1/editor-checks",
-        // "2/seeking-reviewer(s)",
-        // "3/reviewer(s)-assigned",
-        // "4/review(s)-in-awaiting-changes",
-        // "5/awaiting-reviewer(s)-response"
-      ],
-      label: "Submission Stage:" }
-)
+viewof stage = {
+    const input =  Inputs.checkbox(
+        ["0/presubmission",
+         "1/editor-checks",
+         "2/seeking-reviewer(s)",
+         "3/reviewer(s)-assigned",
+         "4/review(s)-in-awaiting-changes",
+         "5/awaiting-reviewer(s)-response"
+        ],
+        {
+            value: [
+                "0/presubmission",
+                "1/editor-checks",
+                // "2/seeking-reviewer(s)",
+                // "3/reviewer(s)-assigned",
+                // "4/review(s)-in-awaiting-changes",
+                // "5/awaiting-reviewer(s)-response"
+            ],
+            label: htl.html`<b>Submission Stage:<b>`,
+        }
+    );
+
+    // Modification ideas from
+    // https://talk.observablehq.com/t/what-is-the-best-way-to-style-an-input-checkbox/7690/2
+    const scope = DOM.uid().id;
+    input.classList.add(scope);
+
+    input.append(htl.html`<style>
+    .${scope} > div, .${scope} > div label { display: flex; flex-wrap: wrap; gap: 10px; width: 300px }
+    `)
+
+    return input;
+}
 ```
+
+<br>
 
 ```{ojs}
 filtered = submissionsIn.filter(function(submission) {
@@ -208,6 +209,26 @@ reviewTable(filteredSorted,
 
 ## Urgency of Reviews
 
+```{ojs}
+urgencyDat = transpose(urgency).map(row => ({
+    ...row,
+    rowColor: row.urgency === 1 ? urgency_colours[0] :
+        row.urgency === 2 ? urgency_colours[1] :
+        row.urgency === 3 ? urgency_colours[2] :
+        row.urgency === 4 ? urgency_colours[3] :
+        row.urgency === 5 ? urgency_colours[4] : "transparent",
+}));
+```
+
+```{ojs}
+colorTable(urgencyDat, {
+    columns: ["urgency", "importance"],
+    colorColumn: "rowColor",
+})
+```
+
+The levels of urgency used in this table are explained at the end. Rows with no
+highlight may be considered up-to-date, and require no action.
 
 Levels of urgency depend on the review stage. Approximate expected times
 required to complete each stage are:
