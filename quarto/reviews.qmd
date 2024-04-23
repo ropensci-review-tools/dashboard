@@ -19,7 +19,11 @@ rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
 has_multiple_stages <- !is.null (attr (rev_dat, "multiple_stages"))
 ```
 
+## Current Reviews
+
 ```{r multiple-stages, eval = has_multiple_stages, echo = FALSE, results = "asis"}
+# Chunk to print details of any reviews which have multiple stage labels.
+# If there are none, this chunk has no effect.
 stages <- attr (rev_dat, "multiple_stages")
 u <- "https://github.com/ropensci/software-review/issues/"
 stages <- paste0 ("[", stages, "](", u, stages, ")")
@@ -37,11 +41,11 @@ cat (paste0 (
 
 
 ```{r add-urgency-column, echo = FALSE}
-rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
-# Then create an "urgency" column used to highlight rows needing urgent
+# This chunk creates an "urgency" column used to highlight rows needing urgent
 # attention. Note that colours have to be individually hand-coded below, so
 # use of any value other than `ncols = 5` requires the subsequent colors to
 # be re-coded.
+rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
 ncols <- 5L
 rev_dat$urgency <- 0L
 
@@ -69,6 +73,7 @@ rev_dat <- dplyr::rename (rev_dat, "inactive_for" = elapsed)
 ```
 
 ```{r dat-stages, echo = FALSE}
+# Chunk to derive values to be printed in the text strings that follow:
 sub_types <- table (rev_dat$submission_type)
 sub_type_end <- rep ("issue", length (sub_types))
 sub_type_end [sub_types > 1] <- "issues"
@@ -82,9 +87,17 @@ rOpenSci software peer-review is currently handling:<br>
 - `r sub_types [["Stats"]]` stats `r sub_type_end [["Stats"]]`
 
 The following table provides details of each issue, defined by the "Submission
-Stage" listed in the check-boxes. Some rows in the table are highlighted to
-visually indicate the following degrees of urgency according to the scheme
-defined below.
+Stage" listed in the check-boxes. There is also a "Holding" check box which can
+be used to inspect reviews which are currently on hold. Some rows in the table
+are highlighted to visually indicate degrees of urgency according to the scheme
+defined in the following sub-section. Rows with no highlight may be considered
+up-to-date, and require no action.
+
+```{r rev-dat-prepro}
+# Final pre-processing to add 'holding' column
+rev_dat$holding <- grepl ("holding", rev_dat$labels)
+```
+
 
 
 ```{r}
@@ -137,7 +150,7 @@ viewof stage = {
                 // "4/review(s)-in-awaiting-changes",
                 // "5/awaiting-reviewer(s)-response"
             ],
-            label: htl.html`<b>Submission Stage:<b>`,
+            label: htl.html`<b>Submission Stage:</b>`,
         }
     );
 
@@ -154,11 +167,24 @@ viewof stage = {
 }
 ```
 
-<br>
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
+```{ojs}
+viewof holding = Inputs.checkbox(
+    [true, false],
+    {
+        value: [false],
+        label: htl.html`<b>Holding:</b>`,
+    }
+)
+```
+
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
 
 ```{ojs}
 filtered = submissionsIn.filter(function(submission) {
-  return stage.includes(submission.stage);
+  return stage.includes(submission.stage) &&
+    holding.includes(submission.holding)
 })
 sortCol1 = "stage"
 sortCol2 = "elapsed_days"
@@ -207,7 +233,13 @@ reviewTable(filteredSorted,
 )
 ```
 
+<br>
+
+
 ## Urgency of Reviews
+
+Levels of urgency used in the previous table are coloured according to the
+following scheme:
 
 ```{ojs}
 urgencyDat = transpose(urgency).map(row => ({
@@ -227,9 +259,6 @@ colorTable(urgencyDat, {
 })
 ```
 
-The levels of urgency used in this table are explained at the end. Rows with no
-highlight may be considered up-to-date, and require no action.
-
 Levels of urgency depend on the review stage. Approximate expected times
 required to complete each stage are:
 
@@ -242,10 +271,12 @@ stage | time (days)
 4\/Review(s) in Awaiting Changes | 21
 5\/Awaiting Reviewer(s) Response | 21
 
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
 Levels of urgency for each review are times taken for current stage as
 a multiple of those base times, with values rounded *down* to nearest integer.
 For example, a submission which has been undergoing `1\/Editor Checks` for 17
 days would have an urgency of `floor(17/7) = 2`. A submission which has been
 under review (stage `3\/Reviewer(s) Assigned`) for 12 weeks would have an
-urgency of `floor(12 * 7 / 21) = 4`. These urgency levels define the colour
-codes shown at the top of this page.
+urgency of `floor(12 * 7 / 21) = 4`. These urgency levels then map on to the
+colour codes shown above.
