@@ -11,7 +11,6 @@ format:
 
 ```{r load-pkg-rev, echo = FALSE, message = FALSE}
 library (dashboard)
-library (gt)
 ```
 
 ```{r get-rev-dat, echo = FALSE}
@@ -40,9 +39,9 @@ cat (paste0 (
 ```{r add-urgency-column, echo = FALSE}
 rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
 # Then create an "urgency" column used to highlight rows needing urgent
-# attention. Note that colours have to be individually hand-coded in the
-# `gt` code below, so use of any value other than `ncols = 5` requires the
-# subsequent colors to be re-coded.
+# attention. Note that colours have to be individually hand-coded below, so
+# use of any value other than `ncols = 5` requires the subsequent colors to
+# be re-coded.
 ncols <- 5L
 rev_dat$urgency <- 0L
 
