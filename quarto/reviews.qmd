@@ -70,13 +70,16 @@ rev_dat <- dplyr::rename (rev_dat, "inactive_for" = elapsed)
 
 ```{r dat-stages, echo = FALSE}
 sub_types <- table (rev_dat$submission_type)
+sub_type_end <- rep ("issue", length (sub_types))
+sub_type_end [sub_types > 1] <- "issues"
+names (sub_type_end) <- names (sub_types)
 ```
 
 There are currently:<br>
 
-- `r sub_types [["Pre-submission"]]` pre-submission issues<br>
-- `r sub_types [["Standard"]]` standard issues<br>
-- `r sub_types [["Stats"]]` stats issues
+- `r sub_types [["Pre-submission"]]` pre-submission `r sub_type_end [["Pre-submission"]]`<br>
+- `r sub_types [["Standard"]]` standard `r sub_type_end [["Standard"]]`<br>
+- `r sub_types [["Stats"]]` stats `r sub_type_end [["Stats"]]`
 
 Some cells in the following table are highlighted to visually indicate the
 following degrees of urgency:
