@@ -1,5 +1,7 @@
 ---
 title: "Software Review Overview"
+execute:
+  echo: false
 format: 
   html:
     fig-width: 8
@@ -9,7 +11,6 @@ format:
 
 ```{r load-pkg-rev, echo = FALSE, message = FALSE}
 library (dashboard)
-library (gt)
 ```
 
 ```{r get-rev-dat, echo = FALSE}
@@ -18,7 +19,11 @@ rev_dat <- review_status (open_only = TRUE, browse = FALSE, quiet = TRUE)
 has_multiple_stages <- !is.null (attr (rev_dat, "multiple_stages"))
 ```
 
+## Current Reviews
+
 ```{r multiple-stages, eval = has_multiple_stages, echo = FALSE, results = "asis"}
+# Chunk to print details of any reviews which have multiple stage labels.
+# If there are none, this chunk has no effect.
 stages <- attr (rev_dat, "multiple_stages")
 u <- "https://github.com/ropensci/software-review/issues/"
 stages <- paste0 ("[", stages, "](", u, stages, ")")
@@ -35,21 +40,14 @@ cat (paste0 (
 ```
 
 
-```{r add-html-to-table, echo = FALSE}
-u <- "https://github.com/ropensci/software-review/issues/"
-dat <- rev_dat
-# Number has to come last here!!
-dat <- dashboard:::add_gt_html (dat, u, "title")
-dat <- dashboard:::add_gt_html (dat, u, "number")
-```
-
 ```{r add-urgency-column, echo = FALSE}
-# Then create an "urgency" column used to highlight rows needing urgent
-# attention. Note that colours have to be individually hand-coded in the
-# `gt` code below, so use of any value other than `ncols = 5` requires the
-# subsequent colors to be re-coded.
+# This chunk creates an "urgency" column used to highlight rows needing urgent
+# attention. Note that colours have to be individually hand-coded below, so
+# use of any value other than `ncols = 5` requires the subsequent colors to
+# be re-coded.
+rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
 ncols <- 5L
-dat$urgency <- 0L
+rev_dat$urgency <- 0L
 
 # time scales for each stage, in days
 time_scales <- list (
@@ -61,30 +59,229 @@ time_scales <- list (
     c (5, 21) # reviewer responses
 )
 for (i in time_scales) {
-    index <- grep (paste0 ("^", i [1]), dat$stage)
-    dat$urgency [index] <-
-        floor (as.numeric (dat$elapsed_days [index]) / i [2])
+    index <- grep (paste0 ("^", i [1]), rev_dat$stage)
+    rev_dat$urgency [index] <-
+        floor (as.numeric (rev_dat$elapsed_days [index]) / i [2])
 }
 
-dat$urgency [dat$urgency > ncols] <- ncols
-dat$urgency [grepl ("holding", dat$labels)] <- 0
-dat_holding <- dat [grep ("holding", dat$labels), ] # Done at end
-dat <- dat [which (!grepl ("holding", dat$labels)), ]
+dat_holding <- rev_dat [grep ("holding", rev_dat$labels), ] # TODO: Include these
+
+rev_dat$urgency [rev_dat$urgency > ncols] <- ncols
+rev_dat$urgency [grepl ("holding", rev_dat$labels)] <- 0
+
+rev_dat <- dplyr::rename (rev_dat, "inactive_for" = elapsed)
 ```
 
 ```{r dat-stages, echo = FALSE}
-sub_types <- table (dat$submission_type)
+# Chunk to derive values to be printed in the text strings that follow:
+sub_types <- table (rev_dat$submission_type)
+sub_type_end <- rep ("issue", length (sub_types))
+sub_type_end [sub_types > 1] <- "issues"
+names (sub_type_end) <- names (sub_types)
 ```
 
-There are currently:<br>
+rOpenSci software peer-review is currently handling:<br>
 
-- `r sub_types [["Pre-submission"]]` pre-submission issues<br>
-- `r sub_types [["Standard"]]` standard issues<br>
-- `r sub_types [["Stats"]]` stats issues
+- `r sub_types [["Pre-submission"]]` pre-submission `r sub_type_end [["Pre-submission"]]`<br>
+- `r sub_types [["Standard"]]` standard `r sub_type_end [["Standard"]]`<br>
+- `r sub_types [["Stats"]]` stats `r sub_type_end [["Stats"]]`
 
-Some cells in the following tables are highlighted to visually indicate the
-following degrees of urgency. Levels of urgency depend on the review stage.
-Approximate expected times required to complete each stage are:
+The following table provides details of each issue, with results filtered by
+the following controls:
+
+- "Submission Stage" to list issues with the specified stage.
+- "Holding" to list issues which are on hold (true) or not (false).
+- "Sort By" to sort results either by the Submission Stage ("stage", 0-5), or
+  "urgency", as described below.
+
+Some rows in the table are highlighted to visually indicate degrees of urgency
+according to the scheme defined in the following sub-section. Rows with no
+highlight may be considered up-to-date, and require no action.
+
+```{r rev-dat-prepro}
+# Final pre-processing to add 'holding' column, and an 'urgency_rev' column so
+# urgency can be sorted via same code as stage.
+rev_dat$holding <- grepl ("holding", rev_dat$labels)
+rev_dat$urgency_rev <- max (rev_dat$urgency) - rev_dat$urgency
+```
+
+
+
+```{r}
+ojs_define (submissions = rev_dat)
+# And define dummy data for urgency color scheme:
+urgency_dat <- data.frame (
+    urgency = 1:5,
+    importance = c (
+        "low",
+        "moderate",
+        "medium",
+        "high",
+        "very high"
+    )
+)
+ojs_define (urgency = urgency_dat)
+```
+
+
+```{ojs}
+urgency_colours = ["#FFFF8088", "#FFFF0088", "#FFAA0088", "#FF550088", "#FF000088"]
+
+submissionsIn = {
+    return transpose(submissions).map(row => ({
+        ...row,
+        rowColor: row.urgency === 1 ? urgency_colours[0] :
+            row.urgency === 2 ? urgency_colours[1] :
+            row.urgency === 3 ? urgency_colours[2] :
+            row.urgency === 4 ? urgency_colours[3] :
+            row.urgency === 5 ? urgency_colours[4] : "transparent",
+    }));
+}
+```
+```{ojs}
+viewof stage = {
+    const input =  Inputs.checkbox(
+        ["0/presubmission",
+         "1/editor-checks",
+         "2/seeking-reviewer(s)",
+         "3/reviewer(s)-assigned",
+         "4/review(s)-in-awaiting-changes",
+         "5/awaiting-reviewer(s)-response"
+        ],
+        {
+            value: [
+                "0/presubmission",
+                "1/editor-checks",
+                "2/seeking-reviewer(s)",
+                "3/reviewer(s)-assigned",
+                "4/review(s)-in-awaiting-changes",
+                "5/awaiting-reviewer(s)-response"
+            ],
+            label: htl.html`<b>Submission Stage:</b>`,
+        }
+    );
+
+    // Modification ideas from
+    // https://talk.observablehq.com/t/what-is-the-best-way-to-style-an-input-checkbox/7690/2
+    const scope = DOM.uid().id;
+    input.classList.add(scope);
+
+    input.append(htl.html`<style>
+    .${scope} > div, .${scope} > div label { display: flex; flex-wrap: wrap; gap: 10px; width: 300px }
+    `)
+
+    return input;
+}
+```
+
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
+```{ojs}
+viewof holding = Inputs.checkbox(
+    [true, false],
+    {
+        value: [false],
+        label: htl.html`<b>Holding:</b>`,
+    }
+)
+```
+
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
+```{ojs}
+viewof sortBy = Inputs.radio(
+    ["stage", "urgency"],
+    {
+        value: "stage",
+        label: htl.html`<b>Sort by:</b>`,
+    }
+)
+```
+
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
+```{ojs}
+filtered = submissionsIn.filter(function(submission) {
+  return stage.includes(submission.stage) &&
+    holding.includes(submission.holding)
+})
+// Only sort by urgency if there are any:
+anyUrgent = filtered.some(submission => submission.urgency > 0)
+sortCol1 = sortBy === "stage" ? "stage" : anyUrgent ? "urgency_rev" : "stage"
+sortCol2 = "elapsed_days"
+
+// Sorts by both stage and elapsed days:
+filteredSorted = filtered.sort((a, b) => {
+    if (a[sortCol1] > b[sortCol1]) {
+        return 1;
+    } else if (a[sortCol1] < b[sortCol1]) {
+        return -1;
+    } else {
+        if (a[sortCol2] < b[sortCol2]) {
+            return 1;
+        } else if (a[sortCol2] > b[sortCol2]) {
+            return -1;
+        }
+    }
+    return 0;
+});
+```
+
+{{< include _colorTable_fn.qmd >}}
+
+
+```{ojs}
+// And this uses the 'reviewTable' function defined in the above file to
+// generate an Observable Inputs.table with coloured rows.
+columns = ["stage_num", "number", "title", "stats", "stage_date", "editor", "inactive_for"]
+reviewTable(filteredSorted,
+  {
+    colorColumn: "rowColor",
+    issueNumColumn: "number",
+    titleColumn: "title",
+    columns: columns,
+    height: 'auto',
+    layout: 'auto',
+    header: {
+        stage_num: "Stage",
+        number: "Number",
+        title: "Title",
+        stats: "Stats?",
+        stage_date: "Stage date",
+        inactive_for: "Inactive for",
+    }
+  }
+)
+```
+
+<br>
+
+
+## Urgency of Reviews
+
+Levels of urgency used in the previous table are coloured according to the
+following scheme:
+
+```{ojs}
+urgencyDat = transpose(urgency).map(row => ({
+    ...row,
+    rowColor: row.urgency === 1 ? urgency_colours[0] :
+        row.urgency === 2 ? urgency_colours[1] :
+        row.urgency === 3 ? urgency_colours[2] :
+        row.urgency === 4 ? urgency_colours[3] :
+        row.urgency === 5 ? urgency_colours[4] : "transparent",
+}));
+```
+
+```{ojs}
+colorTable(urgencyDat, {
+    columns: ["urgency", "importance"],
+    colorColumn: "rowColor",
+})
+```
+
+Levels of urgency depend on the review stage. Approximate expected times
+required to complete each stage are:
 
 stage | time (days)
 --- | ---
@@ -95,231 +292,12 @@ stage | time (days)
 4\/Review(s) in Awaiting Changes | 21
 5\/Awaiting Reviewer(s) Response | 21
 
+<div style="margin-top: 20px; margin-bottom: 20px;"></div>
+
 Levels of urgency for each review are times taken for current stage as
 a multiple of those base times, with values rounded *down* to nearest integer.
 For example, a submission which has been undergoing `1\/Editor Checks` for 17
 days would have an urgency of `floor(17/7) = 2`. A submission which has been
 under review (stage `3\/Reviewer(s) Assigned`) for 12 weeks would have an
-urgency of `floor(12 * 7 / 21) = 4`. The colour codes for these urgency levels
-are shown in the following table.
-
-```{r colour-scheme, echo = FALSE}
-cols <- dashboard:::define_urgency_colours ()
-udat <- data.frame (
-    urgency = seq_along (cols),
-    importance = c (
-        "low",
-        "moderate",
-        "medium",
-        "high",
-        "very high"
-    )
-)
-gt::gt (udat) |>
-    dashboard:::add_urgency_cols (c ("urgency", "importance"))
-```
-
-
-## 0\/Pre-submission
-
-```{r dat0, echo = FALSE}
-dat0 <- dat [which (dat$submission_type == "Pre-submission"), ]
-n_lab <- length (which (!is.na (dat0$stage)))
-n_nolab <- length (which (is.na (dat0$stage)))
-v_lab <- ifelse (n_lab == 1L, "is", "are")
-v_nolab <- ifelse (n_nolab == 1L, "is", "are")
-i_lab <- ifelse (n_lab == 1L, "issue", "issues")
-i_nolab <- ifelse (n_nolab == 1L, "issue", "issues")
-```
-
-There `r v_lab` `r n_lab` labelled pre-submission `r i_lab`, and `r n_nolab`
-unlabelled `r i_nolab`. Data on the labelled `r i_lab` are:
-
-```{r presub-table-prepro, echo = FALSE}
-keep <- c (
-    "number", "title", "state", "stats", "stage_date", "editor",
-    "elapsed", "elapsed_days", "urgency"
-)
-dat0_lab <- dat0 [which (!is.na (dat0$stage)) [1], keep, drop = FALSE]
-dat0_lab <- dplyr::rename (dat0_lab, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-dat0_lab$editor [which (!nzchar (dat0_lab$editor))] <- "(None)"
-has_presub <- nrow (dat0_lab) > 0
-
-urgency_cols <- c ("number", "title", "state")
-```
-
-
-::: {style="all.initial;"}
-```{r presub-table-lab, echo = FALSE, eval = has_presub}
-gt::gt (dat0_lab) |>
-    gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-presub-lab, echo = FALSE, results = "asis", eval = !has_presub}
-cat ("There are currently no submissions at this stage.")
-```
-
-```{r presub-nolab-prepro, echo = FALSE, results = "asis"}
-dat0_nolab <- dat0 [which (is.na (dat0$stage)), keep, drop = FALSE]
-dat0_nolab <- dplyr::rename (dat0_nolab, "inactive_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-has_presub_nolab <- nrow (dat0_nolab) > 0
-if (has_presub_nolab) {
-    dat0_nolab$editor [which (!nzchar (dat0_nolab$editor))] <- "(None)"
-    cat ("Data on the unlabelled ", i_nolab, " are:")
-}
-```
-
-
-::: {style="all.initial;"}
-```{r presub-table-nolab, echo = FALSE, eval = has_presub_nolab}
-gt::gt (dat0_nolab) |>
-    gt::cols_hide (c (urgency, state, stage_date, editor, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-## 1\/Editor Checks
-
-```{r ed-check-prepro, echo = FALSE}
-# From that point on, data for all stages can be pre-processed with this
-# generic function.
-preprocess_one_stage <- function (dat, stage = 1) {
-    ptn <- paste0 ("^", stage)
-    dat_stage <- dat [grep (ptn, dat$stage), keep, drop = FALSE]
-    dat_stage <- dplyr::rename (dat_stage, "inactive_for" = elapsed) |>
-        dplyr::arrange (dplyr::desc (elapsed_days))
-    dat_stage$editor [which (!nzchar (dat_stage$editor))] <- "(None)"
-    return (dat_stage)
-}
-dat1 <- preprocess_one_stage (dat, 1)
-has_ed_checks <- nrow (dat1) > 0L
-```
-
-
-::: {style="all.initial;"}
-```{r ed-check-table, echo = FALSE, eval = has_ed_checks}
-gt::gt (dat1) |>
-    gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-ed-checks, echo = FALSE, results = "asis", eval = !has_ed_checks}
-cat ("There are currently no submissions at this stage.")
-```
-
-
-## 2\/Seeking Reviewers
-
-```{r seek-rev-prepro, echo = FALSE}
-dat2 <- preprocess_one_stage (dat, 2)
-has_seek_rev <- nrow (dat2) > 0L
-```
-
-::: {style="all.initial;"}
-```{r seek-rev-table, echo = FALSE, eval = has_seek_rev}
-gt::gt (dat2) |>
-    gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-seek-rev, echo = FALSE, results = "asis", eval = !has_seek_rev}
-cat ("There are currently no submissions at this stage.")
-```
-
-## 3\/Reviewer(s) Assigned
-
-```{r rev-assign-prepro, echo = FALSE}
-dat3 <- preprocess_one_stage (dat, 3)
-has_rev_assign <- nrow (dat3) > 0L
-```
-
-::: {style="all.initial;"}
-```{r rev-assign-table, echo = FALSE, eval = has_rev_assign}
-gt::gt (dat3) |>
-    gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-rev-assign, echo = FALSE, results = "asis", eval = !has_rev_assign}
-cat ("There are currently no submissions at this stage.")
-```
-
-## 4\/Review(s) in Awaiting Changes
-
-```{r revs-in-prepro, echo = FALSE}
-dat4 <- preprocess_one_stage (dat, 4)
-has_rev_in <- nrow (dat4) > 0L
-```
-
-::: {style="all.initial;"}
-```{r revs-in-table, echo = FALSE, eval = has_rev_in}
-gt::gt (dat4) |>
-    gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-revs-in, echo = FALSE, results = "asis", eval = !has_rev_in}
-cat ("There are currently no submissions at this stage.")
-```
-
-## 5\/Awaiting Reviewer(s) Response
-
-```{r await-rev-resp-prepro, echo = FALSE}
-dat5 <- preprocess_one_stage (dat, 5)
-has_rev_in <- nrow (dat5) > 0L
-```
-
-::: {style="all.initial;"}
-```{r await-rev-resp-table, echo = FALSE, eval = has_rev_in}
-gt::gt (dat5) |>
-    gt::cols_hide (c (urgency, state, elapsed_days)) |>
-    dashboard:::add_urgency_cols (urgency_cols) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-await-rev-resp, echo = FALSE, results = "asis", eval = !has_rev_in}
-cat ("There are currently no submissions at this stage.")
-```
-
-## Holding
-
-```{r holding-prepro, echo = FALSE}
-# Change 'elapsed' to time since 'holding' label applied:
-date_vec <- lubridate::ymd_hms (dat_holding$holding_date)
-hold_elapsed <- dashboard:::get_elapsed_time (date_vec)
-
-dat_holding$elapsed <- hold_elapsed$dtime
-dat_holding$elapsed_days <- hold_elapsed$dtime_days
-hold_cols <- c ("number", "title", "stats", "stage", "elapsed", "elapsed_days")
-dat_holding <- dplyr::select (dat_holding, dplyr::all_of (hold_cols)) |>
-    dplyr::rename ("on_hold_for" = elapsed) |>
-    dplyr::arrange (dplyr::desc (elapsed_days))
-has_on_hold <- nrow (dat_holding) > 0L
-```
-
-::: {style="all.initial;"}
-```{r on-hold-table, echo = FALSE, eval = has_on_hold}
-gt::gt (dat_holding) |>
-    gt::cols_hide (c (elapsed_days)) |>
-    dashboard:::add_bg_colours ()
-```
-:::
-
-```{r no-on-hold, echo = FALSE, results = "asis", eval = !has_on_hold}
-cat ("There are currently no submissions on hold.")
-```
+urgency of `floor(12 * 7 / 21) = 4`. These urgency levels then map on to the
+colour codes shown above.
