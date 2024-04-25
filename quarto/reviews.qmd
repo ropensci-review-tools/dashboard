@@ -46,8 +46,12 @@ cat (paste0 (
 # use of any value other than `ncols = 5` requires the subsequent colors to
 # be re-coded.
 rev_dat$stage_num <- as.integer (substr (rev_dat$stage, 1, 1))
+index <- which (is.na (rev_dat$stage_num))
+rev_dat$stage_num [index] <- -1
+rev_dat$stage [index] <- "(No stage)"
 ncols <- 5L
 rev_dat$urgency <- 0L
+rev_dat$urgency [index] <- ncols
 
 # time scales for each stage, in days
 time_scales <- list (
@@ -63,8 +67,6 @@ for (i in time_scales) {
     rev_dat$urgency [index] <-
         floor (as.numeric (rev_dat$elapsed_days [index]) / i [2])
 }
-
-dat_holding <- rev_dat [grep ("holding", rev_dat$labels), ] # TODO: Include these
 
 rev_dat$urgency [rev_dat$urgency > ncols] <- ncols
 rev_dat$urgency [grepl ("holding", rev_dat$labels)] <- 0
@@ -141,7 +143,8 @@ submissionsIn = {
 ```{ojs}
 viewof stage = {
     const input =  Inputs.checkbox(
-        ["0/presubmission",
+        ["(No stage)",
+         "0/presubmission",
          "1/editor-checks",
          "2/seeking-reviewer(s)",
          "3/reviewer(s)-assigned",
@@ -150,6 +153,7 @@ viewof stage = {
         ],
         {
             value: [
+                "(No stage)",
                 "0/presubmission",
                 "1/editor-checks",
                 "2/seeking-reviewer(s)",
@@ -249,6 +253,9 @@ reviewTable(filteredSorted,
         stats: "Stats?",
         stage_date: "Stage date",
         inactive_for: "Inactive for",
+    },
+    format: {
+        stage_num: s => s === -1 ? "(No stage)" : s,
     }
   }
 )
