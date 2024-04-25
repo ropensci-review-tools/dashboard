@@ -50,3 +50,14 @@ of the "dashboard" package. This means that any updates to the package itself
 will only be rendered on the locally-served website once those changes have
 been pushed and the package locally re-installed using the `install_github`
 command above.
+
+## Maintenance
+
+The [`publish` workflow in this
+repository](https://github.com/ropensci-review-tools/dashboard/blob/main/.github/workflows/publish.yaml)
+requires a GitHub token stored as an environment variable named `MY_GH_TOKEN`.
+This token needs full write access to this organization (which the default
+workflow token does not have), as well as read access to the `ropensci`
+organization. The easiest way to obtain, set, or re-set this token is thus to
+use a personal token from somebody with "owner" rights both here and in the
+`ropensci` organization.
