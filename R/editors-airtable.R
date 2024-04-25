@@ -83,7 +83,7 @@ add_editor_airtable_data <- function (editors) {
     rev_prod <- rev_prod$`reviewers-prod`$select_all (fields = fields)
 
     editors$other_langs <- editors$domain_expertise <- NA_character_
-    index <- match (editors$editor, rev_prod$github)
+    index <- match (tolower (editors$editor), tolower (rev_prod$github))
 
     editors$other_langs <- vapply (
         rev_prod$other_langs [index],
