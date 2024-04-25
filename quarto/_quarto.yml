@@ -8,7 +8,6 @@ website:
     pinned: true
     left:
       - editors.qmd
-      - ed-reviews.qmd
       - reviews.qmd
       - history.qmd
     right:

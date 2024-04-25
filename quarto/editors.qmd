@@ -1,5 +1,5 @@
 ---
-title: "rOpenSci Editors"
+title: "Editors"
 execute:
   echo: false
 format: 
@@ -23,7 +23,6 @@ library (gdtools)
 chk <- register_gfont ("Open Sans")
 chk <- addGFontHtmlDependency (family = "Open Sans")
 ```
-
 
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
 #| cache: true
@@ -167,8 +166,6 @@ colorTable(filteredSorted,
 ```
 
 
-<br><br>
-
 ## Editor Reviews {#editor-reviews}
 
 ```{r ojs-def-ed-rev}
@@ -230,7 +227,6 @@ filteredSortedRevs = filteredRevs.sort((a, b) => {
 ```{ojs}
 numberColumn = "number"
 columnsRevs = ["number", "title", "state", "opened_at", "closed_at"]
-console.log("-----filteredSortedRevs = ", filteredSortedRevs)
 
 colorTable(filteredSortedRevs,
   {

@@ -4,18 +4,19 @@ title: "rOpenSci Software Review Dashboard"
 
 This dashboard provides an overview of all current [rOpenSci software review
 issues](https://github.com/ropensci/software-review/issues), and of editor
-availability and past editorial workloads. The dashboard includes the following components:
+availability and past editorial workloads. The dashboard includes the following
+components:
 
-- The [*rOpenSci Editors* page](./editors.qmd) which provides information to
-  help identify editors who may be free to handle new submissions.
-- The [*Editor Reviews* page](./ed-reviews.qmd) which provides an overview of
-  all current and previous issues handled by each current editor.
-- The [*Software Review Overview* page](./reviews.qmd) which provides an
-  overview of all currently open submissions to the software peer-review
-  system. This page is primarily intended to provide an overview of the current
-  state of software peer-review for the Editors-in-Charge, and in particular to
-  identify reviews in need of attention.
-- The [*Software Review History* page](./history.qmd) which gives insights into
+- The [*Editors* page](./editors.qmd) which provides information on current
+  editors and activities. This page helps the Editor-in-Charge identify
+  editors for new submissions, and gives each editor an overview of their
+  current and previous editorial portfolios.
+- The [*Software Review* page](./reviews.qmd) which provides an overview of all
+  currently open submissions to the software peer-review system. This page is
+  primarily intended to provide an overview of the current state of software
+  peer-review for the Editors-in-Charge, and in particular to identify reviews
+  in need of attention.
+- The [*Historical Data* page](./history.qmd) which gives insights into
   the historical developments of the software peer-review program.
 
 Source code for this dashboard is at
