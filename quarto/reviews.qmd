@@ -96,9 +96,24 @@ the following controls:
 - "Sort By" to sort results either by the Submission Stage ("stage", 0-5), or
   "urgency", as described below.
 
-Some rows in the table are highlighted to visually indicate degrees of urgency
-according to the scheme defined in the following sub-section. Rows with no
-highlight may be considered up-to-date, and require no action.
+```{r table-explanation, echo = FALSE, results = 'asis'}
+txt <- paste (
+    "Some rows in the table are highlighted to visually indicate degrees",
+    "of urgency according to the scheme defined in the following",
+    "sub-section. Rows with no highlight may be considered up-to-date,",
+    "and require no action."
+)
+has_no_stage <- any (rev_dat$stage_num < 0)
+if (has_no_stage) {
+    txt <- paste (
+        txt,
+        "Submissions which have not yet been given a 'Stage' label are",
+        "listed below as '(No stage)', and highlighted with the highest",
+        "urgency level."
+    )
+}
+cat (txt)
+```
 
 ```{r rev-dat-prepro}
 # Final pre-processing to add 'holding' column, and an 'urgency_rev' column so
