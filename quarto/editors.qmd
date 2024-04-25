@@ -27,8 +27,8 @@ chk <- addGFontHtmlDependency (family = "Open Sans")
 
 ```{r get-ed-dat, echo = FALSE, message = FALSE}
 #| cache: true
-aggregation_period <- "quarter"
-ed_dat <- editor_status (aggregation_period = aggregation_period, quiet = TRUE)
+aggregation_period <- "quarter" # default
+ed_dat <- editor_status (quiet = TRUE, aggregation_period = aggregation_period)
 ed_status <- ed_dat$status
 ed_timeline_total <- ed_dat$timeline_total |>
     dplyr::filter (name %in% ed_status$editor)
@@ -168,6 +168,83 @@ colorTable(filteredSorted,
 
 
 <br><br>
+
+## Editor Reviews {#editor-reviews}
+
+```{r ojs-def-ed-rev}
+#| cache: false
+ed_reviews <- ed_dat$reviews
+ojs_define (ed_reviews_in = ed_reviews)
+```
+
+This panel provides data on reviews handled by each editor. Data are shown for
+current editors only, with reviews listed from most to least recent. Open
+reviews are highlighted in yellow.
+
+```{ojs}
+edReviewsIn = transpose(ed_reviews_in)
+// Get array of unique eds for input selector:
+editorsAll = edReviewsIn.map(function(item) {
+    return item.editor;
+});
+editors = Array.from(new Set(editorsAll));
+
+// Add 'rowColor' variable:
+edReviews = {
+    return edReviewsIn.map(row => ({
+        ...row,
+        rowColor: row.state === "OPEN" ? "yellow" : "transparent",
+    }));
+}
+```
+
+```{ojs}
+viewof editor = Inputs.select(editors, {multiple: false, label: "Editor:"})
+viewof state = Inputs.checkbox(
+    ["OPEN", "CLOSED"],
+    { value: ["OPEN"], label: "Issue State:" }
+)
+```
+
+```{ojs}
+filteredRevs = edReviews.filter(function(ed) {
+  return editor.includes(ed.editor) && state.includes(ed.state)
+})
+```
+
+```{ojs}
+sortColumnRevs = "number"
+
+// This sorts in reverse order:
+filteredSortedRevs = filteredRevs.sort((a, b) => {
+  if (a[sortColumnRevs] < b[sortColumnRevs]) {
+    return 1;
+  }
+  if (a[sortColumnRevs] > b[sortColumnRevs]) {
+    return -1;
+  }
+  return 0;
+});
+```
+
+```{ojs}
+numberColumn = "number"
+columnsRevs = ["number", "title", "state", "opened_at", "closed_at"]
+console.log("-----filteredSortedRevs = ", filteredSortedRevs)
+
+colorTable(filteredSortedRevs,
+  {
+    colorColumn: "rowColor",
+    editorColumn: "editor",
+    issueNumColumn: "number",
+    columns: columnsRevs,
+    format: {
+      [numberColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d}">${d}</a>`,
+    },
+    height: 'auto',
+  }
+)
+```
 
 ## Editorial Load {#past-ed-load}
 

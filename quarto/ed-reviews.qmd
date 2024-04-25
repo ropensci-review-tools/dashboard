@@ -28,14 +28,14 @@ current editors only, with reviews listed from most to least recent. Open
 reviews are highlighted in yellow.
 
 ```{ojs}
-edReviewsIn = transpose (ed_reviews_in)
+edReviewsIn = transpose(ed_reviews_in)
 // And get array of unique eds for input selector:
 editorsAll = edReviewsIn.map(function(item) {
     return item.editor;
 });
 editors = Array.from(new Set(editorsAll));
 
-// Adds 'rowColor' variable:
+// Add 'rowColor' variable:
 edReviews = {
     return edReviewsIn.map(row => ({
         ...row,
