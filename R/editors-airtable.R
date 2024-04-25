@@ -85,10 +85,11 @@ add_editor_airtable_data <- function (editors) {
     editors$other_langs <- editors$domain_expertise <- NA_character_
     index <- match (editors$editor, rev_prod$github)
 
-    editors$other_langs <- rev_prod$other_langs [index]
-    editors$other_langs <- vapply (editors$other_langs, function (i) {
-        paste0 (i [which (!i == "English")], collapse = ", ")
-    }, character (1L))
+    editors$other_langs <- vapply (
+        rev_prod$other_langs [index],
+        function (i) paste0 (unlist (i), collapse = ", "),
+        character (1L)
+    )
 
     editors$domain_expertise <- rev_prod$domain_expertise [index]
     editors$domain_expertise <- vapply (editors$domain_expertise, function (i) {
