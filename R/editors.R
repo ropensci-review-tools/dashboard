@@ -362,6 +362,8 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
     # Add additional columns from airtable data:
     status <- add_editor_airtable_data (status, airtable_base_id)
 
+    eic <- eic_airtable_data (airtable_base_id)
+
     # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes
     process_timeline <- function (dat, what = "issues_total") {
@@ -388,6 +390,7 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
 
     return (list (
         status = status,
+        eic = eic,
         timeline_total = timeline_total,
         timeline_new = timeline_new,
         reviews = ed_rev

@@ -37,6 +37,15 @@ editor_vacation_status <- function (airtable_id) {
     return (edvac)
 }
 
+eic_rev_prod_table <- function (airtable_id) {
+    rev_prod <- airtabler::airtable (
+        base = airtable_id, table = "reviewers-prod"
+    )
+    rev_prod <-
+        rev_prod$`reviewers-prod`$select_all (fields = list ("github", "name"))
+}
+m_eic_rev_prod_table <- memoise::memoise (eic_rev_prod_table)
+
 edvac_status_airtable <- function (airtable_id) {
     editor_vacation <- airtabler::airtable (
         base = airtable_id, table = "editor-vacation-status"
@@ -51,11 +60,7 @@ edvac_status_airtable <- function (airtable_id) {
     )
     edvac <- editor_vacation [which (index), ]
 
-    rev_prod <- airtabler::airtable (
-        base = airtable_id, table = "reviewers-prod"
-    )
-    rev_prod <-
-        rev_prod$`reviewers-prod`$select_all (fields = list ("github", "name"))
+    rev_prod <- m_eic_rev_prod_table (airtable_id)
     rev_prod <- rev_prod [match (edvac$editor, rev_prod$id), ]
     edvac$github <- rev_prod$github
     edvac$name <- rev_prod$name
@@ -110,4 +115,37 @@ add_editor_airtable_data <- function (editors, airtable_id) {
     }
 
     return (editors)
+}
+
+eic_airtable_data <- function (airtable_id) {
+
+    eic_table <- airtabler::airtable (
+        base = airtable_id, table = "editor-in-chief-rotation"
+    )
+    eic <- eic_table$`editor-in-chief-rotation`$select_all ()
+
+    eic$period_start <- as.Date (eic$period_start)
+    eic$period_end <- as.Date (eic$period_end)
+    eic <- eic [order (eic$period_start), ]
+
+    today <- Sys.Date ()
+    i_now <- i_next <- which (eic$period_start <= today & eic$period_end >= today)
+    if (nrow (eic) > i_now) {
+        i_now <- i_now + 0:1
+    }
+    eic_current <- eic [i_now, ] # Current and next EiC
+    eic_names <- unlist (eic_current$acting_eic_name)
+    eic_ids <- eic_current$acting_eic
+    eic_start_dates <- eic_current$period_start
+
+    rev_prod <- m_eic_rev_prod_table (airtable_id)
+    eic_in_rev_table <- match (eic_ids, rev_prod$id)
+    eic_github <- rev_prod$github [eic_in_rev_table]
+
+    data.frame (
+        name = eic_names,
+        github = eic_github,
+        start_date = eic_start_dates,
+        what = c ("current", "next") [seq_along (eic_names)]
+    )
 }
