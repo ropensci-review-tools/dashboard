@@ -10,6 +10,8 @@ add_editor_airtable_data(editors, airtable_id)
 \arguments{
 \item{editors}{The `data.frame` of editors returned as the "status" component
 from \link{editor_status}.}
+
+\item{airtable_id}{The 'id' string of the airtable table.}
 }
 \value{
 A modified version of `editors` with additional columns.

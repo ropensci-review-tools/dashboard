@@ -79,6 +79,7 @@ edvac_status_airtable <- function (airtable_id) {
 #'
 #' @param editors The `data.frame` of editors returned as the "status" component
 #' from \link{editor_status}.
+#' @param airtable_id The 'id' string of the airtable table.
 #' @return A modified version of `editors` with additional columns.
 #' @export
 add_editor_airtable_data <- function (editors, airtable_id) {
