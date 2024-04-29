@@ -33,7 +33,26 @@ ed_timeline_total <- ed_dat$timeline_total |>
     dplyr::filter (name %in% ed_status$editor)
 ed_timeline_new <- ed_dat$timeline_new |>
     dplyr::filter (name %in% ed_status$editor)
+eic <- ed_dat$eic
 ```
+
+```{r eic-info, echo = FALSE, results = 'asis'}
+msg <- paste0 (
+    "Current Editor-in-Charge is [",
+    eic$name [1], "](https://github.com/", eic$github [1], ").\n"
+)
+cat (msg)
+cat ("\n")
+if (nrow (eic) > 1L) {
+    msg <- paste0 (
+        "Next Editor-in-Charge (from ", eic$start_date [2],
+        ") will be [",
+        eic$name [2], "](https://github.com/", eic$github [2], ").\n"
+    )
+}
+cat (msg)
+```
+
 
 ## Editor Overview {#editor-overview}
 
