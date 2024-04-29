@@ -1,3 +1,5 @@
+airtable_base_id <- "app8dssb6a7PG6Vwj"
+
 #' Get current status of all rOpenSci editors.
 #'
 #' @param aggregation_period The time period for aggregation of timeline for
@@ -352,13 +354,13 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
         dplyr::ungroup ()
 
-    edvac <- editor_vacation_status () # in editors-airtable.R
+    edvac <- editor_vacation_status (airtable_base_id) # in editors-airtable.R
     # Note that next line presumes slack 'name' == GitHub handle:
     editors_on_vacation <- edvac$name [which (edvac$away)]
     status$status [status$editor %in% editors_on_vacation] <- "ON LEAVE"
 
     # Add additional columns from airtable data:
-    status <- add_editor_airtable_data (status)
+    status <- add_editor_airtable_data (status, airtable_base_id)
 
     # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes

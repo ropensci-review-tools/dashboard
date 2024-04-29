@@ -4,7 +4,10 @@
 \alias{editor_vacation_status}
 \title{Get current vacation status of all rOpenSci editors.}
 \usage{
-editor_vacation_status()
+editor_vacation_status(airtable_id)
+}
+\arguments{
+\item{airtable_id}{The 'id' string of the airtable table.}
 }
 \value{
 A `data.frame` with one row per editor and information on current

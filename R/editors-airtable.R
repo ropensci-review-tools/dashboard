@@ -5,12 +5,13 @@
 #' these indicate that an editor is away, on vacation, or otherwise unavailable,
 #' then the `away` column will be set to `TRUE`.
 #'
+#' @param airtable_id The 'id' string of the airtable table.
 #' @return A `data.frame` with one row per editor and information on current
 #' vacation status.
 #' @export
-editor_vacation_status <- function () {
+editor_vacation_status <- function (airtable_id) {
 
-    edvac_airtable <- edvac_status_airtable ()
+    edvac_airtable <- edvac_status_airtable (airtable_id)
     slack_status <- get_slack_editors_status ()
     vacation_ptn <- "away|vacation|holiday|unavailable"
     vacation <- grep (vacation_ptn, slack_status$status, ignore.case = TRUE)
@@ -36,9 +37,9 @@ editor_vacation_status <- function () {
     return (edvac)
 }
 
-edvac_status_airtable <- function () {
+edvac_status_airtable <- function (airtable_id) {
     editor_vacation <- airtabler::airtable (
-        base = "app8dssb6a7PG6Vwj", table = "editor-vacation-status"
+        base = airtable_id, table = "editor-vacation-status"
     )
     fields <- list ("editor", "Action", "Start Date", "Return Date")
     editor_vacation <-
@@ -51,7 +52,7 @@ edvac_status_airtable <- function () {
     edvac <- editor_vacation [which (index), ]
 
     rev_prod <- airtabler::airtable (
-        base = "app8dssb6a7PG6Vwj", table = "reviewers-prod"
+        base = airtable_id, table = "reviewers-prod"
     )
     rev_prod <-
         rev_prod$`reviewers-prod`$select_all (fields = list ("github", "name"))
@@ -75,9 +76,9 @@ edvac_status_airtable <- function () {
 #' from \link{editor_status}.
 #' @return A modified version of `editors` with additional columns.
 #' @export
-add_editor_airtable_data <- function (editors) {
+add_editor_airtable_data <- function (editors, airtable_id) {
     rev_prod <- airtabler::airtable (
-        base = "app8dssb6a7PG6Vwj", table = "reviewers-prod"
+        base = airtable_id, table = "reviewers-prod"
     )
     fields <- list ("github", "name", "editor", "other_langs", "domain_expertise")
     rev_prod <- rev_prod$`reviewers-prod`$select_all (fields = fields)

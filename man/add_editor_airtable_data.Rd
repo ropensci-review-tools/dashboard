@@ -5,7 +5,7 @@
 \title{Add additional columns to 'editors' data from rOpenSci's airtable database,
 and remove any "emeritus" editors.}
 \usage{
-add_editor_airtable_data(editors)
+add_editor_airtable_data(editors, airtable_id)
 }
 \arguments{
 \item{editors}{The `data.frame` of editors returned as the "status" component
