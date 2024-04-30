@@ -95,12 +95,11 @@ submissions_gen <- submissions_gen [index, ]
 submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
 ```
 
-```{r ojs-in, echo = FALSE}
+```{r ojs-in-submissions, echo = FALSE}
 ojs_define (submissions_in = submissions)
 ```
 
 ```{ojs}
-// submissions = transpose(submissions_in)
 submissions = {
     return transpose(submissions_in).map(row => ({
         ...row,
@@ -184,13 +183,40 @@ reviews_gen <- reviews_gen [index, ]
 reviews <- rbind (reviews_all, reviews_gen, reviews_stats)
 ```
 
-```{r plot-review-history, echo = FALSE}
-ggplot (reviews, aes (x = date, y = reviews, colour = type)) +
-    geom_line (linetype = reviews$lty, lwd = this_lwd) +
-    xlab ("Year") +
-    ylab ("Nr. active reviews / month") +
-    this_theme
+```{r ojs-in-reviews, echo = FALSE}
+ojs_define (reviews_in = reviews)
 ```
+
+```{ojs}
+reviews = {
+    return transpose(reviews_in).map(row => ({
+        ...row,
+        date: new Date(row.date)
+    }));
+}
+```
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    x: {grid: true},
+    y: {grid: true},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(reviews, {x: "date", y: "reviews", stroke: "type", fontSize: 18}),
+        Plot.text(reviews, Plot.selectLast({x: "date", y: "reviews", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Nr. active reviews / quarter", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
+```
+
 
 ## Review duration {#review-duration}
 
