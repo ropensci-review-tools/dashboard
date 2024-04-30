@@ -30,6 +30,13 @@ this_theme <- theme_minimal () +
         axis.text.y = element_text (size = 10),
         axis.title = element_text (size = 14)
     )
+this_lwd <- 0.9
+```
+
+```{r set-fig-ht-all-history, echo = FALSE}
+fig_ht <- 5
+opts <- knitr::opts_chunk$get ()
+knitr::opts_chunk$set (fig.height = fig_ht)
 ```
 
 
@@ -85,7 +92,7 @@ submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
 ```{r plot-submission-history, echo = FALSE}
 ytxt <- paste0 ("Nr. submissions / ", ifelse (period == "quarter", "quarter", "half-year"))
 ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
-    geom_line (linetype = submissions$lty) +
+    geom_line (linetype = submissions$lty, lwd = this_lwd) +
     xlab ("Year") +
     ylab (ytxt) +
     this_theme
@@ -145,7 +152,7 @@ reviews <- rbind (reviews_all, reviews_gen, reviews_stats)
 
 ```{r plot-review-history, echo = FALSE}
 ggplot (reviews, aes (x = date, y = reviews, colour = type)) +
-    geom_line (linetype = reviews$lty) +
+    geom_line (linetype = reviews$lty, lwd = this_lwd) +
     xlab ("Year") +
     ylab ("Nr. active reviews / month") +
     this_theme
@@ -217,7 +224,7 @@ rev_dur <- rbind (rev_dur_all, rev_dur_gen, rev_dur_stats)
 
 ```{r rev-duration-plot, echo = FALSE, warning = FALSE}
 ggplot (rev_dur, aes (x = date, y = dur, colour = type)) +
-    geom_line (linetype = rev_dur$lty, lwd = 1.0) +
+    geom_line (linetype = rev_dur$lty, lwd = this_lwd) +
     xlab ("Year") +
     ylab ("Review Duration (months)") +
     ylim (c (0, 11)) +
@@ -310,11 +317,15 @@ num_eds <- rbind (
 ```
 
 ::: {style="all.initial;"}
-```{r timeline-num-eds-plot, echo = FALSE, fig.width = 8, fig.height = 8}
+```{r timeline-num-eds-plot, echo = FALSE}
 ggplot (num_eds, aes (x = month, y = n, colour = status)) +
-    geom_line (lwd = 1.0) +
+    geom_line (lwd = this_lwd) +
     xlab ("Year") +
     ylab ("Number of editors") +
     this_theme
 ```
 :::
+
+```{r reset-fig-ht-history, echo = FALSE}
+knitr::opts_chunk$set (fig.height = opts$fig.height)
+```
