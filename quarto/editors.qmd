@@ -180,6 +180,12 @@ colorTable(filteredSorted,
     issueNumColumn: "number",
     columns: columns,
     height: 'auto',
+    header: {
+      "editor": "Editor",
+      "last_active": "Last Active",
+      "status": "Status",
+      "stats": "Stats",
+    },
   }
 )
 ```
@@ -255,6 +261,13 @@ colorTable(filteredSortedRevs,
     columns: columnsRevs,
     format: {
       [numberColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d}">${d}</a>`,
+    },
+    header: {
+      "number": "Issue number",
+      "title": "Title",
+      "state": "State",
+      "opened_at": "Opened",
+      "closed_at": "Closed",
     },
     height: 'auto',
   }
