@@ -59,40 +59,33 @@ cat (msg)
 The following interactive table summarises the availability of our editorial
 team. This information is intended to help identify editors who may be
 available to handle new submissions to rOpenSci's software peer-review system.
+The choice of editors should also be made in a way that best distributes the
+recent editorial loads depicted in the [*Past Editorial Load*](#past-ed-load)
+section.
+
 Values are sorted by the periods of time since editors were last active in peer
-review threads (the "last_active" column), sorted in decreasing order so the
-first editors are those who have been inactive for the longest time. The choice
-of editors should also be made in a way that best distributes the recent
-editorial loads depicted in the [*Past Editorial Load*](#past-ed-load) section.
+review threads (the "Last Active" column), sorted in decreasing order so the
+first listed editors are those who have been inactive for the longest time.
+Values in this 'Last Active' column are also hyperlinked to the most recent
+submission issue for each editor. The table can be filtered with the two check-box selectors:
+
+- *Stats* to filter by statistical software submission (`true`), general
+  submission (`false`), or both.
+- *Editor Status* to filter by the current status of editors. Editors are
+  "FREE" is they are not currently handling any submissions, and are
+  highlighted in yellow.
 
 
 ```{r has-free, echo = FALSE, results = "asis"}
-some_eds_are_free <- length (ed_status$stats == "FREE") > 0L
-msg <- paste0 (
-    "Values in the 'last_active' column are ",
-    "hyperlinked to the most recent submission issue for each editor. ",
-    "The 'Languages' column only describes whether editors are capable of ",
-    "handling submissions in any languages other than English currently ",
-    "accepted by rOpenSci."
-)
-msg <- paste0 (
-    'The "Stats" selector can be used to select statistical software ',
-    '("true") or general ("false") editors (or both). '
-)
-if (some_eds_are_free) {
+no_eds_are_free <- length (ed_status$status == "FREE") == 0L
+if (no_eds_are_free) {
     msg <- paste0 (
-        msg,
-        'Editors with a status of "FREE" are highlighted yellow in the ',
-        'table, which by default only shows "FREE" editors. '
+        "There are currently no free editors, and so the table is by ",
+        "default empty. Check another 'Editor Status' item to see full ",
+        "editor availability."
     )
+    cat (msg)
 }
-msg <- paste0 (
-    msg,
-    'The "Languages" column only describes whether editors are capable ',
-    "of handling submissions in any languages other than English ",
-    "currently accepted by rOpenSci."
-)
-cat (msg)
 ```
 
 
