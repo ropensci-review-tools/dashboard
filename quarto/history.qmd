@@ -1,5 +1,7 @@
 ---
 title: "Historical Data"
+execute:
+  echo: false
 format: 
   html:
     fig-width: 8
@@ -100,6 +102,43 @@ ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
     ylab (ytxt) +
     this_theme
 ```
+
+```{r ojs-in, echo = FALSE}
+ojs_define (submissions_in = submissions)
+```
+
+```{ojs}
+// submissions = transpose(submissions_in)
+submissions = {
+    return transpose(submissions_in).map(row => ({
+        ...row,
+        date: new Date(row.date)
+    }));
+}
+```
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    y: {grid: true},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(submissions, {x: "date", y: "submissions", stroke: "type", fontSize: 18}),
+        Plot.text(submissions, Plot.selectLast({x: "date", y: "submissions", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Nr. submissions / quarter", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
+```
+
+
+
 
 ## Packages under review
 
