@@ -282,13 +282,40 @@ rev_dur_gen <- rev_dur_gen [index, ]
 rev_dur <- rbind (rev_dur_all, rev_dur_gen, rev_dur_stats)
 ```
 
-```{r rev-duration-plot, echo = FALSE, warning = FALSE}
-ggplot (rev_dur, aes (x = date, y = dur, colour = type)) +
-    geom_line (linetype = rev_dur$lty, lwd = this_lwd) +
-    xlab ("Year") +
-    ylab ("Review Duration (months)") +
-    ylim (c (0, 11)) +
-    this_theme
+```{r ojs-in-revdur, echo = FALSE}
+ojs_define (revDurIn = rev_dur)
+```
+
+```{ojs}
+revDur = {
+    return transpose(revDurIn).map(row => ({
+        ...row,
+        date: new Date(row.date)
+    }));
+}
+
+maxRev = 1.05 * Math.max(...revDur.map(d => d.type === "all" && d.dur));
+```
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    x: {grid: true},
+    y: {grid: true, domain: [0, maxRev]},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(revDur, {x: "date", y: "dur", stroke: "type", fontSize: 18}),
+        Plot.text(revDur, Plot.selectLast({x: "date", y: "dur", z: "type", text: "type", textAnchor: "start", dx: 4, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Review duration (months)", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
 ```
 
 
