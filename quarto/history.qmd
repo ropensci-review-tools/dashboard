@@ -19,6 +19,20 @@ library (lubridate)
 dat <- review_history (quiet = TRUE)
 ```
 
+```{r ggtheme, echo = FALSE}
+this_theme <- theme_minimal () +
+    theme (
+        panel.grid.major = element_line (colour = "#CCCCCC"),
+        panel.grid.minor = element_blank (),
+        legend.position = "inside",
+        legend.position.inside = c (0.1, 0.8),
+        axis.text.x = element_text (size = 12),
+        axis.text.y = element_text (size = 10),
+        axis.title = element_text (size = 14)
+    )
+```
+
+
 ## Package submissions
 
 This chart shows the total number of packages *submitted for review* each
@@ -74,11 +88,7 @@ ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
     geom_line (linetype = submissions$lty) +
     xlab ("Year") +
     ylab (ytxt) +
-    theme_minimal () +
-    theme (
-        legend.position = "inside",
-        legend.position.inside = c (0.1, 0.8)
-    )
+    this_theme
 ```
 
 ## Packages under review
@@ -138,11 +148,7 @@ ggplot (reviews, aes (x = date, y = reviews, colour = type)) +
     geom_line (linetype = reviews$lty) +
     xlab ("Year") +
     ylab ("Nr. active reviews / month") +
-    theme_minimal () +
-    theme (
-        legend.position = "inside",
-        legend.position.inside = c (0.1, 0.8)
-    )
+    this_theme
 ```
 
 ## Review duration {#review-duration}
@@ -211,13 +217,104 @@ rev_dur <- rbind (rev_dur_all, rev_dur_gen, rev_dur_stats)
 
 ```{r rev-duration-plot, echo = FALSE, warning = FALSE}
 ggplot (rev_dur, aes (x = date, y = dur, colour = type)) +
-    geom_line (linetype = rev_dur$lty) +
-    theme_minimal () +
+    geom_line (linetype = rev_dur$lty, lwd = 1.0) +
     xlab ("Year") +
     ylab ("Review Duration (months)") +
     ylim (c (0, 11)) +
-    theme (
-        legend.position = "inside",
-        legend.position.inside = c (0.1, 0.8)
-    )
+    this_theme
 ```
+
+
+## Numbers of Editors
+
+```{r get-ed-dat-history, echo = FALSE, message = FALSE}
+#| cache: true
+aggregation_period <- "quarter" # default
+ed_dat <- editor_status (quiet = TRUE, aggregation_period = aggregation_period)
+ed_status <- ed_dat$status
+```
+
+```{r clean-editor-status-history, echo = FALSE}
+# Taken straight from editors.qmd
+#| cache: false
+eds_to_rm <- dashboard:::eds_to_remove
+ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
+    dplyr::relocate (other_langs, .before = domain_expertise) |>
+    dplyr::rename (
+        "Languages" = other_langs,
+        "Expertise" = domain_expertise
+    ) |>
+    tidyr::replace_na (list (inactive_for = "(waiting)"))
+```
+
+rOpenSci relies on our team of volunteer editors. We can only provide review
+services if we have sufficient numbers of editors available to handle
+submissions. It is therefore important to monitor historical trends in overall
+editor availability. This first graph shows total numbers of editors over time,
+and corresponding lines for numbers of those engaged during each time period in
+ongoing reviews, and numbers who are not handling any submissions during each
+period and are therefore free to accept new submissions.
+
+This number of "Free" editors may include those who have yet to edit their
+first submissions, in which case these will not appear in any subsequent
+graphs. Thus the total number in this first graph may be greater than
+identifiable numbers from any subsequent graphs.
+
+
+```{r ed-availability-prepro, echo = FALSE}
+# Use all editors, not just current ones
+num_eds_busy <- ed_dat$timeline_total |>
+    dplyr::filter (value > 0L) |>
+    dplyr::group_by (month) |>
+    dplyr::summarise (n = dplyr::n ())
+
+ed_dates <- ed_dat$timeline_total |>
+    dplyr::filter (value > 0L) |>
+    dplyr::group_by (name) |>
+    dplyr::summarise (start = min (month), end = max (month))
+ed_dates$end [ed_dates$name %in% ed_status$editor] <- max (ed_dates$end)
+ed_dates <- as.matrix (ed_dates [, c ("start", "end")])
+dates <- apply (ed_dates, 1, function (i) {
+    seq (lubridate::ymd (i [1]), lubridate::ymd (i [2]), by = "quarter") |>
+        as.character ()
+})
+n <- table (unlist (dates))
+dates_month <- lubridate::ymd (names (n))
+index <- match (dates_month, num_eds_busy$month)
+
+num_eds_total <- num_eds_free <- data.frame (
+    month = lubridate::ymd (names (n)),
+    n = as.integer (n)
+)
+index <- match (num_eds_busy$month, num_eds_total$month)
+num_eds_free$n [index] <- num_eds_total$n [index] - num_eds_busy$n
+
+# Function to smooth 'busy' and 'free', but not needed in current form.
+filter_dat <- function (dat, flen = 5) {
+    index <- seq_len (length (dat) - flen + 1) + floor (flen / 2)
+    x <- seq_len (flen) - ceiling (flen / 2)
+    x <- -abs (x)
+    filt <- exp (x)
+    filt <- filt / sum (filt)
+    dat [index] <- stats::filter (dat, filt) [index]
+    return (dat)
+}
+# num_eds_busy$n <- filter_dat (num_eds_busy$n, flen = 3)
+# num_eds_free$n <- filter_dat (num_eds_free$n, flen = 3)
+
+num_eds <- rbind (
+    cbind (num_eds_busy, status = "Busy"),
+    cbind (num_eds_total, status = "Total"),
+    cbind (num_eds_free, status = "Free")
+)
+```
+
+::: {style="all.initial;"}
+```{r timeline-num-eds-plot, echo = FALSE, fig.width = 8, fig.height = 8}
+ggplot (num_eds, aes (x = month, y = n, colour = status)) +
+    geom_line (lwd = 1.0) +
+    xlab ("Year") +
+    ylab ("Number of editors") +
+    this_theme
+```
+:::
