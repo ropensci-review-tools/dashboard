@@ -30,6 +30,8 @@ dat <- review_history (quiet = TRUE)
 
 This chart shows the total number of packages *submitted for review* each
 quarter. A value of 12 per quarter equates to around one submission per week.
+The controls immediately below, and in all of the following plots, can be used
+to control the first year of data shown in the plot.
 
 ```{r history-submissions, echo = FALSE}
 # Convert opened/closed dates to monthly sequence This is adapted from the editors
@@ -82,8 +84,22 @@ ojs_define (submissions_in = submissions)
 submissions = {
     return transpose(submissions_in).map(row => ({
         ...row,
-        date: new Date(row.date)
+        date: new Date(row.date),
+        year: new Date(row.date).getFullYear()
     }));
+}
+```
+
+```{ojs}
+minYear = Math.min(...submissions.map(d => d.year));
+maxYear = Math.max(...submissions.map(d => d.year));
+// `value` controls initial value; default = (min + max) / 2
+viewof year = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+```
+
+```{ojs}
+submissionsFiltered = {
+    return submissions.filter(d => d.year >= year);
 }
 ```
 
@@ -98,8 +114,8 @@ Plot.plot({
     y: {grid: true},
     marks: [
         Plot.ruleY([0]),
-        Plot.lineY(submissions, {x: "date", y: "submissions", stroke: "type", fontSize: 18}),
-        Plot.text(submissions, Plot.selectLast({x: "date", y: "submissions", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
+        Plot.lineY(submissionsFiltered, {x: "date", y: "submissions", stroke: "type", fontSize: 18}),
+        Plot.text(submissionsFiltered, Plot.selectLast({x: "date", y: "submissions", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
         Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
