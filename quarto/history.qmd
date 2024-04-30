@@ -305,7 +305,6 @@ revDur = {
 ```
 
 ```{ojs}
-// Use 'minYear' and 'maxYear' from above
 viewof revDurYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
 ```
 
@@ -426,8 +425,19 @@ ojs_define (numEdsIn = num_eds)
 numEds = {
     return transpose(numEdsIn).map(row => ({
         ...row,
-        month: new Date(row.month)
+        month: new Date(row.month),
+        numEdsYear: new Date(row.month).getFullYear(),
     }));
+}
+```
+
+```{ojs}
+viewof numEdsYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+```
+
+```{ojs}
+numEdsFiltered = {
+    return numEds.filter(d => d.numEdsYear >= numEdsYear);
 }
 ```
 
@@ -442,8 +452,8 @@ Plot.plot({
     y: {grid: true},
     marks: [
         Plot.ruleY([0]),
-        Plot.lineY(numEds, {x: "month", y: "n", stroke: "status", fontSize: 18}),
-        Plot.text(numEds, Plot.selectLast({x: "month", y: "n", z: "status", text: "status", textAnchor: "start", dx: 4, fontSize: 18})),
+        Plot.lineY(numEdsFiltered, {x: "month", y: "n", stroke: "status", fontSize: 18}),
+        Plot.text(numEdsFiltered, Plot.selectLast({x: "month", y: "n", z: "status", text: "status", textAnchor: "start", dx: 4, fontSize: 18})),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
         Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
