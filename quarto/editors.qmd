@@ -17,6 +17,16 @@ library (dplyr)
 library (ggiraph)
 ```
 
+This page includes:
+
+- An [*Editor Overview*](#editor-overview) of the current status of all members
+  of the editorial team
+- An [*Editor Reviews*](#editor-reviews) table, providing details of all
+  reviews handled by each editor
+- Two graphs of [recent *Editorial Load*](#past-ed-load) which can be used to
+  help assign editors in a way that best distributes the load throughout the
+  entire team.
+
 ```{r open-sans-font, echo = FALSE, message = FALSE}
 # ggiraph fonts; issue #23
 library (gdtools)
@@ -35,6 +45,8 @@ ed_timeline_new <- ed_dat$timeline_new |>
     dplyr::filter (name %in% ed_status$editor)
 eic <- ed_dat$eic
 ```
+
+## Editor-in-Charge {#editor-in-charge}
 
 ```{r eic-info, echo = FALSE, results = 'asis'}
 msg <- paste0 (
