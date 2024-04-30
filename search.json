@@ -18,28 +18,28 @@
     "href": "reviews.html#urgency-of-reviews",
     "title": "Software Review",
     "section": "Urgency of Reviews",
-    "text": "Urgency of Reviews\nLevels of urgency used in the previous table are coloured according to the following scheme:\n\nurgencyDat = transpose(urgency).map(row =&gt; ({\n    ...row,\n    rowColor: row.urgency === 1 ? urgency_colours[0] :\n        row.urgency === 2 ? urgency_colours[1] :\n        row.urgency === 3 ? urgency_colours[2] :\n        row.urgency === 4 ? urgency_colours[3] :\n        row.urgency === 5 ? urgency_colours[4] : \"transparent\",\n}));\n\n\n\n\n\n\n\ncolorTable(urgencyDat, {\n    columns: [\"urgency\", \"importance\"],\n    colorColumn: \"rowColor\",\n})\n\n\n\n\n\n\nLevels of urgency depend on the review stage. Approximate expected times required to complete each stage are:\n\n\n\nstage\ntime (days)\n\n\n\n\n0/Pre-submission\n7\n\n\n1/Editor Checks\n7\n\n\n2/Seeking Reviewers\n14\n\n\n3/Reviewer(s) Assigned\n21\n\n\n4/Review(s) in Awaiting Changes\n21\n\n\n5/Awaiting Reviewer(s) Response\n21\n\n\n\n\n\n\nLevels of urgency for each review are times taken for current stage as a multiple of those base times, with values rounded down to nearest integer. For example, a submission which has been undergoing 1\\/Editor Checks for 17 days would have an urgency of floor(17/7) = 2. A submission which has been under review (stage 3\\/Reviewer(s) Assigned) for 12 weeks would have an urgency of floor(12 * 7 / 21) = 4. These urgency levels then map on to the colour codes shown above."
+    "text": "Urgency of Reviews\nLevels of urgency used in the previous table are coloured according to the following scheme:\n\nurgencyDat = transpose(urgency).map(row =&gt; ({\n    ...row,\n    rowColor: row.urgency === 1 ? urgency_colours[0] :\n        row.urgency === 2 ? urgency_colours[1] :\n        row.urgency === 3 ? urgency_colours[2] :\n        row.urgency === 4 ? urgency_colours[3] :\n        row.urgency === 5 ? urgency_colours[4] : \"transparent\",\n}));\n\n\n\n\n\n\n\ncolorTable(urgencyDat, {\n    columns: [\"urgency\", \"importance\"],\n    colorColumn: \"rowColor\",\n})\n\n\n\n\n\n\nLevels of urgency are calculated from the following expected times for each review stage:\n\n\n\nstage\ntime (days)\n\n\n\n\n0/Pre-submission\n7\n\n\n1/Editor Checks\n7\n\n\n2/Seeking Reviewers\n14\n\n\n3/Reviewer(s) Assigned\n21\n\n\n4/Review(s) in Awaiting Changes\n21\n\n\n5/Awaiting Reviewer(s) Response\n21\n\n\n\n\n\n\nLevels of urgency for each review are times taken for current stage as a multiple of those base times, with values rounded down to nearest integer. For example, a submission which has been undergoing 1\\/Editor Checks for 17 days would have an urgency of floor(17/7) = 2. A submission which has been under review (stage 3\\/Reviewer(s) Assigned) for 12 weeks would have an urgency of floor(12 * 7 / 21) = 4. These urgency levels then map on to the colour codes shown above."
   },
   {
     "objectID": "history.html",
     "href": "history.html",
     "title": "Historical Data",
     "section": "",
-    "text": "This chart shows the total number of packages submitted for review each quarter. Main lines shows numbers of reviews for all packages, with trends distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”."
+    "text": "This page includes several graphs providing insight into the historical development of rOpenSci’s software peer review process. The first three graphs includes results distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”."
   },
   {
     "objectID": "history.html#package-submissions",
     "href": "history.html#package-submissions",
     "title": "Historical Data",
-    "section": "",
-    "text": "This chart shows the total number of packages submitted for review each quarter. Main lines shows numbers of reviews for all packages, with trends distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”."
+    "section": "Package submissions",
+    "text": "Package submissions\nThis chart shows the total number of packages submitted for review each quarter. A value of 12 per quarter equates to around one submission per week."
   },
   {
     "objectID": "history.html#packages-under-review",
     "href": "history.html#packages-under-review",
     "title": "Historical Data",
     "section": "Packages under review",
-    "text": "Packages under review\nThis chart shows numbers of packages simultaneously under review each quarter, with same lines as previous graph."
+    "text": "Packages under review\nThis chart shows numbers of packages simultaneously under review each quarter."
   },
   {
     "objectID": "history.html#review-duration",
@@ -53,7 +53,7 @@
     "href": "history.html#numbers-of-editors",
     "title": "Historical Data",
     "section": "Numbers of Editors",
-    "text": "Numbers of Editors\nrOpenSci relies on our team of volunteer editors. We can only provide review services if we have sufficient numbers of editors available to handle submissions. It is therefore important to monitor historical trends in overall editor availability. This first graph shows total numbers of editors over time, and corresponding lines for numbers of those engaged during each time period in ongoing reviews, and numbers who are not handling any submissions during each period and are therefore free to accept new submissions.\nThis number of “Free” editors may include those who have yet to edit their first submissions, in which case these will not appear in any subsequent graphs. Thus the total number in this first graph may be greater than identifiable numbers from any subsequent graphs."
+    "text": "Numbers of Editors\nrOpenSci relies on our team of volunteer editors. We can only provide review services if we have sufficient numbers of editors available to handle submissions. It is therefore important to monitor historical trends in overall editor availability. This graph shows total numbers of editors over time, and corresponding lines for numbers of those engaged during each time period in ongoing reviews (“Busy”), and numbers who are not handling any submissions during each period and are therefore free to accept new submissions (“Free”)."
   },
   {
     "objectID": "editors.html",
