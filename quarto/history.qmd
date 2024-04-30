@@ -13,6 +13,11 @@ library (ggplot2)
 library (lubridate)
 ```
 
+This page includes several graphs providing insight into the historical
+development of rOpenSci's software peer review process. The first three graphs
+includes results distinguishing general review from statistical software review
+starting from September 2021. Prior to this time, all reviews were "general".
+
 
 ```{r get-rev-history, echo = FALSE}
 #| cache: true
@@ -43,9 +48,7 @@ knitr::opts_chunk$set (fig.height = fig_ht)
 ## Package submissions
 
 This chart shows the total number of packages *submitted for review* each
-quarter. Main lines shows numbers of reviews for all packages, with trends
-distinguishing general review from statistical software review starting from
-September 2021. Prior to this time, all reviews were "general".
+quarter. A value of 12 per quarter equates to around one submission per week.
 
 ```{r history-submissions, echo = FALSE}
 # Convert opened/closed dates to monthly sequence This is adapted from the editors
@@ -100,8 +103,7 @@ ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
 
 ## Packages under review
 
-This chart shows numbers of packages *simultaneously under review* each quarter,
-with same lines as previous graph.
+This chart shows numbers of packages *simultaneously under review* each quarter.
 
 
 ```{r history-months, echo = FALSE}
@@ -257,15 +259,10 @@ ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
 rOpenSci relies on our team of volunteer editors. We can only provide review
 services if we have sufficient numbers of editors available to handle
 submissions. It is therefore important to monitor historical trends in overall
-editor availability. This first graph shows total numbers of editors over time,
-and corresponding lines for numbers of those engaged during each time period in
-ongoing reviews, and numbers who are not handling any submissions during each
-period and are therefore free to accept new submissions.
-
-This number of "Free" editors may include those who have yet to edit their
-first submissions, in which case these will not appear in any subsequent
-graphs. Thus the total number in this first graph may be greater than
-identifiable numbers from any subsequent graphs.
+editor availability. This graph shows total numbers of editors over time, and
+corresponding lines for numbers of those engaged during each time period in
+ongoing reviews ("Busy"), and numbers who are not handling any submissions
+during each period and are therefore free to accept new submissions ("Free").
 
 
 ```{r ed-availability-prepro, echo = FALSE}
