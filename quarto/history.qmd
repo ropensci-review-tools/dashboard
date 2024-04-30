@@ -298,11 +298,23 @@ ojs_define (revDurIn = rev_dur)
 revDur = {
     return transpose(revDurIn).map(row => ({
         ...row,
-        date: new Date(row.date)
+        date: new Date(row.date),
+        revDurYear: new Date(row.date).getFullYear(),
     }));
 }
+```
 
-maxRev = 1.05 * Math.max(...revDur.map(d => d.type === "all" && d.dur));
+```{ojs}
+// Use 'minYear' and 'maxYear' from above
+viewof revDurYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+```
+
+```{ojs}
+revDurFiltered = {
+    return revDur.filter(d => d.revDurYear >= revDurYear);
+}
+
+maxRev = 1.05 * Math.max(...revDurFiltered.map(d => d.type === "all" && d.dur));
 ```
 
 ```{ojs}
@@ -316,8 +328,8 @@ Plot.plot({
     y: {grid: true, domain: [0, maxRev]},
     marks: [
         Plot.ruleY([0]),
-        Plot.lineY(revDur, {x: "date", y: "dur", stroke: "type", fontSize: 18}),
-        Plot.text(revDur, Plot.selectLast({x: "date", y: "dur", z: "type", text: "type", textAnchor: "start", dx: 4, fontSize: 18})),
+        Plot.lineY(revDurFiltered, {x: "date", y: "dur", stroke: "type", fontSize: 18}),
+        Plot.text(revDurFiltered, Plot.selectLast({x: "date", y: "dur", z: "type", text: "type", textAnchor: "start", dx: 4, fontSize: 18})),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
         Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
