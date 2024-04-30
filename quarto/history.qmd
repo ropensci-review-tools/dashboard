@@ -94,14 +94,6 @@ submissions_gen <- submissions_gen [index, ]
 
 submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
 ```
-```{r plot-submission-history, echo = FALSE}
-ytxt <- paste0 ("Nr. submissions / ", ifelse (period == "quarter", "quarter", "half-year"))
-ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
-    geom_line (linetype = submissions$lty, lwd = this_lwd) +
-    xlab ("Year") +
-    ylab (ytxt) +
-    this_theme
-```
 
 ```{r ojs-in, echo = FALSE}
 ojs_define (submissions_in = submissions)
@@ -124,6 +116,7 @@ Plot.plot({
     `,
     marginLeft: 60,
     marginBottom: 50,
+    x: {grid: true},
     y: {grid: true},
     marks: [
         Plot.ruleY([0]),
