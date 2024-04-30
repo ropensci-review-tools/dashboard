@@ -191,6 +191,9 @@ colorTable(filteredSorted,
       "status": "Status",
       "stats": "Stats",
     },
+    format: {
+      "Expertise": d => htl.html`<span style="white-space:break-spaces;">${d}</span>`,
+    },
   }
 )
 ```
@@ -266,6 +269,7 @@ colorTable(filteredSortedRevs,
     columns: columnsRevs,
     format: {
       [numberColumn]: d => htl.html`<a href="https://github.com/ropensci/software-review/issues/${d}">${d}</a>`,
+      "title": d => htl.html`<span style="white-space:break-spaces;">${d}</span>`,
     },
     header: {
       "number": "Issue number",
