@@ -1,5 +1,7 @@
 ---
 title: "Historical Data"
+execute:
+  echo: false
 format: 
   html:
     fig-width: 8
@@ -9,7 +11,6 @@ format:
 
 ```{r load-pkg, echo = FALSE, message = FALSE}
 library (dashboard)
-library (ggplot2)
 library (lubridate)
 ```
 
@@ -24,31 +25,13 @@ starting from September 2021. Prior to this time, all reviews were "general".
 dat <- review_history (quiet = TRUE)
 ```
 
-```{r ggtheme, echo = FALSE}
-this_theme <- theme_minimal () +
-    theme (
-        panel.grid.major = element_line (colour = "#CCCCCC"),
-        panel.grid.minor = element_blank (),
-        legend.position = "inside",
-        legend.position.inside = c (0.1, 0.8),
-        axis.text.x = element_text (size = 12),
-        axis.text.y = element_text (size = 10),
-        axis.title = element_text (size = 14)
-    )
-this_lwd <- 0.9
-```
-
-```{r set-fig-ht-all-history, echo = FALSE}
-fig_ht <- 5
-opts <- knitr::opts_chunk$get ()
-knitr::opts_chunk$set (fig.height = fig_ht)
-```
-
 
 ## Package submissions
 
 This chart shows the total number of packages *submitted for review* each
 quarter. A value of 12 per quarter equates to around one submission per week.
+The controls immediately below, and in all of the following plots, can be used
+to control the first year of data shown in the plot.
 
 ```{r history-submissions, echo = FALSE}
 # Convert opened/closed dates to monthly sequence This is adapted from the editors
@@ -92,14 +75,63 @@ submissions_gen <- submissions_gen [index, ]
 
 submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
 ```
-```{r plot-submission-history, echo = FALSE}
-ytxt <- paste0 ("Nr. submissions / ", ifelse (period == "quarter", "quarter", "half-year"))
-ggplot (submissions, aes (x = date, y = submissions, colour = type)) +
-    geom_line (linetype = submissions$lty, lwd = this_lwd) +
-    xlab ("Year") +
-    ylab (ytxt) +
-    this_theme
+
+```{r ojs-in-submissions, echo = FALSE}
+ojs_define (submissions_in = submissions)
 ```
+
+```{ojs}
+submissions = {
+    return transpose(submissions_in).map(row => ({
+        ...row,
+        date: new Date(row.date),
+        submissionYear: new Date(row.date).getFullYear()
+    }));
+}
+```
+
+```{ojs}
+minYear = Math.min(...submissions.map(d => d.submissionYear));
+maxYear = Math.max(...submissions.map(d => d.submissionYear));
+viewof submissionYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear // default = (min + max) / 2
+    }
+)
+```
+
+```{ojs}
+submissionsFiltered = {
+    return submissions.filter(d => d.submissionYear >= submissionYear);
+}
+```
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    x: {grid: true},
+    y: {grid: true},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(submissionsFiltered, {x: "date", y: "submissions", stroke: "type", fontSize: 18}),
+        Plot.text(submissionsFiltered, Plot.selectLast({x: "date", y: "submissions", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Nr. submissions / quarter", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
+```
+
+
+
 
 ## Packages under review
 
@@ -152,13 +184,60 @@ reviews_gen <- reviews_gen [index, ]
 reviews <- rbind (reviews_all, reviews_gen, reviews_stats)
 ```
 
-```{r plot-review-history, echo = FALSE}
-ggplot (reviews, aes (x = date, y = reviews, colour = type)) +
-    geom_line (linetype = reviews$lty, lwd = this_lwd) +
-    xlab ("Year") +
-    ylab ("Nr. active reviews / month") +
-    this_theme
+```{r ojs-in-reviews, echo = FALSE}
+ojs_define (reviews_in = reviews)
 ```
+
+```{ojs}
+reviews = {
+    return transpose(reviews_in).map(row => ({
+        ...row,
+        date: new Date(row.date),
+        reviewYear: new Date(row.date).getFullYear()
+    }));
+}
+```
+
+```{ojs}
+// Use 'minYear' and 'maxYear' from above
+viewof reviewYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear
+    }
+)
+```
+
+```{ojs}
+reviewsFiltered = {
+    return reviews.filter(d => d.reviewYear >= reviewYear);
+}
+```
+
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    x: {grid: true},
+    y: {grid: true},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(reviewsFiltered, {x: "date", y: "reviews", stroke: "type", fontSize: 18}),
+        Plot.text(reviewsFiltered, Plot.selectLast({x: "date", y: "reviews", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Nr. active reviews / quarter", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
+```
+
 
 ## Review duration {#review-duration}
 
@@ -224,13 +303,58 @@ rev_dur_gen <- rev_dur_gen [index, ]
 rev_dur <- rbind (rev_dur_all, rev_dur_gen, rev_dur_stats)
 ```
 
-```{r rev-duration-plot, echo = FALSE, warning = FALSE}
-ggplot (rev_dur, aes (x = date, y = dur, colour = type)) +
-    geom_line (linetype = rev_dur$lty, lwd = this_lwd) +
-    xlab ("Year") +
-    ylab ("Review Duration (months)") +
-    ylim (c (0, 11)) +
-    this_theme
+```{r ojs-in-revdur, echo = FALSE}
+ojs_define (revDurIn = rev_dur)
+```
+
+```{ojs}
+revDur = {
+    return transpose(revDurIn).map(row => ({
+        ...row,
+        date: new Date(row.date),
+        revDurYear: new Date(row.date).getFullYear(),
+    }));
+}
+```
+
+```{ojs}
+viewof revDurYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear,
+    }
+)
+```
+
+```{ojs}
+revDurFiltered = {
+    return revDur.filter(d => d.revDurYear >= revDurYear);
+}
+
+maxRev = 1.05 * Math.max(...revDurFiltered.map(d => d.type === "all" && d.dur));
+```
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    x: {grid: true},
+    y: {grid: true, domain: [0, maxRev]},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(revDurFiltered, {x: "date", y: "dur", stroke: "type", fontSize: 18}),
+        Plot.text(revDurFiltered, Plot.selectLast({x: "date", y: "dur", z: "type", text: "type", textAnchor: "start", dx: 4, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Review duration (months)", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
 ```
 
 
@@ -313,16 +437,54 @@ num_eds <- rbind (
 )
 ```
 
-::: {style="all.initial;"}
-```{r timeline-num-eds-plot, echo = FALSE}
-ggplot (num_eds, aes (x = month, y = n, colour = status)) +
-    geom_line (lwd = this_lwd) +
-    xlab ("Year") +
-    ylab ("Number of editors") +
-    this_theme
+```{r ojs-in-numeds, echo = FALSE}
+ojs_define (numEdsIn = num_eds)
 ```
-:::
 
-```{r reset-fig-ht-history, echo = FALSE}
-knitr::opts_chunk$set (fig.height = opts$fig.height)
+```{ojs}
+numEds = {
+    return transpose(numEdsIn).map(row => ({
+        ...row,
+        month: new Date(row.month),
+        numEdsYear: new Date(row.month).getFullYear(),
+    }));
+}
+```
+
+```{ojs}
+viewof numEdsYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear,
+    }
+)
+```
+
+```{ojs}
+numEdsFiltered = {
+    return numEds.filter(d => d.numEdsYear >= numEdsYear);
+}
+```
+
+```{ojs}
+Plot.plot({
+    style: `
+        overflow: visible;
+    `,
+    marginLeft: 60,
+    marginBottom: 50,
+    x: {grid: true},
+    y: {grid: true},
+    marks: [
+        Plot.ruleY([0]),
+        Plot.lineY(numEdsFiltered, {x: "month", y: "n", stroke: "status", fontSize: 18}),
+        Plot.text(numEdsFiltered, Plot.selectLast({x: "month", y: "n", z: "status", text: "status", textAnchor: "start", dx: 4, fontSize: 18})),
+        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
+        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
+        Plot.axisY({fontSize: 24, label: "Number of editors", labelAnchor: "center", labelOffset: 55, ticks: []}),
+    ]
+})
 ```
