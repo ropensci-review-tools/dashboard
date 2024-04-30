@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -66,6 +100,20 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script type="ojs-define">
+{"contents":[{"name":"submissions_in","value":{"date":["2015-01-01","2015-04-01","2015-07-01","2015-10-01","2016-01-01","2016-04-01","2016-07-01","2016-10-01","2017-01-01","2017-04-01","2017-07-01","2017-10-01","2018-01-01","2018-04-01","2018-07-01","2018-10-01","2019-01-01","2019-04-01","2019-07-01","2019-10-01","2020-01-01","2020-04-01","2020-07-01","2020-10-01","2021-01-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01","2021-01-01","2021-07-01","2021-10-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2021-07-01","2021-10-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01"],"submissions":[1,4,2,3,4,14,7,3,8,11,8,9,15,14,6,12,9,9,11,1,7,5,1,7,10,4,8,6,7,4,5,6,3,7,5,7,3,10,3,6,5,1,2,5,2,6,4,5,1,2,2,3,3,1,1,1,1,2],"type":["all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","general","general","general","general","general","general","general","general","general","general","general","stats","stats","stats","stats","stats","stats","stats","stats","stats","stats"],"lty":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1]}}]}
+</script>
+<script type="ojs-define">
+{"contents":[{"name":"reviews_in","value":{"date":["2015-01-01","2015-04-01","2015-07-01","2015-10-01","2016-01-01","2016-04-01","2016-07-01","2016-10-01","2017-01-01","2017-04-01","2017-07-01","2017-10-01","2018-01-01","2018-04-01","2018-07-01","2018-10-01","2019-01-01","2019-04-01","2019-07-01","2019-10-01","2020-01-01","2020-04-01","2020-07-01","2020-10-01","2021-01-01","2021-04-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01","2021-04-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01"],"reviews":[1,4,6,7,8,20,17,11,15,22,25,22,30,27,26,27,24,30,28,23,19,17,13,15,24,15,14,18,20,19,17,17,19,14,20,23,23,21,15,13,15,17,14,9,9,11,10,15,17,17,15,1,3,3,5,8,8,8,4,5,6,6,6],"type":["all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","general","general","general","general","general","general","general","general","general","general","general","general","general","stats","stats","stats","stats","stats","stats","stats","stats","stats","stats","stats","stats"],"lty":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1]}}]}
+</script>
+<script type="ojs-define">
+{"contents":[{"name":"revDurIn","value":{"date":["2015-01-01","2015-04-01","2015-07-01","2015-10-01","2016-01-01","2016-04-01","2016-07-01","2016-10-01","2017-01-01","2017-04-01","2017-07-01","2017-10-01","2018-01-01","2018-04-01","2018-07-01","2018-10-01","2019-01-01","2019-04-01","2019-07-01","2019-10-01","2020-01-01","2020-04-01","2020-07-01","2020-10-01","2021-01-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2021-01-01","2021-07-01","2021-10-01","2022-04-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2021-07-01","2021-10-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01"],"dur":[0.4274,5.6724,4.0233,3.9331,3.625,4.0303,3.6674,4.7311,4.6025,3.9389,5.4053,5.9466,4.7288,5.4061,5.4863,5.9706,5.8901,6.5997,5.7573,5.3163,8.4054,10.0098,7.4932,6.9424,7.232,8.02,6.3277,5.4981,4.8717,4.4444,4.57,4.2734,4.4784,4.3485,3.4483,2.0548,6.7019,6.3895,5.2826,5.2806,5.4863,4.5011,3.4442,3.9,17.2274,10.7934,5.9059,4.228,3.4714,3.1618,5.1978,4.5699],"type":["all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","all","general","general","general","general","general","general","general","general","stats","stats","stats","stats","stats","stats","stats","stats"],"lty":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1]}}]}
+</script>
+<script type="ojs-define">
+{"contents":[{"name":"numEdsIn","value":{"month":["2015-01-01","2015-04-01","2015-07-01","2015-10-01","2016-01-01","2016-04-01","2016-07-01","2016-10-01","2017-01-01","2017-04-01","2017-07-01","2017-10-01","2018-01-01","2018-04-01","2018-07-01","2018-10-01","2019-01-01","2019-04-01","2019-07-01","2019-10-01","2020-01-01","2020-04-01","2020-07-01","2020-10-01","2021-01-01","2021-04-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01","2015-01-01","2015-04-01","2015-07-01","2015-10-01","2016-01-01","2016-04-01","2016-07-01","2016-10-01","2017-01-01","2017-04-01","2017-07-01","2017-10-01","2018-01-01","2018-04-01","2018-07-01","2018-10-01","2019-01-01","2019-04-01","2019-07-01","2019-10-01","2020-01-01","2020-04-01","2020-07-01","2020-10-01","2021-01-01","2021-04-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01","2015-01-01","2015-04-01","2015-07-01","2015-10-01","2016-01-01","2016-04-01","2016-07-01","2016-10-01","2017-01-01","2017-04-01","2017-07-01","2017-10-01","2018-01-01","2018-04-01","2018-07-01","2018-10-01","2019-01-01","2019-04-01","2019-07-01","2019-10-01","2020-01-01","2020-04-01","2020-07-01","2020-10-01","2021-01-01","2021-04-01","2021-07-01","2021-10-01","2022-01-01","2022-04-01","2022-07-01","2022-10-01","2023-01-01","2023-04-01","2023-07-01","2023-10-01","2024-01-01","2024-04-01"],"n":[1,1,2,2,2,2,2,2,4,4,4,5,6,6,6,8,8,8,11,11,10,9,7,8,11,11,11,11,12,12,13,12,12,10,13,13,14,6,1,1,2,2,3,3,3,3,4,4,4,5,6,6,6,8,8,8,11,11,10,10,8,8,11,11,11,12,12,13,15,14,14,13,14,14,15,13,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,1,2,2,2,3,1,1,1,7],"status":["Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Busy","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Total","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free","Free"]}}]}
+</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -167,13 +215,86 @@ ul.task-list li input[type="checkbox"] {
 <p>This page includes several graphs providing insight into the historical development of rOpenSci’s software peer review process. The first three graphs includes results distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”.</p>
 <section id="package-submissions" class="level2">
 <h2 class="anchored" data-anchor-id="package-submissions">Package submissions</h2>
-<p>This chart shows the total number of packages <em>submitted for review</em> each quarter. A value of 12 per quarter equates to around one submission per week.</p>
+<p>This chart shows the total number of packages <em>submitted for review</em> each quarter. A value of 12 per quarter equates to around one submission per week. The controls immediately below, and in all of the following plots, can be used to control the first year of data shown in the plot.</p>
 <div class="cell">
-<div class="cell-output-display">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="83" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 82;"><span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>submissions <span class="op">=</span> {</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">transpose</span>(submissions_in)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>        <span class="dt">date</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">,</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>        <span class="dt">submissionYear</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">.</span><span class="fu">getFullYear</span>()</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="94" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 93;"><span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>minYear <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="op">...</span>submissions<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">submissionYear</span>))<span class="op">;</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>maxYear <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="op">...</span>submissions<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">submissionYear</span>))<span class="op">;</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>viewof submissionYear <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    [minYear<span class="op">,</span> maxYear]<span class="op">,</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>        <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> <span class="st">"Start year"</span><span class="op">,</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> minYear <span class="co">// default = (min + max) / 2</span></span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="history_files/figure-html/plot-submission-history-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="106" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 105;"><span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>submissionsFiltered <span class="op">=</span> {</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> submissions<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">submissionYear</span> <span class="op">&gt;=</span> submissionYear)<span class="op">;</span></span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="112" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 111;"><span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="vs">`</span></span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a><span class="vs">        overflow: visible;</span></span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span><span class="op">,</span></span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(submissionsFiltered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"submissions"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>})<span class="op">,</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>(submissionsFiltered<span class="op">,</span> Plot<span class="op">.</span><span class="fu">selectLast</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"submissions"</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>}))<span class="op">,</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Year"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">24</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Nr. submissions / quarter"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
 </div>
 </div>
 </div>
@@ -182,11 +303,67 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="packages-under-review">Packages under review</h2>
 <p>This chart shows numbers of packages <em>simultaneously under review</em> each quarter.</p>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="history_files/figure-html/plot-review-history-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="191" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 190;"><span id="cb5-191"><a href="#cb5-191" aria-hidden="true" tabindex="-1"></a>reviews <span class="op">=</span> {</span>
+<span id="cb5-192"><a href="#cb5-192" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">transpose</span>(reviews_in)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb5-193"><a href="#cb5-193" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb5-194"><a href="#cb5-194" aria-hidden="true" tabindex="-1"></a>        <span class="dt">date</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">,</span></span>
+<span id="cb5-195"><a href="#cb5-195" aria-hidden="true" tabindex="-1"></a>        <span class="dt">reviewYear</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">.</span><span class="fu">getFullYear</span>()</span>
+<span id="cb5-196"><a href="#cb5-196" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb5-197"><a href="#cb5-197" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="201" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 200;"><span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a><span class="co">// Use 'minYear' and 'maxYear' from above</span></span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>viewof reviewYear <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>    [minYear<span class="op">,</span> maxYear]<span class="op">,</span></span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>        <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> <span class="st">"Start year"</span><span class="op">,</span></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> minYear</span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="213" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 212;"><span id="cb7-213"><a href="#cb7-213" aria-hidden="true" tabindex="-1"></a>reviewsFiltered <span class="op">=</span> {</span>
+<span id="cb7-214"><a href="#cb7-214" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> reviews<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">reviewYear</span> <span class="op">&gt;=</span> reviewYear)<span class="op">;</span></span>
+<span id="cb7-215"><a href="#cb7-215" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="220" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 219;"><span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="vs">`</span></span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a><span class="vs">        overflow: visible;</span></span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span><span class="op">,</span></span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb8-229"><a href="#cb8-229" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb8-230"><a href="#cb8-230" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(reviewsFiltered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"reviews"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>})<span class="op">,</span></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>(reviewsFiltered<span class="op">,</span> Plot<span class="op">.</span><span class="fu">selectLast</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"reviews"</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">3</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>}))<span class="op">,</span></span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Year"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">24</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Nr. active reviews / quarter"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-8" data-nodetype="expression">
+
 </div>
 </div>
 </div>
@@ -195,11 +372,77 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="review-duration">Review duration</h2>
 <p>The next chart shows the average duration of the review process, plotted against the months in which each review started. (The data have been slightly smoothed to aid visual display.)</p>
 <div class="cell">
-<div class="cell-output-display">
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="310" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 309;"><span id="cb9-310"><a href="#cb9-310" aria-hidden="true" tabindex="-1"></a>revDur <span class="op">=</span> {</span>
+<span id="cb9-311"><a href="#cb9-311" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">transpose</span>(revDurIn)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb9-312"><a href="#cb9-312" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb9-313"><a href="#cb9-313" aria-hidden="true" tabindex="-1"></a>        <span class="dt">date</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">,</span></span>
+<span id="cb9-314"><a href="#cb9-314" aria-hidden="true" tabindex="-1"></a>        <span class="dt">revDurYear</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">.</span><span class="fu">getFullYear</span>()<span class="op">,</span></span>
+<span id="cb9-315"><a href="#cb9-315" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb9-316"><a href="#cb9-316" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="320" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 319;"><span id="cb10-320"><a href="#cb10-320" aria-hidden="true" tabindex="-1"></a>viewof revDurYear <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb10-321"><a href="#cb10-321" aria-hidden="true" tabindex="-1"></a>    [minYear<span class="op">,</span> maxYear]<span class="op">,</span></span>
+<span id="cb10-322"><a href="#cb10-322" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb10-323"><a href="#cb10-323" aria-hidden="true" tabindex="-1"></a>        <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb10-324"><a href="#cb10-324" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> <span class="st">"Start year"</span><span class="op">,</span></span>
+<span id="cb10-325"><a href="#cb10-325" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> minYear<span class="op">,</span></span>
+<span id="cb10-326"><a href="#cb10-326" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-327"><a href="#cb10-327" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="332" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 331;"><span id="cb11-332"><a href="#cb11-332" aria-hidden="true" tabindex="-1"></a>revDurFiltered <span class="op">=</span> {</span>
+<span id="cb11-333"><a href="#cb11-333" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> revDur<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">revDurYear</span> <span class="op">&gt;=</span> revDurYear)<span class="op">;</span></span>
+<span id="cb11-334"><a href="#cb11-334" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-335"><a href="#cb11-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-336"><a href="#cb11-336" aria-hidden="true" tabindex="-1"></a>maxRev <span class="op">=</span> <span class="fl">1.05</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="op">...</span>revDurFiltered<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">type</span> <span class="op">===</span> <span class="st">"all"</span> <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">dur</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
 <div>
-<figure class="figure">
-<p><img src="history_files/figure-html/rev-duration-plot-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div id="ojs-cell-11-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="339" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 338;"><span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="vs">`</span></span>
+<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a><span class="vs">        overflow: visible;</span></span>
+<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span><span class="op">,</span></span>
+<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">domain</span><span class="op">:</span> [<span class="dv">0</span><span class="op">,</span> maxRev]}<span class="op">,</span></span>
+<span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(revDurFiltered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"dur"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>})<span class="op">,</span></span>
+<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>(revDurFiltered<span class="op">,</span> Plot<span class="op">.</span><span class="fu">selectLast</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"date"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"dur"</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"type"</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>}))<span class="op">,</span></span>
+<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Year"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">24</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Review duration (months)"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="expression">
+
 </div>
 </div>
 </div>
@@ -207,14 +450,67 @@ ul.task-list li input[type="checkbox"] {
 <section id="numbers-of-editors" class="level2">
 <h2 class="anchored" data-anchor-id="numbers-of-editors">Numbers of Editors</h2>
 <p>rOpenSci relies on our team of volunteer editors. We can only provide review services if we have sufficient numbers of editors available to handle submissions. It is therefore important to monitor historical trends in overall editor availability. This graph shows total numbers of editors over time, and corresponding lines for numbers of those engaged during each time period in ongoing reviews (“Busy”), and numbers who are not handling any submissions during each period and are therefore free to accept new submissions (“Free”).</p>
-<div style="all.initial;">
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="history_files/figure-html/timeline-num-eds-plot-1.png" class="img-fluid figure-img" width="768"></p>
-</figure>
+<div class="sourceCode cell-code hidden" id="cb13" data-startfrom="444" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 443;"><span id="cb13-444"><a href="#cb13-444" aria-hidden="true" tabindex="-1"></a>numEds <span class="op">=</span> {</span>
+<span id="cb13-445"><a href="#cb13-445" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">transpose</span>(numEdsIn)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb13-446"><a href="#cb13-446" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb13-447"><a href="#cb13-447" aria-hidden="true" tabindex="-1"></a>        <span class="dt">month</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">month</span>)<span class="op">,</span></span>
+<span id="cb13-448"><a href="#cb13-448" aria-hidden="true" tabindex="-1"></a>        <span class="dt">numEdsYear</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">month</span>)<span class="op">.</span><span class="fu">getFullYear</span>()<span class="op">,</span></span>
+<span id="cb13-449"><a href="#cb13-449" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb13-450"><a href="#cb13-450" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-13" data-nodetype="declaration">
+
 </div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb14" data-startfrom="454" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 453;"><span id="cb14-454"><a href="#cb14-454" aria-hidden="true" tabindex="-1"></a>viewof numEdsYear <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>(</span>
+<span id="cb14-455"><a href="#cb14-455" aria-hidden="true" tabindex="-1"></a>    [minYear<span class="op">,</span> maxYear]<span class="op">,</span></span>
+<span id="cb14-456"><a href="#cb14-456" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb14-457"><a href="#cb14-457" aria-hidden="true" tabindex="-1"></a>        <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb14-458"><a href="#cb14-458" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> <span class="st">"Start year"</span><span class="op">,</span></span>
+<span id="cb14-459"><a href="#cb14-459" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> minYear<span class="op">,</span></span>
+<span id="cb14-460"><a href="#cb14-460" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-461"><a href="#cb14-461" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb15" data-startfrom="465" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 464;"><span id="cb15-465"><a href="#cb15-465" aria-hidden="true" tabindex="-1"></a>numEdsFiltered <span class="op">=</span> {</span>
+<span id="cb15-466"><a href="#cb15-466" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> numEds<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">numEdsYear</span> <span class="op">&gt;=</span> numEdsYear)<span class="op">;</span></span>
+<span id="cb15-467"><a href="#cb15-467" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-15" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb16" data-startfrom="471" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 470;"><span id="cb16-471"><a href="#cb16-471" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb16-472"><a href="#cb16-472" aria-hidden="true" tabindex="-1"></a>    <span class="dt">style</span><span class="op">:</span> <span class="vs">`</span></span>
+<span id="cb16-473"><a href="#cb16-473" aria-hidden="true" tabindex="-1"></a><span class="vs">        overflow: visible;</span></span>
+<span id="cb16-474"><a href="#cb16-474" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span><span class="op">,</span></span>
+<span id="cb16-475"><a href="#cb16-475" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">60</span><span class="op">,</span></span>
+<span id="cb16-476"><a href="#cb16-476" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginBottom</span><span class="op">:</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb16-477"><a href="#cb16-477" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb16-478"><a href="#cb16-478" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb16-479"><a href="#cb16-479" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb16-480"><a href="#cb16-480" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])<span class="op">,</span></span>
+<span id="cb16-481"><a href="#cb16-481" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">lineY</span>(numEdsFiltered<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"month"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"status"</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>})<span class="op">,</span></span>
+<span id="cb16-482"><a href="#cb16-482" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">text</span>(numEdsFiltered<span class="op">,</span> Plot<span class="op">.</span><span class="fu">selectLast</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"month"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">z</span><span class="op">:</span> <span class="st">"status"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"status"</span><span class="op">,</span> <span class="dt">textAnchor</span><span class="op">:</span> <span class="st">"start"</span><span class="op">,</span> <span class="dt">dx</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">fontSize</span><span class="op">:</span> <span class="dv">18</span>}))<span class="op">,</span></span>
+<span id="cb16-483"><a href="#cb16-483" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb16-484"><a href="#cb16-484" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisX</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Year"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb16-485"><a href="#cb16-485" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">14</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span><span class="op">,</span> <span class="dt">labelArrow</span><span class="op">:</span> <span class="kw">false</span>})<span class="op">,</span></span>
+<span id="cb16-486"><a href="#cb16-486" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">axisY</span>({<span class="dt">fontSize</span><span class="op">:</span> <span class="dv">24</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of editors"</span><span class="op">,</span> <span class="dt">labelAnchor</span><span class="op">:</span> <span class="st">"center"</span><span class="op">,</span> <span class="dt">labelOffset</span><span class="op">:</span> <span class="dv">55</span><span class="op">,</span> <span class="dt">ticks</span><span class="op">:</span> []})<span class="op">,</span></span>
+<span id="cb16-487"><a href="#cb16-487" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb16-488"><a href="#cb16-488" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-16" data-nodetype="expression">
+
 </div>
 </div>
 </div>
@@ -223,6 +519,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 
 </main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InN1Ym1pc3Npb25zID0ge1xuICAgIHJldHVybiB0cmFuc3Bvc2Uoc3VibWlzc2lvbnNfaW4pLm1hcChyb3cgPT4gKHtcbiAgICAgICAgLi4ucm93LFxuICAgICAgICBkYXRlOiBuZXcgRGF0ZShyb3cuZGF0ZSksXG4gICAgICAgIHN1Ym1pc3Npb25ZZWFyOiBuZXcgRGF0ZShyb3cuZGF0ZSkuZ2V0RnVsbFllYXIoKVxuICAgIH0pKTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1pblllYXIgPSBNYXRoLm1pbiguLi5zdWJtaXNzaW9ucy5tYXAoZCA9PiBkLnN1Ym1pc3Npb25ZZWFyKSk7XG5tYXhZZWFyID0gTWF0aC5tYXgoLi4uc3VibWlzc2lvbnMubWFwKGQgPT4gZC5zdWJtaXNzaW9uWWVhcikpO1xudmlld29mIHN1Ym1pc3Npb25ZZWFyID0gSW5wdXRzLnJhbmdlKFxuICAgIFttaW5ZZWFyLCBtYXhZZWFyXSxcbiAgICB7XG4gICAgICAgIHN0ZXA6IDEsXG4gICAgICAgIGxhYmVsOiBcIlN0YXJ0IHllYXJcIixcbiAgICAgICAgdmFsdWU6IG1pblllYXIgLy8gZGVmYXVsdCA9IChtaW4gKyBtYXgpIC8gMlxuICAgIH1cbilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InN1Ym1pc3Npb25zRmlsdGVyZWQgPSB7XG4gICAgcmV0dXJuIHN1Ym1pc3Npb25zLmZpbHRlcihkID0+IGQuc3VibWlzc2lvblllYXIgPj0gc3VibWlzc2lvblllYXIpO1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgICBzdHlsZTogYFxuICAgICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICBgLFxuICAgIG1hcmdpbkxlZnQ6IDYwLFxuICAgIG1hcmdpbkJvdHRvbTogNTAsXG4gICAgeDoge2dyaWQ6IHRydWV9LFxuICAgIHk6IHtncmlkOiB0cnVlfSxcbiAgICBtYXJrczogW1xuICAgICAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgICAgIFBsb3QubGluZVkoc3VibWlzc2lvbnNGaWx0ZXJlZCwge3g6IFwiZGF0ZVwiLCB5OiBcInN1Ym1pc3Npb25zXCIsIHN0cm9rZTogXCJ0eXBlXCIsIGZvbnRTaXplOiAxOH0pLFxuICAgICAgICBQbG90LnRleHQoc3VibWlzc2lvbnNGaWx0ZXJlZCwgUGxvdC5zZWxlY3RMYXN0KHt4OiBcImRhdGVcIiwgeTogXCJzdWJtaXNzaW9uc1wiLCB6OiBcInR5cGVcIiwgdGV4dDogXCJ0eXBlXCIsIHRleHRBbmNob3I6IFwic3RhcnRcIiwgZHg6IDMsIGZvbnRTaXplOiAxOH0pKSxcbiAgICAgICAgUGxvdC5heGlzWCh7Zm9udFNpemU6IDE0LCBsYWJlbDogXCJcIiwgbGFiZWxBcnJvdzogZmFsc2V9KSxcbiAgICAgICAgUGxvdC5heGlzWCh7Zm9udFNpemU6IDIwLCBsYWJlbDogXCJZZWFyXCIsIGxhYmVsQW5jaG9yOiBcImNlbnRlclwiLCBsYWJlbE9mZnNldDogNDAsIHRpY2tzOiBbXX0pLFxuICAgICAgICBQbG90LmF4aXNZKHtmb250U2l6ZTogMTQsIGxhYmVsOiBcIlwiLCBsYWJlbEFycm93OiBmYWxzZX0pLFxuICAgICAgICBQbG90LmF4aXNZKHtmb250U2l6ZTogMjQsIGxhYmVsOiBcIk5yLiBzdWJtaXNzaW9ucyAvIHF1YXJ0ZXJcIiwgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsIGxhYmVsT2Zmc2V0OiA1NSwgdGlja3M6IFtdfSksXG4gICAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InJldmlld3MgPSB7XG4gICAgcmV0dXJuIHRyYW5zcG9zZShyZXZpZXdzX2luKS5tYXAocm93ID0+ICh7XG4gICAgICAgIC4uLnJvdyxcbiAgICAgICAgZGF0ZTogbmV3IERhdGUocm93LmRhdGUpLFxuICAgICAgICByZXZpZXdZZWFyOiBuZXcgRGF0ZShyb3cuZGF0ZSkuZ2V0RnVsbFllYXIoKVxuICAgIH0pKTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFVzZSAnbWluWWVhcicgYW5kICdtYXhZZWFyJyBmcm9tIGFib3ZlXG52aWV3b2YgcmV2aWV3WWVhciA9IElucHV0cy5yYW5nZShcbiAgICBbbWluWWVhciwgbWF4WWVhcl0sXG4gICAge1xuICAgICAgICBzdGVwOiAxLFxuICAgICAgICBsYWJlbDogXCJTdGFydCB5ZWFyXCIsXG4gICAgICAgIHZhbHVlOiBtaW5ZZWFyXG4gICAgfVxuKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicmV2aWV3c0ZpbHRlcmVkID0ge1xuICAgIHJldHVybiByZXZpZXdzLmZpbHRlcihkID0+IGQucmV2aWV3WWVhciA+PSByZXZpZXdZZWFyKTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gICAgc3R5bGU6IGBcbiAgICAgICAgb3ZlcmZsb3c6IHZpc2libGU7XG4gICAgYCxcbiAgICBtYXJnaW5MZWZ0OiA2MCxcbiAgICBtYXJnaW5Cb3R0b206IDUwLFxuICAgIHg6IHtncmlkOiB0cnVlfSxcbiAgICB5OiB7Z3JpZDogdHJ1ZX0sXG4gICAgbWFya3M6IFtcbiAgICAgICAgUGxvdC5ydWxlWShbMF0pLFxuICAgICAgICBQbG90LmxpbmVZKHJldmlld3NGaWx0ZXJlZCwge3g6IFwiZGF0ZVwiLCB5OiBcInJldmlld3NcIiwgc3Ryb2tlOiBcInR5cGVcIiwgZm9udFNpemU6IDE4fSksXG4gICAgICAgIFBsb3QudGV4dChyZXZpZXdzRmlsdGVyZWQsIFBsb3Quc2VsZWN0TGFzdCh7eDogXCJkYXRlXCIsIHk6IFwicmV2aWV3c1wiLCB6OiBcInR5cGVcIiwgdGV4dDogXCJ0eXBlXCIsIHRleHRBbmNob3I6IFwic3RhcnRcIiwgZHg6IDMsIGZvbnRTaXplOiAxOH0pKSxcbiAgICAgICAgUGxvdC5heGlzWCh7Zm9udFNpemU6IDE0LCBsYWJlbDogXCJcIiwgbGFiZWxBcnJvdzogZmFsc2V9KSxcbiAgICAgICAgUGxvdC5heGlzWCh7Zm9udFNpemU6IDIwLCBsYWJlbDogXCJZZWFyXCIsIGxhYmVsQW5jaG9yOiBcImNlbnRlclwiLCBsYWJlbE9mZnNldDogNDAsIHRpY2tzOiBbXX0pLFxuICAgICAgICBQbG90LmF4aXNZKHtmb250U2l6ZTogMTQsIGxhYmVsOiBcIlwiLCBsYWJlbEFycm93OiBmYWxzZX0pLFxuICAgICAgICBQbG90LmF4aXNZKHtmb250U2l6ZTogMjQsIGxhYmVsOiBcIk5yLiBhY3RpdmUgcmV2aWV3cyAvIHF1YXJ0ZXJcIiwgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsIGxhYmVsT2Zmc2V0OiA1NSwgdGlja3M6IFtdfSksXG4gICAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InJldkR1ciA9IHtcbiAgICByZXR1cm4gdHJhbnNwb3NlKHJldkR1ckluKS5tYXAocm93ID0+ICh7XG4gICAgICAgIC4uLnJvdyxcbiAgICAgICAgZGF0ZTogbmV3IERhdGUocm93LmRhdGUpLFxuICAgICAgICByZXZEdXJZZWFyOiBuZXcgRGF0ZShyb3cuZGF0ZSkuZ2V0RnVsbFllYXIoKSxcbiAgICB9KSk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEwIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHJldkR1clllYXIgPSBJbnB1dHMucmFuZ2UoXG4gICAgW21pblllYXIsIG1heFllYXJdLFxuICAgIHtcbiAgICAgICAgc3RlcDogMSxcbiAgICAgICAgbGFiZWw6IFwiU3RhcnQgeWVhclwiLFxuICAgICAgICB2YWx1ZTogbWluWWVhcixcbiAgICB9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTExIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoicmV2RHVyRmlsdGVyZWQgPSB7XG4gICAgcmV0dXJuIHJldkR1ci5maWx0ZXIoZCA9PiBkLnJldkR1clllYXIgPj0gcmV2RHVyWWVhcik7XG59XG5cbm1heFJldiA9IDEuMDUgKiBNYXRoLm1heCguLi5yZXZEdXJGaWx0ZXJlZC5tYXAoZCA9PiBkLnR5cGUgPT09IFwiYWxsXCIgJiYgZC5kdXIpKTtcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICAgIHN0eWxlOiBgXG4gICAgICAgIG92ZXJmbG93OiB2aXNpYmxlO1xuICAgIGAsXG4gICAgbWFyZ2luTGVmdDogNjAsXG4gICAgbWFyZ2luQm90dG9tOiA1MCxcbiAgICB4OiB7Z3JpZDogdHJ1ZX0sXG4gICAgeToge2dyaWQ6IHRydWUsIGRvbWFpbjogWzAsIG1heFJldl19LFxuICAgIG1hcmtzOiBbXG4gICAgICAgIFBsb3QucnVsZVkoWzBdKSxcbiAgICAgICAgUGxvdC5saW5lWShyZXZEdXJGaWx0ZXJlZCwge3g6IFwiZGF0ZVwiLCB5OiBcImR1clwiLCBzdHJva2U6IFwidHlwZVwiLCBmb250U2l6ZTogMTh9KSxcbiAgICAgICAgUGxvdC50ZXh0KHJldkR1ckZpbHRlcmVkLCBQbG90LnNlbGVjdExhc3Qoe3g6IFwiZGF0ZVwiLCB5OiBcImR1clwiLCB6OiBcInR5cGVcIiwgdGV4dDogXCJ0eXBlXCIsIHRleHRBbmNob3I6IFwic3RhcnRcIiwgZHg6IDQsIGZvbnRTaXplOiAxOH0pKSxcbiAgICAgICAgUGxvdC5heGlzWCh7Zm9udFNpemU6IDE0LCBsYWJlbDogXCJcIiwgbGFiZWxBcnJvdzogZmFsc2V9KSxcbiAgICAgICAgUGxvdC5heGlzWCh7Zm9udFNpemU6IDIwLCBsYWJlbDogXCJZZWFyXCIsIGxhYmVsQW5jaG9yOiBcImNlbnRlclwiLCBsYWJlbE9mZnNldDogNDAsIHRpY2tzOiBbXX0pLFxuICAgICAgICBQbG90LmF4aXNZKHtmb250U2l6ZTogMTQsIGxhYmVsOiBcIlwiLCBsYWJlbEFycm93OiBmYWxzZX0pLFxuICAgICAgICBQbG90LmF4aXNZKHtmb250U2l6ZTogMjQsIGxhYmVsOiBcIlJldmlldyBkdXJhdGlvbiAobW9udGhzKVwiLCBsYWJlbEFuY2hvcjogXCJjZW50ZXJcIiwgbGFiZWxPZmZzZXQ6IDU1LCB0aWNrczogW119KSxcbiAgICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im51bUVkcyA9IHtcbiAgICByZXR1cm4gdHJhbnNwb3NlKG51bUVkc0luKS5tYXAocm93ID0+ICh7XG4gICAgICAgIC4uLnJvdyxcbiAgICAgICAgbW9udGg6IG5ldyBEYXRlKHJvdy5tb250aCksXG4gICAgICAgIG51bUVkc1llYXI6IG5ldyBEYXRlKHJvdy5tb250aCkuZ2V0RnVsbFllYXIoKSxcbiAgICB9KSk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIG51bUVkc1llYXIgPSBJbnB1dHMucmFuZ2UoXG4gICAgW21pblllYXIsIG1heFllYXJdLFxuICAgIHtcbiAgICAgICAgc3RlcDogMSxcbiAgICAgICAgbGFiZWw6IFwiU3RhcnQgeWVhclwiLFxuICAgICAgICB2YWx1ZTogbWluWWVhcixcbiAgICB9XG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE1IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoibnVtRWRzRmlsdGVyZWQgPSB7XG4gICAgcmV0dXJuIG51bUVkcy5maWx0ZXIoZCA9PiBkLm51bUVkc1llYXIgPj0gbnVtRWRzWWVhcik7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE2IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgICBzdHlsZTogYFxuICAgICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICBgLFxuICAgIG1hcmdpbkxlZnQ6IDYwLFxuICAgIG1hcmdpbkJvdHRvbTogNTAsXG4gICAgeDoge2dyaWQ6IHRydWV9LFxuICAgIHk6IHtncmlkOiB0cnVlfSxcbiAgICBtYXJrczogW1xuICAgICAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgICAgIFBsb3QubGluZVkobnVtRWRzRmlsdGVyZWQsIHt4OiBcIm1vbnRoXCIsIHk6IFwiblwiLCBzdHJva2U6IFwic3RhdHVzXCIsIGZvbnRTaXplOiAxOH0pLFxuICAgICAgICBQbG90LnRleHQobnVtRWRzRmlsdGVyZWQsIFBsb3Quc2VsZWN0TGFzdCh7eDogXCJtb250aFwiLCB5OiBcIm5cIiwgejogXCJzdGF0dXNcIiwgdGV4dDogXCJzdGF0dXNcIiwgdGV4dEFuY2hvcjogXCJzdGFydFwiLCBkeDogNCwgZm9udFNpemU6IDE4fSkpLFxuICAgICAgICBQbG90LmF4aXNYKHtmb250U2l6ZTogMTQsIGxhYmVsOiBcIlwiLCBsYWJlbEFycm93OiBmYWxzZX0pLFxuICAgICAgICBQbG90LmF4aXNYKHtmb250U2l6ZTogMjAsIGxhYmVsOiBcIlllYXJcIiwgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsIGxhYmVsT2Zmc2V0OiA0MCwgdGlja3M6IFtdfSksXG4gICAgICAgIFBsb3QuYXhpc1koe2ZvbnRTaXplOiAxNCwgbGFiZWw6IFwiXCIsIGxhYmVsQXJyb3c6IGZhbHNlfSksXG4gICAgICAgIFBsb3QuYXhpc1koe2ZvbnRTaXplOiAyNCwgbGFiZWw6IFwiTnVtYmVyIG9mIGVkaXRvcnNcIiwgbGFiZWxBbmNob3I6IFwiY2VudGVyXCIsIGxhYmVsT2Zmc2V0OiA1NSwgdGlja3M6IFtdfSksXG4gICAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc3VibWlzc2lvblllYXInKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncmV2aWV3WWVhcicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdyZXZEdXJZZWFyJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ251bUVkc1llYXInKSJ9XX0=
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
