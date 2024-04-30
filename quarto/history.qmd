@@ -93,8 +93,14 @@ submissions = {
 ```{ojs}
 minYear = Math.min(...submissions.map(d => d.submissionYear));
 maxYear = Math.max(...submissions.map(d => d.submissionYear));
-// `value` controls initial value; default = (min + max) / 2
-viewof submissionYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+viewof submissionYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear // default = (min + max) / 2
+    }
+)
 ```
 
 ```{ojs}
@@ -194,7 +200,14 @@ reviews = {
 
 ```{ojs}
 // Use 'minYear' and 'maxYear' from above
-viewof reviewYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+viewof reviewYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear
+    }
+)
 ```
 
 ```{ojs}
@@ -305,7 +318,14 @@ revDur = {
 ```
 
 ```{ojs}
-viewof revDurYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+viewof revDurYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear,
+    }
+)
 ```
 
 ```{ojs}
@@ -432,7 +452,14 @@ numEds = {
 ```
 
 ```{ojs}
-viewof numEdsYear = Inputs.range([minYear, maxYear], { step: 1, label: "Start year" })
+viewof numEdsYear = Inputs.range(
+    [minYear, maxYear],
+    {
+        step: 1,
+        label: "Start year",
+        value: minYear,
+    }
+)
 ```
 
 ```{ojs}
