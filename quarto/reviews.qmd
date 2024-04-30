@@ -302,8 +302,8 @@ colorTable(urgencyDat, {
 })
 ```
 
-Levels of urgency depend on the review stage. Approximate expected times
-required to complete each stage are:
+Levels of urgency are calculated from the following expected times for each
+review stage:
 
 stage | time (days)
 --- | ---
