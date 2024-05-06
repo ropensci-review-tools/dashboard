@@ -4,6 +4,8 @@ project:
 website:
   title: "rOpenSci Dashboard"
   favicon: favicon-32x32.png
+  cookie-consent:
+    type: express
   navbar:
     pinned: true
     left:
