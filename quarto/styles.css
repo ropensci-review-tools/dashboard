@@ -1,1 +1,8 @@
 /* css styles */
+
+body {
+  background-image: url("./cubes.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right top;
+}
