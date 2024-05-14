@@ -26,14 +26,32 @@ get_slack_editors_status <- function () {
 
     u <- "https://slack.com/api/users.list"
     headers <- list (Authorization = paste0 ("Bearer ", tok))
+    # req_retry is to avoid transitent 429 errors from Slack API requests via
+    # GitHub
     req <- httr2::request (u) |>
         httr2::req_headers ("Authorization" = headers) |>
-        httr2::req_method ("GET")
+        httr2::req_method ("GET") |>
+        httr2::req_retry (
+            max_tries = 3,
+            is_transient = \(resp) httr2::resp_status(resp) %in% c(429, 503)
+        )
     resp <- httr2::req_perform (req)
-    httr2::resp_check_status (resp)
-    x <- httr2::resp_body_json (resp, simplifyVector = TRUE)
 
-    members <- x$members [which (x$members$id %in% editors), ]
+    if (httr2::resp_is_error (resp)) {
+
+        members <- list (
+            id = NULL,
+            name = NULL,
+            real_name = NULL,
+            status = NULL
+        )
+
+    } else {
+
+        x <- httr2::resp_body_json (resp, simplifyVector = TRUE)
+        members <- x$members [which (x$members$id %in% editors), ]
+
+    }
 
     data.frame (
         id = members$id,
