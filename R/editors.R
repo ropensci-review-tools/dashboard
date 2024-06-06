@@ -30,10 +30,9 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
         login = editors,
         stats = editors %in% editors_stats
     )
-    editors_stats <- editors_stats [which (!editors_stats %in% editors$login)]
-    editors <- rbind (editors, data.frame (login = editors_stats, stats = TRUE))
 
-    editors$general <- !editors$stats
+    editors$general <- TRUE
+    editors$general [editors$login %in% editors_stats] <- FALSE
     also_gen <- c ("adamhsparks", "mpadge")
     editors$general [editors$login %in% also_gen] <- TRUE
 
