@@ -21,9 +21,9 @@ recache: ## Start local quarto server with '--cache-refresh' to force cache refr
 
 dev: serve ## alias for 'serve'
 
-build: ## 'quarto build' command
+render: ## 'quarto render' command
 	cd quarto;	\
-	quarto build
+	quarto render
 
 renv-update: ## Update 'renv' dependencies to latest versions
 	Rscript -e "renv::update()";
@@ -40,7 +40,7 @@ help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 	
 # Phony targets:
-.PHONY: build
+.PHONY: render
 .PHONY: serve
 .PHONY: dev
 .PHONY: doc
