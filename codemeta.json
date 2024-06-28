@@ -6,13 +6,13 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.2.026",
+  "version": "0.2.2.027",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.3 (2024-02-29)",
+  "runtimePlatform": "R version 4.4.1 (2024-06-14)",
   "author": [
     {
       "@type": "Person",
@@ -137,6 +137,7 @@
     },
     "SystemRequirements": {}
   },
-  "fileSize": "60.028KB",
+  "fileSize": "NAKB",
+  "relatedLink": "https://dashboard.ropensci.org",
   "readme": "https://github.com/ropensci-review-tools/dashboard/blob/main/README.md"
 }
