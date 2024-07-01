@@ -1,1 +1,1 @@
-Sitemap: https://ropensci-review-tools.github.io/dashboard/sitemap.xml
+Sitemap: https://dashboard.ropensci.org/sitemap.xml
