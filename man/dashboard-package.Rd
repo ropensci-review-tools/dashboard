@@ -11,7 +11,7 @@ What the package does (one paragraph).
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/ropensci-review-tools/dashboard}
+  \item \url{https://dashboard.ropensci.org}
 }
 
 }
