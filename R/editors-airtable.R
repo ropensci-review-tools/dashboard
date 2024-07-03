@@ -1,6 +1,5 @@
 airtable_base_id <- "app8dssb6a7PG6Vwj"
 
-
 #' Get current vacation status of all rOpenSci editors.
 #'
 #'
