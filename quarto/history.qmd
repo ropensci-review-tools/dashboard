@@ -249,7 +249,11 @@ Review durations are displayed here in terms of two main measures:
    on their package reviews.
 
 Both charts are plotted against the months in which each review started, with
-data in the first chart slightly smoothed to aid visual display.
+data slightly smoothed to aid visual display. Data for "stats" reviews may not
+extend to current date, if data for the current quarter are insufficient for
+statistical analyses. In these cases, data for "general" reviews are also
+truncated to same length as those for "stats" reviews. Data for "all" reviews
+should nevertheless always extend to the current date.
 
 ### Overall Review durations
 
