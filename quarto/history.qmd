@@ -241,9 +241,17 @@ Plot.plot({
 
 ## Review duration {#review-duration}
 
-The next chart shows the average duration of the review process, plotted
-against the months in which each review started. (The data have been slightly
-smoothed to aid visual display.)
+Review durations are displayed here in terms of two main measures:
+
+1. *Overall Review Durations*, which are the durations of the entire review
+   process, from the date packages are first submitted until they are accepted.
+2. *Individual Review Times*, which are the times spent by individual reviewers
+   on their package reviews.
+
+Both charts are plotted against the months in which each review started, with
+data in the first chart slightly smoothed to aid visual display.
+
+### Overall Review durations
 
 ```{r rev-duration, echo = FALSE}
 dat_closed <- dat [which (dat$state == "CLOSED"), ]
@@ -356,6 +364,8 @@ Plot.plot({
     ]
 })
 ```
+
+### Individual Review Times
 
 
 ```{r rev-time-logged, echo = FALSE}
