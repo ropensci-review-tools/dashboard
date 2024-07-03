@@ -26,7 +26,7 @@ dat <- review_history (quiet = TRUE)
 ```
 
 
-## Package submissions
+## Package submissions {#package-submissions}
 
 This chart shows the total number of packages *submitted for review* each
 quarter. A value of 12 per quarter equates to around one submission per week.
@@ -133,7 +133,7 @@ Plot.plot({
 
 
 
-## Packages under review
+## Packages under review {#packages-under-review}
 
 This chart shows numbers of packages *simultaneously under review* each quarter.
 
@@ -255,7 +255,7 @@ statistical analyses. In these cases, data for "general" reviews are also
 truncated to same length as those for "stats" reviews. Data for "all" reviews
 should nevertheless always extend to the current date.
 
-### Overall Review durations
+### Overall Review durations {#overall-review-durations}
 
 ```{r rev-duration, echo = FALSE}
 dat_closed <- dat [which (dat$state == "CLOSED"), ]
@@ -369,7 +369,7 @@ Plot.plot({
 })
 ```
 
-### Individual Review Times
+### Individual Review Times {#individual-review-times}
 
 
 ```{r rev-time-logged, echo = FALSE}
@@ -487,7 +487,7 @@ Plot.plot({
 })
 ```
 
-## Numbers of Editors
+## Numbers of Editors {#numbers-of-editors}
 
 ```{r get-ed-dat-history, echo = FALSE, message = FALSE}
 #| cache: true
