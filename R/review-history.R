@@ -123,3 +123,24 @@ review_history <- function (quiet = FALSE) {
 
     return (res)
 }
+
+m_review_history <- memoise::memoise (review_history)
+
+rev_dur_airtable <- function (airtable_id) {
+
+    rev_dur <- airtabler::airtable (
+        base = airtable_id, table = "reviews"
+    )
+    fields <- list ("id_no", "packages", "review_hours", "onboarding_url")
+    rev_dur <-
+        rev_dur$`reviews`$select_all (fields = fields)
+    # airtable 'id_no' fields do not all equal actual issue numbers
+    # (for example, id_no = 217 is for issue #214).
+    rev_dur$number <- as.integer (gsub ("^.*\\/", "", rev_dur$onboarding_url))
+    rev_dur$review_hours <- as.numeric (rev_dur$review_hours)
+    rev_dur <- rev_dur [which (!is.na (rev_dur$number) & !is.na (rev_dur$review_hours)), ]
+
+    rev_hist <- m_review_history (quiet = TRUE)
+    dplyr::left_join (rev_dur, rev_hist, by = "number") |>
+        dplyr::select (number, review_hours, state, stats, editor, opened_at, closed_at, duration_days)
+}
