@@ -140,8 +140,12 @@ rev_hours_airtable <- function () {
         rev_hours$`reviews`$select_all (fields = fields)
     # airtable 'id_no' fields do not all equal actual issue numbers
     # (for example, id_no = 217 is for issue #214).
-    rev_hours$number <- as.integer (gsub ("^.*\\/", "", rev_hours$onboarding_url))
-    rev_hours$review_hours <- as.numeric (rev_hours$review_hours)
+    rev_hours$number <- suppressWarnings (
+        as.integer (gsub ("^.*\\/", "", rev_hours$onboarding_url))
+    )
+    rev_hours$review_hours <- suppressWarnings (
+        as.numeric (rev_hours$review_hours)
+    )
     rev_hours <- rev_hours [which (!is.na (rev_hours$number) & !is.na (rev_hours$review_hours)), ]
 
     rev_hist <- m_review_history (quiet = TRUE)
