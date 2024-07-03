@@ -239,7 +239,7 @@ Plot.plot({
 ```
 
 
-## Review duration {#review-duration}
+## Review durations {#review-duration}
 
 Review durations are displayed here in terms of two main measures:
 
@@ -406,7 +406,7 @@ get_rev_hours <- function (dat, period = "quarter", flen = 3) {
         dat [index] <- stats::filter (dat, filt) [index]
         return (dat)
     }
-    # rev_hours$hours <- filter_dat (rev_hours$hours, flen = flen)
+    rev_hours$hours <- filter_dat (rev_hours$hours, flen = flen)
 
     return (rev_hours)
 }
