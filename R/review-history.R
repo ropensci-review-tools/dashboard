@@ -126,10 +126,10 @@ review_history <- function (quiet = FALSE) {
 
 m_review_history <- memoise::memoise (review_history)
 
-rev_dur_airtable <- function (airtable_id) {
+rev_dur_airtable <- function () {
 
     rev_dur <- airtabler::airtable (
-        base = airtable_id, table = "reviews"
+        base = airtable_base_id, table = "reviews"
     )
     fields <- list ("id_no", "packages", "review_hours", "onboarding_url")
     rev_dur <-
