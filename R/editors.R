@@ -1,5 +1,3 @@
-airtable_base_id <- "app8dssb6a7PG6Vwj"
-
 #' Get current status of all rOpenSci editors.
 #'
 #' @param aggregation_period The time period for aggregation of timeline for
