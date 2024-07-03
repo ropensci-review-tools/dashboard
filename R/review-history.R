@@ -126,21 +126,25 @@ review_history <- function (quiet = FALSE) {
 
 m_review_history <- memoise::memoise (review_history)
 
-rev_dur_airtable <- function () {
+#' Generate historical data on logged review times in hours from airtable database.
+#'
+#' @return A `data.frame` with one row per issue and some key statistics.
+#' @export
+rev_hours_airtable <- function () {
 
-    rev_dur <- airtabler::airtable (
+    rev_hours <- airtabler::airtable (
         base = airtable_base_id, table = "reviews"
     )
     fields <- list ("id_no", "packages", "review_hours", "onboarding_url")
-    rev_dur <-
-        rev_dur$`reviews`$select_all (fields = fields)
+    rev_hours <-
+        rev_hours$`reviews`$select_all (fields = fields)
     # airtable 'id_no' fields do not all equal actual issue numbers
     # (for example, id_no = 217 is for issue #214).
-    rev_dur$number <- as.integer (gsub ("^.*\\/", "", rev_dur$onboarding_url))
-    rev_dur$review_hours <- as.numeric (rev_dur$review_hours)
-    rev_dur <- rev_dur [which (!is.na (rev_dur$number) & !is.na (rev_dur$review_hours)), ]
+    rev_hours$number <- as.integer (gsub ("^.*\\/", "", rev_hours$onboarding_url))
+    rev_hours$review_hours <- as.numeric (rev_hours$review_hours)
+    rev_hours <- rev_hours [which (!is.na (rev_hours$number) & !is.na (rev_hours$review_hours)), ]
 
     rev_hist <- m_review_history (quiet = TRUE)
-    dplyr::left_join (rev_dur, rev_hist, by = "number") |>
+    dplyr::left_join (rev_hours, rev_hist, by = "number") |>
         dplyr::select (number, review_hours, state, stats, editor, opened_at, closed_at, duration_days)
 }

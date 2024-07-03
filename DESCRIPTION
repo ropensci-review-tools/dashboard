@@ -1,6 +1,6 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.2.2.036
+Version: 0.2.2.037
 Authors@R: 
   person(given = "First",
          family = "Last",
