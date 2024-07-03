@@ -358,6 +358,67 @@ Plot.plot({
 ```
 
 
+```{r rev-time-logged, echo = FALSE}
+period <- "quarter" # (month, quarter, semester)
+
+get_rev_hours <- function (dat, period = "quarter", flen = 3) {
+
+    period <- match.arg (period, c ("quarter", "semester"))
+
+    if (period == "month") {
+        dates <- paste0 (format (dat$opened_at, "%Y-%m"), "-01")
+    } else if (period == "quarter") {
+        dates <- lubridate::quarter (dat$opened_at, type = "date_first")
+    } else if (period == "semester") {
+        s <- lubridate::semester (dat$opened_at)
+        dates <- paste0 (
+            lubridate::year (dat$opened_at),
+            c ("-01-01", "-07-01") [s]
+        )
+    }
+    index <- which (!is.na (dates))
+    dat <- dat [index, ]
+    dates <- dates [index]
+
+    rev_hours <- data.frame (
+        date = lubridate::ymd (dates),
+        hours = dat$review_hours
+    ) |>
+        dplyr::group_by (date) |>
+        dplyr::summarise (hours = mean (hours, na.rm = TRUE))
+    # Those quarterly data are quite jumpy, so apply a filter:
+    filter_dat <- function (dat, flen = 5) {
+        index <- seq_len (length (dat) - flen + 1) + floor (flen / 2)
+        x <- seq_len (flen) - ceiling (flen / 2)
+        x <- -abs (x)
+        filt <- exp (x)
+        filt <- filt / sum (filt)
+        dat [index] <- stats::filter (dat, filt) [index]
+        return (dat)
+    }
+    # rev_hours$hours <- filter_dat (rev_hours$hours, flen = flen)
+
+    return (rev_hours)
+}
+
+dat <- rev_hours_airtable ()
+rev_hours_all <- get_rev_hours (dat)
+rev_hours_all$type <- "all"
+rev_hours_all$lty <- 1L
+rev_hours_gen <- get_rev_hours (dat [which (!dat$stats), ])
+rev_hours_gen$type <- "general"
+rev_hours_gen$lty <- 2L
+rev_hours_stats <- get_rev_hours (dat [which (dat$stats), ])
+rev_hours_stats$type <- "stats"
+rev_hours_stats$lty <- 1L
+
+index <- which (rev_hours_gen$date %in% rev_hours_stats$date)
+index <- c (min (index) - 1L, index) # To ensure line joins to previous
+rev_hours_gen <- rev_hours_gen [index, ]
+
+rev_hours <- rbind (rev_hours_all, rev_hours_gen, rev_hours_stats)
+```
+
 ## Numbers of Editors
 
 ```{r get-ed-dat-history, echo = FALSE, message = FALSE}
