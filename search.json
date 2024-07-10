@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "rOpenSci Software Review Dashboard",
+    "section": "",
+    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe Editors page which provides information on current editors and activities. This page helps the Editor-in-Charge identify editors for new submissions, and gives each editor an overview of their current and previous editorial portfolios.\nThe Software Review page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Historical Data page which gives insights into the historical developments of the software peer-review program.\n\nSource code for this dashboard is at github.com/ropensci-review-tools/dashboard. Contributions are welcome! Please feel free to open an issue in that repository."
+  },
+  {
     "objectID": "history.html",
     "href": "history.html",
     "title": "Historical Data",
@@ -89,12 +96,5 @@
     "title": "Editors",
     "section": "Editorial Load",
     "text": "Editorial Load\nThe following sections summarise the recent workload of our editorial team. We aim to distribute our workload as evenly as possible across the editorial team. Editors for new submissions should accordingly be chosen from those who have had relatively low recent workloads. All of the following data and graphs exclude any editors who are currently on leave.\n\nIndividual Editor Load: New Submissions\nThis first graph shows the number of new submissions per quarter taken on by each editor. We aim to allocate no more than one new submission to each editor per quarter, or a maximum of four per year. Each block in this graph represents a quarter-year, so values should not exceed one. Editors for incoming reviews should preferably be chosen from those who have not handled any submissions in the present or preceding quarters.\n\n\n\n\n\n\n\n\n\n\nIndividual Editor Load: Concurrent Reviews\nThe following graph shows numbers of concurrent reviews handled by editors over the preceding 2 years. We aim to distribute workloads across editors as evenly as possible, and this graph should be used in addition to the above graph to aid that task. Note that we have no specific upper limits on numbers of concurrent reviews, and reviews may extend over long time periods with very little editorial intervention. Nevertheless, low numbers of concurrent reviews may be interpreted to reflect relatively low editorial workload."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "rOpenSci Software Review Dashboard",
-    "section": "",
-    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe Editors page which provides information on current editors and activities. This page helps the Editor-in-Charge identify editors for new submissions, and gives each editor an overview of their current and previous editorial portfolios.\nThe Software Review page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Historical Data page which gives insights into the historical developments of the software peer-review program.\n\nSource code for this dashboard is at github.com/ropensci-review-tools/dashboard. Contributions are welcome! Please feel free to open an issue in that repository."
   }
 ]
