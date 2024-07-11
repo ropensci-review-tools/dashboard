@@ -157,6 +157,10 @@ rev_hours_airtable_internal <- function () {
     )
     rev_hours <- rev_hours [which (!is.na (rev_hours$number) & !is.na (rev_hours$review_hours)), ]
 
+    # Suppress 'no visible binding' notes:
+    number <- review_hours <- state <- stats <- editor <- opened_at <-
+        closed_at <- duration_days <- NULL
+
     rev_hist <- m_review_history (quiet = TRUE)
     dplyr::left_join (rev_hours, rev_hist, by = "number") |>
         dplyr::select (number, review_hours, state, stats, editor, opened_at, closed_at, duration_days)
