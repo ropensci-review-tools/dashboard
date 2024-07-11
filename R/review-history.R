@@ -136,6 +136,11 @@ m_review_history <- memoise::memoise (review_history_internal)
 #' @export
 rev_hours_airtable <- function () {
 
+    m_rev_hours_airtable ()
+}
+
+rev_hours_airtable_internal <- function () {
+
     rev_hours <- airtabler::airtable (
         base = airtable_base_id, table = "reviews"
     )
@@ -156,3 +161,5 @@ rev_hours_airtable <- function () {
     dplyr::left_join (rev_hours, rev_hist, by = "number") |>
         dplyr::select (number, review_hours, state, stats, editor, opened_at, closed_at, duration_days)
 }
+
+m_rev_hours_airtable <- memoise::memoise (rev_hours_airtable_internal)
