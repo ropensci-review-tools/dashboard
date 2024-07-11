@@ -510,6 +510,8 @@ Plot.plot({
 The following plots are histograms of overall durations of the entire review
 process (in days), followed by durations required for individual reviews (in
 hours). The "Start year" filter removes all data prior to the specified year.
+The solid and dashed vertical lines respectively show the mean and median
+values for the selected data.
 
 ```{ojs}
 viewof year = Inputs.range(
@@ -536,7 +538,11 @@ Plot.plot({
     marginBottom: 50,
     y: {grid: true},
     marks: [
-        Plot.lineY(revHistFiltered, Plot.binX({y: "count"}, {x: "days"})),
+        // Default for all preceding plots is the "Tabluea10" colour scheme:
+        // https://www.tableau.com/blog/colors-upgrade-tableau-10-56782
+        Plot.lineY(revHistFiltered, Plot.binX({y: "count"}, {x: "days", stroke: "#4e79a7", strokeWidth: 2})),
+        Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "mean" }, { x: "days", stroke: "#f28e2b", strokeWidth: 2 })),
+        Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "median" }, { x: "days", stroke: "#f28e2b", strokeWidth: 2, strokeDasharray: [5, 5] })),
         Plot.text(["Overall review durations in days"], {frameAnchor: "top", fontSize: 24, dy: -30}),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false, dy: 5}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
@@ -550,7 +556,9 @@ Plot.plot({
     marginBottom: 50,
     y: {grid: true},
     marks: [
-        Plot.lineY(revHistFiltered, Plot.binX({y: "count"}, {x: "hours"})),
+        Plot.lineY(revHistFiltered, Plot.binX({y: "count"}, {x: "hours", stroke: "#4e79a7", strokeWidth: 2})),
+        Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "mean" }, { x: "hours", stroke: "#f28e2b", strokeWidth: 2 })),
+        Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "median" }, { x: "hours", stroke: "#f28e2b", strokeWidth: 2, strokeDasharray: [5, 5] })),
         Plot.text(["Individual review times in hours"], {frameAnchor: "top", fontSize: 24, dy: -30}),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false, dy: 5}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
