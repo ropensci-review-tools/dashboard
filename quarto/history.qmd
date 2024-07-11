@@ -120,12 +120,59 @@ Plot.plot({
     y: {grid: true},
     marks: [
         Plot.ruleY([0]),
-        Plot.lineY(submissionsFiltered, {x: "date", y: "submissions", stroke: "type", fontSize: 18}),
-        Plot.text(submissionsFiltered, Plot.selectLast({x: "date", y: "submissions", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 24, label: "Nr. submissions / quarter", labelAnchor: "center", labelOffset: 55, ticks: []}),
+        Plot.lineY(
+            submissionsFiltered,
+            {
+                x: "date",
+                y: "submissions",
+                stroke: "type",
+                fontSize: 18
+            }
+        ),
+        Plot.text(
+            submissionsFiltered,
+            Plot.selectLast({
+                x: "date",
+                y: "submissions",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dx: 3,
+                fontSize: 18
+            })
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisX(
+            {
+                fontSize: 20,
+                label: "Year",
+                labelAnchor: "center",
+                labelOffset: 40,
+                ticks: []
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 24,
+                label: "Nr. submissions / quarter",
+                labelAnchor: "center",
+                labelOffset: 55,
+                ticks: []
+            }
+        ),
     ]
 })
 ```
@@ -227,13 +274,62 @@ Plot.plot({
     x: {grid: true},
     y: {grid: true},
     marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(reviewsFiltered, {x: "date", y: "reviews", stroke: "type", fontSize: 18}),
-        Plot.text(reviewsFiltered, Plot.selectLast({x: "date", y: "reviews", z: "type", text: "type", textAnchor: "start", dx: 3, fontSize: 18})),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 24, label: "Nr. active reviews / quarter", labelAnchor: "center", labelOffset: 55, ticks: []}),
+        Plot.ruleY(
+            [0]
+        ),
+        Plot.lineY(
+            reviewsFiltered,
+            {
+                x: "date",
+                y: "reviews",
+                stroke: "type",
+                fontSize: 18
+            }
+        ),
+        Plot.text(
+            reviewsFiltered,
+            Plot.selectLast({
+                x: "date",
+                y: "reviews",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dx: 3,
+                fontSize: 18
+            })
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisX(
+            {
+                fontSize: 20,
+                label: "Year",
+                labelAnchor: "center",
+                labelOffset: 40,
+                ticks: []
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 24,
+                label: "Nr. active reviews / quarter",
+                labelAnchor: "center",
+                labelOffset: 55,
+                ticks: []
+            }
+        ),
     ]
 })
 ```
@@ -363,13 +459,62 @@ Plot.plot({
     x: {grid: true},
     y: {grid: true, domain: [0, maxRev]},
     marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(revDurFiltered, {x: "date", y: "dur", stroke: "type", fontSize: 18}),
-        Plot.text(revDurFiltered, Plot.selectLast({x: "date", y: "dur", z: "type", text: "type", textAnchor: "start", dx: 4, fontSize: 18})),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 24, label: "Review duration (months)", labelAnchor: "center", labelOffset: 55, ticks: []}),
+        Plot.ruleY(
+            [0]
+        ),
+        Plot.lineY(
+            revDurFiltered,
+            {
+                x: "date",
+                y: "dur",
+                stroke: "type",
+                fontSize: 18
+            }
+        ),
+        Plot.text(
+            revDurFiltered,
+            Plot.selectLast({
+                x: "date",
+                y: "dur",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dx: 4,
+                fontSize: 18
+            })
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisX(
+            {
+                fontSize: 20,
+                label: "Year",
+                labelAnchor: "center",
+                labelOffset: 40,
+                ticks: []
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 24,
+                label: "Review duration (months)",
+                labelAnchor: "center",
+                labelOffset: 55,
+                ticks: []
+            }
+        ),
     ]
 })
 ```
@@ -494,13 +639,62 @@ Plot.plot({
     x: {grid: true},
     y: {grid: true, domain: [0, maxHours]},
     marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(revHoursFiltered, {x: "date", y: "hours", stroke: "type", fontSize: 18}),
-        Plot.text(revHoursFiltered, Plot.selectLast({x: "date", y: "hours", z: "type", text: "type", textAnchor: "start", dx: 4, fontSize: 18})),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 24, label: "Review time (hours)", labelAnchor: "center", labelOffset: 55, ticks: []}),
+        Plot.ruleY(
+            [0]
+        ),
+        Plot.lineY(
+            revHoursFiltered,
+            {
+                x: "date",
+                y: "hours",
+                stroke: "type",
+                fontSize: 18
+            }
+        ),
+        Plot.text(
+            revHoursFiltered,
+            Plot.selectLast({
+                x: "date",
+                y: "hours",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dx: 4,
+                fontSize: 18
+            })
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisX(
+            {
+                fontSize: 20,
+                label: "Year",
+                labelAnchor: "center",
+                labelOffset: 40,
+                ticks: []
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 24,
+                label: "Review time (hours)",
+                labelAnchor: "center",
+                labelOffset: 55,
+                ticks: []
+            }
+        ),
     ]
 })
 ```
@@ -538,11 +732,41 @@ Plot.plot({
     marks: [
         // Default for all preceding plots is the "Tabluea10" colour scheme:
         // https://www.tableau.com/blog/colors-upgrade-tableau-10-56782
-        Plot.barY(revHistFiltered, Plot.binX({y: "count"}, {x: "days", stroke: "#4e79a7", strokeWidth: 2})),
-        Plot.text(["Overall review durations in days"], {frameAnchor: "top", fontSize: 24, dy: -30}),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false, dy: 5}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 18, label: "Frequency", labelAnchor: "center", labelOffset: 55, ticks: []})
+        Plot.barY(
+            revHistFiltered,
+            Plot.binX(
+                {y: "count"}, 
+                {x: "days", stroke: "#4e79a7", strokeWidth: 2})
+        ),
+        Plot.text(
+            ["Overall review durations in days"],
+            {
+                frameAnchor: "top", 
+                fontSize: 24, 
+                dy: -30}
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14, 
+                label: "", 
+                labelArrow: false, 
+                dy: 5}
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14, 
+                label: "", 
+                labelArrow: false}
+        ),
+        Plot.axisY(
+            {
+                fontSize: 18, 
+                label: "Frequency", 
+                labelAnchor: "center", 
+                labelOffset: 55, 
+                ticks: []
+            }
+        )
     ]
 })
 Plot.plot({
@@ -552,11 +776,45 @@ Plot.plot({
     marginBottom: 50,
     y: {grid: true},
     marks: [
-        Plot.barY(revHistFiltered, Plot.binX({y: "count"}, {x: "hours", stroke: "#4e79a7", strokeWidth: 2})),
-        Plot.text(["Individual review times in hours"], {frameAnchor: "top", fontSize: 24, dy: -30}),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false, dy: 5}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 18, label: "Frequency", labelAnchor: "center", labelOffset: 55, ticks: []})
+        Plot.barY(
+            revHistFiltered,
+            Plot.binX(
+                {y: "count"}, 
+                {x: "hours", stroke: "#4e79a7", strokeWidth: 2}
+            )
+        ),
+        Plot.text(
+            ["Individual review times in hours"],
+            {
+                frameAnchor: "top", 
+                fontSize: 24, 
+                dy: -30
+            }
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false,
+                dy: 5
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 18,
+                label: "Frequency",
+                labelAnchor: "center",
+                labelOffset: 55,
+                ticks: []
+            }
+        )
     ]
 })
 ```
@@ -681,13 +939,61 @@ Plot.plot({
     x: {grid: true},
     y: {grid: true},
     marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(numEdsFiltered, {x: "month", y: "n", stroke: "status", fontSize: 18}),
-        Plot.text(numEdsFiltered, Plot.selectLast({x: "month", y: "n", z: "status", text: "status", textAnchor: "start", dx: 4, fontSize: 18})),
-        Plot.axisX({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisX({fontSize: 20, label: "Year", labelAnchor: "center", labelOffset: 40, ticks: []}),
-        Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
-        Plot.axisY({fontSize: 24, label: "Number of editors", labelAnchor: "center", labelOffset: 55, ticks: []}),
+        Plot.ruleY(
+            [0]),
+        Plot.lineY(
+            numEdsFiltered,
+            {
+                x: "month",
+                y: "n",
+                stroke: "status",
+                fontSize: 18
+            }
+        ),
+        Plot.text(
+            numEdsFiltered,
+            Plot.selectLast({
+                x: "month",
+                y: "n",
+                z: "status",
+                text: "status",
+                textAnchor: "start",
+                dx: 4,
+                fontSize: 18
+            })
+        ),
+        Plot.axisX(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisX(
+            {
+                fontSize: 20,
+                label: "Year",
+                labelAnchor: "center",
+                labelOffset: 40,
+                ticks: []
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 14,
+                label: "",
+                labelArrow: false
+            }
+        ),
+        Plot.axisY(
+            {
+                fontSize: 24,
+                label: "Number of editors",
+                labelAnchor: "center",
+                labelOffset: 55,
+                ticks: []
+            }
+        ),
     ]
 })
 ```
