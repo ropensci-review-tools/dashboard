@@ -542,7 +542,9 @@ Plot.plot({
         // https://www.tableau.com/blog/colors-upgrade-tableau-10-56782
         Plot.lineY(revHistFiltered, Plot.binX({y: "count"}, {x: "days", stroke: "#4e79a7", strokeWidth: 2})),
         Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "mean" }, { x: "days", stroke: "#f28e2b", strokeWidth: 2 })),
+        Plot.text(revHistFiltered, Plot.groupZ({ x: "mean" }, { x: "days", text: ["mean"], fontSize: 14, fill: "#f28e2b", rotate: -90, dx: 8, dy: -70 })),
         Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "median" }, { x: "days", stroke: "#f28e2b", strokeWidth: 2, strokeDasharray: [5, 5] })),
+        Plot.text(revHistFiltered, Plot.groupZ({ x: "median" }, { x: "days", text: ["median"], fontSize: 14, fill: "#f28e2b", rotate: -90, dx: -8, dy: -70 })),
         Plot.text(["Overall review durations in days"], {frameAnchor: "top", fontSize: 24, dy: -30}),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false, dy: 5}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
@@ -558,7 +560,9 @@ Plot.plot({
     marks: [
         Plot.lineY(revHistFiltered, Plot.binX({y: "count"}, {x: "hours", stroke: "#4e79a7", strokeWidth: 2})),
         Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "mean" }, { x: "hours", stroke: "#f28e2b", strokeWidth: 2 })),
+        Plot.text(revHistFiltered, Plot.groupZ({ x: "mean" }, { x: "hours", text: ["mean"], fontSize: 14, fill: "#f28e2b", rotate: -90, dx: 8, dy: -70 })),
         Plot.ruleX(revHistFiltered, Plot.groupZ({ x: "median" }, { x: "hours", stroke: "#f28e2b", strokeWidth: 2, strokeDasharray: [5, 5] })),
+        Plot.text(revHistFiltered, Plot.groupZ({ x: "median" }, { x: "hours", text: ["median"], fontSize: 14, fill: "#f28e2b", rotate: -90, dx: -8, dy: -70 })),
         Plot.text(["Individual review times in hours"], {frameAnchor: "top", fontSize: 24, dy: -30}),
         Plot.axisX({fontSize: 14, label: "", labelArrow: false, dy: 5}),
         Plot.axisY({fontSize: 14, label: "", labelArrow: false}),
