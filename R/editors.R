@@ -408,7 +408,7 @@ ed_rev_durations <- function (nyears = 2) {
 
     editor <- duration_days <- NULL # suppress no visible binding notes
 
-    dat <- m_review_history (quiet = FALSE)
+    dat <- review_history (quiet = FALSE)
 
     t_from_closed_dat <- Sys.Date () - dat$closed_at
     index <- which (!is.na (t_from_closed_dat) & t_from_closed_dat <= (nyears * 365))

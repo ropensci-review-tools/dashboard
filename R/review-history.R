@@ -9,6 +9,10 @@
 #' statistics.
 #' @export
 review_history <- function (quiet = FALSE) {
+    m_review_history (quiet = quiet)
+}
+
+review_history_internal <- function (quiet = FALSE) {
 
     has_next_page <- TRUE
     end_cursor <- NULL
@@ -124,7 +128,7 @@ review_history <- function (quiet = FALSE) {
     return (res)
 }
 
-m_review_history <- memoise::memoise (review_history)
+m_review_history <- memoise::memoise (review_history_internal)
 
 #' Generate historical data on logged review times in hours from airtable database.
 #'
