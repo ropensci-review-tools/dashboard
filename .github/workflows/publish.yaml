@@ -37,7 +37,8 @@ jobs:
             libfreetype6-dev \
             libpng-dev \
             libtiff5-dev \
-            libjpeg-dev
+            libjpeg-dev \
+            libcairo2-dev
 
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
