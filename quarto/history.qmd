@@ -70,6 +70,8 @@ submissions_stats$type <- "stats"
 submissions_stats$lty <- 1L
 
 submissions <- rbind (submissions_all, submissions_gen, submissions_stats)
+submissions$yshift <- 0
+submissions$yshift [which (submissions$type == "all")] <- 20
 ```
 
 ```{r ojs-in-submissions, echo = FALSE}
@@ -103,6 +105,13 @@ viewof submissionYear = Inputs.range(
 submissionsFiltered = {
     return submissions.filter(d => d.submissionYear >= submissionYear);
 }
+// These next two are needed to offset label placement for "all":
+submissionsFilteredAll = {
+    return submissions.filter(d => d.type === "all");
+}
+submissionsFilteredOther = {
+    return submissions.filter(d => d.type !== "all");
+}
 ```
 
 ```{ojs}
@@ -125,15 +134,27 @@ Plot.plot({
                 fontSize: 18
             }
         ),
-        Plot.text(
-            submissionsFiltered,
+        Plot.text( // Label for "all" with dy: -20
+            submissionsFilteredAll,
             Plot.selectLast({
                 x: "date",
                 y: "submissions",
                 z: "type",
                 text: "type",
                 textAnchor: "start",
-                dx: 3,
+                dy: -20,
+                fontSize: 18
+            })
+        ),
+        Plot.text( // Labels for others
+            submissionsFilteredOther,
+            Plot.selectLast({
+                x: "date",
+                y: "submissions",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dy: 0,
                 fontSize: 18
             })
         ),
@@ -439,6 +460,14 @@ revDurFiltered = {
 }
 
 maxRev = 1.05 * Math.max(...revDurFiltered.map(d => d.type === "all" && d.dur));
+
+// These next two are needed to offset label placement for "all":
+revDurFilteredAll = {
+    return revDurFiltered.filter(d => d.type === "all");
+}
+revDurFilteredOther = {
+    return revDurFiltered.filter(d => d.type !== "all");
+}
 ```
 
 ```{ojs}
@@ -464,7 +493,20 @@ Plot.plot({
             }
         ),
         Plot.text(
-            revDurFiltered,
+            revDurFilteredAll,
+            Plot.selectLast({
+                x: "date",
+                y: "dur",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dx: 4,
+                dy: -20,
+                fontSize: 18
+            })
+        ),
+        Plot.text(
+            revDurFilteredOther,
             Plot.selectLast({
                 x: "date",
                 y: "dur",
@@ -615,6 +657,13 @@ revHoursFiltered = {
 }
 
 maxHours = 1.05 * Math.max(...revHoursFiltered.map(d => d.type === "all" && d.hours));
+// These next two are needed to offset label placement for "all":
+revHoursFilteredAll = {
+    return revHoursFiltered.filter(d => d.type === "all");
+}
+revHoursFilteredOther = {
+    return revHoursFiltered.filter(d => d.type !== "all");
+}
 ```
 
 ```{ojs}
@@ -640,7 +689,20 @@ Plot.plot({
             }
         ),
         Plot.text(
-            revHoursFiltered,
+            revHoursFilteredAll,
+            Plot.selectLast({
+                x: "date",
+                y: "hours",
+                z: "type",
+                text: "type",
+                textAnchor: "start",
+                dx: 4,
+                dy: -20,
+                fontSize: 18
+            })
+        ),
+        Plot.text(
+            revHoursFilteredOther,
             Plot.selectLast({
                 x: "date",
                 y: "hours",
