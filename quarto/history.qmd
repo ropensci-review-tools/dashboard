@@ -107,10 +107,10 @@ submissionsFiltered = {
 }
 // These next two are needed to offset label placement for "all":
 submissionsFilteredAll = {
-    return submissions.filter(d => d.type === "all");
+    return submissionsFiltered.filter(d => d.type === "all");
 }
 submissionsFilteredOther = {
-    return submissions.filter(d => d.type !== "all");
+    return submissionsFiltered.filter(d => d.type !== "all");
 }
 ```
 
