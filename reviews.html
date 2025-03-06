@@ -243,18 +243,18 @@ cookieconsent.run({
 </ul>
 <p>Some rows in the table are highlighted to visually indicate degrees of urgency according to the scheme defined in the following sub-section. Rows with no highlight may be considered up-to-date, and require no action. Submissions which have not yet been given a ‘Stage’ label are listed below as ‘(No stage)’, and highlighted with the highest urgency level.</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="145" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 144;"><span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>urgency_colours <span class="op">=</span> [<span class="st">"#FFFF8088"</span><span class="op">,</span> <span class="st">"#FFFF0088"</span><span class="op">,</span> <span class="st">"#FFAA0088"</span><span class="op">,</span> <span class="st">"#FF550088"</span><span class="op">,</span> <span class="st">"#FF000088"</span>]</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>submissionsIn <span class="op">=</span> {</span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">transpose</span>(submissions)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>        <span class="dt">rowColor</span><span class="op">:</span> row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> urgency_colours[<span class="dv">0</span>] <span class="op">:</span></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">2</span> <span class="op">?</span> urgency_colours[<span class="dv">1</span>] <span class="op">:</span></span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">3</span> <span class="op">?</span> urgency_colours[<span class="dv">2</span>] <span class="op">:</span></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">4</span> <span class="op">?</span> urgency_colours[<span class="dv">3</span>] <span class="op">:</span></span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">5</span> <span class="op">?</span> urgency_colours[<span class="dv">4</span>] <span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="146" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 145;"><span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>urgency_colours <span class="op">=</span> [<span class="st">"#FFFF8088"</span><span class="op">,</span> <span class="st">"#FFFF0088"</span><span class="op">,</span> <span class="st">"#FFAA0088"</span><span class="op">,</span> <span class="st">"#FF550088"</span><span class="op">,</span> <span class="st">"#FF000088"</span>]</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>submissionsIn <span class="op">=</span> {</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fu">transpose</span>(submissions)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>        <span class="dt">rowColor</span><span class="op">:</span> row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> urgency_colours[<span class="dv">0</span>] <span class="op">:</span></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">2</span> <span class="op">?</span> urgency_colours[<span class="dv">1</span>] <span class="op">:</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">3</span> <span class="op">?</span> urgency_colours[<span class="dv">2</span>] <span class="op">:</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">4</span> <span class="op">?</span> urgency_colours[<span class="dv">3</span>] <span class="op">:</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>            row<span class="op">.</span><span class="at">urgency</span> <span class="op">===</span> <span class="dv">5</span> <span class="op">?</span> urgency_colours[<span class="dv">4</span>] <span class="op">:</span> <span class="st">"transparent"</span><span class="op">,</span></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -271,41 +271,41 @@ cookieconsent.run({
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="158" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 157;"><span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>viewof stage <span class="op">=</span> {</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> input <span class="op">=</span>  Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"(No stage)"</span><span class="op">,</span></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>         <span class="st">"0/presubmission"</span><span class="op">,</span></span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>         <span class="st">"1/editor-checks"</span><span class="op">,</span></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>         <span class="st">"2/seeking-reviewer(s)"</span><span class="op">,</span></span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>         <span class="st">"3/reviewer(s)-assigned"</span><span class="op">,</span></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>         <span class="st">"4/review(s)-in-awaiting-changes"</span><span class="op">,</span></span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>         <span class="st">"5/awaiting-reviewer(s)-response"</span></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>        {</span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>            <span class="dt">value</span><span class="op">:</span> [</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>                <span class="st">"(No stage)"</span><span class="op">,</span></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>                <span class="st">"0/presubmission"</span><span class="op">,</span></span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>                <span class="st">"1/editor-checks"</span><span class="op">,</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>                <span class="st">"2/seeking-reviewer(s)"</span><span class="op">,</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>                <span class="st">"3/reviewer(s)-assigned"</span><span class="op">,</span></span>
-<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>                <span class="st">"4/review(s)-in-awaiting-changes"</span><span class="op">,</span></span>
-<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>                <span class="st">"5/awaiting-reviewer(s)-response"</span></span>
-<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>            ]<span class="op">,</span></span>
-<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>            <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;b&gt;Submission Stage:&lt;/b&gt;`</span><span class="op">,</span></span>
-<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Modification ideas from</span></span>
-<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>    <span class="co">// https://talk.observablehq.com/t/what-is-the-best-way-to-style-an-input-checkbox/7690/2</span></span>
-<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> scope <span class="op">=</span> DOM<span class="op">.</span><span class="fu">uid</span>()<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
-<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>    input<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(scope)<span class="op">;</span></span>
-<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>    input<span class="op">.</span><span class="fu">append</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
-<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> &gt; div, .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> &gt; div label { display: flex; flex-wrap: wrap; gap: 10px; width: 300px }</span></span>
-<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span>)</span>
-<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> input<span class="op">;</span></span>
-<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="159" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 158;"><span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>viewof stage <span class="op">=</span> {</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> input <span class="op">=</span>  Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>        [<span class="st">"(No stage)"</span><span class="op">,</span></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>         <span class="st">"0/presubmission"</span><span class="op">,</span></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>         <span class="st">"1/editor-checks"</span><span class="op">,</span></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>         <span class="st">"2/seeking-reviewer(s)"</span><span class="op">,</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>         <span class="st">"3/reviewer(s)-assigned"</span><span class="op">,</span></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>         <span class="st">"4/review(s)-in-awaiting-changes"</span><span class="op">,</span></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>         <span class="st">"5/awaiting-reviewer(s)-response"</span></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>        ]<span class="op">,</span></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>            <span class="dt">value</span><span class="op">:</span> [</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>                <span class="st">"(No stage)"</span><span class="op">,</span></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>                <span class="st">"0/presubmission"</span><span class="op">,</span></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>                <span class="st">"1/editor-checks"</span><span class="op">,</span></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>                <span class="st">"2/seeking-reviewer(s)"</span><span class="op">,</span></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>                <span class="st">"3/reviewer(s)-assigned"</span><span class="op">,</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>                <span class="st">"4/review(s)-in-awaiting-changes"</span><span class="op">,</span></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>                <span class="st">"5/awaiting-reviewer(s)-response"</span></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>            ]<span class="op">,</span></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>            <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;b&gt;Submission Stage:&lt;/b&gt;`</span><span class="op">,</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Modification ideas from</span></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>    <span class="co">// https://talk.observablehq.com/t/what-is-the-best-way-to-style-an-input-checkbox/7690/2</span></span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> scope <span class="op">=</span> DOM<span class="op">.</span><span class="fu">uid</span>()<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>    input<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(scope)<span class="op">;</span></span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>    input<span class="op">.</span><span class="fu">append</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> &gt; div, .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> &gt; div label { display: flex; flex-wrap: wrap; gap: 10px; width: 300px }</span></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="vs">    `</span>)</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> input<span class="op">;</span></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-2" data-nodetype="declaration">
 
@@ -316,13 +316,13 @@ cookieconsent.run({
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="198" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 197;"><span id="cb3-198"><a href="#cb3-198" aria-hidden="true" tabindex="-1"></a>viewof holding <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
-<span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>    [<span class="kw">true</span><span class="op">,</span> <span class="kw">false</span>]<span class="op">,</span></span>
-<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> [<span class="kw">false</span>]<span class="op">,</span></span>
-<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;b&gt;Holding:&lt;/b&gt;`</span><span class="op">,</span></span>
-<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="199" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 198;"><span id="cb3-199"><a href="#cb3-199" aria-hidden="true" tabindex="-1"></a>viewof holding <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">checkbox</span>(</span>
+<span id="cb3-200"><a href="#cb3-200" aria-hidden="true" tabindex="-1"></a>    [<span class="kw">true</span><span class="op">,</span> <span class="kw">false</span>]<span class="op">,</span></span>
+<span id="cb3-201"><a href="#cb3-201" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb3-202"><a href="#cb3-202" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> [<span class="kw">false</span>]<span class="op">,</span></span>
+<span id="cb3-203"><a href="#cb3-203" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;b&gt;Holding:&lt;/b&gt;`</span><span class="op">,</span></span>
+<span id="cb3-204"><a href="#cb3-204" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-205"><a href="#cb3-205" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="declaration">
 
@@ -333,13 +333,13 @@ cookieconsent.run({
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="210" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 209;"><span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a>viewof sortBy <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
-<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"stage"</span><span class="op">,</span> <span class="st">"urgency"</span>]<span class="op">,</span></span>
-<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a>    {</span>
-<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> <span class="st">"stage"</span><span class="op">,</span></span>
-<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;b&gt;Sort by:&lt;/b&gt;`</span><span class="op">,</span></span>
-<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="211" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 210;"><span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a>viewof sortBy <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"stage"</span><span class="op">,</span> <span class="st">"urgency"</span>]<span class="op">,</span></span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a>        <span class="dt">value</span><span class="op">:</span> <span class="st">"stage"</span><span class="op">,</span></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>        <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;b&gt;Sort by:&lt;/b&gt;`</span><span class="op">,</span></span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-4" data-nodetype="declaration">
 
@@ -350,30 +350,30 @@ cookieconsent.run({
 
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="223" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 222;"><span id="cb5-223"><a href="#cb5-223" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> submissionsIn<span class="op">.</span><span class="fu">filter</span>(<span class="kw">function</span>(submission) {</span>
-<span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> stage<span class="op">.</span><span class="fu">includes</span>(submission<span class="op">.</span><span class="at">stage</span>) <span class="op">&amp;&amp;</span></span>
-<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>    holding<span class="op">.</span><span class="fu">includes</span>(submission<span class="op">.</span><span class="at">holding</span>)</span>
-<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a><span class="co">// Only sort by urgency if there are any:</span></span>
-<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a>anyUrgent <span class="op">=</span> filtered<span class="op">.</span><span class="fu">some</span>(submission <span class="kw">=&gt;</span> submission<span class="op">.</span><span class="at">urgency</span> <span class="op">&gt;</span> <span class="dv">0</span>)</span>
-<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>sortCol1 <span class="op">=</span> sortBy <span class="op">===</span> <span class="st">"stage"</span> <span class="op">?</span> <span class="st">"stage"</span> <span class="op">:</span> anyUrgent <span class="op">?</span> <span class="st">"urgency_rev"</span> <span class="op">:</span> <span class="st">"stage"</span></span>
-<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>sortCol2 <span class="op">=</span> <span class="st">"elapsed_days"</span></span>
-<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a><span class="co">// Sorts by both stage and elapsed days:</span></span>
-<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a>filteredSorted <span class="op">=</span> filtered<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> {</span>
-<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (a[sortCol1] <span class="op">&gt;</span> b[sortCol1]) {</span>
-<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (a[sortCol1] <span class="op">&lt;</span> b[sortCol1]) {</span>
-<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (a[sortCol2] <span class="op">&lt;</span> b[sortCol2]) {</span>
-<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> <span class="cf">if</span> (a[sortCol2] <span class="op">&gt;</span> b[sortCol2]) {</span>
-<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
-<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="224" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 223;"><span id="cb5-224"><a href="#cb5-224" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> submissionsIn<span class="op">.</span><span class="fu">filter</span>(<span class="kw">function</span>(submission) {</span>
+<span id="cb5-225"><a href="#cb5-225" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> stage<span class="op">.</span><span class="fu">includes</span>(submission<span class="op">.</span><span class="at">stage</span>) <span class="op">&amp;&amp;</span></span>
+<span id="cb5-226"><a href="#cb5-226" aria-hidden="true" tabindex="-1"></a>    holding<span class="op">.</span><span class="fu">includes</span>(submission<span class="op">.</span><span class="at">holding</span>)</span>
+<span id="cb5-227"><a href="#cb5-227" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb5-228"><a href="#cb5-228" aria-hidden="true" tabindex="-1"></a><span class="co">// Only sort by urgency if there are any:</span></span>
+<span id="cb5-229"><a href="#cb5-229" aria-hidden="true" tabindex="-1"></a>anyUrgent <span class="op">=</span> filtered<span class="op">.</span><span class="fu">some</span>(submission <span class="kw">=&gt;</span> submission<span class="op">.</span><span class="at">urgency</span> <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb5-230"><a href="#cb5-230" aria-hidden="true" tabindex="-1"></a>sortCol1 <span class="op">=</span> sortBy <span class="op">===</span> <span class="st">"stage"</span> <span class="op">?</span> <span class="st">"stage"</span> <span class="op">:</span> anyUrgent <span class="op">?</span> <span class="st">"urgency_rev"</span> <span class="op">:</span> <span class="st">"stage"</span></span>
+<span id="cb5-231"><a href="#cb5-231" aria-hidden="true" tabindex="-1"></a>sortCol2 <span class="op">=</span> <span class="st">"elapsed_days"</span></span>
+<span id="cb5-232"><a href="#cb5-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-233"><a href="#cb5-233" aria-hidden="true" tabindex="-1"></a><span class="co">// Sorts by both stage and elapsed days:</span></span>
+<span id="cb5-234"><a href="#cb5-234" aria-hidden="true" tabindex="-1"></a>filteredSorted <span class="op">=</span> filtered<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> {</span>
+<span id="cb5-235"><a href="#cb5-235" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (a[sortCol1] <span class="op">&gt;</span> b[sortCol1]) {</span>
+<span id="cb5-236"><a href="#cb5-236" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-237"><a href="#cb5-237" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (a[sortCol1] <span class="op">&lt;</span> b[sortCol1]) {</span>
+<span id="cb5-238"><a href="#cb5-238" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-239"><a href="#cb5-239" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb5-240"><a href="#cb5-240" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (a[sortCol2] <span class="op">&lt;</span> b[sortCol2]) {</span>
+<span id="cb5-241"><a href="#cb5-241" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-242"><a href="#cb5-242" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">else</span> <span class="cf">if</span> (a[sortCol2] <span class="op">&gt;</span> b[sortCol2]) {</span>
+<span id="cb5-243"><a href="#cb5-243" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-244"><a href="#cb5-244" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-245"><a href="#cb5-245" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-246"><a href="#cb5-246" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-247"><a href="#cb5-247" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-5-1" data-nodetype="declaration">
@@ -411,79 +411,79 @@ cookieconsent.run({
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="252" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 251;"><span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a><span class="co">// Definition of colorTable function, adapted from</span></span>
-<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a><span class="co">// https://observablehq.com/@mootari/colored-table-rows</span></span>
-<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="co">// This can't be placed in a separate file, because that requires importing</span></span>
-<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a><span class="co">// observable/table, but there is no path here to do that import.</span></span>
-<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">colorTable</span>(data<span class="op">,</span> {</span>
-<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a>        colorColumn<span class="op">,</span></span>
-<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a>        colorOpacity <span class="op">=</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>        editorColumn<span class="op">,</span></span>
-<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a>        lastActiveColumn<span class="op">,</span></span>
-<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>        issueNumColumn<span class="op">,</span></span>
-<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>        columns <span class="op">=</span> <span class="kw">undefined</span><span class="op">,</span></span>
-<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a>        format <span class="op">=</span> {}<span class="op">,</span> <span class="op">...</span>options}) {</span>
-<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [row] <span class="op">=</span> data<span class="op">;</span></span>
-<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="op">!</span>row) <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">table</span>(data<span class="op">,</span> options)<span class="op">;</span></span>
-<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> index <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(row)<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
-<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(index <span class="op">&lt;</span> <span class="dv">0</span>) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn not found in data"</span>)<span class="op">;</span></span>
-<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(format[colorColumn]) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn is reserved"</span>)<span class="op">;</span></span>
-<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns <span class="op">&amp;&amp;</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn) <span class="op">&lt;</span> <span class="dv">0</span>) columns<span class="op">.</span><span class="fu">push</span>(colorColumn)<span class="op">;</span></span>
-<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns) index <span class="op">=</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
-<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nth <span class="op">=</span> <span class="vs">`nth-child(</span><span class="sc">${</span>index <span class="op">+</span> <span class="dv">2</span><span class="sc">}</span><span class="vs">)`</span><span class="op">;</span></span>
-<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Observable Table doesn't know about rows, so need to convert the</span></span>
-<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a>  <span class="co">// "lastActiveColumn" into an array with the issue number and last active</span></span>
-<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a>  <span class="co">// string so then pass to the `format` call below to construct &lt;a&gt; href</span></span>
-<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a>  <span class="co">// objects:</span></span>
-<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> preprocessedData <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
-<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a>     <span class="op">...</span>row<span class="op">,</span></span>
-<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a>     [lastActiveColumn]<span class="op">:</span> [row[issueNumColumn]<span class="op">,</span>row[lastActiveColumn]]</span>
-<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span><span class="vs">``</span></span>
-<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> form <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(preprocessedData<span class="op">,</span> {</span>
-<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a>    <span class="dt">format</span><span class="op">:</span> {</span>
-<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>format<span class="op">,</span></span>
-<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a>      [colorColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div style="--row-color:</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;`</span><span class="op">,</span></span>
-<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a>      [editorColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="https://github.com/</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span><span class="op">,</span></span>
-<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a>      [lastActiveColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="https://github.com/ropensci/software-review/issues/</span><span class="sc">${</span>d[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d[<span class="dv">1</span>]<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span><span class="op">,</span></span>
-<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">,</span></span>
-<span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options</span>
-<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> scope <span class="op">=</span> DOM<span class="op">.</span><span class="fu">uid</span>()<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
-<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(scope)<span class="op">;</span></span>
-<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="fu">append</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
-<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Ensure that the sticky header always stays on top */</span></span>
-<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> thead { position: relative; z-index: 2 }</span></span>
-<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Hide the last column */</span></span>
-<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs">,</span></span>
-<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { width: 0; padding: 0 }</span></span>
-<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { visibility: hidden }</span></span>
-<span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Inject the background color */</span></span>
-<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> tr { position: relative }</span></span>
-<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> div:after {</span></span>
-<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a><span class="vs">      opacity: </span><span class="sc">${</span>colorOpacity<span class="sc">}</span><span class="vs">;</span></span>
-<span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a><span class="vs">      content: "";</span></span>
-<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: block;</span></span>
-<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a><span class="vs">      height: 100%;</span></span>
-<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="vs">      width: 100%;</span></span>
-<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a><span class="vs">      position: absolute;</span></span>
-<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a><span class="vs">      left: 0;</span></span>
-<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a><span class="vs">      top: 0;</span></span>
-<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a><span class="vs">      z-index: -1;</span></span>
-<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a><span class="vs">      background-color: var(--row-color);</span></span>
-<span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a><span class="vs">    }</span></span>
-<span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span>)<span class="op">;</span></span>
-<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> form<span class="op">;</span></span>
-<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="253" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 252;"><span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a><span class="co">// Definition of colorTable function, adapted from</span></span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a><span class="co">// https://observablehq.com/@mootari/colored-table-rows</span></span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a><span class="co">// This can't be placed in a separate file, because that requires importing</span></span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="co">// observable/table, but there is no path here to do that import.</span></span>
+<span id="cb6-257"><a href="#cb6-257" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">colorTable</span>(data<span class="op">,</span> {</span>
+<span id="cb6-258"><a href="#cb6-258" aria-hidden="true" tabindex="-1"></a>        colorColumn<span class="op">,</span></span>
+<span id="cb6-259"><a href="#cb6-259" aria-hidden="true" tabindex="-1"></a>        colorOpacity <span class="op">=</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb6-260"><a href="#cb6-260" aria-hidden="true" tabindex="-1"></a>        editorColumn<span class="op">,</span></span>
+<span id="cb6-261"><a href="#cb6-261" aria-hidden="true" tabindex="-1"></a>        lastActiveColumn<span class="op">,</span></span>
+<span id="cb6-262"><a href="#cb6-262" aria-hidden="true" tabindex="-1"></a>        issueNumColumn<span class="op">,</span></span>
+<span id="cb6-263"><a href="#cb6-263" aria-hidden="true" tabindex="-1"></a>        columns <span class="op">=</span> <span class="kw">undefined</span><span class="op">,</span></span>
+<span id="cb6-264"><a href="#cb6-264" aria-hidden="true" tabindex="-1"></a>        format <span class="op">=</span> {}<span class="op">,</span> <span class="op">...</span>options}) {</span>
+<span id="cb6-265"><a href="#cb6-265" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [row] <span class="op">=</span> data<span class="op">;</span></span>
+<span id="cb6-266"><a href="#cb6-266" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="op">!</span>row) <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">table</span>(data<span class="op">,</span> options)<span class="op">;</span></span>
+<span id="cb6-267"><a href="#cb6-267" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-268"><a href="#cb6-268" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> index <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(row)<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
+<span id="cb6-269"><a href="#cb6-269" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(index <span class="op">&lt;</span> <span class="dv">0</span>) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn not found in data"</span>)<span class="op">;</span></span>
+<span id="cb6-270"><a href="#cb6-270" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(format[colorColumn]) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn is reserved"</span>)<span class="op">;</span></span>
+<span id="cb6-271"><a href="#cb6-271" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns <span class="op">&amp;&amp;</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn) <span class="op">&lt;</span> <span class="dv">0</span>) columns<span class="op">.</span><span class="fu">push</span>(colorColumn)<span class="op">;</span></span>
+<span id="cb6-272"><a href="#cb6-272" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns) index <span class="op">=</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
+<span id="cb6-273"><a href="#cb6-273" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nth <span class="op">=</span> <span class="vs">`nth-child(</span><span class="sc">${</span>index <span class="op">+</span> <span class="dv">2</span><span class="sc">}</span><span class="vs">)`</span><span class="op">;</span></span>
+<span id="cb6-274"><a href="#cb6-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-275"><a href="#cb6-275" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Observable Table doesn't know about rows, so need to convert the</span></span>
+<span id="cb6-276"><a href="#cb6-276" aria-hidden="true" tabindex="-1"></a>  <span class="co">// "lastActiveColumn" into an array with the issue number and last active</span></span>
+<span id="cb6-277"><a href="#cb6-277" aria-hidden="true" tabindex="-1"></a>  <span class="co">// string so then pass to the `format` call below to construct &lt;a&gt; href</span></span>
+<span id="cb6-278"><a href="#cb6-278" aria-hidden="true" tabindex="-1"></a>  <span class="co">// objects:</span></span>
+<span id="cb6-279"><a href="#cb6-279" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> preprocessedData <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb6-280"><a href="#cb6-280" aria-hidden="true" tabindex="-1"></a>     <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb6-281"><a href="#cb6-281" aria-hidden="true" tabindex="-1"></a>     [lastActiveColumn]<span class="op">:</span> [row[issueNumColumn]<span class="op">,</span>row[lastActiveColumn]]</span>
+<span id="cb6-282"><a href="#cb6-282" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span><span class="vs">``</span></span>
+<span id="cb6-283"><a href="#cb6-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-284"><a href="#cb6-284" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> form <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(preprocessedData<span class="op">,</span> {</span>
+<span id="cb6-285"><a href="#cb6-285" aria-hidden="true" tabindex="-1"></a>    <span class="dt">format</span><span class="op">:</span> {</span>
+<span id="cb6-286"><a href="#cb6-286" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>format<span class="op">,</span></span>
+<span id="cb6-287"><a href="#cb6-287" aria-hidden="true" tabindex="-1"></a>      [colorColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div style="--row-color:</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;`</span><span class="op">,</span></span>
+<span id="cb6-288"><a href="#cb6-288" aria-hidden="true" tabindex="-1"></a>      [editorColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="https://github.com/</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span><span class="op">,</span></span>
+<span id="cb6-289"><a href="#cb6-289" aria-hidden="true" tabindex="-1"></a>      [lastActiveColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="https://github.com/ropensci/software-review/issues/</span><span class="sc">${</span>d[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d[<span class="dv">1</span>]<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span><span class="op">,</span></span>
+<span id="cb6-290"><a href="#cb6-290" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb6-291"><a href="#cb6-291" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">,</span></span>
+<span id="cb6-292"><a href="#cb6-292" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options</span>
+<span id="cb6-293"><a href="#cb6-293" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb6-294"><a href="#cb6-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-295"><a href="#cb6-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> scope <span class="op">=</span> DOM<span class="op">.</span><span class="fu">uid</span>()<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
+<span id="cb6-296"><a href="#cb6-296" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(scope)<span class="op">;</span></span>
+<span id="cb6-297"><a href="#cb6-297" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-298"><a href="#cb6-298" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="fu">append</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
+<span id="cb6-299"><a href="#cb6-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-300"><a href="#cb6-300" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Ensure that the sticky header always stays on top */</span></span>
+<span id="cb6-301"><a href="#cb6-301" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> thead { position: relative; z-index: 2 }</span></span>
+<span id="cb6-302"><a href="#cb6-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-303"><a href="#cb6-303" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Hide the last column */</span></span>
+<span id="cb6-304"><a href="#cb6-304" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs">,</span></span>
+<span id="cb6-305"><a href="#cb6-305" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { width: 0; padding: 0 }</span></span>
+<span id="cb6-306"><a href="#cb6-306" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { visibility: hidden }</span></span>
+<span id="cb6-307"><a href="#cb6-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-308"><a href="#cb6-308" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Inject the background color */</span></span>
+<span id="cb6-309"><a href="#cb6-309" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> tr { position: relative }</span></span>
+<span id="cb6-310"><a href="#cb6-310" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> div:after {</span></span>
+<span id="cb6-311"><a href="#cb6-311" aria-hidden="true" tabindex="-1"></a><span class="vs">      opacity: </span><span class="sc">${</span>colorOpacity<span class="sc">}</span><span class="vs">;</span></span>
+<span id="cb6-312"><a href="#cb6-312" aria-hidden="true" tabindex="-1"></a><span class="vs">      content: "";</span></span>
+<span id="cb6-313"><a href="#cb6-313" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: block;</span></span>
+<span id="cb6-314"><a href="#cb6-314" aria-hidden="true" tabindex="-1"></a><span class="vs">      height: 100%;</span></span>
+<span id="cb6-315"><a href="#cb6-315" aria-hidden="true" tabindex="-1"></a><span class="vs">      width: 100%;</span></span>
+<span id="cb6-316"><a href="#cb6-316" aria-hidden="true" tabindex="-1"></a><span class="vs">      position: absolute;</span></span>
+<span id="cb6-317"><a href="#cb6-317" aria-hidden="true" tabindex="-1"></a><span class="vs">      left: 0;</span></span>
+<span id="cb6-318"><a href="#cb6-318" aria-hidden="true" tabindex="-1"></a><span class="vs">      top: 0;</span></span>
+<span id="cb6-319"><a href="#cb6-319" aria-hidden="true" tabindex="-1"></a><span class="vs">      z-index: -1;</span></span>
+<span id="cb6-320"><a href="#cb6-320" aria-hidden="true" tabindex="-1"></a><span class="vs">      background-color: var(--row-color);</span></span>
+<span id="cb6-321"><a href="#cb6-321" aria-hidden="true" tabindex="-1"></a><span class="vs">    }</span></span>
+<span id="cb6-322"><a href="#cb6-322" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span>)<span class="op">;</span></span>
+<span id="cb6-323"><a href="#cb6-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-324"><a href="#cb6-324" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> form<span class="op">;</span></span>
+<span id="cb6-325"><a href="#cb6-325" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-6" data-nodetype="declaration">
 
@@ -491,75 +491,75 @@ cookieconsent.run({
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="287" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 286;"><span id="cb7-287"><a href="#cb7-287" aria-hidden="true" tabindex="-1"></a><span class="co">// And modified verison for open reviews table</span></span>
-<span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">reviewTable</span>(data<span class="op">,</span> {</span>
-<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a>        colorColumn<span class="op">,</span></span>
-<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a>        colorOpacity <span class="op">=</span> <span class="fl">0.5</span><span class="op">,</span></span>
-<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a>        issueNumColumn<span class="op">,</span></span>
-<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>        titleColumn<span class="op">,</span></span>
-<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a>        columns <span class="op">=</span> <span class="kw">undefined</span><span class="op">,</span></span>
-<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>        format <span class="op">=</span> {}<span class="op">,</span> <span class="op">...</span>options}) {</span>
-<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [row] <span class="op">=</span> data<span class="op">;</span></span>
-<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="op">!</span>row) <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">table</span>(data<span class="op">,</span> options)<span class="op">;</span></span>
-<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> index <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(row)<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
-<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(index <span class="op">&lt;</span> <span class="dv">0</span>) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn not found in data"</span>)<span class="op">;</span></span>
-<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(format[colorColumn]) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn is reserved"</span>)<span class="op">;</span></span>
-<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns <span class="op">&amp;&amp;</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn) <span class="op">&lt;</span> <span class="dv">0</span>) columns<span class="op">.</span><span class="fu">push</span>(colorColumn)<span class="op">;</span></span>
-<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns) index <span class="op">=</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
-<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nth <span class="op">=</span> <span class="vs">`nth-child(</span><span class="sc">${</span>index <span class="op">+</span> <span class="dv">2</span><span class="sc">}</span><span class="vs">)`</span><span class="op">;</span></span>
-<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Observable Table doesn't know about rows, so need to convert the</span></span>
-<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a>  <span class="co">// "titleColumn" into an array with the title and issue number</span></span>
-<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a>  <span class="co">// so then pass to the `format` call below to construct &lt;a&gt; href</span></span>
-<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a>  <span class="co">// objects:</span></span>
-<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> preprocessedData <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
-<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a>     <span class="op">...</span>row<span class="op">,</span></span>
-<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a>     [titleColumn]<span class="op">:</span> [row[titleColumn]<span class="op">,</span>row[issueNumColumn]]</span>
-<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span><span class="vs">``</span></span>
-<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> form <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(preprocessedData<span class="op">,</span> {</span>
-<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a>    <span class="dt">format</span><span class="op">:</span> {</span>
-<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>format<span class="op">,</span></span>
-<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a>      [colorColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div style="--row-color:</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;`</span><span class="op">,</span></span>
-<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a>      [issueNumColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="https://github.com/ropensci/software-review/issues/</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span><span class="op">,</span></span>
-<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a>      [titleColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;span style="white-space:break-spaces;"&gt;&lt;a href="https://github.com/ropensci/software-review/issues/</span><span class="sc">${</span>d[<span class="dv">1</span>]<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">&lt;/a&gt;&lt;/span&gt;`</span><span class="op">,</span></span>
-<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb7-321"><a href="#cb7-321" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">,</span></span>
-<span id="cb7-322"><a href="#cb7-322" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options</span>
-<span id="cb7-323"><a href="#cb7-323" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb7-324"><a href="#cb7-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-325"><a href="#cb7-325" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> scope <span class="op">=</span> DOM<span class="op">.</span><span class="fu">uid</span>()<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
-<span id="cb7-326"><a href="#cb7-326" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(scope)<span class="op">;</span></span>
-<span id="cb7-327"><a href="#cb7-327" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb7-328"><a href="#cb7-328" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="fu">append</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
-<span id="cb7-329"><a href="#cb7-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-330"><a href="#cb7-330" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Ensure that the sticky header always stays on top */</span></span>
-<span id="cb7-331"><a href="#cb7-331" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> thead { position: relative; z-index: 2 }</span></span>
-<span id="cb7-332"><a href="#cb7-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-333"><a href="#cb7-333" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Hide the last column */</span></span>
-<span id="cb7-334"><a href="#cb7-334" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs">,</span></span>
-<span id="cb7-335"><a href="#cb7-335" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { width: 0; padding: 0 }</span></span>
-<span id="cb7-336"><a href="#cb7-336" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { visibility: hidden }</span></span>
-<span id="cb7-337"><a href="#cb7-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-338"><a href="#cb7-338" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Inject the background color */</span></span>
-<span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> tr { position: relative }</span></span>
-<span id="cb7-340"><a href="#cb7-340" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> div:after {</span></span>
-<span id="cb7-341"><a href="#cb7-341" aria-hidden="true" tabindex="-1"></a><span class="vs">      opacity: </span><span class="sc">${</span>colorOpacity<span class="sc">}</span><span class="vs">;</span></span>
-<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a><span class="vs">      content: "";</span></span>
-<span id="cb7-343"><a href="#cb7-343" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: block;</span></span>
-<span id="cb7-344"><a href="#cb7-344" aria-hidden="true" tabindex="-1"></a><span class="vs">      height: 100%;</span></span>
-<span id="cb7-345"><a href="#cb7-345" aria-hidden="true" tabindex="-1"></a><span class="vs">      width: 100%;</span></span>
-<span id="cb7-346"><a href="#cb7-346" aria-hidden="true" tabindex="-1"></a><span class="vs">      position: absolute;</span></span>
-<span id="cb7-347"><a href="#cb7-347" aria-hidden="true" tabindex="-1"></a><span class="vs">      left: 0;</span></span>
-<span id="cb7-348"><a href="#cb7-348" aria-hidden="true" tabindex="-1"></a><span class="vs">      top: 0;</span></span>
-<span id="cb7-349"><a href="#cb7-349" aria-hidden="true" tabindex="-1"></a><span class="vs">      z-index: -1;</span></span>
-<span id="cb7-350"><a href="#cb7-350" aria-hidden="true" tabindex="-1"></a><span class="vs">      background-color: var(--row-color);</span></span>
-<span id="cb7-351"><a href="#cb7-351" aria-hidden="true" tabindex="-1"></a><span class="vs">    }</span></span>
-<span id="cb7-352"><a href="#cb7-352" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span>)<span class="op">;</span></span>
-<span id="cb7-353"><a href="#cb7-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-354"><a href="#cb7-354" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> form<span class="op">;</span></span>
-<span id="cb7-355"><a href="#cb7-355" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="288" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 287;"><span id="cb7-288"><a href="#cb7-288" aria-hidden="true" tabindex="-1"></a><span class="co">// And modified verison for open reviews table</span></span>
+<span id="cb7-289"><a href="#cb7-289" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">reviewTable</span>(data<span class="op">,</span> {</span>
+<span id="cb7-290"><a href="#cb7-290" aria-hidden="true" tabindex="-1"></a>        colorColumn<span class="op">,</span></span>
+<span id="cb7-291"><a href="#cb7-291" aria-hidden="true" tabindex="-1"></a>        colorOpacity <span class="op">=</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb7-292"><a href="#cb7-292" aria-hidden="true" tabindex="-1"></a>        issueNumColumn<span class="op">,</span></span>
+<span id="cb7-293"><a href="#cb7-293" aria-hidden="true" tabindex="-1"></a>        titleColumn<span class="op">,</span></span>
+<span id="cb7-294"><a href="#cb7-294" aria-hidden="true" tabindex="-1"></a>        columns <span class="op">=</span> <span class="kw">undefined</span><span class="op">,</span></span>
+<span id="cb7-295"><a href="#cb7-295" aria-hidden="true" tabindex="-1"></a>        format <span class="op">=</span> {}<span class="op">,</span> <span class="op">...</span>options}) {</span>
+<span id="cb7-296"><a href="#cb7-296" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> [row] <span class="op">=</span> data<span class="op">;</span></span>
+<span id="cb7-297"><a href="#cb7-297" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="op">!</span>row) <span class="cf">return</span> Inputs<span class="op">.</span><span class="fu">table</span>(data<span class="op">,</span> options)<span class="op">;</span></span>
+<span id="cb7-298"><a href="#cb7-298" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-299"><a href="#cb7-299" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> index <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">keys</span>(row)<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
+<span id="cb7-300"><a href="#cb7-300" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(index <span class="op">&lt;</span> <span class="dv">0</span>) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn not found in data"</span>)<span class="op">;</span></span>
+<span id="cb7-301"><a href="#cb7-301" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(format[colorColumn]) <span class="cf">throw</span> <span class="bu">Error</span>(<span class="st">"colorColumn is reserved"</span>)<span class="op">;</span></span>
+<span id="cb7-302"><a href="#cb7-302" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns <span class="op">&amp;&amp;</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn) <span class="op">&lt;</span> <span class="dv">0</span>) columns<span class="op">.</span><span class="fu">push</span>(colorColumn)<span class="op">;</span></span>
+<span id="cb7-303"><a href="#cb7-303" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(columns) index <span class="op">=</span> columns<span class="op">.</span><span class="fu">indexOf</span>(colorColumn)<span class="op">;</span></span>
+<span id="cb7-304"><a href="#cb7-304" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> nth <span class="op">=</span> <span class="vs">`nth-child(</span><span class="sc">${</span>index <span class="op">+</span> <span class="dv">2</span><span class="sc">}</span><span class="vs">)`</span><span class="op">;</span></span>
+<span id="cb7-305"><a href="#cb7-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-306"><a href="#cb7-306" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Observable Table doesn't know about rows, so need to convert the</span></span>
+<span id="cb7-307"><a href="#cb7-307" aria-hidden="true" tabindex="-1"></a>  <span class="co">// "titleColumn" into an array with the title and issue number</span></span>
+<span id="cb7-308"><a href="#cb7-308" aria-hidden="true" tabindex="-1"></a>  <span class="co">// so then pass to the `format` call below to construct &lt;a&gt; href</span></span>
+<span id="cb7-309"><a href="#cb7-309" aria-hidden="true" tabindex="-1"></a>  <span class="co">// objects:</span></span>
+<span id="cb7-310"><a href="#cb7-310" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> preprocessedData <span class="op">=</span> data<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb7-311"><a href="#cb7-311" aria-hidden="true" tabindex="-1"></a>     <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb7-312"><a href="#cb7-312" aria-hidden="true" tabindex="-1"></a>     [titleColumn]<span class="op">:</span> [row[titleColumn]<span class="op">,</span>row[issueNumColumn]]</span>
+<span id="cb7-313"><a href="#cb7-313" aria-hidden="true" tabindex="-1"></a>  }))<span class="op">;</span><span class="vs">``</span></span>
+<span id="cb7-314"><a href="#cb7-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-315"><a href="#cb7-315" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> form <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">table</span>(preprocessedData<span class="op">,</span> {</span>
+<span id="cb7-316"><a href="#cb7-316" aria-hidden="true" tabindex="-1"></a>    <span class="dt">format</span><span class="op">:</span> {</span>
+<span id="cb7-317"><a href="#cb7-317" aria-hidden="true" tabindex="-1"></a>      <span class="op">...</span>format<span class="op">,</span></span>
+<span id="cb7-318"><a href="#cb7-318" aria-hidden="true" tabindex="-1"></a>      [colorColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div style="--row-color:</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;`</span><span class="op">,</span></span>
+<span id="cb7-319"><a href="#cb7-319" aria-hidden="true" tabindex="-1"></a>      [issueNumColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;a href="https://github.com/ropensci/software-review/issues/</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d<span class="sc">}</span><span class="vs">&lt;/a&gt;`</span><span class="op">,</span></span>
+<span id="cb7-320"><a href="#cb7-320" aria-hidden="true" tabindex="-1"></a>      [titleColumn]<span class="op">:</span> d <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;span style="white-space:break-spaces;"&gt;&lt;a href="https://github.com/ropensci/software-review/issues/</span><span class="sc">${</span>d[<span class="dv">1</span>]<span class="sc">}</span><span class="vs">"&gt;</span><span class="sc">${</span>d[<span class="dv">0</span>]<span class="sc">}</span><span class="vs">&lt;/a&gt;&lt;/span&gt;`</span><span class="op">,</span></span>
+<span id="cb7-321"><a href="#cb7-321" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb7-322"><a href="#cb7-322" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">,</span></span>
+<span id="cb7-323"><a href="#cb7-323" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span>options</span>
+<span id="cb7-324"><a href="#cb7-324" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb7-325"><a href="#cb7-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-326"><a href="#cb7-326" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> scope <span class="op">=</span> DOM<span class="op">.</span><span class="fu">uid</span>()<span class="op">.</span><span class="at">id</span><span class="op">;</span></span>
+<span id="cb7-327"><a href="#cb7-327" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">add</span>(scope)<span class="op">;</span></span>
+<span id="cb7-328"><a href="#cb7-328" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-329"><a href="#cb7-329" aria-hidden="true" tabindex="-1"></a>  form<span class="op">.</span><span class="fu">append</span>(htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;style&gt;</span></span>
+<span id="cb7-330"><a href="#cb7-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-331"><a href="#cb7-331" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Ensure that the sticky header always stays on top */</span></span>
+<span id="cb7-332"><a href="#cb7-332" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> thead { position: relative; z-index: 2 }</span></span>
+<span id="cb7-333"><a href="#cb7-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-334"><a href="#cb7-334" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Hide the last column */</span></span>
+<span id="cb7-335"><a href="#cb7-335" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs">,</span></span>
+<span id="cb7-336"><a href="#cb7-336" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { width: 0; padding: 0 }</span></span>
+<span id="cb7-337"><a href="#cb7-337" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> th:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> { visibility: hidden }</span></span>
+<span id="cb7-338"><a href="#cb7-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-339"><a href="#cb7-339" aria-hidden="true" tabindex="-1"></a><span class="vs">    /* Inject the background color */</span></span>
+<span id="cb7-340"><a href="#cb7-340" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> tr { position: relative }</span></span>
+<span id="cb7-341"><a href="#cb7-341" aria-hidden="true" tabindex="-1"></a><span class="vs">    .</span><span class="sc">${</span>scope<span class="sc">}</span><span class="vs"> td:</span><span class="sc">${</span>nth<span class="sc">}</span><span class="vs"> div:after {</span></span>
+<span id="cb7-342"><a href="#cb7-342" aria-hidden="true" tabindex="-1"></a><span class="vs">      opacity: </span><span class="sc">${</span>colorOpacity<span class="sc">}</span><span class="vs">;</span></span>
+<span id="cb7-343"><a href="#cb7-343" aria-hidden="true" tabindex="-1"></a><span class="vs">      content: "";</span></span>
+<span id="cb7-344"><a href="#cb7-344" aria-hidden="true" tabindex="-1"></a><span class="vs">      display: block;</span></span>
+<span id="cb7-345"><a href="#cb7-345" aria-hidden="true" tabindex="-1"></a><span class="vs">      height: 100%;</span></span>
+<span id="cb7-346"><a href="#cb7-346" aria-hidden="true" tabindex="-1"></a><span class="vs">      width: 100%;</span></span>
+<span id="cb7-347"><a href="#cb7-347" aria-hidden="true" tabindex="-1"></a><span class="vs">      position: absolute;</span></span>
+<span id="cb7-348"><a href="#cb7-348" aria-hidden="true" tabindex="-1"></a><span class="vs">      left: 0;</span></span>
+<span id="cb7-349"><a href="#cb7-349" aria-hidden="true" tabindex="-1"></a><span class="vs">      top: 0;</span></span>
+<span id="cb7-350"><a href="#cb7-350" aria-hidden="true" tabindex="-1"></a><span class="vs">      z-index: -1;</span></span>
+<span id="cb7-351"><a href="#cb7-351" aria-hidden="true" tabindex="-1"></a><span class="vs">      background-color: var(--row-color);</span></span>
+<span id="cb7-352"><a href="#cb7-352" aria-hidden="true" tabindex="-1"></a><span class="vs">    }</span></span>
+<span id="cb7-353"><a href="#cb7-353" aria-hidden="true" tabindex="-1"></a><span class="vs">  `</span>)<span class="op">;</span></span>
+<span id="cb7-354"><a href="#cb7-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-355"><a href="#cb7-355" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> form<span class="op">;</span></span>
+<span id="cb7-356"><a href="#cb7-356" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-7" data-nodetype="declaration">
 
@@ -567,28 +567,28 @@ cookieconsent.run({
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="301" data-source-offset="-132"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 300;"><span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [<span class="st">"stage_num"</span><span class="op">,</span> <span class="st">"number"</span><span class="op">,</span> <span class="st">"title"</span><span class="op">,</span> <span class="st">"stats"</span><span class="op">,</span> <span class="st">"stage_date"</span><span class="op">,</span> <span class="st">"editor"</span><span class="op">,</span> <span class="st">"inactive_for"</span>]</span>
-<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a><span class="fu">reviewTable</span>(filteredSorted<span class="op">,</span></span>
-<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a>    <span class="dt">colorColumn</span><span class="op">:</span> <span class="st">"rowColor"</span><span class="op">,</span></span>
-<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a>    <span class="dt">issueNumColumn</span><span class="op">:</span> <span class="st">"number"</span><span class="op">,</span></span>
-<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a>    <span class="dt">titleColumn</span><span class="op">:</span> <span class="st">"title"</span><span class="op">,</span></span>
-<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a>    <span class="dt">columns</span><span class="op">:</span> columns<span class="op">,</span></span>
-<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> <span class="st">'auto'</span><span class="op">,</span></span>
-<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a>    <span class="dt">layout</span><span class="op">:</span> <span class="st">'auto'</span><span class="op">,</span></span>
-<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a>    <span class="dt">header</span><span class="op">:</span> {</span>
-<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stage_num</span><span class="op">:</span> <span class="st">"Stage"</span><span class="op">,</span></span>
-<span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a>        <span class="dt">number</span><span class="op">:</span> <span class="st">"Number"</span><span class="op">,</span></span>
-<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> <span class="st">"Title"</span><span class="op">,</span></span>
-<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stats</span><span class="op">:</span> <span class="st">"Stats?"</span><span class="op">,</span></span>
-<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stage_date</span><span class="op">:</span> <span class="st">"Stage date"</span><span class="op">,</span></span>
-<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a>        <span class="dt">inactive_for</span><span class="op">:</span> <span class="st">"Inactive for"</span><span class="op">,</span></span>
-<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
-<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a>    <span class="dt">format</span><span class="op">:</span> {</span>
-<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stage_num</span><span class="op">:</span> s <span class="kw">=&gt;</span> s <span class="op">===</span> <span class="op">-</span><span class="dv">1</span> <span class="op">?</span> <span class="st">"(No stage)"</span> <span class="op">:</span> s<span class="op">,</span></span>
-<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="302" data-source-offset="-132"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 301;"><span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> [<span class="st">"stage_num"</span><span class="op">,</span> <span class="st">"number"</span><span class="op">,</span> <span class="st">"title"</span><span class="op">,</span> <span class="st">"stats"</span><span class="op">,</span> <span class="st">"stage_date"</span><span class="op">,</span> <span class="st">"editor"</span><span class="op">,</span> <span class="st">"inactive_for"</span>]</span>
+<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a><span class="fu">reviewTable</span>(filteredSorted<span class="op">,</span></span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a>    <span class="dt">colorColumn</span><span class="op">:</span> <span class="st">"rowColor"</span><span class="op">,</span></span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a>    <span class="dt">issueNumColumn</span><span class="op">:</span> <span class="st">"number"</span><span class="op">,</span></span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a>    <span class="dt">titleColumn</span><span class="op">:</span> <span class="st">"title"</span><span class="op">,</span></span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a>    <span class="dt">columns</span><span class="op">:</span> columns<span class="op">,</span></span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> <span class="st">'auto'</span><span class="op">,</span></span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a>    <span class="dt">layout</span><span class="op">:</span> <span class="st">'auto'</span><span class="op">,</span></span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a>    <span class="dt">header</span><span class="op">:</span> {</span>
+<span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stage_num</span><span class="op">:</span> <span class="st">"Stage"</span><span class="op">,</span></span>
+<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a>        <span class="dt">number</span><span class="op">:</span> <span class="st">"Number"</span><span class="op">,</span></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a>        <span class="dt">title</span><span class="op">:</span> <span class="st">"Title"</span><span class="op">,</span></span>
+<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stats</span><span class="op">:</span> <span class="st">"Stats?"</span><span class="op">,</span></span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stage_date</span><span class="op">:</span> <span class="st">"Stage date"</span><span class="op">,</span></span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a>        <span class="dt">inactive_for</span><span class="op">:</span> <span class="st">"Inactive for"</span><span class="op">,</span></span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a>    <span class="dt">format</span><span class="op">:</span> {</span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>        <span class="dt">stage_num</span><span class="op">:</span> s <span class="kw">=&gt;</span> s <span class="op">===</span> <span class="op">-</span><span class="dv">1</span> <span class="op">?</span> <span class="st">"(No stage)"</span> <span class="op">:</span> s<span class="op">,</span></span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-8-1" data-nodetype="declaration">
