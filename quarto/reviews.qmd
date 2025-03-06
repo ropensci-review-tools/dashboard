@@ -51,10 +51,11 @@ rev_dat$stage_num [index] <- -1
 rev_dat$stage [index] <- "(No stage)"
 ncols <- 5L
 rev_dat$urgency <- 0L
-rev_dat$urgency [index] <- ncols
+# rev_dat$urgency [index] <- ncols
 
 # time scales for each stage, in days
 time_scales <- list (
+    c (-1, 7), # pre-submission
     c (0, 7), # initial editorial handling
     c (1, 7), # editor checks
     c (2, 14), # seeking reviewers
