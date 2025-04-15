@@ -25,11 +25,10 @@ get_slack_editors_status <- function () {
     tok <- get_slack_token ()
 
     u <- "https://slack.com/api/users.list"
-    headers <- list (Authorization = paste0 ("Bearer ", tok))
     # req_retry is to avoid transitent 429 errors from Slack API requests via
     # GitHub
     req <- httr2::request (u) |>
-        httr2::req_headers ("Authorization" = headers) |>
+        httr2::req_headers ("Authorization" = paste0 ("Bearer ", tok)) |>
         httr2::req_method ("GET") |>
         httr2::req_retry (
             max_tries = 3,
@@ -93,9 +92,8 @@ get_editors_user_group_id <- function () {
     tok <- get_slack_token ()
 
     u <- "https://slack.com/api/usergroups.list"
-    headers <- list (Authorization = paste0 ("Bearer ", tok))
     req <- httr2::request (u) |>
-        httr2::req_headers ("Authorization" = headers) |>
+        httr2::req_headers ("Authorization" = paste0 ("Bearer ", tok)) |>
         httr2::req_method ("GET")
     resp <- httr2::req_perform (req)
     httr2::resp_check_status (resp)
@@ -116,9 +114,8 @@ get_editors_user_group_members <- function () {
     usergroup <- get_editors_user_group_id ()
 
     u <- "https://slack.com/api/usergroups.users.list"
-    headers <- list (Authorization = paste0 ("Bearer ", tok))
     req <- httr2::request (u) |>
-        httr2::req_headers ("Authorization" = headers) |>
+        httr2::req_headers ("Authorization" = paste0 ("Bearer ", tok)) |>
         httr2::req_url_query (usergroup = usergroup) |>
         httr2::req_method ("GET")
     resp <- httr2::req_perform (req)
