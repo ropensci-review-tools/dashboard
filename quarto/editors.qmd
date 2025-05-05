@@ -62,10 +62,9 @@ if (nrow (eic) > 1L) {
         ") will be [",
         eic$name [2], "](https://github.com/", eic$github [2], ").\n"
     )
+    cat (msg)
 }
-cat (msg)
 ```
-
 
 ## Editor Overview {#editor-overview}
 
