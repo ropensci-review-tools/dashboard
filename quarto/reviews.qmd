@@ -71,6 +71,17 @@ for (i in time_scales) {
 
 rev_dat$urgency [rev_dat$urgency > ncols] <- ncols
 rev_dat$urgency [grepl ("holding", rev_dat$labels)] <- 0
+# Urgency for holding is multiples of standard 90-day period:
+index <- grep ("holding", rev_dat$labels)
+hold_dur <- difftime (
+    Sys.Date (),
+    as.Date (rev_dat$holding_date),
+    units = "days"
+) [index]
+hold_dur <- floor (as.integer (hold_dur) / 90)
+hold_dur [which (hold_dur > 5)] <- 5
+rev_dat$urgency [index] <- hold_dur
+rev_dat$stage_date [index] <- as.Date (rev_dat$holding_date [index])
 
 rev_dat <- dplyr::rename (rev_dat, "inactive_for" = elapsed)
 ```
@@ -101,8 +112,8 @@ the following controls:
 txt <- paste (
     "Some rows in the table are highlighted to visually indicate degrees",
     "of urgency according to the scheme defined in the following",
-    "sub-section. Rows with no highlight may be considered up-to-date,",
-    "and require no action."
+    "['_Urgency of Reviews_'](#urgency-of-reviews) sub-section. Rows with no ",
+    "highlight may be considered up-to-date, and require no action."
 )
 has_no_stage <- any (rev_dat$stage_num < 0)
 if (has_no_stage) {
@@ -115,6 +126,14 @@ if (has_no_stage) {
 }
 cat (txt)
 ```
+
+#### Editor-in-Chief:
+
+Please check "holding" issues at least once per quarter by clicking the "true"
+box below for "Holding". The "Stage date" for these issues is the date on which
+the "holding" label was added.
+
+---
 
 ```{r rev-dat-prepro}
 # Final pre-processing to add 'holding' column, and an 'urgency_rev' column so
@@ -161,6 +180,7 @@ viewof stage = {
     const input =  Inputs.checkbox(
         ["(No stage)",
          "0/presubmission",
+         "0/editorial-team-prep",
          "1/editor-checks",
          "2/seeking-reviewer(s)",
          "3/reviewer(s)-assigned",
@@ -171,6 +191,7 @@ viewof stage = {
             value: [
                 "(No stage)",
                 "0/presubmission",
+                "0/editorial-team-prep",
                 "1/editor-checks",
                 "2/seeking-reviewer(s)",
                 "3/reviewer(s)-assigned",
@@ -225,6 +246,7 @@ filtered = submissionsIn.filter(function(submission) {
   return stage.includes(submission.stage) &&
     holding.includes(submission.holding)
 })
+
 // Only sort by urgency if there are any:
 anyUrgent = filtered.some(submission => submission.urgency > 0)
 sortCol1 = sortBy === "stage" ? "stage" : anyUrgent ? "urgency_rev" : "stage"
