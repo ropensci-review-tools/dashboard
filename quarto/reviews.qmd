@@ -161,6 +161,7 @@ viewof stage = {
     const input =  Inputs.checkbox(
         ["(No stage)",
          "0/presubmission",
+         "0/editorial-team-prep",
          "1/editor-checks",
          "2/seeking-reviewer(s)",
          "3/reviewer(s)-assigned",
@@ -171,6 +172,7 @@ viewof stage = {
             value: [
                 "(No stage)",
                 "0/presubmission",
+                "0/editorial-team-prep",
                 "1/editor-checks",
                 "2/seeking-reviewer(s)",
                 "3/reviewer(s)-assigned",
