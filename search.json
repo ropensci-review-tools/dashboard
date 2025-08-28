@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "rOpenSci Software Review Dashboard",
-    "section": "",
-    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe Editors page which provides information on current editors and activities. This page helps the Editor-in-Charge identify editors for new submissions, and gives each editor an overview of their current and previous editorial portfolios.\nThe Software Review page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Historical Data page which gives insights into the historical developments of the software peer-review program.\n\nSource code for this dashboard is at github.com/ropensci-review-tools/dashboard. Contributions are welcome! Please feel free to open an issue in that repository."
-  },
-  {
     "objectID": "history.html",
     "href": "history.html",
     "title": "Historical Data",
@@ -96,5 +89,12 @@
     "title": "Software Review",
     "section": "Urgency of Reviews",
     "text": "Urgency of Reviews\nLevels of urgency used in the previous table are coloured according to the following scheme:\n\nurgencyDat = transpose(urgency).map(row =&gt; ({\n    ...row,\n    rowColor: row.urgency === 1 ? urgency_colours[0] :\n        row.urgency === 2 ? urgency_colours[1] :\n        row.urgency === 3 ? urgency_colours[2] :\n        row.urgency === 4 ? urgency_colours[3] :\n        row.urgency === 5 ? urgency_colours[4] : \"transparent\",\n}));\n\n\n\n\n\n\n\ncolorTable(urgencyDat, {\n    columns: [\"urgency\", \"importance\"],\n    colorColumn: \"rowColor\",\n})\n\n\n\n\n\n\nLevels of urgency are calculated from the following expected times for each review stage:\n\n\n\nstage\ntime (days)\n\n\n\n\n0/Pre-submission\n7\n\n\n1/Editor Checks\n7\n\n\n2/Seeking Reviewers\n14\n\n\n3/Reviewer(s) Assigned\n21\n\n\n4/Review(s) in Awaiting Changes\n21\n\n\n5/Awaiting Reviewer(s) Response\n21\n\n\n\n\n\n\nLevels of urgency for each review are times taken for current stage as a multiple of those base times, with values rounded down to nearest integer. For example, a submission which has been undergoing 1\\/Editor Checks for 17 days would have an urgency of floor(17/7) = 2. A submission which has been under review (stage 3\\/Reviewer(s) Assigned) for 12 weeks would have an urgency of floor(12 * 7 / 21) = 4. These urgency levels then map on to the colour codes shown above."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "rOpenSci Software Review Dashboard",
+    "section": "",
+    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe Editors page which provides information on current editors and activities. This page helps the Editor-in-Charge identify editors for new submissions, and gives each editor an overview of their current and previous editorial portfolios.\nThe Software Review page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Historical Data page which gives insights into the historical developments of the software peer-review program.\n\nSource code for this dashboard is at github.com/ropensci-review-tools/dashboard. Contributions are welcome! Please feel free to open an issue in that repository."
   }
 ]
