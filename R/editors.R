@@ -351,7 +351,9 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         dplyr::arrange (dplyr::desc (inactive_days), .by_group = TRUE) |>
         dplyr::ungroup ()
 
-    edvac <- editor_vacation_status (airtable_base_id) # in editors-airtable.R
+    suppressWarnings (
+        edvac <- editor_vacation_status (airtable_base_id) # in editors-airtable.R
+    )
     # Note that next line presumes slack 'name' == GitHub handle:
     editors_on_vacation <- edvac$name [which (edvac$away)]
     status$status [status$editor %in% editors_on_vacation] <- "ON LEAVE"
