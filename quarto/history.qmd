@@ -876,19 +876,34 @@ Plot.plot({
 aggregation_period <- "quarter" # default
 ed_dat <- editor_status (quiet = TRUE, aggregation_period = aggregation_period)
 ed_status <- ed_dat$status
+
+q <- dashboard:::gh_editors_team_qry (stats = FALSE)
+gh_editors <- gh::gh_gql (query = q)
+gh_editors <- gh_editors$data$organization$team$members$nodes
+gh_editors <- vapply (gh_editors, function (i) i$login, character (1L))
+eds_to_rm <- dashboard:::eds_to_remove
+guest_editors <- dashboard:::guest_editors
+index <- grep ("\\-", guest_editors)
+if (length (index) > 0L) {
+    guest_editors <- c (guest_editors, gsub ("\\-", ".", guest_editors [index]))
+}
+gh_editors <- gh_editors [which (!gh_editors %in% c (eds_to_rm, guest_editors))]
+# The GH API delivers some results with names modified from "a-a" to "a.a":
+index <- grep ("\\-", gh_editors)
+gh_editors <- c (gh_editors, gsub ("\\-", ".", gh_editors [index]))
 ```
 
 ```{r clean-editor-status-history, echo = FALSE}
 # Taken straight from editors.qmd
 #| cache: false
-eds_to_rm <- dashboard:::eds_to_remove
-ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
+ed_status <- dplyr::filter (ed_status, !editor %in% c (eds_to_rm, guest_editors)) |>
     dplyr::relocate (other_langs, .before = domain_expertise) |>
     dplyr::rename (
         "Languages" = other_langs,
         "Expertise" = domain_expertise
     ) |>
-    tidyr::replace_na (list (inactive_for = "(waiting)"))
+    tidyr::replace_na (list (inactive_for = "(waiting)")) |>
+    dplyr::filter (editor %in% gh_editors)
 ```
 
 rOpenSci relies on our team of volunteer editors. We can only provide review
@@ -902,6 +917,10 @@ during each period and are therefore free to accept new submissions ("Free").
 
 ```{r ed-availability-prepro, echo = FALSE}
 # Use all editors, not just current ones
+ed_dat$timeline_total <- dplyr::filter (
+    ed_dat$timeline_total,
+    !name %in% c (eds_to_rm, guest_editors)
+)
 num_eds_busy <- ed_dat$timeline_total |>
     dplyr::filter (value > 0L) |>
     dplyr::group_by (month) |>
@@ -911,7 +930,7 @@ ed_dates <- ed_dat$timeline_total |>
     dplyr::filter (value > 0L) |>
     dplyr::group_by (name) |>
     dplyr::summarise (start = min (month), end = max (month))
-ed_dates$end [ed_dates$name %in% ed_status$editor] <- max (ed_dates$end)
+ed_dates$end [ed_dates$name %in% gh_editors] <- max (ed_dates$end)
 ed_dates <- as.matrix (ed_dates [, c ("start", "end")])
 dates <- apply (ed_dates, 1, function (i) {
     seq (lubridate::ymd (i [1]), lubridate::ymd (i [2]), by = "quarter") |>
