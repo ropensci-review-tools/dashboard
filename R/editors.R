@@ -139,7 +139,7 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
 
 m_editor_gh_data <- memoise::memoise (editor_gh_data)
 
-eds_to_remove <- c ("haozhu233", "mpadge")
+eds_to_remove <- c ("haozhu233")
 
 #' Extract data on latest issue for each editor
 #'
