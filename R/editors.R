@@ -140,6 +140,7 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
 m_editor_gh_data <- memoise::memoise (editor_gh_data)
 
 eds_to_remove <- c ("haozhu233")
+guest_editors <- c ("robitalec", "Pakillo", "obrl-soil")
 
 #' Extract data on latest issue for each editor
 #'
@@ -372,7 +373,7 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         timeline$month <- lubridate::ymd (paste0 (nms, "-01"))
         timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
             dplyr::arrange (tolower (name), month)
-        dplyr::filter (timeline, !name %in% eds_to_remove)
+        dplyr::filter (timeline, !name %in% c (eds_to_remove, guest_editors))
     }
     timeline_total <- process_timeline (dat, what = "issues_total")
     timeline_new <- process_timeline (dat, what = "issues_new")
