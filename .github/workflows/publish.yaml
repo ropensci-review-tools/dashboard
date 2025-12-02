@@ -47,6 +47,8 @@ jobs:
         with:
           cache-version: 1
           r-version: 'renv'
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GH_TOKEN }}
 
       - name: Install dashboard package
         run: R CMD INSTALL .
