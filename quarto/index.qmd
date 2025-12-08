@@ -1,5 +1,7 @@
 ---
 title: "rOpenSci Software Review Dashboard"
+execute:
+  echo: false
 ---
 
 This dashboard provides an overview of all current [rOpenSci software review
@@ -23,3 +25,35 @@ Source code for this dashboard is at
 [github.com/ropensci-review-tools/dashboard](https://github.com/ropensci-review-tools/dashboard).
 Contributions are welcome! Please feel free to open [an issue in that
 repository](https://github.com/ropensci-review-tools/dashboard/issues).
+
+---
+
+```{r last-update}
+library (httr2)
+u_base <- "https://api.github.com/repos/"
+u_repo <- paste0 (u_base, "ropensci-review-tools/dashboard/")
+
+# First need to unique integer ID of the workflow:
+u_wf <- paste0 (u_repo, "actions/workflows")
+req <- httr2::request (u_wf)
+resp <- httr2::req_perform (req)
+body <- httr2::resp_body_json (resp)
+wfdat <- do.call (rbind, lapply (body$workflows, as.data.frame))
+wf_id <- wfdat$id [grep ("publish", wfdat$name, ignore.case = TRUE)]
+
+# Then use that to get latest run:
+u_runs <- paste0 (u_repo, "actions/workflows/", wf_id, "/runs")
+req <- httr2::request (u_runs) |>
+    httr2::req_url_query (per_page = 10)
+resp <- httr2::req_perform (req)
+body <- httr2::resp_body_json (resp)$workflow_runs
+index <- which (vapply (body [[1]], function (i) !is.list (i) && !is.null (i), logical (1L)))
+run_dat <- do.call (rbind, lapply (body, function (b) as.data.frame (b [index])))
+run_dat <- run_dat [which (run_dat$conclusion == "success"), ]
+
+i <- which (run_dat$updated_at == max (run_dat$updated_at))
+run_timestamp <- run_dat$updated_at [i]
+run_url <- run_dat$html_url [i]
+```
+
+Updated at <a href=`r run_url` target="_blank">`r run_timestamp`</a>.
