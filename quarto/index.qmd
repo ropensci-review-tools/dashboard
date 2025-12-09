@@ -28,7 +28,7 @@ repository](https://github.com/ropensci-review-tools/dashboard/issues).
 
 ---
 
-```{r last-update}
+```{r last-update, eval = TRUE, echo = FALSE}
 library (httr2)
 u_base <- "https://api.github.com/repos/"
 u_repo <- paste0 (u_base, "ropensci-review-tools/dashboard/")
