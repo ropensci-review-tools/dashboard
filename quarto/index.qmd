@@ -37,9 +37,6 @@ u_repo <- paste0 (u_base, "ropensci-review-tools/dashboard/")
 u_wf <- paste0 (u_repo, "actions/workflows")
 req <- httr2::request (u_wf)
 resp <- httr2::req_perform (req)
-if (httr2::resp_status (resp) != 200L) {
-    cat ("GH Rest API Request failed with error ", httr2::resp_status (resp), "\n\n")
-}
 body <- httr2::resp_body_json (resp)
 wfdat <- do.call (rbind, lapply (body$workflows, as.data.frame))
 wf_id <- wfdat$id [grep ("publish", wfdat$name, ignore.case = TRUE)]
@@ -49,9 +46,18 @@ u_runs <- paste0 (u_repo, "actions/workflows/", wf_id, "/runs")
 req <- httr2::request (u_runs) |>
     httr2::req_url_query (per_page = 10)
 resp <- httr2::req_perform (req)
+if (httr2::resp_status (resp) != 200L) {
+    cat ("GH Rest API Request failed with error ", httr2::resp_status (resp), "\n\n")
+}
 body <- httr2::resp_body_json (resp)$workflow_runs
+if (length (body) == 0L) {
+    cat ("GH Rest API Request delivered empty body\n\n")
+}
 index <- which (vapply (body [[1]], function (i) !is.list (i) && !is.null (i), logical (1L)))
 run_dat <- do.call (rbind, lapply (body, function (b) as.data.frame (b [index])))
+if (nrow (run_dat) == 0L) {
+    cat ("GH Rest API Request delivered no data\n\n")
+}
 run_dat <- run_dat [which (run_dat$conclusion == "success"), ]
 
 if (nrow (run_dat) > 0L && "updated_at" %in% names (run_dat)) {
