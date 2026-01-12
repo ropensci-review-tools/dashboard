@@ -6,7 +6,7 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.2.084",
+  "version": "0.2.2.085",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
