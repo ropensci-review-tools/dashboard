@@ -6,13 +6,13 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.2.085",
+  "version": "0.2.2.86",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.1 (2024-06-14)",
+  "runtimePlatform": "R version 4.5.2 (2025-10-31)",
   "author": [
     {
       "@type": "Person",
@@ -135,9 +135,10 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    "SystemRequirements": {}
+    "SystemRequirements": null
   },
   "fileSize": "NAKB",
   "relatedLink": "https://dashboard.ropensci.org",
-  "readme": "https://github.com/ropensci-review-tools/dashboard/blob/main/README.md"
+  "readme": "https://github.com/ropensci-review-tools/dashboard/blob/main/README.md",
+  "keywords": ["dashboard", "r"]
 }
