@@ -15,7 +15,10 @@ serve: ## Start local quarto server
 	cd quarto; \
 	quarto preview
 
-recache: ## Start local quarto server with '--cache-refresh' to force cache refresh
+clean: ## Clean all previously rendered and cached stuff from quarto/ dir
+	rm -rf quarto/editors_cache quarto/history_cache quarto/review_cache quarto/.quarto quarto/_site
+
+recache: clean ## Start local quarto server with '--cache-refresh' to force cache refresh
 	cd quarto; \
 	quarto preview --cache-refresh
 
@@ -45,3 +48,4 @@ help: ## Show this help
 .PHONY: dev
 .PHONY: doc
 .PHONY: help
+.PHONY: clean
