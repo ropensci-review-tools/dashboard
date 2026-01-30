@@ -48,7 +48,10 @@ req <- httr2::request (u_runs) |>
 resp <- httr2::req_perform (req)
 body <- httr2::resp_body_json (resp)$workflow_runs
 index <- which (vapply (body [[1]], function (i) !is.list (i) && !is.null (i), logical (1L)))
-index <- index [-grep ("previous", names (index))]
+index_prev <- grep ("previous", names (index))
+if (length (index_prev) > 0L) {
+    index <- index [-index_prev]
+}
 run_dat <- do.call (rbind, lapply (body, function (b) as.data.frame (b [index])))
 # run_dat <- run_dat [which (run_dat$conclusion == "success"), ]
 
