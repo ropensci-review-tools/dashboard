@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://dashboard.ropensci.org/reviews.html</loc>
-    <lastmod>2026-02-19T01:24:18.374Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dashboard.ropensci.org/history.html</loc>
-    <lastmod>2026-02-19T01:24:18.374Z</lastmod>
+    <loc>https://dashboard.ropensci.org/editors.html</loc>
+    <lastmod>2026-02-20T01:20:15.260Z</lastmod>
   </url>
   <url>
     <loc>https://dashboard.ropensci.org/index.html</loc>
-    <lastmod>2026-02-19T01:24:18.374Z</lastmod>
+    <lastmod>2026-02-20T01:20:15.261Z</lastmod>
   </url>
   <url>
-    <loc>https://dashboard.ropensci.org/editors.html</loc>
-    <lastmod>2026-02-19T01:24:18.374Z</lastmod>
+    <loc>https://dashboard.ropensci.org/reviews.html</loc>
+    <lastmod>2026-02-20T01:20:15.261Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dashboard.ropensci.org/history.html</loc>
+    <lastmod>2026-02-20T01:20:15.261Z</lastmod>
   </url>
 </urlset>
