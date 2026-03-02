@@ -1,7 +1,9 @@
 test_that ("editor names", {
 
     q <- gh_editors_team_qry (stats = FALSE)
-    editors <- gh::gh_gql (query = q)
+    editors <- httptest2::with_mock_dir ("editors", {
+        gh::gh_gql (query = q)
+    })
     editors <- editors$data$organization$team$members$nodes
     expect_true (length (editors) > 10L)
     nms <- unique (unlist (lapply (editors, names)))
@@ -11,7 +13,9 @@ test_that ("editor names", {
     expect_true (length (editors) > 10L)
 
     q <- gh_editors_team_qry (stats = TRUE)
-    editors_stats <- gh::gh_gql (query = q)
+    editors_stats <- httptest2::with_mock_dir ("editors-stats", {
+        gh::gh_gql (query = q)
+    })
     editors_stats <- editors_stats$data$organization$team$members$nodes
     expect_true (length (editors_stats) >= 5L)
     expect_true (length (editors_stats) < length (editors))

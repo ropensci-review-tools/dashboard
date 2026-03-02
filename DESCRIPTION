@@ -19,6 +19,7 @@ Imports:
   memoise,
   tidyr
 Suggests:
+  httptest2,
   testthat (>= 3.0.0)
 Remotes:
   bergant/airtabler
