@@ -33,6 +33,10 @@ render: ## 'quarto render' command
 	cd quarto;	\
 	quarto render
 
+build: ## 'quarto build' command
+	cd quarto;	\
+	quarto build
+
 renv-update: ## Update 'renv' dependencies to latest versions
 	Rscript -e "renv::update()";
 

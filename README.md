@@ -37,15 +37,18 @@ available options:
 
 ```bash
 Usage: make [target]
-build               'quarto build' command
-check               Run `R CMD check` on package
-dev                 alias for 'serve'
-doc                 Update package documentation with `roxygen2`
-help                Show this help
-recache             Start local quarto server with '--cache-refresh' to force cache refresh
-renv-snapshot       Update the 'renv.lock' file, generally run after `renv-update`
-renv-update         Update 'renv' dependencies to latest versions
-serve               Start local quarto server
+build                'quarto build' command
+check                Run `R CMD check` on package
+clean                Clean all previously rendered and cached stuff from quarto/ dir
+dev                  alias for 'serve'
+doc                  Update package documentation with `roxygen2`
+help                 Show this help
+recache              Start local quarto server with '--cache-refresh' to force cache refresh
+render               'quarto render' command
+renv-snapshot        Update the 'renv.lock' file, generally run after `renv-update`
+renv-update          Update 'renv' dependencies to latest versions
+serve                Start local quarto server
+test                 Run package tests
 ```
 
 The last of these commands runs the `quarto dev` command in the `quarto`
