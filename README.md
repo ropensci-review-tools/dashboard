@@ -1,6 +1,11 @@
 
 # rOpenSci Software Review Dashboard
 
+[![R-CMD-check](https://github.com/ropensci-review-tools/dashboard/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ropensci-review-tools/dashboard/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/ropensci-review-tools/dashboard/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ropensci-review-tools/dashboard)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 This repository contains the source code for [rOpenSci's *Software Review
 Dashboard*](https://dashboard.ropensci.org). This includes
 both a local R package named "dashboard", and a [quarto
