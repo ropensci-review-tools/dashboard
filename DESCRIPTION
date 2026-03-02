@@ -1,6 +1,6 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.2.2.099
+Version: 0.2.2.100
 Authors@R: 
   person(given = "First",
          family = "Last",
@@ -20,7 +20,8 @@ Imports:
   tidyr
 Suggests:
   httptest2,
-  testthat (>= 3.0.0)
+  testthat (>= 3.0.0),
+  withr
 Remotes:
   bergant/airtabler
 License: MIT + file LICENSE
