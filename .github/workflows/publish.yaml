@@ -47,7 +47,6 @@ jobs:
         with:
           cache-version: 1
           r-version: 'renv'
-          extra-packages: any::ggplot2, any::knitr, any::ggiraph, any::gfonts, any::gdtools
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GH_TOKEN }}
 
