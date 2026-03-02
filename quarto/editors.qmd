@@ -15,7 +15,7 @@ library (ggplot2)
 library (tidyr)
 library (dplyr)
 library (ggiraph)
-library (gfonts)
+# library (gfonts)
 ```
 
 This page includes:
