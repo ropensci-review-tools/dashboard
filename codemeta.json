@@ -6,7 +6,7 @@
   "name": "dashboard: What the Package Does (One Line, Title Case)",
   "codeRepository": "https://github.com/ropensci-review-tools/dashboard",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.2.2.88",
+  "version": "0.2.2.93",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -32,6 +32,18 @@
   "softwareSuggestions": [
     {
       "@type": "SoftwareApplication",
+      "identifier": "httptest2",
+      "name": "httptest2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=httptest2"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "testthat",
       "name": "testthat",
       "version": ">= 3.0.0",
@@ -47,11 +59,17 @@
   "softwareRequirements": {
     "1": {
       "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": ">= 4.1"
+    },
+    "2": {
+      "@type": "SoftwareApplication",
       "identifier": "airtabler",
       "name": "airtabler",
       "sameAs": "https://github.com/bergant/airtabler"
     },
-    "2": {
+    "3": {
       "@type": "SoftwareApplication",
       "identifier": "dplyr",
       "name": "dplyr",
@@ -63,7 +81,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=dplyr"
     },
-    "3": {
+    "4": {
       "@type": "SoftwareApplication",
       "identifier": "gh",
       "name": "gh",
@@ -75,7 +93,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=gh"
     },
-    "4": {
+    "5": {
       "@type": "SoftwareApplication",
       "identifier": "gt",
       "name": "gt",
@@ -87,7 +105,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=gt"
     },
-    "5": {
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "httr2",
       "name": "httr2",
@@ -99,7 +117,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=httr2"
     },
-    "6": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "lubridate",
       "name": "lubridate",
@@ -111,7 +129,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=lubridate"
     },
-    "7": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "memoise",
       "name": "memoise",
@@ -123,7 +141,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=memoise"
     },
-    "8": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",

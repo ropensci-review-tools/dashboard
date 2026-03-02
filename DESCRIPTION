@@ -1,6 +1,6 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.2.2.088
+Version: 0.2.2.093
 Authors@R: 
   person(given = "First",
          family = "Last",
@@ -8,6 +8,7 @@ Authors@R:
          email = "first.last@example.com")
 Description: What the package does (one paragraph).
 URL: https://dashboard.ropensci.org
+Depends: R (>= 4.1)
 Imports:
   airtabler,
   dplyr,
@@ -18,6 +19,7 @@ Imports:
   memoise,
   tidyr
 Suggests:
+  httptest2,
   testthat (>= 3.0.0)
 Remotes:
   bergant/airtabler

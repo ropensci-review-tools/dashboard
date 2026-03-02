@@ -1,0 +1,78 @@
+{
+    "data": {
+        "organization": {
+            "team": {
+                "members": {
+                    "nodes": [
+                        {
+                            "login": "andrewheiss"
+                        },
+                        {
+                            "login": "noamross"
+                        },
+                        {
+                            "login": "tdhock"
+                        },
+                        {
+                            "login": "ldecicco-USGS"
+                        },
+                        {
+                            "login": "helske"
+                        },
+                        {
+                            "login": "Pakillo"
+                        },
+                        {
+                            "login": "adamhsparks"
+                        },
+                        {
+                            "login": "jhollist"
+                        },
+                        {
+                            "login": "maurolepore"
+                        },
+                        {
+                            "login": "natydasilva"
+                        },
+                        {
+                            "login": "mpadge"
+                        },
+                        {
+                            "login": "emitanaka"
+                        },
+                        {
+                            "login": "maelle"
+                        },
+                        {
+                            "login": "LucyMcGowan"
+                        },
+                        {
+                            "login": "nhejazi"
+                        },
+                        {
+                            "login": "robitalec"
+                        },
+                        {
+                            "login": "rkillick"
+                        },
+                        {
+                            "login": "obrl-soil"
+                        },
+                        {
+                            "login": "emilyriederer"
+                        },
+                        {
+                            "login": "ronnyhdez"
+                        },
+                        {
+                            "login": "beatrizmilz"
+                        },
+                        {
+                            "login": "MargaretSiple-NOAA"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

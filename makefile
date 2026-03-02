@@ -11,6 +11,11 @@ check: ## Run `R CMD check` on package
 	Rscript -e "rcmdcheck::rcmdcheck('./dashboard')"; \
 	cd ./dashboard
 
+test: ## Run package tests
+	cd ..; \
+	Rscript -e "testthat::test_local('./dashboard')"; \
+	cd ./dashboard
+
 serve: ## Start local quarto server
 	cd quarto; \
 	quarto preview
