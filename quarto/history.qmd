@@ -23,8 +23,17 @@ starting from September 2021. Prior to this time, all reviews were "general".
 ```{r get-rev-history, echo = FALSE}
 #| cache: true
 dat <- review_history (quiet = TRUE)
+index <- which (!is.na (dat$duration_days))
+num_reviewed <- length (index)
+num_reviewed_stats <- length (which (dat$stats [index]))
+index <- which (dat$state == "OPEN" & !is.na (dat$editor))
+num_current <- length (index)
+num_current_stats <- length (which (dat$stats [index]))
 ```
 
+We have to date reviewed `r num_reviewed` packages, including
+`r num_reviewed_stats` statistical packages. We currently have `r num_current`
+packages under review, including `r num_current_stats` statistical packages.
 
 ## Package submissions {#package-submissions}
 
