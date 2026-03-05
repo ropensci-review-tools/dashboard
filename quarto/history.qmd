@@ -10,8 +10,8 @@ format:
 ---
 
 ```{r load-pkg, echo = FALSE, message = FALSE}
-library (dashboard)
-library (lubridate)
+library (dashboard, quietly = TRUE)
+library (lubridate, quietly = TRUE)
 ```
 
 This page includes several graphs providing insight into the historical

@@ -10,12 +10,12 @@ format:
 ---
 
 ```{r load-pkg-ed, echo = FALSE, message = FALSE}
-library (dashboard)
-library (ggplot2)
-library (tidyr)
-library (dplyr)
-library (ggiraph)
-library (gfonts)
+library (dashboard, quietly = TRUE)
+library (ggplot2, quietly = TRUE)
+library (tidyr, quietly = TRUE)
+library (dplyr, quietly = TRUE)
+library (ggiraph, quietly = TRUE)
+library (gfonts, quietly = TRUE)
 ```
 
 This page includes:
