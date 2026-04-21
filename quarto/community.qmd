@@ -82,7 +82,47 @@ leaderboardLong = leaderboard.flatMap(d =>
 ```
 
 ```{ojs}
-Plot.plot({
+appearances = {
+    const map = new Map();
+    submissions.forEach(row => {
+        const add = (handle, role) => {
+            if (!handle || handle === "NA") return;
+            if (!map.has(handle)) map.set(handle, []);
+            map.get(handle).push({role, number: row.number});
+        };
+        add(row.aut_gh,    "author");
+        add(row.reviewer1, "reviewer");
+        add(row.reviewer2, "reviewer");
+    });
+    return map;
+}
+```
+
+```{ojs}
+{
+    const base = "https://github.com/ropensci/software-review/issues/";
+
+    if (!selectedBar) return html`<em style="color:#888">Hover over a bar to see linked issues.</em>`;
+
+    const handle = selectedBar.handle;
+    const items = (appearances.get(handle) || []).sort((a, b) => a.number - b.number);
+    const authors   = items.filter(d => d.role === "author");
+    const reviewers = items.filter(d => d.role === "reviewer");
+
+    const links = (arr) => arr.map(d =>
+        html`<a href="${base}${d.number}" target="_blank">#${d.number}</a>`
+    ).reduce((acc, el, i) => i === 0 ? [el] : [...acc, ", ", el], []);
+
+    return html`<div style="margin-top:0.5em;line-height:2">
+        <strong>${handle}</strong><br>
+        ${authors.length   ? html`<span><strong style="color:#4e79a7">Author</strong>: ${links(authors)}</span><br>`   : ""}
+        ${reviewers.length ? html`<span><strong style="color:#f28e2b">Reviewer</strong>: ${links(reviewers)}</span>` : ""}
+    </div>`;
+}
+```
+
+```{ojs}
+viewof selectedBar = Plot.plot({
     marginLeft: 130,
     width: 700,
     height: leaderboard.length * 26 + 40,
