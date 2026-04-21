@@ -154,11 +154,11 @@ review_history_internal <- function (quiet = FALSE) {
         state = state,
         stats = stats,
         opened_by = opened_by,
-        aut_gh = aut_gh,
+        aut_gh = gsub ("^@", "", aut_gh),
         author_name = aut_name,
-        editor = assignee,
-        reviewer1 = rev1,
-        reviewer2 = rev2,
+        editor = gsub ("^@", "", assignee),
+        reviewer1 = gsub ("^@", "", rev1),
+        reviewer2 = gsub ("^@", "", rev2),
         opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
         closed_at = lubridate::date (lubridate::ymd_hms (closed_at))
     ) |> dplyr::arrange (number)
