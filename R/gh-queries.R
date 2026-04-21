@@ -184,6 +184,9 @@ gh_issues_qry_dates_states <- function (org = "ropensci",
                            node {
                                ... on Issue {
                                    number
+                                   author {
+                                      login
+                                   }
                                    createdAt
                                    closedAt
                                    state
