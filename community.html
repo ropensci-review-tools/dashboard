@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Community Leaderboard – Dashboard</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./favicon-32x32.png" rel="icon" type="image/png">
+<script src="site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-4897d45d2f75ed4f519693be625836c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script type="ojs-define">
+{"contents":[{"name":"reviews_in","value":{"number":[6,10,13,17,18,19,20,22,23,24,25,27,28,29,33,34,35,36,39,40,41,42,43,45,47,53,55,56,58,60,61,68,71,72,73,78,79,82,87,93,94,95,96,102,103,107,112,114,115,116,118,119,120,121,124,126,127,130,136,139,141,145,149,152,153,155,156,157,160,164,168,169,174,175,176,178,179,184,185,187,188,189,190,191,192,195,198,201,207,209,210,212,213,214,218,220,222,224,226,230,231,232,233,237,238,239,243,244,246,254,255,256,257,261,262,263,264,266,267,269,271,274,279,280,282,284,285,287,289,290,292,295,298,302,303,305,307,309,315,325,326,327,330,332,333,335,338,341,342,344,347,356,357,359,360,366,367,373,380,381,382,385,386,395,401,406,407,409,414,416,418,420,425,426,428,430,432,434,435,436,437,455,458,463,464,470,474,475,484,486,489,492,495,498,505,521,522,523,532,533,534,535,541,550,551,554,556,559,560,566,568,571,574,575,576,577,590,593,595,596,598,599,600,603,606,609,612,613,615,618,619,620,623,625,626,627,632,633,636,637,638,642,653,658,659,660,663,667,671,673,674,675,676,681,684,685,686,688,692,698,703,704,705,706,709,710,714,717,718,720,725,728,729,730,732,740,741,743,744,745,747,750,752,754,757,759,760,762,763,765,766,767],"state":["CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","OPEN","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","OPEN","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","OPEN","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","OPEN","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","CLOSED","OPEN","CLOSED","CLOSED","CLOSED","CLOSED","OPEN","OPEN","OPEN","CLOSED","OPEN","CLOSED","CLOSED","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN","OPEN"],"stats":[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,true,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,true,true,true,true,true,false,true,false,true,false,false,false,false,false,false,true,false,false,false,false,true,false,false,false,false,true,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,true,true,false,false,false,false,false,true,true,false,false,false,false,true,false,true,false,false,false,false,true,false,false,false,false,false,true,false,false,false,false,true],"aut_gh":["richfitz","Robinlovelace","bocinsky","fmichonneau","FranzKrah","sckott","lmullen","andysouth","tonyfischetti","maelle","petermeissner","mpadge","jotegui","njahn82","lmullen","Dahaniel","Dahaniel","maelle","maelle","gshotwell","dgrtwo","leeper","maelle","maelle","gmbecker","sckott","dantonnoriega","daattali","sckott","seaaan","jsta","cvitolo","sckott","lukas-rokka","cvitolo","perrystephenson","adamhsparks","sckott","njtierney","HajkD","sckott","agricolamz","adamhsparks","sinanshi","mpadge","AliciaSchep","crew102","richfitz","njahn82","mpadge","timtrice","mwmclean","kaneplusplus","adamhsparks","ottlngr","maelle","MarkEdmondson1234","cboettig","mstrimas","raymondben","ChrisMuir","daranzolin","MahShaaban","boshek","sebastiz","adamhsparks","wlandau-lilly","kenarab","steffilazerte","rorynolan","sebastian-fox","cboettig","mdsumner","elinw","erykwalczak","arendsee","GuangchuangYu","lbusett","kvantas","DomBennett","marcosci","tklebel","evanodell","soshsquatch","JasperHG90","willpearse","raymondben","cimentadaj","jdeck88","richelbilderbeek","azizka","shaunpwilkinson","rtaph","FilipeamTeixeira","nbenn","cboettig","leonawicz","cboettig","leonawicz","gfinak","mbjoseph","DomBennett","kamapu","robitalec","OJWatson","wrightaprilm","MahShaaban","JonasGeschke","khufkens","gAldoCompagnoni","stijnvanhoey","aurielfournier","hettling","juyeongkim","nldoc","ThierryO","kshtzgupta1","Robinlovelace","Bisaloo","cboettig","cboettig","pachamaltese","aaronwolen","eebrown","dombennett","robbriers","Rekyt","JingningShi","laurajanegraham","cstubben","noamross","mem48","potterzot","mkearney","PMassicotte","krlmlr","eebrown","tyluRp","ShixiangWang","nfox29","vbaliga","mklau","mpadge","SteveViss","nevrome","florianm","yihanwu","sckott","leonawicz","karinorman","submission:","pat-s","kauedesousa","llrs","richelbilderbeek","jonkeane","uyedaj","akoontz11","mcguinlu","eribul","bretsw","agricolamz","chainsawriot","agila5","wlandau","CarlosRealR","hannahlowens","vbaliga","pachadotdev","mikemahoney218","GLOrozcoM","temospena","wlandau","amoeba","dbarneche","wlandau","mccallc","danielvartan","ekothe","gonzalezeb","unai-perez","JeffreyRStevens","cromanpa94","dieghernan","christophsax","ewallace","quishqa","joelnitta","dylan-turner25","wlandau","helske)","cboettig","peterdesmet","clnsmth","frankfarach","mikemahoney218","wfrierson","msperlin","bcjaeger","nathansam","msperlin","phuongquan","smnnlt","markean","grwhumphries","santikka","SebKrantz","schneiderpy","trangdata","RWParsons","maRce10","mikemahoney218","joelnitta","bnicenboim","jospueyo","diazrenata","salvafern","caropradier","katarzynam-165","gilbertocamara","bozaah","paocorrales","BroVic","RWParsons","HaoZeke","maRce10","micha-silver","datapumpernickel","osorensen","hanecakr","flor14","mpru","AAoritz","b-rodrigues","simpar1471","RonaldVisser","giovsaraceno","jmaspons","mikemahoney218","realbp","sigmafelix","abigailkeller","maelle","alex-koiter","heyairf","ahasverus","willgearty","adamhsparks","mpadge","ryanzomorrodi","RayStick","njtierney","thomaszwagerman","antaldaniel","rmgpanw","kmartinet","smnnlt","vincenzocoia","kelliejarcher","Visorbearer","marcboschmatas","n-kall","rmgpanw","b-rodrigues","marcburri","phuongquan","simpar1471","ScottClaessens","cforgaci","maelle","chaoliu-cl","HzaCode","maRce10","kylesnap","cwy20030","bhroston","danielvartan","ErickNavarroD","MCCROWEYCLINTON-EPA","timalamenciak","paulgovan","martinezc1","mauroloprete","maelle","Rafnuss","thisisamirv","YihaoTancn","jeremylfarrell","smwindecker","Rodotasso","IgnatiusPang","marcburri"],"author_name":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"Aldo Compagnoni",null,null,null,null,null,null,null,null,null,null,"Carl Boettiger","Pachá","Aaron Wolen","Eric Brown","Dom Bennett","Name","Matthias Grenié",null,"Name","Chris Stubben","Noam Ross","Malcolm Morgan","Nicholas A. Potter","Michael W. Kearney","Philippe Massicotte","Kirill Müller","Eric Brown","Tyler Littlefield","ShixiangWang","Name","Vikram B. Baliga","Matthew K. Lau","mark padgham","Steve Vissault","Clemens Schmid","Florian Mayer",null,"Scott Chamberlain","Matthew Leonawicz","Kari Norman","Mohammed","Patrick Schratz","Kauê de Sousa","Lluís","Richel Bilderbeek","Jonathan Keane","Josef C Uyeda","Austin Koontz","Luke McGuinness","Erik Bülow","Bret Staudt Willet","George Moroz","Chung-hong Chan","Andrea Gilardi","Name","Carlos Real (https://github.com/CarlosRealR)","Hannah L. Owens","Name",null,"Michael Mahoney","G. Leonard Orozco-Mulfinger","Rosa Flx (@temospena)  and Robin Lovelace","Will Landau","Bryce Mecum","Diego R. Barneche","Will Landau","Michael McCall","Daniel Vartanian","Emily Kothe","Erika Gonzalez-Akre","Unai Pérez-Goya","Jeffrey Stevens","Cristian Román-Palacios","Diego Hernangómez","Christoph Sax","Edward Wallace","Mario Gavidia-Calderón","","Dylan Turner","Will Landau","<!--author1-->Jouni Helske","Carl Boettiger","Peter Desmet","Colin Smith","Frank Farach","Mike Mahoney","Will Frierson","Marcelo Perlin","Byron C Jaeger","Nathan Constantine-Cooke","Marcelo S. Perlin","T. Phuong Quan","Simon Nolte","Eunseop Kim","Grant Humphries","Santtu Tikka","Sebastian Krantz","Name","Trang Le","Rex Parsons","Marcelo Araya-Salas","Mike Mahoney","Joel H. Nitta","Bruno Nicenboim","Josep Pueyo-Ros","Renata Diaz","Salvador Fernández Bejarano",null,"Katarzyna Markowska","Gilberto Camara",null,null,"Victor Ordu","Rex Parsons","Rohit Goswami","Marcelo Araya-Salas","Micha Silver","Paul Bochtler","Øystein Sørensen","Kristof Haneca","Florencia D'Andrea",null,"Moritz Hennicke","Bruno Rodrigues","Simon Parker","Ronald M. Visser",null,"Joan Maspons","Mike Mahoney","Brian Park","Insang Song","Abigail Keller","Maëlle Salmon","Alexander Koiter","Air Forbes","Nicolas Casajus","William Gearty","Adam Sparks","Mark Padgham","Ryan Zomorrodi","Rachael Stickland","Nicholas Tierney","Thomas Zwagerman","Daniel Antal","Alasdair Warwick","Kristen Martinet","Simon Nolte","Vincenzo Coia","Kellie J. Archer","Mason W. Maron","Marc Bosch Matas","Noa Kallioinen","Alasdair Warwick","Bruno Rodrigues","Marc Burri","T. Phuong Quan","Simon Parker","Scott Claessens","Claudiu Forgaci","Maëlle Salmon","Chao Liu","Zhiang He","Marcelo Araya Salas","Kyle Dewsnap","C. William Yao","Benjamin (Ben) Roston","Daniel Vartanian","Erick I. Navarro-Delgado","Clinton Mccrowey","Tim Alamenciak","Paul Govan","Christian Martinez","Mauro Loprete","Maëlle Salmon","Raphaël Nussbaumer","Amir Valizadeh","Yihao Tan","Jeremy Farrell","Saras Windecker","Rodolfo Tasso Suazo","Ignatius Pang","Marc Burri"],"editor":["sckott","sckott","sckott","sckott","sckott","karthik","sckott","sckott","sckott","sckott","sckott","sckott","sckott","noamross","sckott","noamross","noamross","sckott","sckott","noamross","sckott","sckott","noamross","noamross","sckott","noamross","sckott","noamross","noamross","sckott","sckott","sckott","noamross","sckott","noamross","sckott","sckott","noamross","noamross","sckott","noamross","sckott","sckott","noamross","karthik","maelle","maelle","maelle","sckott","maelle","maelle","noamross","noamross","karthik","sckott","sckott","noamross","noamross","karthik","maelle","sckott","noamross","karthik","sckott","karthik","sckott","maelle","noamross","sckott","sckott","noamross","lmullen","sckott","maelle","karthik","sckott","sckott","karthik","maelle","sckott","maelle","karthik","karthik","noamross","karthik","noamross","sckott","maelle","annakrystalli","noamross","maelle","sckott","karthik","noamross","sckott","annakrystalli","maelle","lmullen","karthik","maelle","noamross","sckott","maelle","lmullen","annakrystalli","sckott","maelle","sckott","karthik","noamross","karthik","noamross","sckott","noamross","annakrystalli","noamross","geanders","sckott","karthik","lmullen","melvidoni","maelle","maelle","melvidoni","annakrystalli","sckott","sckott","annakrystalli","karthik","noamross","melvidoni","geanders","lmullen","sckott","melvidoni","annakrystalli","karthik","maelle","melvidoni","sckott","lmullen","annakrystalli","sckott","noamross","melvidoni","maelle","sckott","anadiedrichs","melvidoni","ldecicco-USGS","noamross","noamross","melvidoni","annakrystalli","maelle","annakrystalli","jooolia","noamross","maurolepore","noamross","maelle","melvidoni","noamross","annakrystalli","maurolepore","ldecicco-USGS","karthik","maelle","melvidoni","ldecicco-USGS","maelle","annakrystalli","noamross","emilyriederer","ldecicco-USGS","melvidoni","annakrystalli","jooolia","ldecicco-USGS","adamhsparks","jhollist","maurolepore","annakrystalli","emilyriederer","mpadge","jooolia","ldecicco-USGS","tdhock","emilyriederer","adamhsparks","noamross","jhollist","melvidoni","adamhsparks","maelle","melvidoni","maelle","melvidoni","tdhock","adamhsparks","emilyriederer","maurolepore","melvidoni","Paula-Moraga","stephaniehicks","noamross","noamross","Paula-Moraga","ldecicco-USGS","adamhsparks","jhollist","Paula-Moraga","noamross","emilyriederer","emilyriederer","maelle","jooolia","maurolepore","adamhsparks","mpadge","ldecicco-USGS","Pakillo","emilyriederer","Paula-Moraga","maelle","jhollist","adamhsparks","noamross","noamross","maelle","emilyriederer","maurolepore","maelle","ldecicco-USGS","rkillick","ldecicco-USGS","emitanaka","adamhsparks","jhollist","ldecicco-USGS","beatrizmilz","emitanaka","MargaretSiple-NOAA","jhollist","maurolepore","beatrizmilz","robitalec","obrl-soil","MargaretSiple-NOAA","maurolepore","maelle","ldecicco-USGS","emilyriederer","maurolepore","adamhsparks","jhollist","maelle","helske","tdhock","maelle","nhejazi","rkillick","emilyriederer","ldecicco-USGS","rkillick","beatrizmilz","maelle","natydasilva","mpadge","ronnyhdez",null,"emilyriederer","adamhsparks","andrewheiss","robitalec","nhejazi","jhollist","maurolepore","ldecicco-USGS",null,null,"ronnyhdez",null,"robitalec",null,null,"LucyMcGowan","Pakillo","adamhsparks","maelle",null,null],"reviewer1":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"nmonhait",null,null,null,null,null,null,null,null,null,null,null,null,null,"sharlagelfand",null,null,null,null,null,"bpbond",null,null,"llrs",null,"emmamendelsohn",null,null,null,"peterdesmet","asbonnetlebrun","mpaulacaldas",null,"adithirgis","DanOlner","dill","tdjames1","boshek","sakrejda @mattwarkentin","karawoo","leocadio-miguel","juliasilge","jeffreyhanson","khondula","juliasilge","raynamharris","sckott","chamberlinc","kelshmo","beatrizmilz","KlausVigo","fmichonneau","smwindecker","kingaa","Pakillo","zambujo","bozaah","Rekyt","vinhtantran","drmowinckels","s3alfisc","chjackson","AlvesKS","pachadotdev","brad-cannell","jameshunterbr","pchausse","kstreet13","nicholasjclark","eeholmes","christopherkenny","BriannaLind","Tinula-kariyawasam","sammlapp","becarioprecario","collinschwantes","lisalevinson","zambujo","mstrimas","Kattuvan",null,"taddallas","mdsumner",null,null,"mcsiple","sachsmc","osorensen","mikemahoney218","harryeslick","ernestguevarra","nicholasjclark","njtierney","mpaulacaldas",null,"nolwenn","wdwatkins","chitrams","kaijagahm",null,"jonthegeek","mdsumner","jromanowska","robitalec","chitrams","robitalec","sheilasaia","ronnyhdez","sckott","stephhazlitt","potterzot","agricolamz","thisisnic","ymansiaux","amart90","qdread","maurolepore","ernestguevarra","txm676","astamm","dutangc",null,"SunnyTseng","ctesta01","DylanDijk","AleKoure","wlandau","compbiodan","bozaah","tanho63",null,"atsyplenkov","EllaKaye",null,"markean","Aariq","tjmahr","vincentvanhees",null,"jmaspons",null,null,null,null,"donghl17",null,"jcoliver",null,null,"k-doering-NOAA",null,null,null,null,null],"reviewer2":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"maelle",null,null,null,null,null,null,null,null,null,null,null,null,null,"mbjoseph",null,null,null,null,null,"sckott",null,null,"marionlouveaux",null,"adamhsparks",null,null,null,null,"marcosci","fvd",null,"KevCaz","ateucher","ernestguevarra","aebratt",null,null,"zambujo","jonkeane","elinw","jstillh","mhweber","jmobrien","fboehm","zambujo","brunaw",null,"kauedesousa","luismurao","fawda123","mdneuzerling",null,"stephhazlitt","beatrizmilz","laijasmine","zabore","wjones127","HaoZeke","thisisnic","mnwright","alstat","quishqa","elinw","manuramon","awstringer1","clairemas0n","lucymcgowan","santikka","SebastianWojcik86","pachadotdev","emitanaka","robitalec","jakub_nowosad","sformel-usgs","utkuturk","msperlin","qdread","sheilasaia",null,"taddallas","loreabad6",null,null,"cagrigokcek","jcavieresg","czeildi","DenaJGibbon","obrl-soil","potterzot","dill","ajpelu","vincentvanhees",null,"jospueyo","assignUser","brovic","gzach93",null,"ccamara","OldLipe","ginberg","Aariq","smwindecker","LizHareDogs","emilymarkowitz-noaa","huizezhang-sherry","heyairf","KevCaz","mpaulacaldas","Selbosh","tataphani","Lextuga007","lidefi87","TheAnalyticalEdge",null,"zkamvar","joelnitta","japilo","katrinabrock",null,"paul-carteron","kylebutts","staylo16","jonclayden","amart90","AlexGibberd","MargaretSiple-NOAA","nrennie",null,"khondula","joaojcorreia",null,"smnnlt","Bisaloo","saudiwin","cmaimone",null,"bitbacchus",null,null,null,null,"MichaelPascale",null,"mine-cetinkaya-rundel",null,null,"collin-cademartori",null,null,null,null,null],"opened_at":["2015-03-31","2015-04-08","2015-05-06","2015-06-16","2015-06-29","2015-08-21","2015-09-18","2015-11-26","2015-12-24","2015-12-31","2016-01-09","2016-03-04","2016-03-11","2016-03-11","2016-04-04","2016-04-11","2016-04-11","2016-04-12","2016-04-25","2016-04-26","2016-05-02","2016-05-07","2016-05-08","2016-05-19","2016-05-20","2016-06-16","2016-06-24","2016-06-25","2016-07-13","2016-07-26","2016-08-01","2016-08-08","2016-08-16","2016-08-22","2016-09-05","2016-10-03","2016-10-14","2016-10-27","2017-01-04","2017-01-25","2017-01-28","2017-01-29","2017-01-30","2017-02-21","2017-03-08","2017-03-30","2017-04-25","2017-05-08","2017-05-17","2017-05-31","2017-06-01","2017-06-02","2017-06-02","2017-06-03","2017-06-06","2017-06-14","2017-06-18","2017-07-05","2017-07-19","2017-08-04","2017-08-08","2017-08-20","2017-09-06","2017-09-13","2017-09-22","2017-11-04","2017-11-09","2017-11-09","2017-11-24","2017-12-01","2017-12-08","2017-12-12","2017-12-19","2017-12-20","2018-01-02","2018-01-02","2018-01-03","2018-01-07","2018-01-10","2018-01-23","2018-01-24","2018-01-26","2018-01-30","2018-01-31","2018-02-04","2018-02-07","2018-02-26","2018-03-04","2018-03-31","2018-04-05","2018-04-09","2018-04-24","2018-04-28","2018-04-30","2018-05-18","2018-05-30","2018-06-05","2018-06-08","2018-06-12","2018-06-18","2018-06-20","2018-06-27","2018-06-28","2018-07-17","2018-07-20","2018-07-23","2018-08-06","2018-08-15","2018-08-24","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-16","2018-10-19","2018-11-14","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-12-04","2019-01-03","2019-01-21","2019-01-25","2019-02-12","2019-02-25","2019-02-26","2019-03-02","2019-03-14","2019-03-19","2019-04-05","2019-04-17","2019-05-04","2019-05-17","2019-05-21","2019-05-23","2019-05-24","2019-05-25","2019-06-18","2019-07-19","2019-07-22","2019-07-23","2019-07-25","2019-07-30","2019-08-05","2019-08-23","2019-09-03","2019-09-07","2019-09-16","2019-09-30","2019-10-24","2020-01-01","2020-01-06","2020-01-20","2020-01-21","2020-01-29","2020-01-31","2020-03-03","2020-05-27","2020-05-28","2020-06-04","2020-06-20","2020-06-29","2020-08-12","2020-10-02","2020-10-29","2020-10-30","2020-11-12","2020-11-25","2020-12-11","2020-12-15","2021-01-08","2021-02-02","2021-02-06","2021-02-11","2021-02-19","2021-03-05","2021-03-10","2021-03-16","2021-03-17","2021-03-21","2021-07-26","2021-08-03","2021-09-16","2021-09-17","2021-10-07","2021-10-15","2021-10-26","2021-11-09","2021-11-17","2021-11-25","2021-11-30","2022-01-03","2022-01-11","2022-03-04","2022-03-24","2022-03-27","2022-03-30","2022-04-28","2022-04-29","2022-05-11","2022-05-16","2022-06-09","2022-07-15","2022-07-27","2022-08-18","2022-10-07","2022-10-27","2022-11-08","2022-12-21","2022-12-25","2023-01-11","2023-02-16","2023-02-21","2023-02-23","2023-02-24","2023-04-26","2023-06-26","2023-06-29","2023-07-02","2023-07-28","2023-07-30","2023-08-13","2023-08-23","2023-09-02","2023-09-29","2023-10-12","2023-10-15","2023-10-20","2023-11-20","2023-12-05","2023-12-28","2024-01-26","2024-02-06","2024-02-07","2024-02-08","2024-03-13","2024-03-17","2024-03-30","2024-04-03","2024-04-24","2024-05-15","2024-09-03","2024-09-22","2024-09-25","2024-09-28","2024-10-04","2024-11-02","2024-11-07","2024-11-18","2024-11-26","2024-11-29","2024-11-29","2025-01-21","2025-02-10","2025-02-13","2025-02-17","2025-02-19","2025-03-12","2025-04-11","2025-05-05","2025-05-05","2025-05-08","2025-05-12","2025-05-28","2025-06-10","2025-06-27","2025-07-24","2025-08-03","2025-08-18","2025-09-24","2025-10-30","2025-11-11","2025-11-12","2025-12-01","2026-01-06","2026-01-08","2026-01-15","2026-01-16","2026-01-20","2026-01-24","2026-02-08","2026-02-17","2026-02-25","2026-03-10","2026-03-15","2026-03-17","2026-03-27","2026-03-27","2026-04-04","2026-04-07","2026-04-20"],"closed_at":["2015-04-13","2015-10-29","2017-08-12","2015-07-20","2015-08-04","2015-10-21","2015-10-30","2016-06-14","2016-06-14","2016-04-20","2016-04-27","2016-05-19","2016-04-08","2016-05-31","2016-08-12","2018-03-06","2018-03-06","2016-05-03","2016-05-25","2016-05-20","2016-05-13","2016-08-18","2016-06-16","2016-08-05","2016-08-03","2016-08-02","2017-01-05","2016-09-15","2016-08-15","2016-10-04","2016-10-10","2016-10-06","2016-10-25","2016-11-07","2017-01-17","2017-07-17","2017-01-20","2017-02-24","2017-08-01","2017-06-07","2017-06-24","2017-05-06","2017-04-04","2018-01-10","2017-05-23","2017-08-13","2017-06-19","2017-11-28","2017-07-17","2017-08-20","2017-07-27","2017-10-18","2017-07-14","2017-10-02","2017-09-15","2017-07-18","2017-09-18","2017-11-13","2018-08-26","2018-03-03","2017-10-19","2017-12-14","2018-02-11","2017-12-15","2018-04-16","2018-09-25","2018-01-27","2019-05-04","2018-01-30","2018-03-06","2018-01-19","2018-02-21","2019-05-15","2018-07-01","2018-04-17","2018-02-20","2018-03-20","2018-08-26","2018-03-12","2018-07-24","2018-03-25","2018-08-26","2018-04-18","2018-03-12","2018-04-16","2018-05-02","2018-07-16","2018-03-27","2018-06-01","2019-05-04","2018-11-09","2018-06-26","2018-09-08","2019-05-02","2018-08-03","2018-09-24","2018-07-19","2018-10-18","2018-11-08","2018-08-08","2018-08-03","2018-11-26","2020-10-05","2018-10-26","2018-12-10","2018-11-27","2018-11-09","2018-11-27","2019-05-23","2019-11-04","2018-12-20","2020-01-22","2019-06-24","2019-04-18","2019-01-16","2019-09-03","2019-05-08","2019-01-15","2019-10-21","2019-02-16","2019-02-27","2019-04-05","2020-03-09","2019-02-27","2020-01-25","2019-05-15","2019-05-03","2019-05-20","2019-08-08","2019-06-25","2019-11-06","2020-01-06","2019-08-15","2019-10-22","2019-11-05","2020-01-16","2019-10-18","2021-05-06","2019-08-05","2019-11-26","2019-10-30","2020-02-13","2020-06-29","2019-11-05","2020-01-06","2020-07-21","2019-12-18","2020-06-27","2019-10-28","2020-02-18","2020-02-19","2021-03-22","2020-07-01","2020-08-10","2020-10-19","2020-07-20","2020-09-17","2021-02-24","2020-09-09","2021-02-24","2022-01-31","2020-10-22","2022-06-24","2021-02-03","2021-01-14","2021-02-10","2022-03-11","2021-03-11","2021-04-26","2021-02-24","2022-07-20","2021-09-27","2021-09-27","2021-05-16","2021-03-30","2021-07-15","2021-06-17","2021-10-29","2022-03-08","2021-09-27","2021-09-30","2021-11-04","2022-12-30","2021-10-30","2023-02-23","2022-06-10","2022-03-08","2022-09-14","2022-01-23","2022-01-12",null,"2022-03-22","2022-02-10","2022-03-29","2022-11-08","2022-05-01","2023-10-30","2022-06-21","2022-09-22","2022-07-16","2023-02-08","2022-10-25","2022-08-17","2022-09-20","2023-02-03","2022-12-13","2026-01-22","2023-03-17","2023-02-23","2023-03-30","2023-09-13","2023-02-27","2023-05-22","2025-02-28","2023-04-11","2023-11-30","2024-06-09","2023-09-14","2024-01-21","2025-07-01","2024-02-09","2024-11-29","2023-12-02","2024-01-09","2023-10-30","2024-03-28","2024-06-05","2024-01-09",null,"2024-04-08","2024-03-14","2024-06-19","2024-03-14","2024-09-03","2024-12-10","2024-04-25","2025-02-03","2024-07-03","2024-10-01",null,"2024-09-24","2024-09-26","2025-01-23","2025-03-04","2025-02-10","2025-05-13","2025-01-28","2026-01-13",null,"2025-08-16","2025-03-04","2025-03-11","2025-03-22","2025-08-27","2025-04-15","2025-09-17","2025-04-24","2025-11-07","2025-09-16","2025-06-26","2025-10-07",null,"2025-08-08","2025-09-16","2026-03-30","2025-12-14",null,null,null,"2025-11-19",null,"2026-02-20","2026-03-18",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"duration_days":[13,204,829,34,36,61,42,201,173,111,109,76,28,81,130,694,694,21,30,24,11,103,39,78,75,47,195,82,33,70,70,59,70,77,134,287,98,120,209,133,147,97,64,323,76,136,55,204,61,81,56,138,42,121,101,34,92,131,403,211,72,116,158,93,206,325,79,541,67,95,42,71,512,193,105,49,76,231,61,182,60,212,78,40,71,84,140,23,62,394,214,63,133,367,77,117,44,132,149,51,44,152,830,101,143,127,95,104,272,399,79,476,263,184,89,293,168,53,329,81,85,92,413,33,347,79,66,79,147,98,215,264,103,158,168,238,147,712,48,130,100,205,340,98,154,333,106,294,42,141,118,446,177,203,272,173,230,358,105,272,606,124,725,175,104,104,497,119,152,75,582,262,237,99,47,146,104,233,357,194,193,101,514,44,524,246,144,323,75,56,null,112,38,77,249,38,582,83,147,78,273,162,69,67,191,117,1203,141,107,99,262,47,95,738,47,279,410,80,206,730,196,488,111,139,58,181,237,86,null,140,100,174,48,210,307,77,327,108,185,null,153,134,142,163,138,227,116,437,null,271,98,102,113,218,64,216,66,261,188,76,155,null,92,127,306,187,null,null,null,93,null,113,127,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null]}}]}
+</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./logo-dark.svg" alt="rOpenSci logo" class="navbar-logo light-content">
+    <img src="./logo-dark.svg" alt="rOpenSci logo" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Dashboard</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./editors.html"> 
+<span class="menu-text">Editors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./reviews.html"> 
+<span class="menu-text">Software Review</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./community.html" aria-current="page"> 
+<span class="menu-text">Community Leaderboard</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./history.html"> 
+<span class="menu-text">Historical Data</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-bi-github" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-bi-github">    
+        <li>
+    <a class="dropdown-item" href="https://github.com/ropensci-review-tools/dashboard">
+ <span class="dropdown-text">Source Code</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="https://github.com/ropensci-review-tools/dashboard/issues/new">
+ <span class="dropdown-text">Request a Feature</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Community Leaderboard</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Total numbers of package submissions and reviews by community members. By default this includes editors, with a toggle to filter out numbers from anybody who is or has been a member of the editorial team.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="32" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 31;"><span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>submissions <span class="op">=</span> {</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> result <span class="op">=</span> <span class="fu">transpose</span>(reviews_in)<span class="op">.</span><span class="fu">map</span>(row <span class="kw">=&gt;</span> ({</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span>row<span class="op">,</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="dt">date</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">,</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="dt">submissionYear</span><span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>(row<span class="op">.</span><span class="at">date</span>)<span class="op">.</span><span class="fu">getFullYear</span>()</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    }))<span class="op">;</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(result[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">;</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="45" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 44;"><span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>viewof showEditors <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Include editors"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="kw">true</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="49" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 48;"><span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>leaderboard <span class="op">=</span> {</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> counts <span class="op">=</span> <span class="kw">new</span> <span class="bu">Map</span>()<span class="op">;</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> editors <span class="op">=</span> <span class="kw">new</span> <span class="bu">Set</span>()<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> add <span class="op">=</span> (handle<span class="op">,</span> role) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="op">!</span>handle <span class="op">||</span> handle <span class="op">===</span> <span class="st">"NA"</span>) <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="op">!</span>counts<span class="op">.</span><span class="fu">has</span>(handle)) counts<span class="op">.</span><span class="fu">set</span>(handle<span class="op">,</span> {handle<span class="op">,</span> <span class="dt">author</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">reviewer</span><span class="op">:</span> <span class="dv">0</span>})<span class="op">;</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        counts<span class="op">.</span><span class="fu">get</span>(handle)[role]<span class="op">++;</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    submissions<span class="op">.</span><span class="fu">forEach</span>(row <span class="kw">=&gt;</span> {</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add</span>(row<span class="op">.</span><span class="at">aut_gh</span><span class="op">,</span>    <span class="st">"author"</span>)<span class="op">;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add</span>(row<span class="op">.</span><span class="at">reviewer1</span><span class="op">,</span> <span class="st">"reviewer"</span>)<span class="op">;</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>        <span class="fu">add</span>(row<span class="op">.</span><span class="at">reviewer2</span><span class="op">,</span> <span class="st">"reviewer"</span>)<span class="op">;</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (row<span class="op">.</span><span class="at">editor</span> <span class="op">&amp;&amp;</span> row<span class="op">.</span><span class="at">editor</span> <span class="op">!==</span> <span class="st">"NA"</span>) editors<span class="op">.</span><span class="fu">add</span>(row<span class="op">.</span><span class="at">editor</span>)<span class="op">;</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>(counts<span class="op">.</span><span class="fu">values</span>())</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> showEditors <span class="op">||</span> <span class="op">!</span>editors<span class="op">.</span><span class="fu">has</span>(d<span class="op">.</span><span class="at">handle</span>))</span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> ({<span class="op">...</span>d<span class="op">,</span> <span class="dt">total</span><span class="op">:</span> d<span class="op">.</span><span class="at">author</span> <span class="op">+</span> d<span class="op">.</span><span class="at">reviewer</span>}))</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">total</span> <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> b<span class="op">.</span><span class="at">total</span> <span class="op">-</span> a<span class="op">.</span><span class="at">total</span> <span class="op">||</span> b<span class="op">.</span><span class="at">author</span> <span class="op">-</span> a<span class="op">.</span><span class="at">author</span>)</span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">40</span>)<span class="op">;</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="76" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 75;"><span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>leaderboardLong <span class="op">=</span> leaderboard<span class="op">.</span><span class="fu">flatMap</span>(d <span class="kw">=&gt;</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"author"</span><span class="op">,</span> <span class="st">"reviewer"</span>]</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">map</span>(role <span class="kw">=&gt;</span> ({<span class="dt">handle</span><span class="op">:</span> d<span class="op">.</span><span class="at">handle</span><span class="op">,</span> role<span class="op">,</span> <span class="dt">count</span><span class="op">:</span> d[role]}))</span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">count</span> <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="84" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 83;"><span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">130</span><span class="op">,</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    <span class="dt">width</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>    <span class="dt">height</span><span class="op">:</span> leaderboard<span class="op">.</span><span class="at">length</span> <span class="op">*</span> <span class="dv">26</span> <span class="op">+</span> <span class="dv">40</span><span class="op">,</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>    <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Score (number of appearances)"</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>    <span class="dt">y</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> leaderboard<span class="op">.</span><span class="fu">map</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">handle</span>)<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">padding</span><span class="op">:</span> <span class="fl">0.3</span>}<span class="op">,</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>    <span class="dt">color</span><span class="op">:</span> {</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>        <span class="dt">domain</span><span class="op">:</span> [<span class="st">"author"</span><span class="op">,</span> <span class="st">"reviewer"</span>]<span class="op">,</span></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>        <span class="dt">range</span><span class="op">:</span> [<span class="st">"#4e79a7"</span><span class="op">,</span> <span class="st">"#f28e2b"</span>]<span class="op">,</span></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>        <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span></span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>    <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>        Plot<span class="op">.</span><span class="fu">barX</span>(leaderboardLong<span class="op">,</span> Plot<span class="op">.</span><span class="fu">stackX</span>({</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>            <span class="dt">x</span><span class="op">:</span> <span class="st">"count"</span><span class="op">,</span></span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>            <span class="dt">y</span><span class="op">:</span> <span class="st">"handle"</span><span class="op">,</span></span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>            <span class="dt">fill</span><span class="op">:</span> <span class="st">"role"</span><span class="op">,</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>            <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>        }))</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InN1Ym1pc3Npb25zID0ge1xuICAgIGNvbnN0IHJlc3VsdCA9IHRyYW5zcG9zZShyZXZpZXdzX2luKS5tYXAocm93ID0+ICh7XG4gICAgICAgIC4uLnJvdyxcbiAgICAgICAgZGF0ZTogbmV3IERhdGUocm93LmRhdGUpLFxuICAgICAgICBzdWJtaXNzaW9uWWVhcjogbmV3IERhdGUocm93LmRhdGUpLmdldEZ1bGxZZWFyKClcbiAgICB9KSk7XG4gICAgY29uc29sZS5sb2cocmVzdWx0WzBdKTtcbiAgICByZXR1cm4gcmVzdWx0O1xufVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHNob3dFZGl0b3JzID0gSW5wdXRzLnRvZ2dsZSh7bGFiZWw6IFwiSW5jbHVkZSBlZGl0b3JzXCIsIHZhbHVlOiB0cnVlfSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImxlYWRlcmJvYXJkID0ge1xuICAgIGNvbnN0IGNvdW50cyA9IG5ldyBNYXAoKTtcbiAgICBjb25zdCBlZGl0b3JzID0gbmV3IFNldCgpO1xuXG4gICAgY29uc3QgYWRkID0gKGhhbmRsZSwgcm9sZSkgPT4ge1xuICAgICAgICBpZiAoIWhhbmRsZSB8fCBoYW5kbGUgPT09IFwiTkFcIikgcmV0dXJuO1xuICAgICAgICBpZiAoIWNvdW50cy5oYXMoaGFuZGxlKSkgY291bnRzLnNldChoYW5kbGUsIHtoYW5kbGUsIGF1dGhvcjogMCwgcmV2aWV3ZXI6IDB9KTtcbiAgICAgICAgY291bnRzLmdldChoYW5kbGUpW3JvbGVdKys7XG4gICAgfTtcblxuICAgIHN1Ym1pc3Npb25zLmZvckVhY2gocm93ID0+IHtcbiAgICAgICAgYWRkKHJvdy5hdXRfZ2gsICAgIFwiYXV0aG9yXCIpO1xuICAgICAgICBhZGQocm93LnJldmlld2VyMSwgXCJyZXZpZXdlclwiKTtcbiAgICAgICAgYWRkKHJvdy5yZXZpZXdlcjIsIFwicmV2aWV3ZXJcIik7XG4gICAgICAgIGlmIChyb3cuZWRpdG9yICYmIHJvdy5lZGl0b3IgIT09IFwiTkFcIikgZWRpdG9ycy5hZGQocm93LmVkaXRvcik7XG4gICAgfSk7XG5cbiAgICByZXR1cm4gQXJyYXkuZnJvbShjb3VudHMudmFsdWVzKCkpXG4gICAgICAgIC5maWx0ZXIoZCA9PiBzaG93RWRpdG9ycyB8fCAhZWRpdG9ycy5oYXMoZC5oYW5kbGUpKVxuICAgICAgICAubWFwKGQgPT4gKHsuLi5kLCB0b3RhbDogZC5hdXRob3IgKyBkLnJldmlld2VyfSkpXG4gICAgICAgIC5maWx0ZXIoZCA9PiBkLnRvdGFsID4gMClcbiAgICAgICAgLnNvcnQoKGEsIGIpID0+IGIudG90YWwgLSBhLnRvdGFsIHx8IGIuYXV0aG9yIC0gYS5hdXRob3IpXG4gICAgICAgIC5zbGljZSgwLCA0MCk7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJsZWFkZXJib2FyZExvbmcgPSBsZWFkZXJib2FyZC5mbGF0TWFwKGQgPT5cbiAgICBbXCJhdXRob3JcIiwgXCJyZXZpZXdlclwiXVxuICAgICAgICAubWFwKHJvbGUgPT4gKHtoYW5kbGU6IGQuaGFuZGxlLCByb2xlLCBjb3VudDogZFtyb2xlXX0pKVxuICAgICAgICAuZmlsdGVyKGQgPT4gZC5jb3VudCA+IDApXG4pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICAgIG1hcmdpbkxlZnQ6IDEzMCxcbiAgICB3aWR0aDogNzAwLFxuICAgIGhlaWdodDogbGVhZGVyYm9hcmQubGVuZ3RoICogMjYgKyA0MCxcbiAgICB4OiB7bGFiZWw6IFwiU2NvcmUgKG51bWJlciBvZiBhcHBlYXJhbmNlcylcIiwgZ3JpZDogdHJ1ZX0sXG4gICAgeToge2RvbWFpbjogbGVhZGVyYm9hcmQubWFwKGQgPT4gZC5oYW5kbGUpLCBsYWJlbDogbnVsbCwgcGFkZGluZzogMC4zfSxcbiAgICBjb2xvcjoge1xuICAgICAgICBkb21haW46IFtcImF1dGhvclwiLCBcInJldmlld2VyXCJdLFxuICAgICAgICByYW5nZTogW1wiIzRlNzlhN1wiLCBcIiNmMjhlMmJcIl0sXG4gICAgICAgIGxlZ2VuZDogdHJ1ZVxuICAgIH0sXG4gICAgbWFya3M6IFtcbiAgICAgICAgUGxvdC5iYXJYKGxlYWRlcmJvYXJkTG9uZywgUGxvdC5zdGFja1goe1xuICAgICAgICAgICAgeDogXCJjb3VudFwiLFxuICAgICAgICAgICAgeTogXCJoYW5kbGVcIixcbiAgICAgICAgICAgIGZpbGw6IFwicm9sZVwiLFxuICAgICAgICAgICAgdGlwOiB0cnVlXG4gICAgICAgIH0pKVxuICAgIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3Nob3dFZGl0b3JzJykifV19
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../..";
+window._ojs.paths.runtimeToRoot = "../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/dashboard\.ropensci\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
