@@ -19,7 +19,7 @@ review_history_internal <- function (quiet = FALSE) {
 
     # Suppress no visible binding notes:
     number <- opened_at <- closed_at <- submission_type <- state <-
-        assignees <- opened_by <- author <- NULL
+        assignees <- opened_by <- author <- reviewers <- NULL
     labels <- list ()
 
     page_count <- 0L
@@ -78,6 +78,10 @@ review_history_internal <- function (quiet = FALSE) {
             author,
             lapply (edges, function (i) pkg_author_from_body (i$node$body))
         )
+        reviewers <- c (
+            reviewers,
+            lapply (edges, function (i) reviewers_from_body (i$node$body))
+        )
         assignees <- c (
             assignees,
             lapply (edges, function (i) {
@@ -134,6 +138,11 @@ review_history_internal <- function (quiet = FALSE) {
         "<$", "",
         regmatches (aut_gh [index], regexpr ("@.*<", aut_gh [index]))
     )
+    reviewers <- reviewers [pkg_index]
+    rev1 <- vapply (reviewers, function (i) i [1L], character (1L))
+    rev2 <- vapply (reviewers, function (i) {
+        ifelse (length (i) > 1L, i [2L], NA_character_)
+    }, character (1L))
 
     assignee <- vapply (assignees, function (i) i [1], character (1L))
 
@@ -148,6 +157,8 @@ review_history_internal <- function (quiet = FALSE) {
         aut_gh = aut_gh,
         author_name = aut_name,
         editor = assignee,
+        reviewer1 = rev1,
+        reviewer2 = rev2,
         opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
         closed_at = lubridate::date (lubridate::ymd_hms (closed_at))
     ) |> dplyr::arrange (number)
@@ -167,12 +178,7 @@ pkg_author_from_body <- function (body) {
     yaml_delim <- grep ("^\\-\\-\\-(\\r?)$", body)
     author <- list ()
     if (length (yaml_delim) > 0L) {
-        # Can't use yaml because old-school bodies are too messy and fragile.
-        y <- gsub ("\\s*(\\r?)$", "", body [seq_len (min (yaml_delim) - 1L)])
-        y <- y [which (nzchar (y))]
-        these_fields <- gsub ("\\:.*$", "", y)
-        y <- gsub ("^\\s*", "", gsub ("^.*\\:(\\s*?)", "", y))
-        names (y) <- these_fields
+        y <- fake_yaml_parse (body, yaml_delim)
 
         fields <- c (
             "Submitting Author Name",
@@ -201,6 +207,40 @@ pkg_author_from_body <- function (body) {
     }
 
     return (author)
+}
+
+reviewers_from_body <- function (body) {
+
+    body <- strsplit (body, "\\n") [[1]]
+
+    yaml_delim <- grep ("^\\-\\-\\-(\\r?)$", body)
+    rev_out <- NA_character_
+    if (length (yaml_delim) > 0L) {
+        y <- fake_yaml_parse (body, yaml_delim)
+        if ("Reviewers" %in% names (y)) {
+            rev <- y [["Reviewers"]]
+            ptns <- c ("<!--reviewers-list-->", "<!--end-reviewers-list-->")
+            rev <- gsub (ptns [1], "", rev, fixed = TRUE)
+            rev <- gsub (ptns [2], "", rev, fixed = TRUE)
+            rev <- gsub ("^\\s*|\\s*$", "", rev)
+            if (rev != "TBD") {
+                rev_out <- strsplit (rev, "\\,\\s*") [[1]]
+            }
+        }
+    }
+    return (rev_out)
+}
+
+# Can't use yaml pkg because old-school bodies are too messy and fragile.
+fake_yaml_parse <- function (body, yaml_delim) {
+
+    y <- gsub ("\\s*(\\r?)$", "", body [seq_len (min (yaml_delim) - 1L)])
+    y <- y [which (nzchar (y))]
+    these_fields <- gsub ("\\:.*$", "", y)
+    y <- gsub ("^\\s*", "", gsub ("^.*\\:(\\s*?)", "", y))
+    names (y) <- these_fields
+
+    return (y)
 }
 
 #' Generate historical data on logged review times in hours from airtable database.
