@@ -138,6 +138,11 @@ review_history_internal <- function (quiet = FALSE) {
         "<$", "",
         regmatches (aut_gh [index], regexpr ("@.*<", aut_gh [index]))
     )
+    aut_gh <- gsub ("^@", "", aut_gh)
+    index <- which (is.na (aut_gh))
+    aut_gh [index] <- opened_by [index]
+    # No check done for aut_gh == opened_by!
+
     reviewers <- reviewers [pkg_index]
     rev1 <- vapply (reviewers, function (i) i [1L], character (1L))
     rev2 <- vapply (reviewers, function (i) {
@@ -153,10 +158,9 @@ review_history_internal <- function (quiet = FALSE) {
         number = number,
         state = state,
         stats = stats,
-        opened_by = opened_by,
-        aut_gh = gsub ("^@", "", aut_gh),
+        aut_gh = aut_gh,
         author_name = aut_name,
-        editor = gsub ("^@", "", assignee),
+        editor = assignee,
         reviewer1 = gsub ("^@", "", rev1),
         reviewer2 = gsub ("^@", "", rev2),
         opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
