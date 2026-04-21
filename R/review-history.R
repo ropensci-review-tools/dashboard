@@ -19,7 +19,7 @@ review_history_internal <- function (quiet = FALSE) {
 
     # Suppress no visible binding notes:
     number <- opened_at <- closed_at <- submission_type <- state <-
-        assignees <- NULL
+        assignees <- opened_by <- author <- reviewers <- NULL
     labels <- list ()
 
     page_count <- 0L
@@ -64,6 +64,24 @@ review_history_internal <- function (quiet = FALSE) {
                 ifelse (is.null (closed), NA_character_, closed)
             }, character (1L))
         )
+        opened_by <- c (
+            opened_by,
+            vapply (edges, function (i) {
+                ifelse (
+                    "login" %in% names (i$node$author),
+                    i$node$author$login,
+                    NA_character_
+                )
+            }, character (1L))
+        )
+        author <- c (
+            author,
+            lapply (edges, function (i) pkg_author_from_body (i$node$body))
+        )
+        reviewers <- c (
+            reviewers,
+            lapply (edges, function (i) reviewers_from_body (i$node$body))
+        )
         assignees <- c (
             assignees,
             lapply (edges, function (i) {
@@ -106,18 +124,45 @@ review_history_internal <- function (quiet = FALSE) {
     state <- state [pkg_index]
     labels <- labels [pkg_index]
     assignees <- assignees [pkg_index]
+    opened_by <- opened_by [pkg_index]
+    author <- author [pkg_index]
+    aut_name <- vapply (author, function (a) {
+        ifelse (is.null (a$name), NA_character_, a$name)
+    }, character (1L))
+    aut_gh <- vapply (author, function (a) {
+        ifelse (is.null (a$gh_handle), NA_character_, a$gh_handle)
+    }, character (1L))
+    # Remove HTML var delims:
+    index <- grep ("@.*<", aut_gh)
+    aut_gh [index] <- gsub (
+        "<$", "",
+        regmatches (aut_gh [index], regexpr ("@.*<", aut_gh [index]))
+    )
+    aut_gh <- gsub ("^@", "", aut_gh)
+    index <- which (is.na (aut_gh))
+    aut_gh [index] <- opened_by [index]
+    # No check done for aut_gh == opened_by!
+
+    reviewers <- reviewers [pkg_index]
+    rev1 <- vapply (reviewers, function (i) i [1L], character (1L))
+    rev2 <- vapply (reviewers, function (i) {
+        ifelse (length (i) > 1L, i [2L], NA_character_)
+    }, character (1L))
 
     assignee <- vapply (assignees, function (i) i [1], character (1L))
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
 
-
     res <- data.frame (
         number = number,
         state = state,
         stats = stats,
+        aut_gh = aut_gh,
+        author_name = aut_name,
         editor = assignee,
+        reviewer1 = gsub ("^@", "", rev1),
+        reviewer2 = gsub ("^@", "", rev2),
         opened_at = lubridate::date (lubridate::ymd_hms (opened_at)),
         closed_at = lubridate::date (lubridate::ymd_hms (closed_at))
     ) |> dplyr::arrange (number)
@@ -129,6 +174,78 @@ review_history_internal <- function (quiet = FALSE) {
 }
 
 m_review_history <- memoise::memoise (review_history_internal)
+
+pkg_author_from_body <- function (body) {
+
+    body <- strsplit (body, "\\n") [[1]]
+
+    yaml_delim <- grep ("^\\-\\-\\-(\\r?)$", body)
+    author <- list ()
+    if (length (yaml_delim) > 0L) {
+        y <- fake_yaml_parse (body, yaml_delim)
+
+        fields <- c (
+            "Submitting Author Name",
+            "Submitting Author Github Handle",
+            "Other Package Authors Github handles"
+        )
+        if (all (fields [1:2] %in% names (y))) {
+            # These 'gh_handle' vals include HTML variable delimiters:
+            author <- list (
+                name = y [[fields [1]]],
+                gh_handle = y [[fields [2]]]
+            )
+        } else if ("Submitting Author" %in% names (y)) {
+            aut <- y [["Submitting Author"]]
+            if (grepl ("@", aut)) {
+                aut_gh <- regmatches (aut, regexpr ("@\\S+", aut))
+                aut_gh <- gsub ("(\\)|\\])$", "", aut_gh)
+                aut_nm <- regmatches (aut, regexpr ("^.*@", aut))
+                sp <- gregexpr ("\\s+", aut_nm) [[1]]
+                aut_nm <- substring (aut_nm, 1L, max (sp) - 1L)
+                author <- list (name = aut_nm, gh_handle = aut_gh)
+            } else {
+                author <- list (name = aut, gh_handle = NA_character_)
+            }
+        }
+    }
+
+    return (author)
+}
+
+reviewers_from_body <- function (body) {
+
+    body <- strsplit (body, "\\n") [[1]]
+
+    yaml_delim <- grep ("^\\-\\-\\-(\\r?)$", body)
+    rev_out <- NA_character_
+    if (length (yaml_delim) > 0L) {
+        y <- fake_yaml_parse (body, yaml_delim)
+        if ("Reviewers" %in% names (y)) {
+            rev <- y [["Reviewers"]]
+            ptns <- c ("<!--reviewers-list-->", "<!--end-reviewers-list-->")
+            rev <- gsub (ptns [1], "", rev, fixed = TRUE)
+            rev <- gsub (ptns [2], "", rev, fixed = TRUE)
+            rev <- gsub ("^\\s*|\\s*$", "", rev)
+            if (rev != "TBD") {
+                rev_out <- strsplit (rev, "\\,\\s*") [[1]]
+            }
+        }
+    }
+    return (rev_out)
+}
+
+# Can't use yaml pkg because old-school bodies are too messy and fragile.
+fake_yaml_parse <- function (body, yaml_delim) {
+
+    y <- gsub ("\\s*(\\r?)$", "", body [seq_len (min (yaml_delim) - 1L)])
+    y <- y [which (nzchar (y))]
+    these_fields <- gsub ("\\:.*$", "", y)
+    y <- gsub ("^\\s*", "", gsub ("^.*\\:(\\s*?)", "", y))
+    names (y) <- these_fields
+
+    return (y)
+}
 
 #' Generate historical data on logged review times in hours from airtable database.
 #'
