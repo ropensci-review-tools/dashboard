@@ -1,6 +1,6 @@
 Package: dashboard
 Title: What the Package Does (One Line, Title Case)
-Version: 0.2.3
+Version: 0.2.3.001
 Authors@R: 
   person(given = "First",
          family = "Last",
@@ -26,6 +26,6 @@ Remotes:
   bergant/airtabler
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Config/testthat/edition: 3
 Config/ropensci/maintainer: staff

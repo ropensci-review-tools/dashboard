@@ -21,24 +21,16 @@ who is or has been a member of the editorial team.
 
 ```{r get-rev-history, echo = FALSE}
 #| cache: false
-revdat <- review_history (quiet = TRUE)
+airtable_base_id <- utils::getFromNamespace ("airtable_base_id", "dashboard")
+comm_dat <- community_data (airtable_base_id, quiet = TRUE)
 ```
 
 ```{r rev-history-ojs, echo = FALSE}
-ojs_define (reviews_in = revdat)
+ojs_define (comm_dat_in = comm_dat)
 ```
 
-
 ```{ojs}
-submissions = {
-    const result = transpose(reviews_in).map(row => ({
-        ...row,
-        date: new Date(row.date),
-        submissionYear: new Date(row.date).getFullYear()
-    }));
-    console.log(result[0]);
-    return result;
-}
+submissions = Object.values(comm_dat_in)
 ```
 
 
@@ -48,25 +40,24 @@ viewof showEditors = Inputs.toggle({label: "Include editors", value: true})
 
 ```{ojs}
 leaderboard = {
-    const counts = new Map();
-    const editors = new Set();
+    const editorSet = new Set(
+        submissions.filter(d => d.ed === true).map(d => d.gh_handle)
+    );
 
-    const add = (handle, role) => {
-        if (!handle || handle === "NA") return;
-        if (!counts.has(handle)) counts.set(handle, {handle, author: 0, reviewer: 0});
-        counts.get(handle)[role]++;
-    };
-
-    submissions.forEach(row => {
-        add(row.aut_gh,    "author");
-        add(row.reviewer1, "reviewer");
-        add(row.reviewer2, "reviewer");
-        if (row.editor && row.editor !== "NA") editors.add(row.editor);
-    });
-
-    return Array.from(counts.values())
-        .filter(d => showEditors || !editors.has(d.handle))
-        .map(d => ({...d, total: d.author + d.reviewer}))
+    return submissions
+        .filter(d => showEditors || !editorSet.has(d.gh_handle))
+        .map(d => {
+            const pkgs = [].concat(d.pkgs || []);
+            const revs = [].concat(d.revs || []);
+            return {
+                handle: d.gh_handle,
+                author: pkgs.length,
+                reviewer: revs.length,
+                total: pkgs.length + revs.length,
+                pkgNums: pkgs,
+                revNums: revs
+            };
+        })
         .filter(d => d.total > 0)
         .sort((a, b) => b.total - a.total || b.author - a.author)
         .slice(0, 40);
@@ -82,41 +73,22 @@ leaderboardLong = leaderboard.flatMap(d =>
 ```
 
 ```{ojs}
-appearances = {
-    const map = new Map();
-    submissions.forEach(row => {
-        const add = (handle, role) => {
-            if (!handle || handle === "NA") return;
-            if (!map.has(handle)) map.set(handle, []);
-            map.get(handle).push({role, number: row.number});
-        };
-        add(row.aut_gh,    "author");
-        add(row.reviewer1, "reviewer");
-        add(row.reviewer2, "reviewer");
-    });
-    return map;
-}
-```
-
-```{ojs}
 {
     const base = "https://github.com/ropensci/software-review/issues/";
 
     if (!selectedBar) return html`<em style="color:#888">Hover over a bar to see linked issues.</em>`;
 
-    const handle = selectedBar.handle;
-    const items = (appearances.get(handle) || []).sort((a, b) => a.number - b.number);
-    const authors   = items.filter(d => d.role === "author");
-    const reviewers = items.filter(d => d.role === "reviewer");
+    const entry = leaderboard.find(d => d.handle === selectedBar.handle);
+    if (!entry) return html``;
 
-    const links = (arr) => arr.map(d =>
-        html`<a href="${base}${d.number}" target="_blank">#${d.number}</a>`
+    const links = (nums) => [...nums].sort((a, b) => a - b).map(n =>
+        html`<a href="${base}${n}" target="_blank">#${n}</a>`
     ).reduce((acc, el, i) => i === 0 ? [el] : [...acc, ", ", el], []);
 
     return html`<div style="margin-top:0.5em;line-height:2">
-        <strong>${handle}</strong><br>
-        ${authors.length   ? html`<span><strong style="color:#4e79a7">Author</strong>: ${links(authors)}</span><br>`   : ""}
-        ${reviewers.length ? html`<span><strong style="color:#f28e2b">Reviewer</strong>: ${links(reviewers)}</span>` : ""}
+        <strong>${entry.handle}</strong><br>
+        ${entry.pkgNums.length ? html`<span><strong style="color:#4e79a7">Author</strong>: ${links(entry.pkgNums)}</span><br>` : ""}
+        ${entry.revNums.length ? html`<span><strong style="color:#f28e2b">Reviewer</strong>: ${links(entry.revNums)}</span>` : ""}
     </div>`;
 }
 ```
