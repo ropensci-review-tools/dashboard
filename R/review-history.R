@@ -207,8 +207,11 @@ pkg_author_from_body <- function (body) {
             aut <- y [["Submitting Author"]]
             if (grepl ("@", aut)) {
                 aut_gh <- regmatches (aut, regexpr ("@\\S+", aut))
+                # Some issues have HTML pars with older field names:
+                aut_gh <- gsub ("<\\!.*$", "", aut_gh)
                 aut_gh <- gsub ("(\\)|\\])$", "", aut_gh)
                 aut_nm <- regmatches (aut, regexpr ("^.*@", aut))
+                aut_nm <- gsub ("^.*\\->", "", aut_nm)
                 sp <- gregexpr ("\\s+", aut_nm) [[1]]
                 aut_nm <- substring (aut_nm, 1L, max (sp) - 1L)
                 author <- list (name = aut_nm, gh_handle = aut_gh)
