@@ -153,6 +153,14 @@ review_history_internal <- function (quiet = FALSE) {
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
+    index <- which (submission_type == "Stats" & !stats)
+    if (length (index) > 0L) {
+        n_txt <- paste0 (number [index], collapse = ", ")
+        warning (
+            "The following stats issues are missing 'stats' labels: ", n_txt
+        )
+        stats <- stats | submission_type == "Stats"
+    }
 
     res <- data.frame (
         number = number,
@@ -199,8 +207,11 @@ pkg_author_from_body <- function (body) {
             aut <- y [["Submitting Author"]]
             if (grepl ("@", aut)) {
                 aut_gh <- regmatches (aut, regexpr ("@\\S+", aut))
+                # Some issues have HTML pars with older field names:
+                aut_gh <- gsub ("<\\!.*$", "", aut_gh)
                 aut_gh <- gsub ("(\\)|\\])$", "", aut_gh)
                 aut_nm <- regmatches (aut, regexpr ("^.*@", aut))
+                aut_nm <- gsub ("^.*\\->", "", aut_nm)
                 sp <- gregexpr ("\\s+", aut_nm) [[1]]
                 aut_nm <- substring (aut_nm, 1L, max (sp) - 1L)
                 author <- list (name = aut_nm, gh_handle = aut_gh)
