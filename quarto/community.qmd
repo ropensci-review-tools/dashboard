@@ -37,7 +37,15 @@ submissions = Object.values(comm_dat_in)
 Red dots <span style="color:#e15759;font-size:1.1em">●</span> indicate statistical software packages/reviews.
 
 ```{ojs}
+viewof nEntries = Inputs.range([10, submissions.length], {value: 40, step: 1, label: "Number of entries"})
+```
+
+```{ojs}
 viewof showEditors = Inputs.toggle({label: "Include editors", value: true})
+```
+
+```{ojs}
+viewof showStats = Inputs.toggle({label: "Stats only", value: false})
 ```
 
 ```{ojs}
@@ -45,9 +53,13 @@ leaderboard = {
     const editorSet = new Set(
         submissions.filter(d => d.ed === true).map(d => d.gh_handle)
     );
+    const statsSet = new Set(
+        submissions.filter(d => d.stats === true).map(d => d.gh_handle)
+    );
 
     return submissions
         .filter(d => showEditors || !editorSet.has(d.gh_handle))
+        .filter(d => !showStats || statsSet.has(d.gh_handle))
         .map(d => {
             const pkgs = [].concat(d.pkgs || []);
             const revs = [].concat(d.revs || []);
@@ -63,7 +75,7 @@ leaderboard = {
         })
         .filter(d => d.total > 0)
         .sort((a, b) => b.total - a.total || b.author - a.author)
-        .slice(0, 40);
+        .slice(0, nEntries);
 }
 ```
 
