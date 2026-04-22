@@ -20,7 +20,7 @@ who is or has been a member of the editorial team.
 
 
 ```{r get-rev-history, echo = FALSE}
-#| cache: false
+#| cache: true
 airtable_base_id <- utils::getFromNamespace ("airtable_base_id", "dashboard")
 comm_dat <- community_data (airtable_base_id, quiet = TRUE)
 ```
@@ -33,6 +33,8 @@ ojs_define (comm_dat_in = comm_dat)
 submissions = Object.values(comm_dat_in)
 ```
 
+
+Red dots <span style="color:#e15759;font-size:1.1em">●</span> indicate statistical software packages/reviews.
 
 ```{ojs}
 viewof showEditors = Inputs.toggle({label: "Include editors", value: true})
@@ -55,7 +57,8 @@ leaderboard = {
                 reviewer: revs.length,
                 total: pkgs.length + revs.length,
                 pkgNums: pkgs,
-                revNums: revs
+                revNums: revs,
+                stats: d.stats === true
             };
         })
         .filter(d => d.total > 0)
@@ -95,11 +98,11 @@ leaderboardLong = leaderboard.flatMap(d =>
 
 ```{ojs}
 viewof selectedBar = Plot.plot({
-    marginLeft: 130,
+    marginLeft: 145,
     width: 700,
     height: leaderboard.length * 26 + 40,
     x: {label: "Score (number of appearances)", grid: true},
-    y: {domain: leaderboard.map(d => d.handle), label: null, padding: 0.3},
+    y: {domain: leaderboard.map(d => d.handle), label: null, padding: 0.3, axis: null},
     color: {
         domain: ["author", "reviewer"],
         range: ["#4e79a7", "#f28e2b"],
@@ -111,7 +114,28 @@ viewof selectedBar = Plot.plot({
             y: "handle",
             fill: "role",
             tip: true
-        }))
+        })),
+        Plot.dot(leaderboard.filter(d => d.stats), {
+            x: 0,
+            y: "handle",
+            fill: "#e15759",
+            r: 4,
+            dx: -8
+        }),
+        Plot.text(leaderboard.filter(d => !d.stats), {
+            x: 0,
+            y: "handle",
+            text: "handle",
+            textAnchor: "end",
+            dx: -3
+        }),
+        Plot.text(leaderboard.filter(d => d.stats), {
+            x: 0,
+            y: "handle",
+            text: "handle",
+            textAnchor: "end",
+            dx: -15
+        })
     ]
 })
 ```
