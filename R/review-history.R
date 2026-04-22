@@ -153,6 +153,14 @@ review_history_internal <- function (quiet = FALSE) {
 
     # labels are then only used to identify stats submissions:
     stats <- vapply (labels, function (i) "stats" %in% i, logical (1L))
+    index <- which (submission_type == "Stats" & !stats)
+    if (length (index) > 0L) {
+        n_txt <- paste0 (number [index], collapse = ", ")
+        warning (
+            "The following stats issues are missing 'stats' labels: ", n_txt
+        )
+        stats <- stats | submission_type == "Stats"
+    }
 
     res <- data.frame (
         number = number,

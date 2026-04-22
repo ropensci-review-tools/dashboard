@@ -28,10 +28,16 @@ community_data <- function (airtable_id, quiet = FALSE) {
     members <- unique (c (h$aut_gh, h$editor, h$reviewer1, h$reviewer2))
     members <- members [which (!is.na (members))]
     community <- lapply (members, function (i) {
+        index <- unique (na.omit (c (
+            match (i, h$aut_gh),
+            match (i, h$reviewer1),
+            match (i, h$reviewer2)
+        )))
         list (
             gh_handle = i,
             pkgs = h$number [which (h$aut_gh == i)],
             revs = h$number [which (h$reviewer1 == i | h$reviewer2 == i)],
+            stats = any (h$stats [index]),
             ed = i %in% h$editor || i %in% eds_gh
         )
     })
