@@ -2,22 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://dashboard.ropensci.org/community.html</loc>
-    <lastmod>2026-04-22T10:34:08.792Z</lastmod>
+    <lastmod>2026-04-23T01:56:35.397Z</lastmod>
   </url>
   <url>
     <loc>https://dashboard.ropensci.org/editors.html</loc>
-    <lastmod>2026-04-22T10:34:08.792Z</lastmod>
-  </url>
-  <url>
-    <loc>https://dashboard.ropensci.org/history.html</loc>
-    <lastmod>2026-04-22T10:34:08.792Z</lastmod>
+    <lastmod>2026-04-23T01:56:35.397Z</lastmod>
   </url>
   <url>
     <loc>https://dashboard.ropensci.org/reviews.html</loc>
-    <lastmod>2026-04-22T10:34:08.792Z</lastmod>
+    <lastmod>2026-04-23T01:56:35.397Z</lastmod>
+  </url>
+  <url>
+    <loc>https://dashboard.ropensci.org/history.html</loc>
+    <lastmod>2026-04-23T01:56:35.397Z</lastmod>
   </url>
   <url>
     <loc>https://dashboard.ropensci.org/index.html</loc>
-    <lastmod>2026-04-22T10:34:08.792Z</lastmod>
+    <lastmod>2026-04-23T01:56:35.397Z</lastmod>
   </url>
 </urlset>
