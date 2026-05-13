@@ -46,7 +46,7 @@
     "href": "history.html",
     "title": "Historical Data",
     "section": "",
-    "text": "This page includes several graphs providing insight into the historical development of rOpenSci’s software peer review process. The first three graphs includes results distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”.\nWe have to date reviewed 265 packages, including 19 statistical packages. We currently have 20 packages under review, including 8 statistical packages."
+    "text": "This page includes several graphs providing insight into the historical development of rOpenSci’s software peer review process. The first three graphs includes results distinguishing general review from statistical software review starting from September 2021. Prior to this time, all reviews were “general”.\nWe have to date reviewed 265 packages, including 19 statistical packages. We currently have 19 packages under review, including 7 statistical packages."
   },
   {
     "objectID": "history.html#package-submissions",
@@ -102,6 +102,6 @@
     "href": "index.html",
     "title": "rOpenSci Software Review Dashboard",
     "section": "",
-    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe Editors page which provides information on current editors and activities. This page helps the Editor-in-Charge identify editors for new submissions, and gives each editor an overview of their current and previous editorial portfolios.\nThe Software Review page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Historical Data page which gives insights into the historical developments of the software peer-review program.\n\nSource code for this dashboard is at github.com/ropensci-review-tools/dashboard. Contributions are welcome! Please feel free to open an issue in that repository.\n\nUpdated at 2026-05-12T02:13:07Z."
+    "text": "This dashboard provides an overview of all current rOpenSci software review issues, and of editor availability and past editorial workloads. The dashboard includes the following components:\n\nThe Editors page which provides information on current editors and activities. This page helps the Editor-in-Charge identify editors for new submissions, and gives each editor an overview of their current and previous editorial portfolios.\nThe Software Review page which provides an overview of all currently open submissions to the software peer-review system. This page is primarily intended to provide an overview of the current state of software peer-review for the Editors-in-Charge, and in particular to identify reviews in need of attention.\nThe Historical Data page which gives insights into the historical developments of the software peer-review program.\n\nSource code for this dashboard is at github.com/ropensci-review-tools/dashboard. Contributions are welcome! Please feel free to open an issue in that repository.\n\nUpdated at 2026-05-13T02:28:09Z."
   }
 ]
