@@ -134,10 +134,10 @@ editorData = {
 
 ```{ojs}
 // These are the two checkboxes which appear before the table:
-viewof stats = Inputs.checkbox(
+viewof stats = Inputs.radio(
     [true, false],
-    { value: [false], 
-        label: "Stats:"
+    { value: false,
+        label: "Stats only:"
     }
 )
 viewof status = Inputs.checkbox(
@@ -154,7 +154,7 @@ viewof status = Inputs.checkbox(
 
 filtered = editorData.filter(function(editor) {
   return status.includes(editor.status) &&
-         stats.includes(editor.stats);
+         (!stats || stats === editor.stats);
 })
 
 sortColumn = "inactive_days"
