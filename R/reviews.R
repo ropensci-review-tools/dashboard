@@ -145,6 +145,7 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         n_approved <- length (grep ("^6\\/", unique (i)))
         n_total > 1L && n_total != n_approved
     }, logical (1L))
+    multiple_stages [which (submission_type == "Pre-submission")] <- FALSE
 
     # Finally, reduce labels to the non-stage values, ignoring
     # `labels_created_at` and `labels_updated_at` from here.
@@ -181,6 +182,7 @@ reviews_gh_data <- function (open_only = TRUE, quiet = FALSE) {
         holding_date = holding_date,
         comments = I (comments)
     ) |> dplyr::arrange (stage, stage_date)
+
 
     # That puts "0/editorial-team-prep" before "0/presubmission" - reverse
     # these:
