@@ -28,10 +28,10 @@ test_that ("get_slack_token errors when no slack-named env var is present", {
 fake_httr2_resp <- function () structure (list (), class = "httr2_response")
 
 # ---------------------------------------------------------------------------
-# get_editors_user_group_id()
+# get_editors_channel_id()
 # ---------------------------------------------------------------------------
 
-test_that ("get_editors_user_group_id returns the editors group id", {
+test_that ("get_editors_channel_id returns the editors-only channel id", {
 
     local_mocked_bindings (
         get_slack_token = function () "xoxb-fake",
@@ -41,40 +41,40 @@ test_that ("get_editors_user_group_id returns the editors group id", {
         req_perform = function (req, ...) fake_httr2_resp (),
         resp_check_status = function (resp, ...) invisible (NULL),
         resp_body_json = function (resp, ...) {
-            list (usergroups = data.frame (
-                id = c ("G123", "G456"),
-                handle = c ("editors", "other-group"),
+            list (channels = data.frame (
+                id = c ("C123", "C456"),
+                name = c ("editors-only", "other-channel"),
                 stringsAsFactors = FALSE
             ))
         },
         .package = "httr2"
     )
 
-    res <- get_editors_user_group_id ()
+    res <- get_editors_channel_id ()
     expect_type (res, "character")
     expect_length (res, 1L)
-    expect_equal (res, "G123")
+    expect_equal (res, "C123")
 })
 
 # ---------------------------------------------------------------------------
-# get_editors_user_group_members()
+# get_editors_channel_members()
 # ---------------------------------------------------------------------------
 
-test_that ("get_editors_user_group_members returns a character vector", {
+test_that ("get_editors_channel_members returns a character vector", {
 
     local_mocked_bindings (
         get_slack_token = function () "xoxb-fake",
-        get_editors_user_group_id = function () "G123",
+        get_editors_channel_id = function () "C123",
         .package = "dashboard"
     )
     local_mocked_bindings (
         req_perform = function (req, ...) fake_httr2_resp (),
         resp_check_status = function (resp, ...) invisible (NULL),
-        resp_body_json = function (resp, ...) list (users = c ("U001", "U002")),
+        resp_body_json = function (resp, ...) list (members = c ("U001", "U002")),
         .package = "httr2"
     )
 
-    res <- get_editors_user_group_members ()
+    res <- get_editors_channel_members ()
     expect_type (res, "character")
     expect_equal (res, c ("U001", "U002"))
 })
@@ -87,7 +87,7 @@ test_that ("get_slack_editors_status returns data.frame with expected columns", 
 
     local_mocked_bindings (
         get_slack_token = function () "xoxb-fake",
-        get_editors_user_group_members = function () c ("U001", "U002"),
+        get_editors_channel_members = function () c ("U001", "U002"),
         .package = "dashboard"
     )
 
@@ -122,7 +122,7 @@ test_that ("get_slack_editors_status filters to editor group members only", {
 
     local_mocked_bindings (
         get_slack_token = function () "xoxb-fake",
-        get_editors_user_group_members = function () c ("U001"), # only U001
+        get_editors_channel_members = function () c ("U001"), # only U001
         .package = "dashboard"
     )
 

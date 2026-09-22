@@ -20,7 +20,7 @@
 #' @noRd
 get_slack_editors_status <- function () {
 
-    editors <- get_editors_user_group_members ()
+    editors <- get_editors_channel_members ()
 
     tok <- get_slack_token ()
 
@@ -82,45 +82,49 @@ get_slack_token <- function () {
     return (Sys.getenv (tok_name))
 }
 
-#' Get the Slack ID of the "User Group" of editors
+#' Get the Slack ID of the "editors-only" channel
 #'
-#' @return A single character value containing the Slack ID of the editors user
-#' group.
+#' @return A single character value containing the Slack ID of the
+#' "editors-only" channel.
 #' @noRd
-get_editors_user_group_id <- function () {
+get_editors_channel_id <- function () {
 
     tok <- get_slack_token ()
 
-    u <- "https://slack.com/api/usergroups.list"
+    u <- "https://slack.com/api/conversations.list"
     req <- httr2::request (u) |>
         httr2::req_headers ("Authorization" = paste0 ("Bearer ", tok)) |>
+        httr2::req_url_query (
+            types = "private_channel",
+            limit = 1000
+        ) |>
         httr2::req_method ("GET")
     resp <- httr2::req_perform (req)
     httr2::resp_check_status (resp)
     x <- httr2::resp_body_json (resp, simplifyVector = TRUE)
-    usergroup <- x$usergroups$id [x$usergroups$handle == "editors"]
+    channel <- x$channels$id [x$channels$name == "editors-only"]
 
-    return (usergroup)
+    return (channel)
 }
 
-#' Get the Slack IDs of all members of the "User Group" of editors
+#' Get the Slack IDs of all members of the "editors-only" channel
 #'
 #' @return A list of Slack ID (character) values of each editor.
 #' @noRd
-get_editors_user_group_members <- function () {
+get_editors_channel_members <- function () {
 
     tok <- get_slack_token ()
 
-    usergroup <- get_editors_user_group_id ()
+    channel <- get_editors_channel_id ()
 
-    u <- "https://slack.com/api/usergroups.users.list"
+    u <- "https://slack.com/api/conversations.members"
     req <- httr2::request (u) |>
         httr2::req_headers ("Authorization" = paste0 ("Bearer ", tok)) |>
-        httr2::req_url_query (usergroup = usergroup) |>
+        httr2::req_url_query (channel = channel, limit = 1000) |>
         httr2::req_method ("GET")
     resp <- httr2::req_perform (req)
     httr2::resp_check_status (resp)
     x <- httr2::resp_body_json (resp, simplifyVector = TRUE)
 
-    return (x$users)
+    return (x$members)
 }
