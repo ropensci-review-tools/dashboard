@@ -31,7 +31,8 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
 
     editors$general <- TRUE
     editors$general [editors$login %in% editors_stats] <- FALSE
-    also_gen <- c ("adamhsparks", "mpadge")
+    # Hand-coded list of stats editors who can also handle general submissions:
+    also_gen <- c ("adamhsparks")
     editors$general [editors$login %in% also_gen] <- TRUE
 
     has_next_page <- TRUE
