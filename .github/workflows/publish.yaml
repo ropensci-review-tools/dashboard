@@ -65,7 +65,7 @@ jobs:
 
       - name: Notify on failure
         if: ${{ failure() }}
-        uses: ropensci-review-tools/actions/ping-dev-team@v2
+        uses: ropensci-review-tools/actions/ping-dev-team@v4
         with:
           REPO_NAME: 'dashboard'
           ISSUE_NUM: 25
