@@ -3,17 +3,11 @@
 #' Current editors are obtained from the rOpenSci website's team data, at
 #' \url{https://github.com/ropensci/roweb3/blob/main/data/team/team.json}, as
 #' all entries whose "roles" include "editor". Guest editors are not listed
-#' there; see \link{editor_status} for the full list of editors, including
-#' guest editors from the GitHub "editors" team.
+#' there; see \link{all_editors} for the full list.
 #'
-#' @return A `data.frame` with one row per current editor, and columns of:
-#' \itemize{
-#'    \item `name` The full name of the editor
-#'    \item `github` The GitHub handle of the editor
-#'    \item `stats` `TRUE` for statistical software editors
-#'    \item `general` `TRUE` for editors of general submissions
-#' }
-#' @export
+#' @return A `data.frame` with columns `name`, `github`, `stats`, and
+#' `general`.
+#' @noRd
 current_editors <- function () {
 
     u <- "https://raw.githubusercontent.com/ropensci/roweb3/main/data/team/team.json"
@@ -53,19 +47,31 @@ gh_team_members <- function (stats = FALSE) {
     vapply (res, function (i) i$login, character (1L))
 }
 
-#' Get full list of editors, combining the rOpenSci website and the GitHub
-#' "editors" team.
+#' Get full list of current rOpenSci editors
 #'
-#' Guest editors are members of the GitHub "editors" team, but are not listed
-#' as editors on the website. Stats and general status are taken from the
-#' website data, falling back to membership of the GitHub "stats-editors" team
-#' for guest editors.
+#' Editors are those listed with an "editor" role in the rOpenSci website's team
+#' data, at
+#' \url{https://github.com/ropensci/roweb3/blob/main/data/team/team.json},
+#' plus guest editors, who are members of the GitHub "editors" team but are not
+#' listed on the website. Statistical software ("stats") and general status are
+#' taken from the website data, falling back to membership of the GitHub
+#' "stats-editors" team for guest editors. Results are cached for the duration
+#' of the R session.
 #'
-#' @return A `data.frame` with columns `login`, `name`, `stats`, `general`, and
-#' `guest`.
-#' @noRd
+#' @return A `data.frame` with one row per editor, and columns of:
+#' \itemize{
+#'    \item `login` The GitHub handle of the editor
+#'    \item `name` The full name of the editor (`NA` for guest editors)
+#'    \item `stats` `TRUE` for statistical software editors
+#'    \item `general` `TRUE` for editors of general submissions
+#'    \item `guest` `TRUE` for guest editors
+#' }
+#' @export
 all_editors <- function () {
+    m_all_editors ()
+}
 
+get_all_editors <- function () {
     web <- m_current_editors ()
     gh_eds <- gh_team_members (stats = FALSE)
     gh_stats <- gh_team_members (stats = TRUE)
@@ -86,4 +92,4 @@ all_editors <- function () {
     )
 }
 
-m_all_editors <- memoise::memoise (all_editors)
+m_all_editors <- memoise::memoise (get_all_editors)

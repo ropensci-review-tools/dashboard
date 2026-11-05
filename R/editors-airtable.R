@@ -2,9 +2,8 @@ airtable_base_id <- "app8dssb6a7PG6Vwj"
 
 #' Get current vacation status of all rOpenSci editors.
 #'
-#' The list of current editors is obtained from the rOpenSci website's team
-#' data (see \link{current_editors}) and from the GitHub "editors" team (for
-#' guest editors), and vacation status from airtable. An
+#' The list of current editors is obtained from \link{all_editors}, and
+#' vacation status from airtable. An
 #' editor indicated by airtable as being away, on vacation, or otherwise
 #' unavailable will have the `away` column set to `TRUE`.
 #'

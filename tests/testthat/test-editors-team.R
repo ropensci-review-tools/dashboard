@@ -44,7 +44,7 @@ test_that ("all_editors combines website editors with GitHub team guests", {
         .package = "dashboard"
     )
 
-    res <- all_editors ()
+    res <- get_all_editors ()
     expect_named (res, c ("login", "name", "stats", "general", "guest"))
     expect_equal (res$login, c ("edA", "edB", "guest", "guestStats"))
     expect_equal (res$stats, c (FALSE, TRUE, FALSE, TRUE))

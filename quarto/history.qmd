@@ -886,7 +886,7 @@ aggregation_period <- "quarter" # default
 ed_dat <- editor_status (quiet = TRUE, aggregation_period = aggregation_period)
 ed_status <- ed_dat$status
 
-all_eds <- dashboard:::m_all_editors ()
+all_eds <- dashboard::all_editors ()
 eds_to_rm <- dashboard:::eds_to_remove
 guest_editors <- all_eds$login [which (all_eds$guest)]
 gh_editors <- all_eds$login [which (!all_eds$guest & !all_eds$login %in% eds_to_rm)]
