@@ -1,15 +1,31 @@
 test_that ("current_editors returns only entries with 'editor' role", {
 
     fake_team <- list (
-        list (name = "Ed A", github = "edA", roles = list ("staff", "editor"),
-              generalreview = TRUE),
-        list (name = "Not Ed", github = "noted", roles = list ("staff")),
-        list (name = "Past Ed", github = "pasted", past_roles = list ("editor")),
-        list (name = "Ed B", github = "edB", roles = list ("editor"),
-              stats = TRUE),
-        list (name = "Ed C", github = "edC", roles = list ("editor"),
-              stats = TRUE, generalreview = TRUE),
-        list (name = "Ed D", github = "edD", roles = list ("editor"))
+        list (
+            name = "General Editor", github = "general-editor",
+            roles = list ("staff", "editor"), generalreview = TRUE
+        ),
+        list (
+            name = "Staff Not Editor", github = "staff-not-editor",
+            roles = list ("staff")
+        ),
+        list (
+            name = "Former Editor", github = "former-editor",
+            past_roles = list ("editor")
+        ),
+        list (
+            name = "Stats Editor", github = "stats-editor",
+            roles = list ("editor"), stats = TRUE
+        ),
+        list (
+            name = "Stats And General Editor", github = "stats-and-general-editor",
+            roles = list ("editor"), stats = TRUE, generalreview = TRUE
+        ),
+        list (
+            # Neither 'stats' nor 'generalreview': counts as general
+            name = "Editor Without Flags", github = "editor-without-flags",
+            roles = list ("editor")
+        )
     )
 
     local_mocked_bindings (
@@ -22,33 +38,45 @@ test_that ("current_editors returns only entries with 'editor' role", {
     res <- current_editors ()
     expect_s3_class (res, "data.frame")
     expect_named (res, c ("name", "github", "stats", "general"))
-    expect_equal (res$github, c ("edA", "edB", "edC", "edD"))
+    expect_equal (
+        res$github,
+        c ("general-editor", "stats-editor", "stats-and-general-editor", "editor-without-flags")
+    )
     expect_equal (res$stats, c (FALSE, TRUE, TRUE, FALSE))
     expect_equal (res$general, c (TRUE, FALSE, TRUE, TRUE))
 })
 
 test_that ("all_editors combines website editors with GitHub team guests", {
 
-    fake_web <- data.frame (
-        name = c ("Ed A", "Ed B"),
-        github = c ("eda", "edB"), # 'eda' differs in case from GitHub
+    fake_website_editors <- data.frame (
+        name = c ("General Editor", "Stats Editor"),
+        # Capitalisation differs from the GitHub login "General-Editor":
+        github = c ("general-editor", "stats-editor"),
         stats = c (FALSE, TRUE),
         general = c (TRUE, FALSE)
     )
 
     local_mocked_bindings (
-        m_current_editors = function () fake_web,
+        m_current_editors = function () fake_website_editors,
         gh_team_members = function (stats = FALSE) {
-            if (stats) c ("edB", "guestStats") else c ("edA", "edB", "guest", "guestStats")
+            if (stats) {
+                c ("stats-editor", "guest-stats-editor")
+            } else {
+                c ("General-Editor", "stats-editor", "guest-general-editor", "guest-stats-editor")
+            }
         },
         .package = "dashboard"
     )
 
     res <- get_all_editors ()
     expect_named (res, c ("login", "name", "stats", "general", "guest"))
-    expect_equal (res$login, c ("edA", "edB", "guest", "guestStats"))
+    # GitHub capitalisation is used for logins:
+    expect_equal (
+        res$login,
+        c ("General-Editor", "stats-editor", "guest-general-editor", "guest-stats-editor")
+    )
     expect_equal (res$stats, c (FALSE, TRUE, FALSE, TRUE))
     expect_equal (res$general, c (TRUE, FALSE, TRUE, FALSE))
     expect_equal (res$guest, c (FALSE, FALSE, TRUE, TRUE))
-    expect_true (is.na (res$name [3]))
+    expect_equal (res$name, c ("General Editor", "Stats Editor", NA, NA))
 })
