@@ -18,6 +18,10 @@ library (ggiraph, quietly = TRUE)
 library (gfonts, quietly = TRUE)
 ```
 
+```{r}
+print(coucou)
+```
+
 This page includes:
 
 - An [*Editor Overview*](#editor-overview) of the current status of all members
