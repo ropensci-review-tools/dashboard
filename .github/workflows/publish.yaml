@@ -64,9 +64,10 @@ jobs:
 
       - name: Notify on failure
         if: ${{ failure() }}
-        uses: ropensci-review-tools/actions/ping-dev-team@v4
-        with:
-          REPO_NAME: 'dashboard'
-          ISSUE_NUM: 25
-          TOKEN: ${{ secrets.MY_GH_TOKEN }}
-          TEAM: '@ropensci-review-tools/admin'
+        shell: bash
+        run: |
+          WFURL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          gh issue comment 25 --repo "${{ github.repository }}" \
+            -b "@ropensci-review-tools/admin The dashboard workflow has failed at $WFURL."
+        env:
+          GH_TOKEN: ${{ secrets.MY_GH_TOKEN }}
