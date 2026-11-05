@@ -219,3 +219,48 @@ test_that ("editor_vacation_status returns data.frame with 'away' logical column
     expect_false (res$away [res$github == "available-editor"])
     expect_false (res$away [res$github == "guest-editor-not-in-airtable"])
 })
+
+# ---------------------------------------------------------------------------
+# guest_editors_airtable() and guest_editors()
+# ---------------------------------------------------------------------------
+
+test_that ("guest_editors_airtable returns unique GitHub handles", {
+
+    guest_table <- data.frame (id = c ("g1", "g2", "g3", "g4"))
+    # One guest edited two submissions; one record has no GitHub handle
+    guest_table$github <- list (
+        "guest-twice", "guest-twice", "guest-once", NULL
+    )
+
+    local_mocked_bindings (
+        airtable = function (...) mock_airtable ("guest-editors", guest_table),
+        .package = "airtabler"
+    )
+
+    res <- guest_editors_airtable ("fake-base-id")
+    expect_equal (res, c ("guest-twice", "guest-once"))
+})
+
+test_that ("guest_editors combines current and past guests, without regular editors", {
+
+    fake_all_editors <- data.frame (
+        login = c ("regular-editor", "current-guest"),
+        guest = c (FALSE, TRUE)
+    )
+    fake_website_editors <- data.frame (
+        github = c ("regular-editor", "Former-Guest-Now-Editor", "past-editor"),
+        current = c (TRUE, TRUE, FALSE)
+    )
+
+    local_mocked_bindings (
+        m_all_editors = function () fake_all_editors,
+        m_website_editors = function () fake_website_editors,
+        m_guest_editors_airtable = function (...) {
+            c ("past-guest", "former-guest-now-editor", "current-guest")
+        },
+        .package = "dashboard"
+    )
+
+    res <- guest_editors ("fake-base-id")
+    expect_equal (res, c ("current-guest", "past-guest"))
+})

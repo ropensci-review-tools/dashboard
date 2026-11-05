@@ -121,8 +121,6 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
 
 m_editor_gh_data <- memoise::memoise (editor_gh_data)
 
-eds_to_remove <- c ("haozhu233")
-
 #' Extract data on latest issue for each editor
 #'
 #' @param editors The `data.frame` of editors constructed at start of
@@ -347,8 +345,19 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
 
     # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes
-    all_eds <- m_all_editors ()
-    guest_editors <- all_eds$login [which (all_eds$guest)]
+    # Timelines exclude current and past guest editors:
+    guests <- tolower (guest_editors (airtable_base_id))
+    website_eds <- tolower (m_website_editors ()$github)
+    assignees <- colnames (dat$timeline$issues_total)
+    unknown <- assignees [which (!tolower (assignees) %in% c (guests, website_eds))]
+    if (length (unknown) > 0L) {
+        warning (
+            "Review assignees neither listed as current or past editors ",
+            "on the rOpenSci website, nor as guest editors: ",
+            paste0 (unknown, collapse = ", "),
+            call. = FALSE
+        )
+    }
     process_timeline <- function (dat, what = "issues_total") {
         what <- match.arg (what, c ("issues_total", "issues_new"))
         timeline <- dat$timeline [[what]]
@@ -356,7 +365,7 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
         timeline$month <- lubridate::ymd (paste0 (nms, "-01"))
         timeline <- tidyr::pivot_longer (timeline, cols = -month) |>
             dplyr::arrange (tolower (name), month)
-        dplyr::filter (timeline, !name %in% c (eds_to_remove, guest_editors))
+        dplyr::filter (timeline, !tolower (name) %in% guests)
     }
     timeline_total <- process_timeline (dat, what = "issues_total")
     timeline_new <- process_timeline (dat, what = "issues_new")

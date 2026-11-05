@@ -23,6 +23,40 @@ editor_vacation_status <- function (airtable_id) {
     return (edvac)
 }
 
+#' Get GitHub handles of all past and present guest editors from airtable
+#'
+#' @param airtable_id The 'id' string of the airtable table.
+#' @return A character vector of unique GitHub handles.
+#' @noRd
+guest_editors_airtable <- function (airtable_id) {
+    guests <- airtabler::airtable (base = airtable_id, table = "guest-editors")
+    guests <- guests$`guest-editors`$select_all (fields = list ("github"))
+    github <- unlist (guests$github)
+    unique (github [which (!is.na (github) & nzchar (github))])
+}
+m_guest_editors_airtable <- memoise::memoise (guest_editors_airtable)
+
+#' Get GitHub handles of all guest editors who are not regular editors
+#'
+#' Current guest editors are members of the GitHub "editors" team who are not
+#' listed as editors on the rOpenSci website (see \link{all_editors}). Past
+#' guest editors are listed in the airtable "guest-editors" table. Editors who
+#' were guest editors before becoming regular editors are not included.
+#'
+#' @param airtable_id The 'id' string of the airtable table.
+#' @return A character vector of GitHub handles.
+#' @noRd
+guest_editors <- function (airtable_id) {
+    all_eds <- m_all_editors ()
+    current_guests <- all_eds$login [which (all_eds$guest)]
+
+    past_guests <- m_guest_editors_airtable (airtable_id)
+    website_eds <- m_website_editors ()$github
+    past_guests <- past_guests [which (!tolower (past_guests) %in% tolower (website_eds))]
+
+    unique (c (current_guests, past_guests))
+}
+
 eic_rev_prod_table <- function (airtable_id) {
     rev_prod <- airtabler::airtable (
         base = airtable_id, table = "reviewers-prod"

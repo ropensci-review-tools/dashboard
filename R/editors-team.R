@@ -1,14 +1,16 @@
-#' Get list of current rOpenSci editors from the rOpenSci website
+#' Get current and past rOpenSci editors from the rOpenSci website
 #'
-#' Current editors are obtained from the rOpenSci website's team data, at
-#' \url{https://github.com/ropensci/roweb3/blob/main/data/team/team.json}, as
-#' all entries whose "roles" include "editor". Guest editors are not listed
-#' there; see \link{all_editors} for the full list.
+#' Editors are obtained from the rOpenSci website's team data, at
+#' \url{https://github.com/ropensci/roweb3/blob/main/data/team/team.json}.
+#' Current editors are entries whose "roles" include "editor", and past editors
+#' are entries whose "past_roles" include "editor". Entries without a GitHub
+#' handle are ignored. Guest editors are not listed there; see
+#' \link{all_editors} for the full list of current editors.
 #'
-#' @return A `data.frame` with columns `name`, `github`, `stats`, and
-#' `general`.
+#' @return A `data.frame` with columns `name`, `github`, `stats`, `general`,
+#' and `current` (`FALSE` for past editors).
 #' @noRd
-current_editors <- function () {
+website_editors <- function () {
 
     u <- "https://raw.githubusercontent.com/ropensci/roweb3/main/data/team/team.json"
     req <- httr2::request (u) |>
@@ -17,10 +19,14 @@ current_editors <- function () {
     httr2::resp_check_status (resp)
     team <- httr2::resp_body_json (resp, check_type = FALSE)
 
-    is_editor <- vapply (team, function (i) {
-        "editor" %in% unlist (i$roles)
-    }, logical (1L))
-    team <- team [which (is_editor)]
+    has_role <- function (field) {
+        vapply (team, function (i) {
+            "editor" %in% unlist (i [[field]]) && !is.null (i$github)
+        }, logical (1L))
+    }
+    current <- has_role ("roles")
+    past <- has_role ("past_roles") & !current
+    team <- team [which (current | past)]
 
     stats <- vapply (team, function (i) isTRUE (i$stats), logical (1L))
     general <- vapply (team, function (i) isTRUE (i$generalreview), logical (1L))
@@ -29,11 +35,12 @@ current_editors <- function () {
         name = vapply (team, function (i) i$name, character (1L)),
         github = vapply (team, function (i) i$github, character (1L)),
         stats = stats,
-        general = general | !stats
+        general = general | !stats,
+        current = current [which (current | past)]
     )
 }
 
-m_current_editors <- memoise::memoise (current_editors)
+m_website_editors <- memoise::memoise (website_editors)
 
 #' Get logins of all members of a GitHub team
 #'
@@ -72,7 +79,8 @@ all_editors <- function () {
 }
 
 get_all_editors <- function () {
-    web <- m_current_editors ()
+    web <- m_website_editors ()
+    web <- web [which (web$current), ]
     gh_eds <- gh_team_members (stats = FALSE)
     gh_stats <- gh_team_members (stats = TRUE)
 

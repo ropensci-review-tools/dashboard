@@ -887,15 +887,13 @@ ed_dat <- editor_status (quiet = TRUE, aggregation_period = aggregation_period)
 ed_status <- ed_dat$status
 
 all_eds <- dashboard::all_editors ()
-eds_to_rm <- dashboard:::eds_to_remove
-guest_editors <- all_eds$login [which (all_eds$guest)]
-gh_editors <- all_eds$login [which (!all_eds$guest & !all_eds$login %in% eds_to_rm)]
+gh_editors <- all_eds$login [which (!all_eds$guest)] # current, non-guest editors
 ```
 
 ```{r clean-editor-status-history, echo = FALSE}
 # Taken straight from editors.qmd
 #| cache: false
-ed_status <- dplyr::filter (ed_status, !editor %in% c (eds_to_rm, guest_editors)) |>
+ed_status <- ed_status |>
     dplyr::relocate (other_langs, .before = domain_expertise) |>
     dplyr::rename (
         "Languages" = other_langs,
@@ -915,11 +913,8 @@ during each period and are therefore free to accept new submissions ("Free").
 
 
 ```{r ed-availability-prepro, echo = FALSE}
-# Use all editors, not just current ones
-ed_dat$timeline_total <- dplyr::filter (
-    ed_dat$timeline_total,
-    !name %in% c (eds_to_rm, guest_editors)
-)
+# Use all editors, not just current ones. Timelines from `editor_status()`
+# already exclude guest editors.
 num_eds_busy <- ed_dat$timeline_total |>
     dplyr::filter (value > 0L) |>
     dplyr::group_by (month) |>

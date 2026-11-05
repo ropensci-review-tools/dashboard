@@ -1,4 +1,4 @@
-test_that ("current_editors returns only entries with 'editor' role", {
+test_that ("website_editors returns current and past editors", {
 
     fake_team <- list (
         list (
@@ -10,7 +10,11 @@ test_that ("current_editors returns only entries with 'editor' role", {
             roles = list ("staff")
         ),
         list (
-            name = "Former Editor", github = "former-editor",
+            name = "Past Editor", github = "past-editor",
+            past_roles = list ("editor")
+        ),
+        list (
+            name = "Past Editor Without GitHub",
             past_roles = list ("editor")
         ),
         list (
@@ -35,29 +39,34 @@ test_that ("current_editors returns only entries with 'editor' role", {
         .package = "httr2"
     )
 
-    res <- current_editors ()
+    res <- website_editors ()
     expect_s3_class (res, "data.frame")
-    expect_named (res, c ("name", "github", "stats", "general"))
+    expect_named (res, c ("name", "github", "stats", "general", "current"))
     expect_equal (
         res$github,
-        c ("general-editor", "stats-editor", "stats-and-general-editor", "editor-without-flags")
+        c (
+            "general-editor", "past-editor", "stats-editor",
+            "stats-and-general-editor", "editor-without-flags"
+        )
     )
-    expect_equal (res$stats, c (FALSE, TRUE, TRUE, FALSE))
-    expect_equal (res$general, c (TRUE, FALSE, TRUE, TRUE))
+    expect_equal (res$current, c (TRUE, FALSE, TRUE, TRUE, TRUE))
+    expect_equal (res$stats, c (FALSE, FALSE, TRUE, TRUE, FALSE))
+    expect_equal (res$general, c (TRUE, TRUE, FALSE, TRUE, TRUE))
 })
 
-test_that ("all_editors combines website editors with GitHub team guests", {
+test_that ("all_editors combines current website editors with GitHub team guests", {
 
     fake_website_editors <- data.frame (
-        name = c ("General Editor", "Stats Editor"),
+        name = c ("General Editor", "Stats Editor", "Past Editor"),
         # Capitalisation differs from the GitHub login "General-Editor":
-        github = c ("general-editor", "stats-editor"),
-        stats = c (FALSE, TRUE),
-        general = c (TRUE, FALSE)
+        github = c ("general-editor", "stats-editor", "past-editor"),
+        stats = c (FALSE, TRUE, FALSE),
+        general = c (TRUE, FALSE, TRUE),
+        current = c (TRUE, TRUE, FALSE)
     )
 
     local_mocked_bindings (
-        m_current_editors = function () fake_website_editors,
+        m_website_editors = function () fake_website_editors,
         gh_team_members = function (stats = FALSE) {
             if (stats) {
                 c ("stats-editor", "guest-stats-editor")
