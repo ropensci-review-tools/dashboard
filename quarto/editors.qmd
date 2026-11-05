@@ -79,17 +79,28 @@ Values are sorted by the periods of time since editors were last active in peer
 review threads (the "Last Active" column), sorted in decreasing order so the
 first listed editors are those who have been inactive for the longest time.
 Values in this 'Last Active' column are also hyperlinked to the most recent
-submission issue for each editor. The table can be filtered with the two check-box selectors:
+submission issue for each editor. The table can be filtered with two selectors:
 
-- *Stats* to filter by statistical software submission (`true`), general
-  submission (`false`), or both.
+- *Submission type* to show editors who can handle general submissions,
+  statistical software submissions, or all editors.
 - *Editor Status* to filter by the current status of editors. Editors are
-  "FREE" is they are not currently handling any submissions, and are
+  "FREE" if they are not currently handling any submissions, and are
   highlighted in yellow.
 
 
+```{r clean-editor-status, echo = FALSE}
+#| cache: false
+ed_status <- ed_status |>
+    dplyr::relocate (other_langs, .before = domain_expertise) |>
+    dplyr::rename (
+        "Languages" = other_langs,
+        "Expertise" = domain_expertise
+    ) |>
+    tidyr::replace_na (list (inactive_for = "(waiting)"))
+```
+
 ```{r has-free, echo = FALSE, results = "asis"}
-no_eds_are_free <- length (ed_status$status == "FREE") == 0L
+no_eds_are_free <- !any (ed_status$status == "FREE")
 if (no_eds_are_free) {
     msg <- paste0 (
         "There are currently no free editors, and so the table is by ",
@@ -100,24 +111,11 @@ if (no_eds_are_free) {
 }
 ```
 
-
-```{r clean-editor-status, echo = FALSE}
-#| cache: false
-eds_to_rm <- dashboard:::eds_to_remove
-ed_status <- dplyr::filter (ed_status, !editor %in% eds_to_rm) |>
-    dplyr::relocate (other_langs, .before = domain_expertise) |>
-    dplyr::rename (
-        "Languages" = other_langs,
-        "Expertise" = domain_expertise
-    ) |>
-    tidyr::replace_na (list (inactive_for = "(waiting)"))
-```
-
 ```{r ojs-def-ed-status}
 #| cache: false
 ed_status$inactive_days [which (is.na (ed_status$inactive_days))] <- .Machine$integer.max
 ed_status_filtered <-
-    dplyr::select (ed_status, editor, inactive_for, Languages, Expertise, status, stats, number, inactive_days) |>
+    dplyr::select (ed_status, editor, inactive_for, Languages, Expertise, status, stats, general, number, inactive_days) |>
     dplyr::rename (last_active = inactive_for)
 ojs_define (ed_status_in = ed_status_filtered)
 ```
@@ -134,10 +132,10 @@ editorData = {
 
 ```{ojs}
 // These are the two checkboxes which appear before the table:
-viewof stats = Inputs.radio(
-    [true, false],
-    { value: false,
-        label: "Stats only:"
+viewof submissionType = Inputs.radio(
+    ["All", "General", "Stats"],
+    { value: "All",
+        label: "Submission type:"
     }
 )
 viewof status = Inputs.checkbox(
@@ -154,7 +152,9 @@ viewof status = Inputs.checkbox(
 
 filtered = editorData.filter(function(editor) {
   return status.includes(editor.status) &&
-         (!stats || stats === editor.stats);
+         (submissionType === "All" ||
+          (submissionType === "General" && editor.general) ||
+          (submissionType === "Stats" && editor.stats));
 })
 
 sortColumn = "inactive_days"
