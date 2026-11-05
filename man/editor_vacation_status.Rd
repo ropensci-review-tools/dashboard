@@ -14,7 +14,8 @@ A `data.frame` with one row per editor and information on current
 vacation status.
 }
 \description{
-Data are obtained both from airtable and current slack status. If either of
-these indicate that an editor is away, on vacation, or otherwise unavailable,
-then the `away` column will be set to `TRUE`.
+The list of current editors is obtained from \link{all_editors}, and
+vacation status from airtable. An
+editor indicated by airtable as being away, on vacation, or otherwise
+unavailable will have the `away` column set to `TRUE`.
 }

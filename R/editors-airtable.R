@@ -2,10 +2,10 @@ airtable_base_id <- "app8dssb6a7PG6Vwj"
 
 #' Get current vacation status of all rOpenSci editors.
 #'
-#'
-#' Data are obtained both from airtable and current slack status. If either of
-#' these indicate that an editor is away, on vacation, or otherwise unavailable,
-#' then the `away` column will be set to `TRUE`.
+#' The list of current editors is obtained from \link{all_editors}, and
+#' vacation status from airtable. An
+#' editor indicated by airtable as being away, on vacation, or otherwise
+#' unavailable will have the `away` column set to `TRUE`.
 #'
 #' @param airtable_id The 'id' string of the airtable table.
 #' @return A `data.frame` with one row per editor and information on current
@@ -14,29 +14,47 @@ airtable_base_id <- "app8dssb6a7PG6Vwj"
 editor_vacation_status <- function (airtable_id) {
 
     edvac_airtable <- edvac_status_airtable (airtable_id)
-    slack_status <- get_slack_editors_status ()
-    vacation_ptn <- "away|vacation|holiday|unavailable"
-    vacation <- grep (vacation_ptn, slack_status$status, ignore.case = TRUE)
-    slack_status$away <- FALSE
-    slack_status$away [vacation] <- TRUE
+    edvac <- m_all_editors () [, c ("name", "login")]
+    names (edvac) [2] <- "github"
 
-    if (!all (edvac_airtable$github %in% slack_status$name)) {
-        # This warning should indicate any slack names which do not match github
-        # names - it does not yet do exactly that, and should be fixed.
-        index <- which (!edvac_airtable$github %in% slack_status$name)
-        warning (
-            "Not all airtable editor names match slack names. ",
-            "GitHub handles of mis-matches: ",
-            paste0 (edvac_airtable$github [index], collapse = ", ")
-        )
-    }
-
-    edvac <- slack_status
-    edvac_airtable <- edvac_airtable [which (edvac_airtable$away), ]
-    index <- match (edvac_airtable$github, slack_status$name)
-    edvac$away [index] <- TRUE
+    away <- edvac_airtable$github [which (edvac_airtable$away)]
+    edvac$away <- tolower (edvac$github) %in% tolower (away)
 
     return (edvac)
+}
+
+#' Get GitHub handles of all past and present guest editors from airtable
+#'
+#' @param airtable_id The 'id' string of the airtable table.
+#' @return A character vector of unique GitHub handles.
+#' @noRd
+guest_editors_airtable <- function (airtable_id) {
+    guests <- airtabler::airtable (base = airtable_id, table = "guest-editors")
+    guests <- guests$`guest-editors`$select_all (fields = list ("github"))
+    github <- unlist (guests$github)
+    unique (github [which (!is.na (github) & nzchar (github))])
+}
+m_guest_editors_airtable <- memoise::memoise (guest_editors_airtable)
+
+#' Get GitHub handles of all guest editors who are not regular editors
+#'
+#' Current guest editors are members of the GitHub "editors" team who are not
+#' listed as editors on the rOpenSci website (see \link{all_editors}). Past
+#' guest editors are listed in the airtable "guest-editors" table. Editors who
+#' were guest editors before becoming regular editors are not included.
+#'
+#' @param airtable_id The 'id' string of the airtable table.
+#' @return A character vector of GitHub handles.
+#' @noRd
+guest_editors <- function (airtable_id) {
+    all_eds <- m_all_editors ()
+    current_guests <- all_eds$login [which (all_eds$guest)]
+
+    past_guests <- m_guest_editors_airtable (airtable_id)
+    website_eds <- m_website_editors ()$github
+    past_guests <- past_guests [which (!tolower (past_guests) %in% tolower (website_eds))]
+
+    unique (c (current_guests, past_guests))
 }
 
 eic_rev_prod_table <- function (airtable_id) {

@@ -61,7 +61,6 @@ jobs:
         env:
           AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.MY_GH_TOKEN }}
-          SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
 
       - name: Notify on failure
         if: ${{ failure() }}
