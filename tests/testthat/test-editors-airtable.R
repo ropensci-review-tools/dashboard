@@ -180,40 +180,35 @@ test_that ("edvac_status_airtable returns data.frame with 'away' logical column"
 
 test_that ("editor_vacation_status returns data.frame with 'away' logical column", {
 
-    # edA: away in airtable, no slack vacation status
-    # edB: not away in airtable, but 'On vacation' in slack
-    # edC: neither away in airtable nor in slack
+    # edA: away in airtable
+    # edB: in airtable, not away
+    # edC: guest editor, absent from airtable
     fake_airtable <- data.frame (
-        github = c ("edA", "edB", "edC"),
-        name = c ("Ed A", "Ed B", "Ed C"),
-        away = c (TRUE, FALSE, FALSE),
+        github = c ("edA", "edB"),
+        name = c ("Ed A", "Ed B"),
+        away = c (TRUE, FALSE),
         stringsAsFactors = FALSE
     )
 
-    fake_slack <- data.frame (
-        id = c ("U001", "U002", "U003"),
-        name = c ("edA", "edB", "edC"),
-        real_name = c ("Ed A", "Ed B", "Ed C"),
-        status = c ("", "On vacation", ""),
+    fake_editors <- data.frame (
+        login = c ("edA", "edB", "edC"),
+        name = c ("Ed A", "Ed B", NA),
         stringsAsFactors = FALSE
     )
 
     local_mocked_bindings (
         edvac_status_airtable = function (...) fake_airtable,
-        get_slack_editors_status = function (...) fake_slack,
+        m_all_editors = function (...) fake_editors,
         .package = "dashboard"
     )
 
-    res <- suppressWarnings (editor_vacation_status ("fake-base-id"))
+    res <- editor_vacation_status ("fake-base-id")
 
     expect_s3_class (res, "data.frame")
-    expect_true ("away" %in% names (res))
+    expect_named (res, c ("name", "github", "away"))
     expect_type (res$away, "logical")
 
-    # edA: airtable says away → TRUE
-    expect_true (res$away [res$name == "edA"])
-    # edB: slack vacation keyword → TRUE
-    expect_true (res$away [res$name == "edB"])
-    # edC: neither → FALSE
-    expect_false (res$away [res$name == "edC"])
+    expect_true (res$away [res$github == "edA"])
+    expect_false (res$away [res$github == "edB"])
+    expect_false (res$away [res$github == "edC"])
 })

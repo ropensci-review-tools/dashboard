@@ -2,6 +2,7 @@
 
 export(add_editor_airtable_data)
 export(community_data)
+export(current_editors)
 export(ed_rev_durations)
 export(editor_status)
 export(editor_vacation_status)

@@ -13,27 +13,8 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
         c ("month", "quarter", "semester")
     )
 
-    q <- gh_editors_team_qry (stats = FALSE)
-    editors <- gh::gh_gql (query = q)
-    editors <- editors$data$organization$team$members$nodes
-    editors <- vapply (editors, function (i) i$login, character (1L))
-
-    q <- gh_editors_team_qry (stats = TRUE)
-    editors_stats <- gh::gh_gql (query = q)
-    editors_stats <- editors_stats$data$organization$team$members$nodes
-    editors_stats <-
-        vapply (editors_stats, function (i) i$login, character (1L))
-
-    editors <- data.frame (
-        login = editors,
-        stats = editors %in% editors_stats
-    )
-
-    editors$general <- TRUE
-    editors$general [editors$login %in% editors_stats] <- FALSE
-    # Hand-coded list of stats editors who can also handle general submissions:
-    also_gen <- c ("adamhsparks")
-    editors$general [editors$login %in% also_gen] <- TRUE
+    # Editors from rOpenSci website plus GitHub "editors" team (for guests):
+    editors <- m_all_editors ()
 
     has_next_page <- TRUE
     end_cursor <- NULL
@@ -141,7 +122,6 @@ editor_gh_data <- function (aggregation_period = "quarter", quiet = FALSE) {
 m_editor_gh_data <- memoise::memoise (editor_gh_data)
 
 eds_to_remove <- c ("haozhu233")
-guest_editors <- c ("robitalec", "Pakillo", "obrl-soil")
 
 #' Extract data on latest issue for each editor
 #'
@@ -273,8 +253,9 @@ editor_timeline <- function (assignees, state,
     }
 
     list (
-        issues_total = data.frame (issues_total),
-        issues_new = data.frame (issues_new)
+        # check.names = FALSE to keep GitHub logins like "a-b" unchanged:
+        issues_total = data.frame (issues_total, check.names = FALSE),
+        issues_new = data.frame (issues_new, check.names = FALSE)
     )
 }
 
@@ -356,8 +337,7 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
     suppressWarnings (
         edvac <- editor_vacation_status (airtable_base_id) # in editors-airtable.R
     )
-    # Note that next line presumes slack 'name' == GitHub handle:
-    editors_on_vacation <- edvac$name [which (edvac$away)]
+    editors_on_vacation <- edvac$github [which (edvac$away)]
     status$status [status$editor %in% editors_on_vacation] <- "ON LEAVE"
 
     # Add additional columns from airtable data:
@@ -367,6 +347,8 @@ editor_status <- function (quiet = FALSE, aggregation_period = "quarter") {
 
     # Then editor timelines
     month <- name <- NULL # Suppress no visible binding notes
+    all_eds <- m_all_editors ()
+    guest_editors <- all_eds$login [which (all_eds$guest)]
     process_timeline <- function (dat, what = "issues_total") {
         what <- match.arg (what, c ("issues_total", "issues_new"))
         timeline <- dat$timeline [[what]]

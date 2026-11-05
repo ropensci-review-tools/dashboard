@@ -2,10 +2,11 @@ airtable_base_id <- "app8dssb6a7PG6Vwj"
 
 #' Get current vacation status of all rOpenSci editors.
 #'
-#'
-#' Data are obtained both from airtable and current slack status. If either of
-#' these indicate that an editor is away, on vacation, or otherwise unavailable,
-#' then the `away` column will be set to `TRUE`.
+#' The list of current editors is obtained from the rOpenSci website's team
+#' data (see \link{current_editors}) and from the GitHub "editors" team (for
+#' guest editors), and vacation status from airtable. An
+#' editor indicated by airtable as being away, on vacation, or otherwise
+#' unavailable will have the `away` column set to `TRUE`.
 #'
 #' @param airtable_id The 'id' string of the airtable table.
 #' @return A `data.frame` with one row per editor and information on current
@@ -14,27 +15,11 @@ airtable_base_id <- "app8dssb6a7PG6Vwj"
 editor_vacation_status <- function (airtable_id) {
 
     edvac_airtable <- edvac_status_airtable (airtable_id)
-    slack_status <- get_slack_editors_status ()
-    vacation_ptn <- "away|vacation|holiday|unavailable"
-    vacation <- grep (vacation_ptn, slack_status$status, ignore.case = TRUE)
-    slack_status$away <- FALSE
-    slack_status$away [vacation] <- TRUE
+    edvac <- m_all_editors () [, c ("name", "login")]
+    names (edvac) [2] <- "github"
 
-    if (!all (edvac_airtable$github %in% slack_status$name)) {
-        # This warning should indicate any slack names which do not match github
-        # names - it does not yet do exactly that, and should be fixed.
-        index <- which (!edvac_airtable$github %in% slack_status$name)
-        warning (
-            "Not all airtable editor names match slack names. ",
-            "GitHub handles of mis-matches: ",
-            paste0 (edvac_airtable$github [index], collapse = ", ")
-        )
-    }
-
-    edvac <- slack_status
-    edvac_airtable <- edvac_airtable [which (edvac_airtable$away), ]
-    index <- match (edvac_airtable$github, slack_status$name)
-    edvac$away [index] <- TRUE
+    away <- edvac_airtable$github [which (edvac_airtable$away)]
+    edvac$away <- tolower (edvac$github) %in% tolower (away)
 
     return (edvac)
 }
